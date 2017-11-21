@@ -1,0 +1,150 @@
+html, body, div, input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: normal;
+  vertical-align: baseline;
+  font-style: normal;
+}
+html, body{
+	width: 100%;
+	height: 100%;
+}
+/*弹性盒样式*/
+.div-flex{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.one-flex{
+  flex:1;
+  -webkit-flex:1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+}
+
+.po-r{
+	position: relative;
+}
+.po-a{
+	position: absolute;
+}
+.align-c{
+	text-align: center;
+}
+.align-r{
+	text-align: right;
+}
+.align-l{
+	text-align: center;
+}
+
+.protocol{
+   border: none;
+	color: #747474;
+	width: 5%;
+	height: 30px;
+	font-size: 14px;
+}
+.wordprotocol{
+	position: absolute;
+	height: 30px;
+	padding-left: 15px;
+}
+
+body{
+	background: url(../imgs/login.png) no-repeat;
+	background-size: cover;
+	margin: 0;
+	/*background: gray;*/
+}
+.lo-img{
+	text-align: center;
+    margin: 20% 0;
+}
+.lo-ipt-box{
+	margin: 0 auto;
+	width: 85%;
+}
+.lo-ipt{
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 20px;
+	padding: 5px 0;
+}
+.lo-ipt input{
+  flex:1;
+  -webkit-flex:1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+  
+  background: none;
+  outline:none;
+  color: #fff;
+  font-size: 16px;
+}
+.lo-ipt-box button{
+	border: none;
+	border-radius: 4px;
+	background: #0FB87F;
+	text-align: center;
+	color: #fff;
+	width: 100%;
+	height: 44px;
+	font-size: 16px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+.lo-more span{
+	font-size: 14px;
+	color: #747474;
+}
+.lo-more .align-r span{
+	color: #0FB87F;
+}
+.lo-third{
+	text-align: center;
+	color: #757575;
+	margin: 20px 0;
+}
+.lo-third::before{
+	content: '';
+    position: absolute;
+    bottom: 9px;
+    left: 0;
+    z-index: 9;
+    width: 20%;
+    height: 1px;
+    background: #757575;
+}
+.lo-third::after{
+	content: '';
+    position: absolute;
+    bottom: 9px;
+    right: 0;
+    z-index: 9;
+    width: 20%;
+    height: 1px;
+    background: #757575;
+}
+.lo-foot{
+	width:85%;
+	margin: 30% auto 0;
+}
+
+input::-webkit-input-placeholder{
+  color: #fff;
+}
+input:-moz-placeholder{
+  color:#fff;
+}
+input::-moz-placeholder{
+  color:#fff;
+}
+input:-ms-input-placeholder{
+  color:#fff;
+}
