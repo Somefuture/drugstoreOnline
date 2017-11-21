@@ -1,0 +1,206 @@
+@charset "utf-8";
+@function p2r($size) {
+  @return ($size/32)*1rem
+}
+$color-main:#0fb87f;
+.personal{
+  width: 100%;
+  height: p2r(780);
+  background: #fafafa;
+  overflow: hidden;
+  position: relative;
+  .bg_img{
+    display: block;
+    width: 100%;
+    height: p2r(400);
+    z-index: -100;
+  }
+  .mask{
+    width: 100%;
+    height: p2r(600);
+    position: absolute;
+    top: 0;
+    background: rgba(250,250,250,.9);
+    .edit_btn{
+      display: block;
+      float: right;
+      font-size: p2r(28);
+      color:#cccccc;
+      margin: p2r(20) p2r(20);
+    }
+    .person_avatar{
+      width: p2r(220);
+      height: p2r(300);
+      margin: p2r(150) auto;
+      text-align: center;
+      img{
+        display: block;
+        width: p2r(210);
+        height: p2r(210);
+        border-radius: p2r(216);
+        border:p2r(3) solid #cccccc;
+        margin: 0 auto;
+      }
+      .user_name{
+        display: block;
+        margin: p2r(16) auto p2r(32) auto;
+        color:#cccccc;
+        font-size: p2r(32);
+      }
+      .total{
+        width: p2r(200);
+        height: p2r(40);
+        background: rgba(255,255,255,.7);
+        border-radius: p2r(5);
+        color:#cccccc;
+        line-height: p2r(40);
+        font-size: p2r(32);
+      }
+    }
+  }
+  .user_order{
+    width: 92%;
+    height: p2r(180);
+    background: $color-main;
+    position: absolute;
+    top:p2r(500);
+    left:4%;
+    border-radius: p2r(10);
+    overflow: hidden;
+    .to_order_title{
+      margin: p2r(20) 0 0 p2r(20);
+      font-size: p2r(32);
+      color:#ffffff;
+      img{
+        width: p2r(25);
+        float: right;
+        margin-right: p2r(20);
+      }
+    }
+    .order_tabs{
+      width: 100%;
+      li{
+        display: inline-block;
+        width: 23%;
+        text-align: center;
+        font-size: p2r(24);
+        color:#FFFFFF;
+        img{
+          width: p2r(80);
+          display: block;
+          margin: 0 auto;
+        }
+      }
+      li:nth-child(4){
+        margin-right: p2r(-35);
+      }
+    }
+
+  }
+  h2{
+    position: absolute;
+    top:p2r(710);
+    left:4%;
+    color:#3c3c3c;
+    font-size: p2r(32);
+  }
+}
+.record{
+  width: 100%;
+  padding: p2r(20) p2r(40);
+  border-bottom: p2r(28) solid #fafafa;
+  .record_coupon,.total{
+    display: inline-block;
+    width: p2r(108);
+    height: p2r(108);
+    color:#666666;
+    text-align: center;
+    font-size: p2r(24);
+    margin-right: p2r(30);
+  }
+}
+.otherItems{
+  border-bottom: p2r(28) solid #fafafa;
+  width:100%;
+  padding:0 p2r(40);
+  margin-bottom: p2r(100);
+  .address,.setting{
+    padding: p2r(20) 0 p2r(16) 0;
+    color:#666666;
+    font-size: p2r(28);
+    border-bottom: p2r(1) solid #e7e7e7;
+    overflow: hidden;
+    img{
+      width: p2r(28);
+    }
+    span{
+      float: right;
+      img{
+        width: p2r(20);
+      }
+    }
+  }
+}
+.personal_edit_body{
+  width: 100%;
+  margin-bottom: p2r(100);
+  .info_title{
+    padding: p2r(32) p2r(30) p2r(20) p2r(30);
+    font-size: p2r(28);
+    color: #171717;
+    background: #f3f3f3;
+    img{
+      width: p2r(50);
+      height: p2r(40);
+      margin-right: p2r(10);
+    }
+  }
+  .info_item{
+    padding:  p2r(30) p2r(30) p2r(20) p2r(30);
+    color:#171717;
+    font-size: p2r(24);
+    overflow: hidden;
+    border-bottom: p2r(1) solid #e7e7e7;
+    span{
+      float: right;
+      margin-left: p2r(20);
+      font-size: p2r(28);
+      color:#b2b2b2;
+      img{
+        width: p2r(20);
+      }
+    }
+  }
+}
+.info_alter{
+  width: 94%;
+  margin: 0 auto;
+  font-size: p2r(24);
+  .alter_items{
+    height: p2r(110);
+    line-height: p2r(110);
+    border-bottom: p2r(1) solid #e7e7e7;
+    img{
+      width: p2r(40);
+    }
+    .verification_code_btn{
+      padding: p2r(20) p2r(10);
+      margin-top: p2r(20);
+      background: #91c46c;
+      color:#FFFFFF;
+      float: right;
+      border-radius: p2r(5);
+    }
+  }
+  .finish_btn{
+    width: 94%;
+    height: p2r(100);
+    line-height: p2r(100);
+    font-size: p2r(34);
+    color:#FFFFFF;
+    background: $color-main;
+    border-radius: p2r(10);
+    text-align: center;
+    margin:p2r(68) auto 0 auto;
+  }
+}

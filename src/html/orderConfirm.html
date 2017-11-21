@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>确认订单</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="shopping_header">
+    <img src="images/tab/tab_03.png" alt="" onclick="location='shoppingCar.html'">
+    <p class="title">确认订单</p>
+</div>
+<div class="order_body">
+    <div class="consignee_info">
+        <div class="consignee_title">
+            <img src="images/order/shopping_02.png" alt="">
+            收货人信息
+        </div>
+        <div class="consignee_content">
+            <span class="name">
+                <img src="images/order/shopping_24.png" alt="">
+                王小明
+            </span>
+            <span class="phone">
+                <img src="images/order/shopping_30.png" alt="">
+                133****9999
+            </span>
+            <div class="address">
+                <img src="images/order/shopping_27.png" alt="">
+                <p>广东省深圳市南山区蛇口街道湾厦路22号俪苑小区3栋502</p>
+                <img src="images/order/index_46.png" alt="" onclick="location='address.html'">
+            </div>
+        </div>
+    </div>
+    <ul class="order_product">
+        <li>
+            <div class="product_img"><img src="images/details/home_48@3x.png" alt=""></div>
+            <div class="product_details">
+                <div class="detail_title">
+                    商品名称商品名称
+                </div>
+                <div class="detail_content">
+                    <span class="product_price">￥588</span>
+                    <span class="product_amount">x1</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="product_img"><img src="images/details/home_48@3x.png" alt=""></div>
+            <div class="product_details">
+                <div class="detail_title">
+                    商品名称商品名称
+                </div>
+                <div class="detail_content">
+                    <span class="product_price">￥588</span>
+                    <span class="product_amount">x1</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="order_functions">
+        <div class="delivery">
+            <img src="images/order/shopping_34.png" alt="">
+            <p>请选择配送方式</p>
+            <span class="to_details"><img src="images/order/index_46.png" alt=""></span>
+        </div>
+        <div class="coupon_use">
+            <img src="images/order/shopping_38.png" alt="">
+            <p>使用优惠券</p>
+            <span class="coupon_able">有可用的优惠券</span>
+            <span class="to_details"><img src="images/order/index_46.png" alt=""></span>
+        </div>
+        <div class="total_use">
+            <div class="detail">
+                <p class="title">使用积分</p>
+                <p class="describe">
+                    您总共有3000积分，可抵￥3.00
+                </p>
+            </div>
+            <div class="btn">
+                <input type="checkbox" name="sex" id="total" class="chooseBtn" />
+                <label for="total" class="choose-label"></label>
+            </div>
+        </div>
+        <div class="invoice_use">
+            <div class="detail">
+                <p class="title">开具发票</p>
+                <p class="describe">
+                    可进行开具发票
+                </p>
+            </div>
+            <div class="btn">
+                <input type="checkbox" name="sex" id="invoice" class="chooseBtn" />
+                <label for="invoice" class="choose-label"></label>
+            </div>
+        </div>
+        <textarea name="" id="" cols="30" rows="5">备注：
+        </textarea>
+    </div>
+    <table class="order_details">
+        <tr>
+            <td>合计：</td>
+            <td>￥996.00</td>
+        </tr>
+        <tr>
+            <td>运费：</td>
+            <td>￥10.00</td>
+        </tr>
+        <tr>
+            <td>优惠券：</td>
+            <td>-￥10.00</td>
+        </tr>
+        <tr>
+            <td>积分抵扣：</td>
+            <td>-￥10.00</td>
+        </tr>
+    </table>
+    <div class="settle_accounts">
+        <span class="account_details">
+            <p>实际付款</p>
+            <span class="price">￥996.00</span>
+        </span><span class="account">提交订单</span>
+    </div>
+</div>
+<div class="footer">
+    <ul class="nav">
+        <li>
+            <a href="index.html">
+                <img src="images/tab/tab_32.png" alt="">
+                首页
+            </a>
+        </li>
+        <li>
+            <a href="store.html">
+                <img src="images/tab/tab_36.png" alt="">
+                精品商城
+            </a>
+        </li>
+        <li class="active">
+            <a href="shoppingCar.html">
+                <img src="images/tab/tab_50.png" alt="">
+                我的药箱
+            </a>
+        </li>
+        <li>
+            <a href="personal.html">
+                <img src="images/tab/tab_40.png" alt="">
+                个人中心
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

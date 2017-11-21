@@ -1,0 +1,121 @@
+@charset "utf-8";
+@function p2r($size) {
+  @return ($size/32)*1rem
+}
+$color-main:#0fb87f;
+$color-font:#171717;
+$bottom-border:p2r(1) solid #e7e7e7;
+
+.store_header{
+  width: 100%;
+  height: p2r(90);
+  padding-top: p2r(20);
+  background: $color-main;
+  img{
+    width: 5%;
+    height: p2r(56);
+    margin-left: p2r(20);
+  }
+  .search{
+    display: inline-block;
+    width:75%;
+    height: p2r(56);
+    background: #fafafa;
+    border-radius: p2r(56);
+    img{
+      margin-left: p2r(16);
+      margin-right: p2r(14);
+    }
+    input{
+      width: 80%;
+      height: p2r(56);
+      line-height: p2r(56);
+      background: #fafafa;
+      font-size: p2r(28);
+      vertical-align: top;
+      border-radius: p2r(56);
+      margin-left: p2r(10);
+      margin-right: p2r(10);
+    }
+  }
+  button{
+    width: 10%;
+    height: p2r(56);
+    line-height: p2r(56);
+    vertical-align: top;
+    font-size: p2r(32);
+    color:#FFFFFF;
+    background: none;
+    margin-left: p2r(10);
+    margin-right: p2r(10);
+  }
+}
+.store_body{
+  background: #fafafa;
+  margin-bottom: p2r(100);
+  .banner{
+    width: 100%;
+    height: p2r(382);
+    background: #e7e7e7;
+  }
+  .category{
+    width: 100%;
+    padding-bottom: p2r(54);
+    ul{
+      width: 94%;
+      margin: 0 auto;
+      li{
+        display: inline-block;
+        width: 23.5%;
+        text-align: center;
+        font-size: p2r(20);
+        color:#414141;
+        margin-top: p2r(40);
+        img{
+          display: block;
+          margin: p2r(10) auto p2r(5) auto;
+        }
+      }
+    }
+  }
+  .product_lists{
+    ul{
+      width: 94%;
+      margin: 0 auto;
+      li{
+        display: inline-block;
+        width: 47%;
+        margin-right: 3%;
+        margin-bottom: p2r(32);
+        text-align: center;
+        background: #FFFFFF;
+        .pro_name{
+          display: block;
+          margin: p2r(40) auto;
+          font-size: p2r(30);
+          color: #484848;
+        }
+        img{
+          display: block;
+          width: p2r(230);
+          margin: auto;
+        }
+        .pro_price,.sale_volume{
+          display: inline-block;
+          margin: p2r(16) 0 p2r(40) p2r(16) ;
+        }
+        .pro_price{
+          font-size: p2r(34);
+          color:#d9a86c;
+        }
+        .sale_volume{
+          font-size: p2r(24);
+          color:#7b7b7b;
+        }
+      }
+      li:nth-child(2n){
+        margin-right: 0;
+      }
+    }
+  }
+}

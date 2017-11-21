@@ -1,0 +1,71 @@
+@charset "utf-8";
+@function p2r($size) {
+  @return ($size/32)*1rem
+}
+$color-main:#0fb87f;
+.comment{
+  ul{
+    width: 96%;
+    margin:0 auto;
+    li{
+      width: 100%;
+      margin: p2r(20) 0;
+      overflow: hidden;
+      border-bottom: p2r(1) solid #e7e7e7;
+      .user_avatar{
+        float: left;
+        width: 20%;
+        height: p2r(100);
+        vertical-align: middle;
+        img{
+          display: block;
+          width: p2r(100);
+          height: p2r(100);
+          margin: 0 auto;
+          background: #85543f;
+        }
+      }
+      .comment_detail{
+        width: 80%;
+        float: right;
+        display: inline-block;
+        .detail_title{
+          width: 100%;
+          height: p2r(50);
+          .user_name{
+            color: #666666;
+            font-size: p2r(22);
+            float: left;
+          }
+          .comment_time{
+            color:#b2b2b2;
+            font-size: p2r(20);
+            float: right;
+          }
+        }
+        .star_level{
+          margin: p2r(20) 0;
+        }
+        .describe{
+          font-size: p2r(26);
+          color:#3c3c3c;
+        }
+        .product_SKU{
+          width: 100%;
+          height: p2r(40);
+          margin: p2r(20) 0;
+          .product{
+            float: left;
+            color:#666666;
+            font-size: p2r(22);
+          }
+          .date{
+            float: right;
+            color:#b2b2b2;
+            font-size: p2r(22);
+          }
+        }
+      }
+    }
+  }
+}

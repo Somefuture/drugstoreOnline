@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>我的药箱</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="shopping_header">
+    <img src="images/tab/tab_03.png" alt="">
+    <p class="title">编辑信息</p>
+    <span class="edit_btn">保存</span>
+</div>
+<div class="personal_edit_body">
+    <div class="info_title">
+        <img src="images/personal/user_103.png" alt="">
+        基础信息
+    </div>
+    <div class="info_item">
+        姓名
+        <span class="to_edit" onclick="location='changeName.html'">
+            <img src="images/personal/home_57@2x.png" alt="">
+        </span>
+        <span class="default_info">范冰冰</span>
+    </div>
+    <div class="info_title">
+        <img src="images/personal/user_100.png" alt="">
+        账号信息
+    </div>
+    <div class="info_item">
+        修改密码
+        <span class="to_edit">
+            <img src="images/personal/home_57@2x.png" alt="" onclick="location='password.html'">
+        </span>
+        <span class="default_info"> </span>
+    </div>
+    <div class="info_item">
+        更换手机号码
+        <span class="to_edit" onclick="location='changePhone.html'">
+            <img src="images/personal/home_57@2x.png" alt="">
+        </span>
+        <span class="default_info">138-8888-8888</span>
+    </div>
+</div>
+<div class="footer">
+    <ul class="nav">
+        <li>
+            <a href="index.html">
+                <img src="images/tab/tab_32.png" alt="">
+                首页
+            </a>
+        </li>
+        <li>
+            <a href="store.html">
+                <img src="images/tab/tab_36.png" alt="">
+                精品商城
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <img src="images/tab/tab_38.png" alt="">
+                我的药箱
+            </a>
+        </li>
+        <li>
+            <a href="personal.html">
+                <img src="images/tab/tab_40.png" alt="">
+                个人中心
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

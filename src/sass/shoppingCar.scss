@@ -1,0 +1,234 @@
+@charset "utf-8";
+@function p2r($size) {
+  @return ($size/32)*1rem
+}
+$color-main:#0fb87f;
+@mixin shoppingCar{
+  .shoppingCar_title{
+    width: 100%;
+    height:p2r(62);
+    line-height: p2r(62);
+    background:#e7e7e7;
+    color:#222222;
+    font-size: p2r(28);
+    img{
+      margin-left: p2r(20);
+      width: p2r(30);
+    }
+    span{
+      font-size: p2r(20);
+      color:#666666;
+    }
+  }
+  .empty_shoppingCar{
+    width: 100%;
+    height: p2r(500);
+    text-align: center;
+    img{
+      display: block;
+      width:40%;
+      margin: p2r(30) 35% p2r(20) 25%;
+    }
+    p{
+      width: 100%;
+      text-align: center;
+      font-size: p2r(32);
+      color:#777777;
+    }
+    button{
+      width: 30%;
+      height:p2r(66);
+      line-height: p2r(66);
+      background: #f3f3f3;
+      border:p2r(1) solid $color-main;
+      border-radius: p2r(10);
+      font-size: p2r(26);
+      color:$color-main;
+      margin-top: p2r(30);
+    }
+  }
+  .shoppingCar_content{
+    background: #fafafa;
+    width: 100%;
+    li{
+      width: 100%;
+      height: p2r(280);
+      padding: p2r(20) 0;
+      .select_img{
+        display: inline-block;
+        width: p2r(32);
+        height: p2r(240);
+        vertical-align: middle;
+        margin-left: p2r(20);
+        img{
+          width: p2r(32);
+        }
+      }
+      .product_img{
+        display: inline-block;
+        width: p2r(240);
+        height: p2r(240);
+        img{
+          width:100%;
+          height: 100%;
+        }
+      }
+      .product_details{
+        vertical-align: top;
+        display: inline-block;
+        width:45%;
+        height: p2r(240);
+        margin-left: p2r(20);
+        position: relative;
+        .pharmacy,.mail_order{
+          display: inline-block;
+          width: p2r(50);
+          height: p2r(30);
+          line-height: p2r(30);
+          font-size: p2r(20);
+          background: #91c46c;
+          color:#ffffff;
+          position: absolute;
+        }
+        .pharmacy{
+          background: $color-main;
+          top:0;
+          right: p2r(60);
+        }
+        .mail_order{
+          top:0;
+          right: p2r(0);
+        }
+        .detail_title{
+          height: p2r(40);
+          .product_name{
+            display: inline-block;
+            width: p2r(200);
+            height: p2r(40);
+            line-height: p2r(40);
+            color:#222222;
+            font-size:p2r(28);
+            overflow: hidden;
+          }
+        }
+        .product_price{
+          margin-top: p2r(40);
+          font-size: p2r(32);
+          color:#d9a86c;
+        }
+        .product_amount{
+          width: p2r(175);
+          height:p2r(48);
+          margin-top: p2r(40);
+          border-radius: p2r(5);
+          background: #ffffff;
+          span{
+            display: inline-block;
+          }
+          .sub,.add{
+            width: p2r(44);
+            height: p2r(48);
+            img{
+              width:p2r(38);
+              margin-left: p2r(5);
+              vertical-align: middle;
+            }
+          }
+          .amount{
+            width: p2r(62);
+            height: p2r(40);
+            line-height: p2r(40);
+            text-align: center;
+            border-left: p2r(1) solid #e7e7e7;
+            border-right: p2r(1) solid #e7e7e7;
+            vertical-align: middle;
+          }
+        }
+        button{
+          position: absolute;
+          width: p2r(142);
+          height: p2r(48);
+          line-height: p2r(48);
+          color:$color-main;
+          font-size: p2r(32);
+          border:p2r(1) solid $color-main;
+          border-radius: p2r(20);
+          right: 0;
+          bottom: p2r(10);
+          background: transparent;
+        }
+      }
+    }
+  }
+
+}
+.shopping_header{
+  width: 100%;
+  height:p2r(88);
+  background: $color-main;
+  position: relative;
+  img{
+    width: p2r(40);
+    position: absolute;
+    left:p2r(20);
+    top:p2r(14);
+  }
+  .title{
+    width: 100%;
+    display: inline-block;
+    color:#FFF;
+    text-align: center;
+    font-size: p2r(32);
+    line-height: p2r(88);
+  }
+  .edit_btn{
+    position: absolute;
+    top:p2r(22);
+    right:p2r(20);
+    font-size: p2r(32);
+    color:#ffffff;
+  }
+}
+.shoppingCar_body{
+  margin-bottom: p2r(200);
+  .carOne{
+    @include shoppingCar;
+  }
+  .carTwo{
+    @include shoppingCar;
+  }
+  .settle_accounts{
+    width: 100%;
+    height: p2r(76);
+    position: fixed;
+    bottom:p2r(110);
+    .account_details{
+      display: inline-block;
+      width: 70%;
+      height: p2r(76);
+      line-height: p2r(76);
+      background: #000000;
+      opacity: 0.8;
+      color:#FFFFFF;
+      font-size: p2r(22);
+      p{
+        display: inline-block;
+        text-indent: 2em;
+        margin-right: p2r(40);
+      }
+      .price{
+        color:#d9a86c;
+        font-size: p2r(32);
+      }
+    }
+    .account{
+      display: inline-block;
+      width: 30%;
+      height: p2r(76);
+      line-height: p2r(76);
+      background: $color-main;
+      text-align: center;
+      color:#FFFFFF;
+    }
+  }
+}

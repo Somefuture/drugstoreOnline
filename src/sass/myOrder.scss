@@ -1,0 +1,122 @@
+@charset "utf-8";
+@function p2r($size) {
+  @return ($size/32)*1rem
+}
+$color-main:#0fb87f;
+.order_tab{
+  width: 100%;
+  height: p2r(80);
+  li{
+    display: inline-block;
+    width: 19%;
+    height: p2r(80);
+    line-height: p2r(80);
+    text-align: center;
+    font-size: p2r(24);
+    color:#3c3c3c;
+    border-right: p2r(1) solid #e7e7e7;
+  }
+  li:nth-child(5){
+    margin-right: p2r(-10);
+  }
+}
+.order_lists{
+  width: 100%;
+  margin-bottom: p2r(120);
+  .order_detail{
+    width: 100%;
+    .detail_title{
+      width: 100%;
+      height: p2r(72);
+      padding: 0 p2r(20);
+      line-height: p2r(72);
+      background: #efeff4;
+      border-bottom: p2r(1) solid #e7e7e7;
+      font-size: p2r(24);
+      color:#666666;
+      span{
+        float: right;
+        font-size: p2r(28);
+        color:#3c3c3c;
+      }
+    }
+    .order_product{
+      width: 94%;
+      margin: 0 auto;
+      li{
+        border-bottom:p2r(1) solid #e7e7e7;
+        padding: p2r(10) 0;
+        .product_img{
+          display: inline-block;
+          width: 30%;
+          img{
+            width: 100%;
+          }
+        }
+        .product_details{
+          display: inline-block;
+          width: 68%;
+          overflow: hidden;
+          .product_name{
+            color:#3b3b3b;
+            font-size: p2r(28);
+            margin-bottom: p2r(80);
+          }
+          .detail_content{
+            margin-bottom: p2r(20);
+            .product_price{
+              color:#d9a86c;
+            }
+            .product_amount{
+              float: right;
+              margin-right: p2r(30);
+            }
+          }
+        }
+      }
+    }
+    .order_amount{
+      width: 96%;
+      margin: p2r(20) auto;
+      text-align: right;
+      font-size: p2r(24);
+      color:#666666;
+      .price{
+        color:#171717;
+        font-size: p2r(32);
+      }
+      .operation{
+        margin-top: p2r(20);
+        button{
+          width: p2r(180);
+          height: p2r(54);
+          border-radius: p2r(10);
+          font-size: p2r(28);
+          margin: p2r(5);
+        }
+        .cancel{
+          border:p2r(1) solid #b2b2b2;
+          background: transparent;
+          color:#b2b2b2;
+        }
+        .to_pay{
+          background: #d9a86c;
+          color:#ffffff;
+        }
+        .delete{
+          color:#e96362;
+          background: #FFFFFF;
+        }
+        .buy_again{
+          background: $color-main;
+          color:#FFFFFF;
+        }
+        .remind{
+          border: p2r(1) solid $color-main;
+          color:$color-main;
+          background: transparent;
+        }
+      }
+    }
+  }
+}
