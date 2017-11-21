@@ -7,7 +7,14 @@ $color-main:#0fb87f;
   width: 94%;
   background: #FFFFFF;
   margin: p2r(20) auto;
-  height: p2r(400);
+  height: p2r(380);
+  position: relative;
+  .limit_status{
+    position: absolute;
+    top:0;
+    right: 0;
+    width: p2r(160);
+  }
   .coupon_value{
     width: 100%;
     height: p2r(200);
@@ -48,7 +55,7 @@ $color-main:#0fb87f;
   }
   .coupon_detail {
     width: 100%;
-    height: p2r(200);
+    height: p2r(180);
     padding: p2r(10) p2r(20);
     border-radius: 0 0 p2r(15) p2r(15);
     h3 {
@@ -68,7 +75,7 @@ $color-main:#0fb87f;
 }
 .coupon_body{
   background: #fafafa;
-  margin-bottom: p2r(200);
+  padding-bottom: p2r(200);
   .coupon_category{
     width: 94%;
     height: p2r(50);
