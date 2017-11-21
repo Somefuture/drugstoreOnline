@@ -57,7 +57,7 @@ html, body{
 }
 
 body{
-	background: url(../imgs/login.png) no-repeat;
+	background: url(../images/imgs/login.png) no-repeat;
 	background-size: cover;
 	margin: 0;
 	/*background: gray;*/
