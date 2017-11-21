@@ -583,7 +583,7 @@
     text-align: center;
     font-size: 1rem;
     line-height: 2.75rem; }
-  .shopping_header .edit_btn {
+  .shopping_header span {
     position: absolute;
     top: 0.6875rem;
     right: 0.625rem;
@@ -672,7 +672,7 @@
           right: 1.875rem; }
         .shoppingCar_body .carOne .shoppingCar_content li .product_details .mail_order {
           top: 0;
-          right: 0; }
+          right: 0rem; }
         .shoppingCar_body .carOne .shoppingCar_content li .product_details .detail_title {
           height: 1.25rem; }
           .shoppingCar_body .carOne .shoppingCar_content li .product_details .detail_title .product_name {
@@ -1540,8 +1540,8 @@
     .coupon_body .coupon_category span {
       display: inline-block;
       width: 33%;
-      height: 1.5625rem;
-      line-height: 1.5625rem;
+      height: 2.1875rem;
+      line-height: 2.1875rem;
       font-size: 1rem;
       text-align: center;
       box-sizing: border-box;
