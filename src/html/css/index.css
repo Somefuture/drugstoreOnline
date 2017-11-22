@@ -1835,3 +1835,44 @@
       .coupon_body .coupon_lists .coupon_five .coupon_detail ul li {
         font-size: 0.875rem;
         line-height: 1.5; }
+
+.total_body .usable_total {
+  width: 100%;
+  height: 9.375rem;
+  background: #0fb87f;
+  text-align: center; }
+  .total_body .usable_total p {
+    width: 100%;
+    height: 6.25rem;
+    font-size: 3.75rem;
+    padding-top: 1.5625rem;
+    color: #fff600; }
+  .total_body .usable_total span {
+    color: #FFFFFF;
+    font-size: 1rem; }
+
+.total_body .total_use_record {
+  width: 100%; }
+  .total_body .total_use_record li {
+    width: 100%;
+    padding: 0 0.625rem;
+    height: 3.75rem;
+    border-bottom: 0.03125rem solid #dedede;
+    overflow: hidden; }
+    .total_body .total_use_record li h2 {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #3c3c3c;
+      margin: 0.625rem 0 0 0; }
+    .total_body .total_use_record li .op_date {
+      color: #b2b2b2;
+      font-size: 0.6875rem; }
+    .total_body .total_use_record li .total_value {
+      float: right;
+      font-size: 1rem;
+      color: #666666; }
+      .total_body .total_use_record li .total_value img {
+        width: 1.25rem;
+        height: 1.25rem; }
+    .total_body .total_use_record li .add {
+      color: #0fb87f; }

@@ -133,3 +133,54 @@ $color-main:#0fb87f;
     }
   }
 }
+.total_body{
+  .usable_total{
+    width: 100%;
+    height: p2r(300);
+    background: $color-main;
+    text-align: center;
+    p{
+      width: 100%;
+      height: p2r(200);
+      font-size: p2r(120);
+      padding-top: p2r(50);
+      color:#fff600;
+    }
+    span{
+      color:#FFFFFF;
+      font-size: p2r(32);
+    }
+  }
+  .total_use_record{
+    width: 100%;
+    li{
+      width: 100%;
+      padding: 0 p2r(20);
+      height: p2r(120);
+      border-bottom: p2r(1) solid #dedede;
+      overflow: hidden;
+      h2{
+        font-size: p2r(32);
+        font-weight:normal;
+        color:#3c3c3c;
+        margin: p2r(20) 0 0 0;
+      }
+      .op_date{
+        color:#b2b2b2;
+        font-size: p2r(22);
+      }
+      .total_value{
+        float: right;
+        font-size: p2r(32);
+        color:#666666;
+        img{
+          width: p2r(40);
+          height: p2r(40);
+        }
+      }
+      .add{
+        color:$color-main;
+      }
+    }
+  }
+}
