@@ -26,6 +26,9 @@ html, body{
   -moz-box-flex: 1;
   -ms-flex: 1;
 }
+.one-flex a{
+    text-decoration: none;
+}
 .po-r{
 	position: relative;
 }
@@ -88,9 +91,6 @@ body{
 .lo-more span{
 	font-size: 14px;
 	color: #747474;
-}
-.lo-more .align-r span{
-	color: #0FB87F;
 }
 .lo-third{
 	text-align: center;

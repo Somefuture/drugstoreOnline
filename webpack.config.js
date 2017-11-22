@@ -14,7 +14,7 @@ module.exports = {
     // 编译后的文件路径
     output: {
 
-        path: __dirname +'/src/html', // 文件路径
+        path: __dirname +'/src', // 文件路径
         filename: '[name].js' // 文件名称
     },
     module: {
@@ -35,12 +35,12 @@ module.exports = {
     plugins:[
         new BrowserSyncPlugin({
             host:'localhost', // 实时监听，webpack -w 可以实时更新硬盘中的文件js，css
-            port:8080,
+            port:8000,
             file:'',
             server:{
-                baseDir:'./src/html'
+                baseDir:'./src'
             }
         }),
         extractSass
     ]
-}
+};
