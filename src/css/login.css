@@ -49,6 +49,7 @@ body{
 	background: url(../images/imgs/login.png) no-repeat;
 	background-size: cover;
 	margin: 0;
+    overflow: hidden;
 	/*background: gray;*/
 }
 .lo-img{

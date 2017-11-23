@@ -52,7 +52,6 @@ $bottom-border:p2r(1) solid #e7e7e7;
 }
 .store_body{
   background: #fafafa;
-  margin-bottom: p2r(100);
   .banner{
     width: 100%;
     height: p2r(382);
@@ -79,6 +78,14 @@ $bottom-border:p2r(1) solid #e7e7e7;
     }
   }
   .product_lists{
+    padding-bottom: p2r(140);
+    .bottom_info{
+      display: block;
+      width: 100%;
+      text-align: center;
+      color: rgb(172, 172, 172);
+      font-size: p2r(28);
+    }
     ul{
       width: 94%;
       margin: 0 auto;
@@ -95,9 +102,11 @@ $bottom-border:p2r(1) solid #e7e7e7;
           font-size: p2r(30);
           color: #484848;
         }
-        img{
+        .img{
           display: block;
           width: p2r(230);
+          height: p2r(230);
+          background-size: cover;
           margin: auto;
         }
         .pro_price,.sale_volume{

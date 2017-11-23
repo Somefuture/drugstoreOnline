@@ -337,8 +337,7 @@
     margin-right: 0.3125rem; }
 
 .store_body {
-  background: #fafafa;
-  margin-bottom: 3.125rem; }
+  background: #fafafa; }
   .store_body .banner {
     width: 100%;
     height: 11.9375rem;
@@ -359,36 +358,46 @@
         .store_body .category ul li img {
           display: block;
           margin: 0.3125rem auto 0.15625rem auto; }
-  .store_body .product_lists ul {
-    width: 94%;
-    margin: 0 auto; }
-    .store_body .product_lists ul li {
-      display: inline-block;
-      width: 47%;
-      margin-right: 3%;
-      margin-bottom: 1rem;
+  .store_body .product_lists {
+    padding-bottom: 4.375rem; }
+    .store_body .product_lists .bottom_info {
+      display: block;
+      width: 100%;
       text-align: center;
-      background: #FFFFFF; }
-      .store_body .product_lists ul li .pro_name {
-        display: block;
-        margin: 1.25rem auto;
-        font-size: 0.9375rem;
-        color: #484848; }
-      .store_body .product_lists ul li img {
-        display: block;
-        width: 7.1875rem;
-        margin: auto; }
-      .store_body .product_lists ul li .pro_price, .store_body .product_lists ul li .sale_volume {
+      color: #acacac;
+      font-size: 0.875rem; }
+    .store_body .product_lists ul {
+      width: 94%;
+      margin: 0 auto; }
+      .store_body .product_lists ul li {
         display: inline-block;
-        margin: 0.5rem 0 1.25rem 0.5rem; }
-      .store_body .product_lists ul li .pro_price {
-        font-size: 1.0625rem;
-        color: #d9a86c; }
-      .store_body .product_lists ul li .sale_volume {
-        font-size: 0.75rem;
-        color: #7b7b7b; }
-    .store_body .product_lists ul li:nth-child(2n) {
-      margin-right: 0; }
+        width: 47%;
+        margin-right: 3%;
+        margin-bottom: 1rem;
+        text-align: center;
+        background: #FFFFFF; }
+        .store_body .product_lists ul li .pro_name {
+          display: block;
+          margin: 1.25rem auto;
+          font-size: 0.9375rem;
+          color: #484848; }
+        .store_body .product_lists ul li .img {
+          display: block;
+          width: 7.1875rem;
+          height: 7.1875rem;
+          background-size: cover;
+          margin: auto; }
+        .store_body .product_lists ul li .pro_price, .store_body .product_lists ul li .sale_volume {
+          display: inline-block;
+          margin: 0.5rem 0 1.25rem 0.5rem; }
+        .store_body .product_lists ul li .pro_price {
+          font-size: 1.0625rem;
+          color: #d9a86c; }
+        .store_body .product_lists ul li .sale_volume {
+          font-size: 0.75rem;
+          color: #7b7b7b; }
+      .store_body .product_lists ul li:nth-child(2n) {
+        margin-right: 0; }
 .detail_header {
   width: 100%;
   height: 3.75rem;
@@ -1463,7 +1472,7 @@
   .personal .bg_img {
     display: block;
     width: 100%;
-    height: 12.5rem;
+    height: 18.75rem;
     z-index: -100; }
   .personal .mask {
     width: 100%;
