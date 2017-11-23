@@ -18,9 +18,10 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>我的药箱</title>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link type="text/css" rel="stylesheet" href="../css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
+    <link type="text/css" rel="stylesheet" href="../css/index.css" />
+    <link type="text/css" rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
 <div class="shopping_header">
@@ -34,66 +35,32 @@
             <img src="../images/shoppingcar/shopping_60.png" alt="">
             全选 <span>1号购物车（药店取货）</span>
         </div>
-        <div class="empty_shoppingCar">
+        <div class="empty_shoppingCar hidden">
             <img src="../images/shoppingcar/shopping_44.png" alt="">
             <p>购物车空空如也 <br>去抢购吧…</p>
-            <button>去逛逛</button>
+            <a href="store.html">
+                <button>去逛逛</button>
+            </a>
         </div>
-        <ul class="shoppingCar_content">
-            <li>
-                <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
-                <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-                <div class="product_details">
-                    <span class="pharmacy">药店</span>
-                    <span class="mail_order">邮购</span>
-                    <div class="detail_title">
-                        <span class="product_name">商品名称商品名称</span>
-                    </div>
-                    <div class="product_price">￥588</div>
-                    <div class="product_amount">
-                        <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                        <span class="amount">10</span>
-                        <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
-                    </div>
-                    <button>去邮购</button>
-                </div>
-            </li>
-        </ul>
+        <div id="offline_shopping_car_items"></div>
     </div>
     <div class="carTwo">
         <div class="shoppingCar_title">
             <img src="../images/shoppingcar/shopping_60.png" alt="">
             全选 <span>2号购物车（邮购）</span>
         </div>
-        <div class="empty_shoppingCar">
+        <div class="empty_shoppingCar hidden">
             <img src="../images/shoppingcar/shopping_44.png" alt="">
             <p>购物车空空如也 <br>去抢购吧…</p>
-            <button>去逛逛</button>
+            <a href="store.html">
+                <button>去逛逛</button>
+            </a>
         </div>
-        <ul class="shoppingCar_content">
-            <li>
-                <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
-                <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-                <div class="product_details">
-                    <span class="pharmacy">药店</span>
-                    <span class="mail_order">邮购</span>
-                    <div class="detail_title">
-                        <span class="product_name">商品名称商品名称</span>
-                    </div>
-                    <div class="product_price">￥588</div>
-                    <div class="product_amount">
-                        <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                        <span class="amount">10</span>
-                        <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
-                    </div>
-                    <button>去药店</button>
-                </div>
-            </li>
-        </ul>
+        <div id="online_shopping_car_items"></div>
     </div>
     <div class="settle_accounts">
         <span class="account_details">
-            <p>共5件商品</p>
+            <span class="count">共5件商品</span>
             总价<span class="price">￥996.00</span>
         </span><span class="account" onclick="location='orderConfirm.html'">去结算</span>
     </div>
@@ -127,4 +94,81 @@
     </ul>
 </div>
 </body>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="../javascript/sweetalert.min.js"></script>
+<script src="../javascript/underscore-1.8.3.min.js"></script>
+<script src="../javascript/util.js"></script>
+<script type="text/template" id="offline_shopping_car_items_template">
+    <ul class="shoppingCar_content">
+        <% _.each(items, function (item) { %>
+        <li>
+            <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
+            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+            <div class="product_details">
+                <span class="pharmacy">药店</span>
+                <span class="mail_order">邮购</span>
+                <div class="detail_title">
+                    <span class="product_name">商品名称商品名称</span>
+                </div>
+                <div class="product_price">￥588</div>
+                <div class="product_amount">
+                    <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
+                    <span class="amount">10</span>
+                    <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
+                </div>
+                <button>去邮购</button>
+            </div>
+        </li>
+        <% }); %>
+    </ul>
+</script>
+<script type="text/template" id="online_shopping_car_items_template">
+    <ul class="shoppingCar_content">
+        <% _.each(items, function (item) { %>
+        <li>
+            <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
+            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+            <div class="product_details">
+                <span class="pharmacy">药店</span>
+                <span class="mail_order">邮购</span>
+                <div class="detail_title">
+                    <span class="product_name">商品名称商品名称</span>
+                </div>
+                <div class="product_price">￥588</div>
+                <div class="product_amount">
+                    <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
+                    <span class="amount">10</span>
+                    <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
+                </div>
+                <button>去药店</button>
+            </div>
+        </li>
+        <% }); %>
+    </ul>
+</script>
+<script>
+    get_shopping_car("online");
+
+    function get_shopping_car(type) {
+        $.ajax({
+            url: "/shopping_cart",
+            data: {"type": type},
+            headers: {"X-Requested-With": "h5"},
+            success: function (json) {
+                if(json && json.error) {
+                    swal("", json.error.message);
+                }else {
+                    console.log(json);
+                }
+            },
+            error: function (xhr, status, message) {
+                if(message === "Unauthorized") {
+                    window.location.href = "login.html";
+                }else {
+                    swal("", "系统繁忙，请稍后再试。");
+                }
+            }
+        });
+    }
+</script>
 </html>

@@ -55,3 +55,7 @@ q:after {
 textarea{
     resize: none;
 }
+/* 隐藏 */
+.hidden {
+    display: none;
+}
