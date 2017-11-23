@@ -42,53 +42,52 @@
 		<!--<div class="one-flex align-r"><img src="../images/imgs/lo-xlwb.png" /></div>-->
 		<!--</div>-->
 		<!--</div>-->
-		<script src="../javascript/jquery-3.2.1.min.js"></script>
-		<script src="../javascript/sweetalert.min.js"></script>
-		<script>
-			var show_swal = false;
-            function login() {
-                const username = $("#username").val();
-                const password = $("#password").val();
-                if (!username) {
-                    show_swal = true;
-                    swal("请输入手机号码");
-                } else if (!password) {
-                    show_swal = true;
-                    swal("请输入登录密码");
-                } else {
-                    $.ajax({
-                        type: "post",
-                        url: "/account/mobile/signin",
-                        data: {"mobile": username, "password": password},
-                        headers: {"X-Requested-With": "test"},
-                        success: function (json) {
-                            if(json && json.error) {
-                                show_swal = true;
-                                swal("登录失败", json.error.message);
-                            }else {
-                                window.location.href = "index.html";
-                            }
-                        },
-                        error: function () {
+	</body>
+	<script src="../javascript/jquery-3.2.1.min.js"></script>
+	<script src="../javascript/sweetalert.min.js"></script>
+	<script>
+        var show_swal = false;
+        function login() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            if (!username) {
+                show_swal = true;
+                swal("", "请输入手机号码");
+            } else if (!password) {
+                show_swal = true;
+                swal("", "请输入登录密码");
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: "/account/mobile/signin",
+                    data: {"mobile": username, "password": password},
+                    headers: {"X-Requested-With": "test"},
+                    success: function (json) {
+                        if(json && json.error) {
                             show_swal = true;
-                            swal("系统繁忙，请稍后再试。");
+                            swal("", json.error.message);
+                        }else {
+                            window.location.href = "index.html";
                         }
-                    });
+                    },
+                    error: function () {
+                        show_swal = true;
+                        swal("", "系统繁忙，请稍后再试。");
+                    }
+                });
+            }
+        }
+
+        $("#login").click(login);
+
+        $("#user_form").keyup(function (e) {
+            if(Number(e.keyCode) === 13) {
+                if(show_swal) {
+                    show_swal = false;
+                }else {
+                    login();
                 }
             }
-
-            $("#login").click(login);
-
-            $("#user_form").keyup(function (e) {
-                if(Number(e.keyCode) === 13) {
-                    if(show_swal) {
-                        show_swal = false;
-					}else {
-                        login();
-					}
-				}
-            })
-		</script>
-
-	</body>
+        })
+	</script>
 </html>
