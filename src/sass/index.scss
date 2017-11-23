@@ -58,6 +58,59 @@ $bottom-border:p2r(1) solid #e7e7e7;
   .banner{
     width: 100%;
     height: p2r(382);
+    position: relative;
+    .banner_img{
+      width:100%;
+      height: p2r(180);
+      background: $color-main;
+      li{
+        display: inline-block;
+        width: 80%;
+        height: p2r(320);
+        img{
+          width: 100%;
+          height: 100%;
+          border-radius: p2r(20);
+        }
+        position: absolute;
+        top: 0;
+      }
+      li.first{
+        left: 8%;
+        width: 84%;
+      }
+      li.second{
+        left: 95%;
+        height: p2r(280);
+        margin-top: p2r(20);
+      }
+      li.third{
+        left: -75%;
+        height: p2r(280);
+        margin-top: p2r(20);
+      }
+      li.fourth{
+        display: none;
+      }
+    }
+    .banner_list{
+      width: 100%;
+      height: p2r(200);
+      overflow: hidden;
+      margin: p2r(10) auto;
+      text-align: center;
+      padding-top: p2r(130);
+      li{
+        display: inline-block;
+        width: p2r(40);
+        height:p2r(8);
+        background: #b2b2b2;
+        border-radius: p2r(10);
+      }
+      li.active{
+        background: $color-main;
+      }
+    }
   }
   .notice{
     width: 100%;
