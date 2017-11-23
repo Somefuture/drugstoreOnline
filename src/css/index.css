@@ -973,7 +973,7 @@
       opacity: 0.8;
       color: #FFFFFF;
       font-size: 0.6875rem; }
-      .shoppingCar_body .settle_accounts .account_details p {
+      .shoppingCar_body .settle_accounts .account_details .count {
         display: inline-block;
         text-indent: 2em;
         margin-right: 1.25rem; }
