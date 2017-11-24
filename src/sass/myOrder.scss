@@ -19,6 +19,9 @@ $color-main:#0fb87f;
   li:nth-child(5){
     margin-right: p2r(-10);
   }
+  .active{
+    border-bottom: p2r(5) solid $color-main;
+  }
 }
 .order_lists{
   width: 100%;
