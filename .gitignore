@@ -1,3 +1,5 @@
 node_modules
 dist
 .idea
+src/css/index.css
+src/css/index.js
