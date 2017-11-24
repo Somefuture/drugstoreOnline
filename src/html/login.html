@@ -56,7 +56,13 @@
             } else if (!password) {
                 show_swal = true;
                 swal("", "请输入登录密码");
-            } else {
+            }else if(username.length!=11){
+                show_swal = true;
+                swal("", "请输入11位手机号");
+            } else if(password.length<6){
+                show_swal = true;
+                swal("", "密码输入有误");
+            }else {
                 $.ajax({
                     type: "post",
                     url: "/account/mobile/signin",

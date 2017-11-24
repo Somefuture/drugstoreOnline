@@ -228,19 +228,26 @@ $bottom-border:p2r(1) solid #e7e7e7;
         border-bottom: $bottom-border;
         position: relative;
         h3 {
+          width: p2r(200);
           font-size: p2r(24);
           color: #2b2b2b;
           margin-left: p2r(30);
           margin-top: p2r(34);
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         p {
-          width: p2r(240);
+          width: p2r(210);
           height: p2r(30);
           overflow: hidden;
           font-size: p2r(20);
           color: #777777;
           margin-left: p2r(30);
           margin-bottom: p2r(34);
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         img {
           width: p2r(120);
@@ -314,6 +321,8 @@ $bottom-border:p2r(1) solid #e7e7e7;
               color: #777777;
               margin-left: p2r(22);
               padding: p2r(20) 0 ;
+              overflow: hidden;
+              text-overflow:ellipsis;
             }
           }
           .todetail {
