@@ -45,6 +45,7 @@
 	</body>
 	<script src="../javascript/jquery-3.2.1.min.js"></script>
 	<script src="../javascript/sweetalert.min.js"></script>
+	<script src="../javascript/util.js"></script>
 	<script>
         var show_swal = false;
         function login() {
@@ -56,32 +57,21 @@
             } else if (!password) {
                 show_swal = true;
                 swal("", "请输入登录密码");
-            }else if(username.length!=11){
+            }else if(username.length!==11){
                 show_swal = true;
                 swal("", "请输入11位手机号");
             } else if(password.length<6){
                 show_swal = true;
                 swal("", "密码输入有误");
             }else {
-                $.ajax({
+                ajax({
                     type: "post",
                     url: "/account/mobile/signin",
                     data: {"mobile": username, "password": password},
-                    headers: {"X-Requested-With": "test"},
                     success: function (json) {
-                        console.log(json)
-                        window.localStorage.setItem('userId',JSON.stringify(json.success))
-                        if(json && json.error) {
-                            show_swal = true;
-                            swal("", json.error.message);
-                        }else {
-
-                            window.location.href = "index.html"
-                        }
-                    },
-                    error: function () {
-                        show_swal = true;
-                        swal("", "系统繁忙，请稍后再试。");
+                        console.log(json);
+                        window.localStorage.setItem('userId',JSON.stringify(json.success));
+                        window.location.href = "index.html";
                     }
                 });
             }
@@ -94,7 +84,7 @@
                 if(show_swal) {
                     show_swal = false;
                 }else {
-//                    login();
+                    login();
                 }
             }
         })

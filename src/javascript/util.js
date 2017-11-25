@@ -6,24 +6,22 @@ function get_query_string(name) {
 }
 
 function ajax(params) {
-    var final_params = $.extend({
-        headers: {"X-Requested-With": "h5"}
-    }, params);
-    if (final_params.complete) {
-        final_params.complete = function (response) {
-            if (response.status === 401 || response.status === 410) {
-                window.location.href = "login.html";
-            } else if (response.status === 500) {
-                swal("", "系统繁忙，请稍后再试。");
-            }
-            final_params.complete(response);
-        };
-    }
+    var final_params = $.extend({headers: {"X-Requested-With": "ec.mobile"}}, params);
+    final_params.complete = function (response) {
+        if (response.status === 401 || response.status === 410) {
+            window.location.href = "login.html";
+        } else if (response.status === 500) {
+            swal("", "系统繁忙，请稍后再试。");
+        }
+        if (params.complete) {
+            params.complete(response);
+        }
+    };
     final_params.success = function (json) {
         if (json.error) {
             swal("", json.error.message);
         }
-        final_params.success(json);
+        params.success(json);
     };
     $.ajax(final_params);
 }
@@ -51,25 +49,14 @@ function scroll_load_more(list_id, underscore_template, load_data_id, options) {
         var data = Object.assign({}, getJsonFromUrl(url), options);
         data.drop = parseInt(data.drop);
         data.take = parseInt(data.take);
-        $.ajax({
+        ajax({
             url: url,
             headers: {"X-Requested-With": "h5"},
             success: function (json) {
-                if (json && json.error) {
-                    swal("", json.error.message);
-                } else {
-                    data.success = json.success;
-                    data.drop += 10;
-                    $load_data.remove();
-                    $list.append(underscore_template(data));
-                }
-            },
-            error: function (xhr, status, message) {
-                if (message === "Unauthorized" || message === "Gone") {
-                    window.location.href = "login.html";
-                } else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
+                data.success = json.success;
+                data.drop += 10;
+                $load_data.remove();
+                $list.append(underscore_template(data));
             }
         });
     };

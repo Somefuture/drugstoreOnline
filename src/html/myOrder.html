@@ -32,7 +32,7 @@
     <img src="../images/tab/tab_03.png" alt="" onclick="location='shoppingCar.html'">
     <p class="title">我的订单</p>
 </div>
-<ul class="order_tab">
+<ul class="order_tab" onclick="active_order_tab()">
     <li class="all active">全部</li>
     <li class="obligation">待付款</li>
     <li class="receiving">待收货</li>
@@ -109,7 +109,7 @@
                         <span class="price">￥<%= order.payment %></span>
                         <div class="operation">
                             <% if(order.status === "pending") %>
-                                <button class="to_pay">去支付</button>
+                                <button class="to_pay" onclick="to_pay(<%= order.id %>)">去支付</button>
                             <% else if(order.status === "success") %>
                                 <button class="remind">提醒发货</button>
                             <% else if(order.status === "done") %>
@@ -138,7 +138,7 @@
     $("#order_list").html(template({success: null, statuses: []}));
     scroll_load_more("#order_list", template, "a.bottom_info", {statuses: []});
 
-    $(".order_tab").click(function (e) {
+    function active_order_tab(e) {
         if(e.target.tagName === "LI") {
             if(!$(e.target).hasClass("active")) {
                 $(".order_tab > li.active").each(function () {
@@ -163,7 +163,30 @@
                 }
             }
         }
-    });
+    }
+
+    function to_pay(orderID) {
+        $.ajax({
+            type: "post",
+            url: "/product/order/pay",
+            data: {"orderID": orderID},
+            headers: {"X-Requested-With": "h5"},
+            success: function (json) {
+                if(json && json.error) {
+                    swal("", json.error.message);
+                }else {
+                    window.location.href = json.success;
+                }
+            },
+            error: function (xhr, status, message) {
+                if(message === "Unauthorized") {
+                    window.location.href = "login.html";
+                }else {
+                    swal("", "系统繁忙，请稍后再试。");
+                }
+            }
+        });
+    }
 
 
 </script>
