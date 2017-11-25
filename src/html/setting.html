@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>设置</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+<div class="shopping_header">
+    <img src="../images/tab/tab_03.png" alt="">
+    <p class="title">设置</p>
+</div>
+<div class="setting_body">
+    <ul class="settingItem">
+        <li>
+            <img src="../images/personal/personal_24.png" alt="">
+            反馈意见
+            <span><img src="../images/personal/home_57@2x.png" alt=""></span>
+        </li>
+        <li>
+            <img src="../images/personal/personal_25.png" alt="">
+            帮助
+            <span><img src="../images/personal/home_57@2x.png" alt=""></span>
+        </li>
+    </ul>
+    <div class="sign_out_btn" id="sign_out_btn">退出</div>
+</div>
+</body>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="../javascript/sweetalert.min.js"></script>
+<script src="../javascript/underscore-1.8.3.min.js"></script>
+<script src="../javascript/util.js"></script>
+<script>
+    $('#sign_out_btn')[0].onclick=function () {
+       if(confirm('确认退出吗')==true){
+           window.localStorage.removeItem('userId');
+           window.location.href='login.html';
+       }else{
+           return false;
+       }
+    }
+</script>
+</html>

@@ -10,10 +10,14 @@ $color-main:#0fb87f;
   overflow: hidden;
   position: relative;
   .bg_img{
-    display: block;
     width: 100%;
     height: p2r(600);
     z-index: -100;
+    img{
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   }
   .mask{
     width: 100%;
@@ -33,13 +37,16 @@ $color-main:#0fb87f;
       height: p2r(300);
       margin: p2r(150) auto;
       text-align: center;
-      img{
-        display: block;
+      .user_avatar{
         width: p2r(210);
         height: p2r(210);
+        overflow: hidden;
         border-radius: p2r(216);
         border:p2r(3) solid #cccccc;
         margin: 0 auto;
+        img{
+          width: 100%;
+        }
       }
       .user_name{
         display: block;
@@ -188,8 +195,8 @@ $color-main:#0fb87f;
       width: p2r(40);
     }
     .verification_code_btn{
-      height: p2r(80);
-      margin-top: p2r(20);
+      height: p2r(60);
+      margin-top: p2r(10);
       background: #91c46c;
       color:#FFFFFF;
       float: right;
@@ -206,5 +213,41 @@ $color-main:#0fb87f;
     border-radius: p2r(10);
     text-align: center;
     margin:p2r(68) auto 0 auto;
+  }
+}
+.setting_body{
+  width: 100%;
+  .settingItem{
+    li{
+      height: p2r(84);
+      line-height: p2r(84);
+      font-size: p2r(28);
+      color:#3c3c3c;
+      border-bottom: p2r(1) solid #e7e7e7;
+      overflow: hidden;
+      img{
+        width: p2r(70);
+        vertical-align: middle;
+        margin-left: p2r(20);
+      }
+      span{
+        float: right;
+        img{
+          width: p2r(30);
+          margin-right: p2r(20);
+        }
+      }
+    }
+  }
+  .sign_out_btn{
+    width: p2r(570);
+    height: p2r(72);
+    margin:p2r(20) auto;
+    line-height: p2r(72);
+    border-radius: p2r(12);
+    background: $color-main;
+    color:#FFFFFF;
+    font-size: p2r(28);
+    text-align: center;
   }
 }
