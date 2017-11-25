@@ -69,11 +69,14 @@
                     data: {"mobile": username, "password": password},
                     headers: {"X-Requested-With": "test"},
                     success: function (json) {
+                        console.log(json)
+                        window.localStorage.setItem('userId',JSON.stringify(json.success))
                         if(json && json.error) {
                             show_swal = true;
                             swal("", json.error.message);
                         }else {
-                            window.location.href = "index.html";
+
+                            window.location.href = "index.html"
                         }
                     },
                     error: function () {
@@ -91,7 +94,7 @@
                 if(show_swal) {
                     show_swal = false;
                 }else {
-                    login();
+//                    login();
                 }
             }
         })
