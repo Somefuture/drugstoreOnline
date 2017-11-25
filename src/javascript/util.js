@@ -1,15 +1,34 @@
 function get_query_string(name) {
-    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var values = window.location.search.substr(1).match(reg);
-    if(values!==null)return  unescape(values[2]);
+    if (values !== null) return unescape(values[2]);
     return null;
 }
 
+function ajax(params) {
+    var final_params = $.extend({
+        headers: {"X-Requested-With": "h5"},
+        error: function (json) {
+            swal("", json.error.message);
+        }
+    }, params);
+    if (final_params.complete) {
+        final_params.complete = function (response) {
+            if (response.status === 401 || response.status === 410) {
+                window.location.href = "login.html";
+            } else if (response.status === 500) {
+                swal("", "系统繁忙，请稍后再试。");
+            }
+            final_params.complete(response);
+        };
+    }
+    $.ajax(final_params);
+}
 
 function getJsonFromUrl(url) {
     var qs = url.split("?")[1];
     var result = {};
-    qs.split("&").forEach(function(part) {
+    qs.split("&").forEach(function (part) {
         var item = part.split("=");
         result[item[0]] = decodeURIComponent(item[1]);
     });
@@ -20,7 +39,7 @@ function getJsonFromUrl(url) {
 function scroll_load_more(list_id, underscore_template, load_data_id, options) {
     $.get_data = function () {
         var $load_data = $(load_data_id);
-        if($load_data.length === 0){
+        if ($load_data.length === 0) {
             $(window).unbind('scroll', load_more);
             return;
         }
