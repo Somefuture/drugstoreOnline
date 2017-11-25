@@ -17,7 +17,11 @@
   margin-bottom: 6.25rem; }
   .body .banner {
     width: 100%;
-    height: 11.9375rem; }
+    height: 14.0625rem;
+    background: #e7e7e7; }
+    .body .banner img {
+      width: 100%;
+      height: 14.0625rem; }
   .body .notice {
     width: 100%;
     border: 1px solid #e7e7e7;
@@ -44,12 +48,16 @@
       vertical-align: bottom; }
   .body .quick {
     width: 100%;
-    padding: 0.875rem 0.625rem 0 0.625rem; }
+    padding: 0.875rem 0.625rem 0 0.625rem;
+    font-size: 0; }
     .body .quick .quick_shopping, .body .quick .knowledge {
       display: inline-block;
       width: 48%; }
       .body .quick .quick_shopping img, .body .quick .knowledge img {
         width: 100%; }
+    .body .quick .knowledge {
+      margin-left: 4%;
+      margin-right: -0.9375rem; }
   .body .reputation .title {
     width: 100%;
     padding-top: 1.25rem;
@@ -99,8 +107,9 @@
         width: 3.75rem;
         margin-left: 0; }
       .body .reputation .product .pro_one img {
-        width: 8.375rem;
-        margin-top: 0.625rem; }
+        display: block;
+        margin: 0.625rem auto 0.3125rem auto;
+        height: 6.25rem; }
     .body .reputation .product .pro_two {
       width: 58%;
       height: 6.375rem;
@@ -133,10 +142,9 @@
         margin-left: 0;
         background: #ff7d5b; }
       .body .reputation .product .pro_two img {
-        width: 5.4375rem;
-        height: 6.375rem;
+        width: 6.375rem;
         position: absolute;
-        top: -0.3125rem;
+        top: 1.875rem;
         right: 0.3125rem; }
     .body .reputation .product .pro_three, .body .reputation .product .pro_four {
       position: absolute;
@@ -188,19 +196,30 @@
       border-bottom: 0.03125rem solid #e7e7e7;
       position: relative; }
       .body .welfare .content .welfare_s h3 {
+        width: 6.25rem;
         font-size: 0.75rem;
         color: #2b2b2b;
         margin-left: 0.9375rem;
-        margin-top: 1.0625rem; }
+        margin-top: 1.0625rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
       .body .welfare .content .welfare_s p {
+        width: 6.5625rem;
+        height: 0.9375rem;
+        overflow: hidden;
         font-size: 0.625rem;
         color: #777777;
         margin-left: 0.9375rem;
-        margin-bottom: 1.0625rem; }
+        margin-bottom: 1.0625rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
       .body .welfare .content .welfare_s img {
         width: 3.75rem;
+        height: 2.5rem;
         position: absolute;
-        top: 0.3125rem;
+        top: 0.625rem;
         right: 0.3125rem; }
     .body .welfare .content .welfare_s:nth-child(2) {
       border-right: none; }
@@ -253,10 +272,12 @@
           width: 4.375rem;
           height: 3.3125rem; }
           .body .healthy .list-news .lists ul .newsimg img {
-            width: 100%; }
+            width: 4.375rem;
+            height: 3.3125rem; }
         .body .healthy .list-news .lists ul .newscontent {
           width: 60%;
-          height: 3.3125rem; }
+          height: 3.3125rem;
+          overflow: hidden; }
           .body .healthy .list-news .lists ul .newscontent h1 {
             font-size: 0.875rem;
             color: #2b2b2b;
@@ -265,7 +286,10 @@
             width: 100%;
             font-size: 0.6875rem;
             color: #777777;
-            margin-left: 0.6875rem; }
+            margin-left: 0.6875rem;
+            padding: 0.625rem 0;
+            overflow: hidden;
+            text-overflow: ellipsis; }
         .body .healthy .list-news .lists ul .todetail {
           width: 2.5rem;
           height: 3.3125rem;
@@ -340,7 +364,7 @@
   background: #fafafa; }
   .store_body .banner {
     width: 100%;
-    height: 11.9375rem;
+    height: 10.78125rem;
     background: #e7e7e7; }
   .store_body .category {
     width: 100%;
@@ -1384,6 +1408,8 @@
     border-right: 0.03125rem solid #e7e7e7; }
   .order_tab li:nth-child(5) {
     margin-right: -0.3125rem; }
+  .order_tab .active {
+    border-bottom: 0.15625rem solid #0fb87f; }
 
 .order_lists {
   width: 100%;

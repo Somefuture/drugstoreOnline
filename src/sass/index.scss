@@ -57,7 +57,12 @@ $bottom-border:p2r(1) solid #e7e7e7;
   margin-bottom: p2r(200);
   .banner {
     width: 100%;
-    height: p2r(382);
+    height: p2r(450);
+    background: #e7e7e7;
+    img {
+      width: 100%;
+      height: p2r(450);
+    }
   }
   .notice {
     width: 100%;
@@ -92,12 +97,17 @@ $bottom-border:p2r(1) solid #e7e7e7;
   .quick {
     width: 100%;
     padding: p2r(28) p2r(20) 0 p2r(20);
+    font-size: 0;
     .quick_shopping, .knowledge {
       display: inline-block;
       width: 48%;
       img {
         width: 100%;
       }
+    }
+    .knowledge{
+      margin-left: 4%;
+      margin-right: p2r(-30);
     }
   }
   .reputation {
@@ -133,8 +143,9 @@ $bottom-border:p2r(1) solid #e7e7e7;
           margin-left: 0;
         }
         img {
-          width: p2r(268);
-          margin-top: p2r(20);
+          display: block;
+          margin: p2r(20) auto p2r(10) auto;
+          height: p2r(200);
         }
       }
       .pro_two {
@@ -166,10 +177,9 @@ $bottom-border:p2r(1) solid #e7e7e7;
           background: #ff7d5b;
         }
         img {
-          width: p2r(174);
-          height: p2r(204);
+          width: p2r(204);
           position: absolute;
-          top: p2r(-10);
+          top: p2r(60);
           right: p2r(10);
         }
       }
@@ -218,21 +228,32 @@ $bottom-border:p2r(1) solid #e7e7e7;
         border-bottom: $bottom-border;
         position: relative;
         h3 {
+          width: p2r(200);
           font-size: p2r(24);
           color: #2b2b2b;
           margin-left: p2r(30);
           margin-top: p2r(34);
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         p {
+          width: p2r(210);
+          height: p2r(30);
+          overflow: hidden;
           font-size: p2r(20);
           color: #777777;
           margin-left: p2r(30);
           margin-bottom: p2r(34);
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         img {
           width: p2r(120);
+          height: p2r(80);
           position: absolute;
-          top: p2r(10);
+          top: p2r(20);
           right: p2r(10);
         }
       }
@@ -281,12 +302,14 @@ $bottom-border:p2r(1) solid #e7e7e7;
             width: p2r(140);
             height: p2r(106);
             img {
-              width: 100%;
+              width: p2r(140);
+              height: p2r(106);
             }
           }
           .newscontent {
             width: 60%;
             height: p2r(106);
+            overflow: hidden;
             h1 {
               font-size: p2r(28);
               color: #2b2b2b;
@@ -297,6 +320,9 @@ $bottom-border:p2r(1) solid #e7e7e7;
               font-size: p2r(22);
               color: #777777;
               margin-left: p2r(22);
+              padding: p2r(20) 0 ;
+              overflow: hidden;
+              text-overflow:ellipsis;
             }
           }
           .todetail {
