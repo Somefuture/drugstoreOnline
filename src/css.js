@@ -8,3 +8,4 @@ require('./sass/address.scss');
 require('./sass/myOrder.scss');
 require('./sass/personal.scss');
 require('./sass/coupons.scss');
+require('./sass/utils.scss');

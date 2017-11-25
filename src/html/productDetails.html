@@ -6,13 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 视图窗口，移动端特属的标签。 -->
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <!-- 忽略页面中的数字识别为电话号码,email识别 -->
-    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
     <!-- 启用360浏览器的极速模式(webkit) -->
     <meta name="renderer" content="webkit">
     <!-- 避免IE使用兼容模式 -->
@@ -37,61 +38,63 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>商品详情</title>
     <link type="text/css" rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
-    <link type="text/css" rel="stylesheet" href="../css/index.css" />
+    <link type="text/css" rel="stylesheet" href="../css/swiper.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/index.css"/>
     <link type="text/css" rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
-    <div class="detail_header">
-        <img src="../images/details/tab_03.png" alt="">
-        <div class="items">
-            <span class="active"><a href="#">商品</a></span>
-            <span><a href="specification.html">说明书</a></span>
-            <span><a href="comment.html">评论</a></span>
-        </div>
+<div class="detail_header">
+    <div class="items">
+        <span class="active"><a href="#">商品</a></span>
+        <span><a href="specification.html">说明书</a></span>
+        <span><a href="comment.html">评论</a></span>
     </div>
-    <div id="product_body"></div>
-    <div class="detail_footer">
-        <div class="consult">
-            <img src="../images/details/shoppingcar_21.png" alt="">
-            咨询
-        </div><div class="shoppingCar">
-            <img src="../images/details/shoppingcar_25.png" alt="">
-            购物车
-        </div><div class="addToCar">
-            <img src="../images/details/shoppingcar_29.png" alt="">
-            加入我的药箱
-        </div><div class="nextStep">
-            下一步
-        </div>
+</div>
+<div id="product_body"></div>
+<div class="detail_footer">
+    <div class="consult">
+        <img src="../images/details/shoppingcar_21.png" alt="">
+        咨询
     </div>
-    <div class="SKU_select">
-        <div class="SKU_select_content">
-            <div class="SKU_detail">
-                <img src="../images/details/home_48@2x.png" alt="">
-                <span class="SKU_price">￥198</span>
-            </div>
-            <div class="SKU_category">
-                <h3>包装规格</h3>
-                <span class="selected">100ml/瓶</span>
-                <span>150ml/瓶</span>
-                <span>200ml/瓶</span>
-            </div>
-            <div class="SKU_quantity">
-                数量
-                <div class="product_amount">
-                    <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                    <span class="amount">10</span>
-                    <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
-                </div>
-            </div>
-            <div class="SKU_select_footer">
-                <span class="add_to_shoppingCar">加入购物车</span>
-                <span class="buy_now">立即购买</span>
+    <div class="shoppingCar">
+        <img src="../images/details/shoppingcar_25.png" alt="">
+        购物车
+    </div>
+    <div class="addToCar">
+        <img src="../images/details/shoppingcar_29.png" alt="">
+        加入我的药箱
+    </div>
+    <div class="nextStep">
+        下一步
+    </div>
+</div>
+<div class="SKU_select">
+    <div class="SKU_select_content">
+        <div class="SKU_detail">
+            <img src="../images/details/home_48@2x.png" alt="">
+            <span class="SKU_price">￥198</span>
+        </div>
+        <div class="SKU_category">
+            <h3>包装规格</h3>
+            <span class="selected">100ml/瓶</span>
+            <span>150ml/瓶</span>
+            <span>200ml/瓶</span>
+        </div>
+        <div class="SKU_quantity">
+            数量
+            <div class="product_amount">
+                <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
+                <span class="amount">10</span>
+                <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
             </div>
         </div>
+        <div class="SKU_select_footer">
+            <span class="add_to_shoppingCar">加入购物车</span>
+            <span class="buy_now">立即购买</span>
+        </div>
     </div>
+</div>
 </body>
 <script type="text/template" id="banner_template">
     <div class="swiper-container">
@@ -163,21 +166,42 @@
 <script>
     var id = get_query_string("id");
     var product_template = _.template($("#product_template").html());
-    get_product(id);
-
-    var $specs_selector = $(".SKU_select");
-
+    var $specs_selector_layer = $(".SKU_select");
+    var $specs_selector = $(".SKU_select_content");
     var $add_shopping_cart_button = $(".addToCar");
+    get_product(id);
+    render_banner(id);
 
-    function show_specs_selector(){
-        $specs_selector.addClass("show");
+    function load_skus() {
+        ajax({
+            url: "/product/skus/by_product",
+            data: {"productID": id},
+            success: function (json) {
+                if (json && json.error) {
+                    swal("", json.error.message);
+                } else {
+                    console.log(json);
+                }
+            }
+        });
     }
-    function hide_specs_selector(){
-        $specs_selector.removeClass("show");
+
+    load_skus();
+
+    function show_specs_selector() {
+        console.log("1");
+        $specs_selector_layer.addClass("show");
     }
 
-    $specs_selector.click(hide_specs_selector);
+    function hide_specs_selector() {
+        $specs_selector_layer.removeClass("show");
+    }
 
+    $specs_selector.click(function (e) {
+        e.stopPropagation();
+    });
+
+    $specs_selector_layer.click(hide_specs_selector);
     $add_shopping_cart_button.click(show_specs_selector);
 
     function get_product(id) {
@@ -186,31 +210,31 @@
             data: {"id": id},
             headers: {"X-Requested-With": "h5"},
             success: function (json) {
-                if(json && json.error) {
+                if (json && json.error) {
                     swal("", json.error.message);
-                }else {
+                } else {
                     $("#product_body").html(product_template({"product": json.success}));
-                    render_banner(id);
                 }
             },
             error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
+                if (message === "Unauthorized") {
                     window.location.href = "login.html";
-                }else {
+                } else {
                     swal("", "系统繁忙，请稍后再试。");
                 }
             }
         });
     }
-    function render_banner(id) {
+
+    function render_banner() {
         $.ajax({
             url: "/product/images",
             data: {"id": id},
             headers: {"X-Requested-With": "h5"},
             success: function (json) {
-                if(json && json.error) {
+                if (json && json.error) {
                     swal("", json.error.message);
-                }else {
+                } else {
                     var banner_template = _.template($("#banner_template").html());
                     $("#banner").html(banner_template({"images": json.success}));
                     new Swiper('.swiper-container', {
@@ -228,9 +252,9 @@
                 }
             },
             error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
+                if (message === "Unauthorized") {
                     window.location.href = "login.html";
-                }else {
+                } else {
                     swal("", "系统繁忙，请稍后再试。");
                 }
             }
