@@ -1496,10 +1496,13 @@
   overflow: hidden;
   position: relative; }
   .personal .bg_img {
-    display: block;
     width: 100%;
     height: 18.75rem;
     z-index: -100; }
+    .personal .bg_img img {
+      display: block;
+      width: 100%;
+      height: 100%; }
   .personal .mask {
     width: 100%;
     height: 18.75rem;
@@ -1517,13 +1520,15 @@
       height: 9.375rem;
       margin: 4.6875rem auto;
       text-align: center; }
-      .personal .mask .person_avatar img {
-        display: block;
+      .personal .mask .person_avatar .user_avatar {
         width: 6.5625rem;
         height: 6.5625rem;
+        overflow: hidden;
         border-radius: 6.75rem;
         border: 0.09375rem solid #cccccc;
         margin: 0 auto; }
+        .personal .mask .person_avatar .user_avatar img {
+          width: 100%; }
       .personal .mask .person_avatar .user_name {
         display: block;
         margin: 0.5rem auto 1rem auto;
@@ -1646,8 +1651,8 @@
     .info_alter .alter_items img {
       width: 1.25rem; }
     .info_alter .alter_items .verification_code_btn {
-      height: 2.5rem;
-      margin-top: 0.625rem;
+      height: 1.875rem;
+      margin-top: 0.3125rem;
       background: #91c46c;
       color: #FFFFFF;
       float: right;
@@ -1662,6 +1667,35 @@
     border-radius: 0.3125rem;
     text-align: center;
     margin: 2.125rem auto 0 auto; }
+
+.setting_body {
+  width: 100%; }
+  .setting_body .settingItem li {
+    height: 2.625rem;
+    line-height: 2.625rem;
+    font-size: 0.875rem;
+    color: #3c3c3c;
+    border-bottom: 0.03125rem solid #e7e7e7;
+    overflow: hidden; }
+    .setting_body .settingItem li img {
+      width: 2.1875rem;
+      vertical-align: middle;
+      margin-left: 0.625rem; }
+    .setting_body .settingItem li span {
+      float: right; }
+      .setting_body .settingItem li span img {
+        width: 0.9375rem;
+        margin-right: 0.625rem; }
+  .setting_body .sign_out_btn {
+    width: 17.8125rem;
+    height: 2.25rem;
+    margin: 0.625rem auto;
+    line-height: 2.25rem;
+    border-radius: 0.375rem;
+    background: #0fb87f;
+    color: #FFFFFF;
+    font-size: 0.875rem;
+    text-align: center; }
 .coupon_body {
   background: #fafafa;
   padding-bottom: 6.25rem; }
