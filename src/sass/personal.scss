@@ -177,14 +177,18 @@ $color-main:#0fb87f;
   margin: 0 auto;
   font-size: p2r(24);
   .alter_items{
-    height: p2r(110);
-    line-height: p2r(110);
+    height: p2r(80);
     border-bottom: p2r(1) solid #e7e7e7;
+    input{
+      margin-top: p2r(5);
+      height: p2r(70);
+      vertical-align: bottom;
+    }
     img{
       width: p2r(40);
     }
     .verification_code_btn{
-      padding: p2r(20) p2r(10);
+      height: p2r(80);
       margin-top: p2r(20);
       background: #91c46c;
       color:#FFFFFF;

@@ -1637,13 +1637,16 @@
   margin: 0 auto;
   font-size: 0.75rem; }
   .info_alter .alter_items {
-    height: 3.4375rem;
-    line-height: 3.4375rem;
+    height: 2.5rem;
     border-bottom: 0.03125rem solid #e7e7e7; }
+    .info_alter .alter_items input {
+      margin-top: 0.15625rem;
+      height: 2.1875rem;
+      vertical-align: bottom; }
     .info_alter .alter_items img {
       width: 1.25rem; }
     .info_alter .alter_items .verification_code_btn {
-      padding: 0.625rem 0.3125rem;
+      height: 2.5rem;
       margin-top: 0.625rem;
       background: #91c46c;
       color: #FFFFFF;
