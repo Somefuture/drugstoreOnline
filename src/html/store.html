@@ -206,7 +206,7 @@
     var product_list_template = _.template($("#product_list_template").html());
     $.getData = function (load_data_id) {
         var $load_data = $(load_data_id);
-        if($load_data.length == 0){
+        if($load_data.length === 0){
             // todo : remove scroll event
             return;
         }
