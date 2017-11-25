@@ -340,7 +340,6 @@
                 if(json && json.error) {
                     swal("", json.error.message);
                 }else {
-                    console.log(json);
                     var healthy_template = _.template($("#healthy_template").html());
                     $("#healthy").html(healthy_template({"healthy": json.success}));
                 }
