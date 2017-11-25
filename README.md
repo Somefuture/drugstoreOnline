@@ -15,9 +15,9 @@ http {
 
     server {
         listen       80;
-				client_max_body_size 20m;
+		client_max_body_size 20m;
 
-				set $proxy_to http://120.77.236.104:82;
+		set $proxy_to http://120.77.236.104:82;
         set $web_dev http://127.0.0.1:8000;
 
         proxy_http_version 1.1;
@@ -25,16 +25,20 @@ http {
     		proxy_set_header Connection "Upgrade";
     		proxy_set_header X-Requested-With $http_x_requested_with;
 
-    		location ^~ /file/ {
+    	location ^~ /file/ {
                 proxy_pass  $proxy_to$uri;
         }
 
-    		location ~ /.+\..+ {
-    				proxy_pass  $web_dev;
-    		}
+        location ^~ /statics/ {
+                proxy_pass  $proxy_to$uri;
+        }
 
-    		location / {
+    	location ~ /.+\..+ {
+    				proxy_pass  $web_dev;
+    	}
+
+    	location / {
     				proxy_pass  $proxy_to;
-    		}
+    	}
     }
 }
