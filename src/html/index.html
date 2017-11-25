@@ -334,7 +334,7 @@
     function get_healthy(){
         $.ajax({
             url: "/advertisement/materials/by_collection",
-            data: {"collectionID": 12},
+            data: {"collectionID": 10},
             headers: {"X-Requested-With": "h5"},
             success: function (json) {
                 if(json && json.error) {
