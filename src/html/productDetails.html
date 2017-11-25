@@ -164,6 +164,22 @@
     var id = get_query_string("id");
     var product_template = _.template($("#product_template").html());
     get_product(id);
+
+    var $specs_selector = $(".SKU_select");
+
+    var $add_shopping_cart_button = $(".addToCar");
+
+    function show_specs_selector(){
+        $specs_selector.addClass("show");
+    }
+    function hide_specs_selector(){
+        $specs_selector.removeClass("show");
+    }
+
+    $specs_selector.click(hide_specs_selector);
+
+    $add_shopping_cart_button.click(show_specs_selector);
+
     function get_product(id) {
         $.ajax({
             url: "/product",
