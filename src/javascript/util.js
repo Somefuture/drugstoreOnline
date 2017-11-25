@@ -7,10 +7,7 @@ function get_query_string(name) {
 
 function ajax(params) {
     var final_params = $.extend({
-        headers: {"X-Requested-With": "h5"},
-        error: function (json) {
-            swal("", json.error.message);
-        }
+        headers: {"X-Requested-With": "h5"}
     }, params);
     if (final_params.complete) {
         final_params.complete = function (response) {
@@ -22,6 +19,12 @@ function ajax(params) {
             final_params.complete(response);
         };
     }
+    final_params.success = function (json) {
+        if (json.error) {
+            swal("", json.error.message);
+        }
+        final_params.success(json);
+    };
     $.ajax(final_params);
 }
 
