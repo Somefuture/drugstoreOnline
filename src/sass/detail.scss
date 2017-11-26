@@ -205,13 +205,17 @@ $color-main:#0fb87f;
       }
       span{
         display: inline-block;
-        background: #e7e7e7;
+        background: #ffffff;
         font-size: p2r(28);
         color:#3c3c3c;
         padding: p2r(5);
         border: p2r(1) solid #b2b2b2;
         border-radius: p2r(20);
         margin-left: p2r(30);
+      }
+      span.disabled{
+        background: #f9f9f9;
+        color: #cbcbcb;
       }
       span.selected{
         background: $color-main;
