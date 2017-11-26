@@ -114,7 +114,7 @@ $color-main:#0fb87f;
           background: $color-main;
           color:#FFFFFF;
         }
-        .remind{
+        .remind, .done{
           border: p2r(1) solid $color-main;
           color:$color-main;
           background: transparent;
