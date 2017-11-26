@@ -25,7 +25,7 @@
 <body>
 <div class="shopping_header">
     <p class="title">收货地址</p>
-    <span class="edit_btn" onclick="location='editAddress.html'">新增</span>
+    <span class="edit_btn" onclick="location='/html/editAddress.html'">新增</span>
 </div>
 <div id="address"></div>
 <div class="footer">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="address">
                     <img src="../images/order/shopping_27.png" alt="">
-                    <p><%= add.provinceName %><%= add.suburbName %><%= add.unitDetail %></p>
+                    <p><%= add.provinceName %><%= add.cityName %><%= add.suburbName %><%= add.unitDetail %></p>
                 </div>
                 <div class="edit_address">
                     <% if(add.default===true){ %>
@@ -89,16 +89,16 @@
                             默认地址
                         </span>
                     <% }else{ %>
-                    <span class="default">
+                    <span class="default" onclick="set_def('<%= add.id %>')">
                         <img src="../images/shoppingcar/shopping_60.png" alt="">
                         设为默认
                         </span>
                     <% } %>
-                    <span class="delete">
+                    <span class="delete" onclick="delete_address('<%= add.id %>')">
                     <img src="../images/personal/personal_20.png" alt="">
                     删除
                 </span>
-                    <span class="edit" onclick="location='editAddress.html'">
+                    <span class="edit" onclick="location='/html/updateAddress.html?id=<%= add.id %>'">
                     <img src="../images/personal/personal_23.png" alt="">
                     编辑
                 </span>
@@ -117,21 +117,49 @@
     var address_template = _.template($("#address_template").html());
     get_address();
     function get_address() {
-        $.ajax({
-            url:"/user/addresses",
-            headers: {"X-Requested-With": "h5"},
-            success:function(json){
-                if (json && json.error) {
-                    swal("", json.error.message);
-                } else {
+        ajax({
+            url: "/user/addresses",
+            success: function (json) {
+                if (!json.error) {
                     $("#address").html(address_template({"address": json.success}));
                 }
-            },
-            error:function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
+            }
+        })
+    }
+    function delete_address(id) {
+        ajax({
+            url: "/user/address/delete",
+            type: "post",
+            data: {id: id},
+            success: function (json) {
+                if (!json.error) {
+                    swal({
+                            title: "",
+                            text: "地址删除成功"
+                        },
+                        function () {
+                            window.location.reload();
+                        }
+                    );
+                }
+            }
+        })
+    }
+    function set_def(id) {
+        ajax({
+            url: "/user/address/set_default",
+            type: "post",
+            data: {id: id},
+            success: function (json) {
+                if (!json.error) {
+                    swal({
+                            title: "",
+                            text: "默认地址设置成功"
+                        },
+                        function () {
+                            window.location.reload();
+                        }
+                    );
                 }
             }
         })

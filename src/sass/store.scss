@@ -11,12 +11,8 @@ $bottom-border:p2r(1) solid #e7e7e7;
   height: p2r(90);
   padding-top: p2r(20);
   background: $color-main;
-  img{
-    width: 5%;
-    height: p2r(56);
-    margin-left: p2r(20);
-  }
   .search{
+    margin-left:8%;
     display: inline-block;
     width:75%;
     height: p2r(56);

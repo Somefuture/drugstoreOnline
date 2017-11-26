@@ -127,15 +127,14 @@ $line-border:p2r(1) solid #cccccc;
       width: p2r(30);
       margin-right: p2r(10);
     }
-    .to_part{
-      display: inline-block;
-      width: p2r(40);
-      height: p2r(40);
-      float: right;
-      img{
-        width: p2r(20);
-        margin-top: p2r(10);
-      }
+  }
+  .department_select{
+    width: 94%;
+    margin: p2r(5) auto;
+    text-align: center;
+    select{
+      width: 30%;
+      font-size: p2r(20);
     }
   }
   .detail_address{

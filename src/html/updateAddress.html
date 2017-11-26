@@ -6,16 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
-    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <!-- uc强制竖屏 -->
-    <meta name="screen-orientation" content="portrait">
-    <!-- QQ强制竖屏 -->
-    <meta name="x5-orientation" content="portrait">
-    <!-- UC强制全屏 -->
-    <meta name="full-screen" content="yes">
-    <!-- QQ强制全屏 -->
-    <meta name="x5-fullscreen" content="true">
     <!-- UC应用模式 -->
     <meta name="browsermode" content="application">
     <!-- QQ应用模式 -->
@@ -31,41 +21,7 @@
 <div class="shopping_header">
     <p class="title">收货地址</p>
 </div>
-<div class="edit_body">
-    <div class="name">
-        <img src="../images/personal/personal_26.png" alt="">
-        <input type="text" placeholder="收货人" id="consignee">
-    </div>
-    <div class="phone">
-        <img src="../images/personal/personal_29.png" alt="">
-        <input type="number" placeholder="手机号码" id="mobile">
-    </div>
-    <div class="department">
-        <img src="../images/personal/personal_32.png" alt="">
-        收货区域
-    </div>
-    <div class="department_select" id="suburbID">
-        <select name="province" id="provinces">
-            <option value="default">请选择省份</option>
-        </select>
-        <select name="city" id="cities">
-            <option value="default">请选择城市</option>
-        </select>
-        <select name="suburb" id="suburbs">
-            <option value="default">请选择地区</option>
-        </select>
-    </div>
-    <div class="detail_address">
-        <h2>详细地址</h2>
-        <textarea name="" id="detailed_adr" cols="30" rows="5">
-        </textarea>
-        <span id="isDefault" name="0">
-            <img src="../images/shoppingcar/shopping_60.png" alt="">
-            设为默认
-        </span>
-        <div class="save_btn" id="save_btn">保存设置</div>
-    </div>
-</div>
+<div id="address"></div>
 <div class="footer">
     <ul class="nav">
         <li>
@@ -109,12 +65,65 @@
     <option value="<%= suburb.id %>"><%= suburb.name %></option>
     <% }) %>
 </script>
+<script type="text/template" id="address_template">
+    <div class="edit_body">
+        <div class="name">
+            <img src="../images/personal/personal_26.png" alt="">
+            <input type="text" placeholder="收货人" id="consignee" value="<%= address.consignee %>">
+        </div>
+        <div class="phone">
+            <img src="../images/personal/personal_29.png" alt="">
+            <input type="number" placeholder="手机号码" id="mobile" value="<%= address.mobile %>">
+        </div>
+        <div class="department">
+            <img src="../images/personal/personal_32.png" alt="">
+            收货区域
+        </div>
+        <div class="department_select" id="suburbID">
+            <select name="province" id="provinces">
+                <option value="default"><%= address.provinceName %></option>
+            </select>
+            <select name="city" id="cities">
+                <option value="default"><%= address.cityName %></option>
+            </select>
+            <select name="suburbs" id="suburbs">
+                <option value="default"><%= address.suburbName %></option>
+            </select>
+        </div>
+        <div class="detail_address">
+            <h2>详细地址</h2>
+            <textarea name="" id="detailed_adr" cols="30" rows="5">
+                <%= address.unitDetail %>
+        </textarea>
+            <span id="isDefault" name="<%= address.default %>">
+            <img src="../images/shoppingcar/shopping_60.png" alt="">
+            设为默认
+        </span>
+            <div class="save_btn" id="save_btn">保存设置</div>
+        </div>
+    </div>
+</script>
 <script src="../javascript/jquery-3.2.1.min.js"></script>
 <script src="../javascript/sweetalert.min.js"></script>
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
 <script>
     $(document).ready(function () {
+        var id=get_query_string("id");
+        get_address(id);
+        function get_address(id) {
+            ajax({
+                url: "/user/address",
+                data:{id:id},
+                success: function (json) {
+                    if (!json.error) {
+                        var address_template = _.template($("#address_template").html());
+                        $("#address").html(address_template({"address": json.success}));
+                        console.log(json.success);
+                    }
+                }
+            })
+        }
         function get_provinces(){
             ajax({
                 url:"/region/provinces",
@@ -172,7 +181,7 @@
             }
         }
         $("#isDefault").click(set_default);
-        function addAdr() {
+        function updateAdr() {
             var mobile=$("#mobile").val();
             var consignee=$("#consignee").val();
             var provinceID=$("#provinces").val();
@@ -181,9 +190,10 @@
             var detailed_adr=$("#detailed_adr").val();
             var default_name=!!$("#isDefault")[0].getAttribute("name");
             ajax({
-                url:"/user/address/create",
+                url:"/user/address/update",
                 type:"post",
                 data:{
+                    id:id,
                     mobile:mobile,
                     consignee:consignee,
                     provinceID:provinceID,
@@ -197,7 +207,7 @@
                         show_swal = true;
                         swal({
                                 title: "",
-                                text: "地址新增成功"
+                                text: "地址修改成功"
                             },
                             function () {
                                 window.location.href = '/html/address.html';
@@ -207,7 +217,7 @@
                 }
             })
         }
-        $("#save_btn").click(addAdr);
+        $("#save_btn").click(updateAdr);
     })
 </script>
 </body>

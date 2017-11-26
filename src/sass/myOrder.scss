@@ -201,6 +201,8 @@ $color-main:#0fb87f;
       display: inline-block;
       width: p2r(175);
       height:p2r(48);
+      margin-left: p2r(50);
+      border: p2r(1) solid #e7e7e7;
       border-radius: p2r(5);
       background: #ffffff;
       span{
@@ -210,8 +212,8 @@ $color-main:#0fb87f;
         width: p2r(44);
         height: p2r(48);
         img{
-          width:p2r(38);
-          margin-left: p2r(5);
+          width:p2r(30);
+          margin-left: p2r(8);
           vertical-align: middle;
         }
       }
