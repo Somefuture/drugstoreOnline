@@ -32,12 +32,12 @@
     <img src="../images/tab/tab_03.png" alt="" onclick="location='shoppingCar.html'">
     <p class="title">我的订单</p>
 </div>
-<ul class="order_tab" onclick="active_order_tab()">
+<ul class="order_tab" onclick="active_order_tab(event)">
     <li class="all active">全部</li>
     <li class="obligation">待付款</li>
     <li class="receiving">待收货</li>
     <li class="finished">已完成</li>
-    <li class="closed">已关闭</li>
+    <li class="closed">待评价</li>
 </ul>
 <div id="order_list"></div>
 <div class="footer">
@@ -76,12 +76,62 @@
 <script src="../javascript/util.js"></script>
 <script type="text/template" id="order_list_template">
     <div class="order_lists">
+        <div class="order_combine_product">
+            <div class="combine_name">希诺宁成人型</div>
+            <ul class="combine_lists">
+                <li>
+                    <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+                    <div class="product_details">
+                        <div class="combine_product_name">
+                            冲剂
+                        </div>
+                        <div class="detail_content">
+                            <span class="product_price">￥88.00</span>
+                            <span class="original_price">￥66</span>
+                            <span class="product_amount">x4</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+                    <div class="product_details">
+                        <div class="combine_product_name">
+                            冲剂
+                        </div>
+                        <div class="detail_content">
+                            <span class="product_price">￥88.00</span>
+                            <span class="original_price">￥66</span>
+                            <span class="product_amount">x4</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+                    <div class="product_details">
+                        <div class="combine_product_name">
+                            冲剂
+                        </div>
+                        <div class="detail_content">
+                            <span class="product_price">￥88.00</span>
+                            <span class="original_price">￥66</span>
+                            <span class="product_amount">x4</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="combine_amount">
+                <span class="price">￥188</span>
+                <span class="original_price">￥288</span>
+                <span class="quantity">x2</span>
+            </div>
+        </div>
         <% var status_params = ""; %>
         <% _.each(statuses, function(status, index) { %>
             <% status_params = status_params + "&statuses[" + index + "]=" + status; %>
         <% }) %>
         <% if(success) { %>
             <% _.each(success.list, function (order) { %>
+                <% var is_sku_not_exist = false; %>
                 <% var StatusMap = {"pending": "待付款", "success": "待发货", "done": "已完成", "shipped": "已发货", "returning": "退款中","returned": "已退款", "failed": "付款失败", "canceled": "已取消"} %>
                 <div class="order_detail">
                     <div class="detail_title">
@@ -90,14 +140,15 @@
                     </div>
                     <ul class="order_product" onclick="location='orderDetail.html'">
                         <% _.each(order.items, function (item) { %>
+                            <% if(!item.sku) is_sku_not_exist = true; %>
                             <li>
                                 <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
                                 <div class="product_details">
                                     <div class="product_name">
-                                        <%= item.sku.name %>
+                                        <%= item.sku ? item.sku.name : "商品过期不存在" %>
                                     </div>
                                     <div class="detail_content">
-                                        <span class="product_price">￥<%= item.sku.salesPrice %></span>
+                                        <span class="product_price">￥<%= item.sku ? item.sku.salesPrice : "" %></span>
                                         <span class="product_amount">x<%= item.quantity %></span>
                                     </div>
                                 </div>
@@ -108,16 +159,10 @@
                         共<%= order.items.length %>件商品 总价（含运费￥<%= order.deliveryCost %>）
                         <span class="price">￥<%= order.payment %></span>
                         <div class="operation">
-                            <% if(order.status === "pending") %>
+                            <% if(!is_sku_not_exist && order.status === "pending") %>
                                 <button class="to_pay" onclick="to_pay(<%= order.id %>)">去支付</button>
-                            <% else if(order.status === "success") %>
-                                <button class="remind">提醒发货</button>
-                            <% else if(order.status === "done") %>
-                                <button class="buy_again">再次购买</button>
-                            <% else if(order.status === "failed") %>
-                                <button class="buy_again">再次购买</button>
-                            <% else if(order.status === "canceled") { %>
-                                <button class="buy_again">再次购买</button>
+                            <% else if(order.status === "success" || order.status === "shipped") { %>
+                                <button class="done" onclick="order_done(<%= order.id %>)">确认收货</button>
                             <% } %>
                         </div>
                     </div>
@@ -134,9 +179,14 @@
     </div>
 </script>
 <script>
+    var active_order_statuses = [];
     var template = _.template($("#order_list_template").html());
-    $("#order_list").html(template({success: null, statuses: []}));
-    scroll_load_more("#order_list", template, "a.bottom_info", {statuses: []});
+    load_orders();
+
+    function load_orders() {
+        $("#order_list").html(template({success: null, statuses: active_order_statuses}));
+        scroll_load_more("#order_list", template, "a.bottom_info", {statuses: active_order_statuses});
+    }
 
     function active_order_tab(e) {
         if(e.target.tagName === "LI") {
@@ -146,48 +196,40 @@
                 });
                 $(e.target).addClass("active");
                 if(e.target.innerText === "全部") {
-                    $("#order_list").html(template({success: null, statuses: []}));
-                    scroll_load_more("#order_list", template, "a.bottom_info", {statuses: []});
+                    active_order_statuses = [];
                 }else if(e.target.innerText === "待付款") {
-                    $("#order_list").html(template({success: null, statuses: ["pending"]}));
-                    scroll_load_more("#order_list", template, "a.bottom_info", {statuses: ["pending"]});
+                    active_order_statuses = ["pending"];
                 }else if(e.target.innerText === "待收货") {
-                    $("#order_list").html(template({success: null, statuses: ["success", "shipped"]}));
-                    scroll_load_more("#order_list", template, "a.bottom_info", {statuses: ["success", "shipped"]});
+                    active_order_statuses = ["success", "shipped"];
                 }else if(e.target.innerText === "已完成") {
-                    $("#order_list").html(template({success: null, statuses: ["done"]}));
-                    scroll_load_more("#order_list", template, "a.bottom_info", {statuses: ["done"]});
-                }else if(e.target.innerText === "已关闭") {
-                    $("#order_list").html(template({success: null, statuses: ["failed", "canceled"]}));
-                    scroll_load_more("#order_list", template, "a.bottom_info", {statuses: ["failed", "canceled"]});
+                    active_order_statuses = ["done"];
                 }
             }
+            load_orders();
         }
     }
 
     function to_pay(orderID) {
-        $.ajax({
+        ajax({
             type: "post",
             url: "/product/order/pay",
             data: {"orderID": orderID},
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if(json && json.error) {
-                    swal("", json.error.message);
-                }else {
-                    window.location.href = json.success;
-                }
-            },
-            error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
+            success: function () {
+                window.location.href = json.success;
             }
         });
     }
 
+    function order_done(orderID) {
+        ajax({
+            type: "post",
+            url: "/product/order/done",
+            data: {"orderID": orderID},
+            success: function () {
+                load_orders();
+            }
+        });
+    }
 
 </script>
 </html>

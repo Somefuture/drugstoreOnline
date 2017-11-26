@@ -19,12 +19,13 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>编辑信息</title>
     <link rel="stylesheet" href="../css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
 <div class="shopping_header">
-    <img src="../images/tab/tab_03.png" alt="">
     <p class="title">编辑信息</p>
 
 </div>
@@ -33,30 +34,30 @@
         <img src="../images/personal/user_103.png" alt="">
         基础信息
     </div>
-    <div class="info_item">
+    <div class="info_item" onclick="location='changeName.html'">
         姓名
-        <span class="to_edit" onclick="location='changeName.html'">
+        <span class="to_edit">
             <img src="../images/personal/home_57@2x.png" alt="">
         </span>
-        <span class="default_info">范冰冰</span>
+        <span id="user_name"></span>
     </div>
     <div class="info_title">
         <img src="../images/personal/user_100.png" alt="">
         账号信息
     </div>
-    <div class="info_item">
+    <div class="info_item" onclick="location='changePassword.html'">
         修改密码
         <span class="to_edit">
-            <img src="../images/personal/home_57@2x.png" alt="" onclick="location='password.html'">
+            <img src="../images/personal/home_57@2x.png" alt="" >
         </span>
-        <span class="default_info"> </span>
+
     </div>
-    <div class="info_item">
+    <div class="info_item" onclick="location='changePhone.html'">
         更换手机号码
-        <span class="to_edit" onclick="location='changePhone.html'">
+        <span class="to_edit">
             <img src="../images/personal/home_57@2x.png" alt="">
         </span>
-        <span class="default_info">138-8888-8888</span>
+        <span class="default_info"> </span>
     </div>
 </div>
 <div class="footer">
@@ -88,4 +89,36 @@
     </ul>
 </div>
 </body>
+<script type="text/template" id="name_template">
+    <span class="default_info"><%= personal.name %></span>
+</script>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="../javascript/sweetalert.min.js"></script>
+<script src="../javascript/underscore-1.8.3.min.js"></script>
+<script src="../javascript/util.js"></script>
+<script>
+    get_personal(window.localStorage.getItem('userId'));
+    function get_personal(id) {
+        $.ajax({
+            url:"/user",
+            data:{"userID":id},
+            headers: {"X-Requested-With": "h5"},
+            success:function(json) {
+                if (json && json.error) {
+                    swal("", json.error.message);
+                } else {
+                    var name_template = _.template($("#name_template").html());
+                    $("#user_name").html(name_template({"personal": json.success}));
+                }
+            },
+            error:function (xhr, status, message) {
+                if(message === "Unauthorized") {
+                    window.location.href = "login.html";
+                }else {
+                    swal("", "系统繁忙，请稍后再试。");
+                }
+            }
+        });
+    }
+</script>
 </html>

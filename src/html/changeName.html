@@ -37,22 +37,57 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>修改姓名</title>
     <link rel="stylesheet" href="../css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
 <div class="shopping_header">
-    <img src="../images/tab/tab_03.png" alt="">
     <p class="title">修改姓名</p>
-    <span class="edit_btn">保存</span>
+    <span class="edit_btn" id="edit_btn">保存</span>
 </div>
 <div class="info_alter">
     <div class="alter_items">
-        <input type="text" placeholder="请输入姓名">
+        <input type="text" placeholder="请输入姓名" id="username">
     </div>
     <p>
         4-20个字符，可由中英文、数字、“-”、“_”组成
     </p>
 </div>
 </body>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="../javascript/sweetalert.min.js"></script>
+<script src="../javascript/underscore-1.8.3.min.js"></script>
+<script src="../javascript/util.js"></script>
+<script>
+    var show_swal = false;
+    function changeName() {
+        var username = $("#username").val();
+        if (!username) {
+            show_swal = true;
+            swal("", "请输入姓名");
+        } else if(username.length<2||username.length>20){
+            show_swal = true;
+            swal("", "格式有误");
+        }else {
+            ajax({
+                type: "post",
+                url: "/user/name/update",
+                data: {"name": username},
+                success: function (json) {
+                    if(!json.error){
+                        swal({
+                                title:"",
+                                text:"姓名修改成功"},
+                            function(){window.location.href='/html/personal.html'}
+                        );
+                    }
+                }
+            });
+        }
+    }
+
+    $("#edit_btn").click(changeName);
+</script>
 </html>

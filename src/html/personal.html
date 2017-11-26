@@ -169,9 +169,13 @@
                 if(message === "Unauthorized") {
                     window.location.href = "login.html";
                 }else {
-                    swal("", "系统繁忙，请稍后再试。");
+                        swal({
+                                title:"",
+                                text:"请先登录"},
+                            function(){window.location.href='/html/login.html'}
+                        );
+                    }
                 }
-            }
         });
     }
     var point_template = _.template($("#point_template").html());
