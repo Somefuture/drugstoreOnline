@@ -35,28 +35,28 @@
             <img src="../images/shoppingcar/shopping_60.png" alt="">
             全选 <span>1号购物车（药店取货）</span>
         </div>
-        <div class="empty_shoppingCar hidden">
+        <div class="offline empty_shoppingCar hidden">
             <img src="../images/shoppingcar/shopping_44.png" alt="">
             <p>购物车空空如也 <br>去抢购吧…</p>
             <a href="store.html">
                 <button>去逛逛</button>
             </a>
         </div>
-        <div id="offline_shopping_car_items"></div>
+        <div id="offline_shopping_car"></div>
     </div>
     <div class="carTwo">
         <div class="shoppingCar_title">
             <img src="../images/shoppingcar/shopping_60.png" alt="">
             全选 <span>2号购物车（邮购）</span>
         </div>
-        <div class="empty_shoppingCar hidden">
+        <div class="online empty_shoppingCar hidden">
             <img src="../images/shoppingcar/shopping_44.png" alt="">
             <p>购物车空空如也 <br>去抢购吧…</p>
             <a href="store.html">
                 <button>去逛逛</button>
             </a>
         </div>
-        <div id="online_shopping_car_items"></div>
+        <div id="online_shopping_car"></div>
     </div>
     <div class="settle_accounts">
         <span class="account_details">
@@ -98,7 +98,7 @@
 <script src="../javascript/sweetalert.min.js"></script>
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
-<script type="text/template" id="offline_shopping_car_items_template">
+<script type="text/template" id="offline_shopping_car_template">
     <ul class="shoppingCar_content">
         <% _.each(items, function (item) { %>
         <li>
@@ -106,7 +106,9 @@
             <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
             <div class="product_details">
                 <span class="pharmacy">药店</span>
-                <span class="mail_order">邮购</span>
+                <% if() { %>
+                    <span class="mail_order">邮购</span>
+                <% } %>
                 <div class="detail_title">
                     <span class="product_name">商品名称商品名称</span>
                 </div>
@@ -122,7 +124,7 @@
         <% }); %>
     </ul>
 </script>
-<script type="text/template" id="online_shopping_car_items_template">
+<script type="text/template" id="online_shopping_car_template">
     <ul class="shoppingCar_content">
         <% _.each(items, function (item) { %>
         <li>
@@ -147,25 +149,38 @@
     </ul>
 </script>
 <script>
+
+    var online_template = _.template($("#online_shopping_car_template").html());
+    var offline_template = _.template($("#offline_shopping_car_template").html());
+    var $online_shopping_car = $("#online_shopping_car");
+    var $offline_shopping_car = $("#offline_shopping_car");
+    var $online_empty_car = $(".online.empty_shoppingCar");
+    var $offline_empty_car = $(".offline.empty_shoppingCar");
+
     get_shopping_car("online");
 
+    get_shopping_car("offline");
+
     function get_shopping_car(type) {
-        $.ajax({
+        ajax({
             url: "/shopping_cart",
             data: {"type": type},
             headers: {"X-Requested-With": "h5"},
             success: function (json) {
-                if(json && json.error) {
-                    swal("", json.error.message);
+                if(json.success.length) {
+                    if(type === "online") {
+                        $online_empty_car.addClass("hidden");
+                        $online_shopping_car.html(online_template({"items": json.success}));
+                    }else if(type === "offline") {
+                        $offline_empty_car.addClass("hidden");
+                        $offline_shopping_car.html(offline_template({"items": json.success}));
+                    }
                 }else {
-                    console.log(json);
-                }
-            },
-            error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
+                    if(type === "online") {
+                        $online_empty_car.removeClass("hidden");
+                    }else if(type === "offline") {
+                        $offline_empty_car.removeClass("hidden");
+                    }
                 }
             }
         });
