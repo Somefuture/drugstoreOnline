@@ -76,7 +76,13 @@
                 url: "/user/name/update",
                 data: {"name": username},
                 success: function (json) {
-                    window.location.href = "personalEdit.html";
+                    if(!json.error){
+                        swal({
+                                title:"",
+                                text:"姓名修改成功"},
+                            function(){window.location.href='/html/personal.html'}
+                        );
+                    }
                 }
             });
         }

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-		<title></title>
+		<title>登陆</title>
 		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/sweetalert.css"/>
 	</head>
@@ -23,12 +23,12 @@
 			<button id="login">登 录</button>
 			<div class="lo-more div-flex">
 				<div class="one-flex align-l">
-					<a href="register.html">
+					<a href="/html/register.html">
 						<span>注册新用户</span>
 					</a>
 				</div>
 				<div class="one-flex align-r">
-					<a href="password.html">
+					<a href="/html/changePassword.html">
 						<span>忘记密码？</span>
 					</a>
 				</div>
@@ -69,9 +69,10 @@
                     url: "/account/mobile/signin",
                     data: {"mobile": username, "password": password},
                     success: function (json) {
-                        console.log(json);
-                        window.localStorage.setItem('userId',JSON.stringify(json.success));
-                        window.location.href = "index.html";
+                        if(!json.error){
+                            window.localStorage.setItem('userId',JSON.stringify(json.success));
+                            window.location.href = "index.html";
+						}
                     }
                 });
             }

@@ -136,6 +136,10 @@ $color-main:#0fb87f;
     font-size: p2r(28);
     color:#3c3c3c;
     padding-left: p2r(20);
+    img{
+      width: p2r(40);
+      margin-right: p2r(20);
+    }
   }
   .combine_lists{
     width: 90%;
