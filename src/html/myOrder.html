@@ -37,7 +37,7 @@
     <li class="obligation">待付款</li>
     <li class="receiving">待收货</li>
     <li class="finished">已完成</li>
-    <li class="closed">已关闭</li>
+    <li class="closed">待评价</li>
 </ul>
 <div id="order_list"></div>
 <div class="footer">
@@ -76,6 +76,55 @@
 <script src="../javascript/util.js"></script>
 <script type="text/template" id="order_list_template">
     <div class="order_lists">
+        <div class="order_combine_product">
+            <div class="combine_name">希诺宁成人型</div>
+            <ul class="combine_lists">
+                <li>
+                    <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+                    <div class="product_details">
+                        <div class="combine_product_name">
+                            冲剂
+                        </div>
+                        <div class="detail_content">
+                            <span class="product_price">￥88.00</span>
+                            <span class="original_price">￥66</span>
+                            <span class="product_amount">x4</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+                    <div class="product_details">
+                        <div class="combine_product_name">
+                            冲剂
+                        </div>
+                        <div class="detail_content">
+                            <span class="product_price">￥88.00</span>
+                            <span class="original_price">￥66</span>
+                            <span class="product_amount">x4</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+                    <div class="product_details">
+                        <div class="combine_product_name">
+                            冲剂
+                        </div>
+                        <div class="detail_content">
+                            <span class="product_price">￥88.00</span>
+                            <span class="original_price">￥66</span>
+                            <span class="product_amount">x4</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="combine_amount">
+                <span class="price">￥188</span>
+                <span class="original_price">￥288</span>
+                <span class="quantity">x2</span>
+            </div>
+        </div>
         <% var status_params = ""; %>
         <% _.each(statuses, function(status, index) { %>
             <% status_params = status_params + "&statuses[" + index + "]=" + status; %>
