@@ -101,26 +101,41 @@
 <script type="text/template" id="offline_shopping_car_template">
     <ul class="shoppingCar_content">
         <% _.each(items, function (item) { %>
-        <li>
-            <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
-            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <span class="pharmacy">药店</span>
-                <% if() { %>
-                    <span class="mail_order">邮购</span>
+            <li>
+                <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
+                <% if(item.sku) { %>
+                    <% var prescription_style = item.sku.prescription ? " hidden" : ""; %>
+                    <div class="product_img">
+                        <img src="/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>" alt="">
+                    </div>
+                    <div class="product_details">
+                        <span class="pharmacy">药店</span>
+                        <span class="mail_order<%= prescription_style %>">邮购</span>
+                        <div class="detail_title">
+                            <span class="product_name"><%= item.sku.name %></span>
+                        </div>
+                        <div class="product_price"><%= item.sku.salesPrice %></div>
+                        <div class="product_amount">
+                            <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
+                            <span class="amount"><%= item.quantity %></span>
+                            <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
+                        </div>
+                        <button class="move<%= prescription_style %>">去邮购</button>
+                    </div>
+                <% } else if(item.combo) { %>
+                <% var prescription_style = item.combo.hasPrescription ? " hidden" : ""; %>
+
+                <% name = item.sku.name %>
+                <% is_prescription = item.sku.prescription %>
+                <% product_img_src = "/file/public/" + item.sku.image.id + "." + item.sku.image.ext %>
+                <% price = item.sku.salesPrice %>
+                <% } else { %>
+
                 <% } %>
-                <div class="detail_title">
-                    <span class="product_name">商品名称商品名称</span>
-                </div>
-                <div class="product_price">￥588</div>
-                <div class="product_amount">
-                    <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                    <span class="amount">10</span>
-                    <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
-                </div>
-                <button>去邮购</button>
-            </div>
-        </li>
+
+
+
+            </li>
         <% }); %>
     </ul>
 </script>
