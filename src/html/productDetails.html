@@ -80,13 +80,14 @@
         <div class="SKU_quantity">
             数量
             <div class="product_amount">
-                <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
+                <span id="minus_sku_quantity" class="sub"><img src="../images/shoppingcar/shopping_11.png"
+                                                               alt=""></span>
                 <span id="sku_quantity" class="amount">1</span>
-                <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
+                <span id="add_sku_quantity" class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
             </div>
         </div>
         <div class="SKU_select_footer">
-            <span class="add_to_shoppingCar">加入购物车</span>
+            <span id="add_to_shopping_cart_inner_button" class="add_to_shoppingCar">加入购物车</span>
             <span class="buy_now">立即购买</span>
         </div>
     </div>
@@ -177,19 +178,56 @@
         var $specs_selector = $(".SKU_select_content");
         var $add_shopping_cart_button = $(".addToCar");
         var $specs = $(".SKU_category");
+        var $keys;
+        var keys = {};
+        var key_names = {};
+        var skus = {};
+        var sku_images = {};
         get_product(id);
         render_banner(id);
 
+        function get_selected() {
+            var selected = [];
+            _.each($keys.find("span.selected"), function (_value) {
+                var $value = $(_value);
+                var valueID = parseInt($value.attr("data-value-id"));
+                var value = $value.html();
+                var keyID = parseInt($value.attr("data-key-id"));
+                selected.push([keyID, [valueID, value]]);
+            });
+            return selected;
+        }
+
+        function get_sku() {
+            var maybe_selected_all = get_selected();
+            if (maybe_selected_all.length === _.keys(keys).length) {
+                return _.filter(_.keys(skus), function (sku_id) {
+                    return _.every(maybe_selected_all, function (spec) {
+                        var sku_spec = skus[sku_id][spec[0]];
+                        return sku_spec[0] === spec[1][0] && sku_spec[1] === spec[1][1];
+                    });
+                })[0];
+            }
+            return 0;
+        }
+
+        var $sku_quantity = $("#sku_quantity");
+        $("#minus_sku_quantity").click(function () {
+            var quantity = parseInt($sku_quantity.html());
+            if (quantity > 0) {
+                $sku_quantity.html(quantity - 1);
+            }
+        });
+        $("#add_sku_quantity").click(function () {
+            var quantity = parseInt($sku_quantity.html());
+            $sku_quantity.html(quantity + 1);
+        });
 
         function load_skus() {
             ajax({
                 url: "/product/skus/by_product",
                 data: {"productID": id},
                 success: function (json) {
-                    var keys = {};
-                    var key_names = {};
-                    var skus = {};
-                    var sku_images = {};
                     _.each(json.success, function (data) {
                         var sku_keys = {};
                         sku_images[data.sku.id] = data.sku.image;
@@ -218,37 +256,12 @@
                         }
                     }));
 
-                    var $keys = $specs.find("div");
-
-                    function get_selected() {
-                        var selected = [];
-                        _.each($keys.find("span.selected"), function (_value) {
-                            var $value = $(_value);
-                            var valueID = parseInt($value.attr("data-value-id"));
-                            var value = $value.html();
-                            var keyID = parseInt($value.attr("data-key-id"));
-                            selected.push([keyID, [valueID, value]]);
-                        });
-                        return selected;
-                    }
+                    $keys = $specs.find("div");
 
                     function get_available_skus_by_spec(sku_keys, keyID, valueID, value) {
                         return _.filter(sku_keys, function (sku_id) {
                             return skus[sku_id][keyID][0] === valueID && skus[sku_id][keyID][1] === value;
                         });
-                    }
-
-                    function get_sku() {
-                        var maybe_selected_all = get_selected();
-                        if (maybe_selected_all.length === _.keys(keys).length) {
-                            return _.filter(_.keys(skus), function (sku_id) {
-                                return _.every(maybe_selected_all, function (spec) {
-                                    var sku_spec = skus[sku_id][spec[0]];
-                                    return sku_spec[0] === spec[1][0] && sku_spec[1] === spec[1][1];
-                                });
-                            })[0];
-                        }
-                        return 0;
                     }
 
                     $keys.delegate("span", "click", function () {
@@ -334,7 +347,33 @@
 
         $specs_selector_layer.click(hide_specs_selector);
 
-        $add_shopping_cart_button.click(show_specs_selector);
+        function add_sku_to_shopping_cart(sku_id) {
+            ajax({
+                url: "/shopping_cart/sku_item/add",
+                method: "post",
+                data: {productSKUID: sku_id, quantity: $sku_quantity.html()},
+                success:function(){
+                    $keys.find("span").removeClass("selected").removeClass("disabled");
+                    hide_specs_selector();
+                }
+            });
+        }
+
+        $("#add_to_shopping_cart_inner_button").click(function(){
+            var maybe_sku = get_sku();
+            if (maybe_sku) {
+                add_sku_to_shopping_cart(maybe_sku);
+            }
+        });
+
+        $add_shopping_cart_button.click(function () {
+            var maybe_sku = get_sku();
+            if (maybe_sku) {
+                add_sku_to_shopping_cart(maybe_sku);
+            } else {
+                show_specs_selector();
+            }
+        });
 
         function get_product(id) {
             ajax({
@@ -351,7 +390,6 @@
                 url: "/product/images",
                 data: {"id": id},
                 success: function (json) {
-                    console.log(json.success[0]);
                     $("#sku_image").attr("src", "/file/public/" + json.success[0].id + "." + json.success[0].ext);
                     var banner_template = _.template($("#banner_template").html());
                     $("#banner").html(banner_template({"images": json.success}));
