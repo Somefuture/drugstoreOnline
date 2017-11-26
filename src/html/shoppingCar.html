@@ -124,17 +124,8 @@
                     </div>
                 <% } else if(item.combo) { %>
                 <% var prescription_style = item.combo.hasPrescription ? " hidden" : ""; %>
-
-                <% name = item.sku.name %>
-                <% is_prescription = item.sku.prescription %>
-                <% product_img_src = "/file/public/" + item.sku.image.id + "." + item.sku.image.ext %>
-                <% price = item.sku.salesPrice %>
                 <% } else { %>
-
                 <% } %>
-
-
-
             </li>
         <% }); %>
     </ul>
