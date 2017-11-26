@@ -92,11 +92,11 @@ $color-main:#0fb87f;
         .pharmacy{
           background: $color-main;
           top:0;
-          right: p2r(60);
+          right: p2r(0);
         }
         .mail_order{
           top:0;
-          right: p2r(0);
+          right: p2r(60);
         }
         .detail_title{
           height: p2r(40);

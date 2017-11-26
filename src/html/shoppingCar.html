@@ -32,7 +32,7 @@
 <div class="shoppingCar_body">
     <div class="carOne">
         <div class="shoppingCar_title">
-            <img src="../images/shoppingcar/shopping_60.png" alt="">
+            <img class="offline-select-all" src="../images/shoppingcar/shopping_60.png" onclick="toggle_offline_all(event)">
             全选 <span>1号购物车（药店取货）</span>
         </div>
         <div class="offline empty_shoppingCar hidden">
@@ -46,7 +46,7 @@
     </div>
     <div class="carTwo">
         <div class="shoppingCar_title">
-            <img src="../images/shoppingcar/shopping_60.png" alt="">
+            <img class="online-select-all" src="../images/shoppingcar/shopping_60.png" onclick="toggle_online_all(event)">
             全选 <span>2号购物车（邮购）</span>
         </div>
         <div class="online empty_shoppingCar hidden">
@@ -56,68 +56,12 @@
                 <button>去逛逛</button>
             </a>
         </div>
-        <li>
-            <div class="order_combine_product">
-                <div class="combine_name"><img src="../images/shoppingcar/shopping_60.png" alt="">希诺宁成人型</div>
-                <ul class="combine_lists">
-                    <li>
-                        <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-                        <div class="product_details">
-                            <div class="combine_product_name">
-                                冲剂
-                            </div>
-                            <div class="detail_content">
-                                <span class="product_price">￥88.00</span>
-                                <span class="original_price">￥66</span>
-                                <span class="product_amount">x4</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-                        <div class="product_details">
-                            <div class="combine_product_name">
-                                冲剂
-                            </div>
-                            <div class="detail_content">
-                                <span class="product_price">￥88.00</span>
-                                <span class="original_price">￥66</span>
-                                <span class="product_amount">x4</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-                        <div class="product_details">
-                            <div class="combine_product_name">
-                                冲剂
-                            </div>
-                            <div class="detail_content">
-                                <span class="product_price">￥88.00</span>
-                                <span class="original_price">￥66</span>
-                                <span class="product_amount">x4</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="combine_amount">
-                    <span class="price">￥188</span>
-                    <span class="original_price">￥288</span>
-                    <div class="product_amount">
-                        <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                        <span class="amount">10</span>
-                        <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
-                    </div>
-                    <button>去药店</button>
-                </div>
-            </div>
-        </li>
         <div id="online_shopping_car"></div>
     </div>
     <div class="settle_accounts">
         <span class="account_details">
-            <span class="count">共5件商品</span>
-            总价<span class="price">￥996.00</span>
+            <span class="count">共0件商品</span>
+            总价<span class="price">￥0.00</span>
         </span><span class="account" onclick="location='orderConfirm.html'">去结算</span>
     </div>
 </div>
@@ -154,98 +98,290 @@
 <script src="../javascript/sweetalert.min.js"></script>
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
-<script type="text/template" id="offline_shopping_car_template">
+<script type="text/template" id="shopping_car_template">
     <ul class="shoppingCar_content">
         <% _.each(items, function (item) { %>
+            <% var select_img_url = "../images/shoppingcar/shopping_" + (find_selected_item_index(item.id) === -1 ? "60" : "57") + ".png"; %>
+            <% var shopping_car_id = item.type + "_shopping_car"; %>
             <li>
-                <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
                 <% if(item.sku) { %>
-                    <% var prescription_style = item.sku.prescription ? " hidden" : ""; %>
+                    <div class="select_img">
+                        <img src="<%= select_img_url %>" data-type="<%= item.type %>" data-id="<%= item.id %>" onclick="toggle_item(event)">
+                    </div>
                     <div class="product_img">
                         <img src="/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>" alt="">
                     </div>
                     <div class="product_details">
                         <span class="pharmacy">药店</span>
-                        <span class="mail_order<%= prescription_style %>">邮购</span>
+                        <% if(!item.sku.prescription) { %>
+                            <span class="mail_order">邮购</span>
+                        <% } %>
                         <div class="detail_title">
                             <span class="product_name"><%= item.sku.name %></span>
                         </div>
                         <div class="product_price"><%= item.sku.salesPrice %></div>
-                        <div class="product_amount">
-                            <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                            <span class="amount"><%= item.quantity %></span>
-                            <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
+                        <div class="product_amount" data-inventory="<%= item.sku.inventory %>">
+                            <span class="sub">
+                                <img src="../images/shoppingcar/shopping_11.png" data-id="<%= item.id %>" onclick="sub_quantity(event)">
+                            </span>
+                            <span class="quantity">
+                                <%= item.quantity %>
+                            </span>
+                            <span class="add">
+                                <img src="../images/shoppingcar/shopping_16.png" data-id="<%= item.id %>" onclick="add_quantity(event)">
+                            </span>
                         </div>
-                        <button class="move<%= prescription_style %>">去邮购</button>
+                        <% if(item.type === "offline" && !item.sku.prescription) { %>
+                            <button onclick="move_to_shopping_cart(<%= item.id %>, 'online')">去邮购</button>
+                        <% } else if(item.type === "online") { %>
+                            <button onclick="move_to_shopping_cart(<%= item.id %>, 'offline')">去药店</button>
+                        <% } %>
                     </div>
-                <% } else if(item.combo) { %>
-                <% var prescription_style = item.combo.hasPrescription ? " hidden" : ""; %>
                 <% } else { %>
+                    <div class="order_combine_product">
+                        <div class="combine_name">
+                            <img src="<%= select_img_url %>" data-type="<%= item.type %>" data-id="<%= item.id %>" onclick="toggle_item(event)">
+                            <%= item.combo.name %>
+                        </div>
+                        <ul class="combine_lists">
+                            <% var combo_inventory = 0; %>
+                            <% var combo_price = 0; %>
+                            <% var combo_original_price = 0; %>
+                            <% _.each(item.combo.units, function(unit) { %>
+                                <% combo_inventory = combo_inventory ? Math.min(combo_inventory, unit.sku.inventory) : unit.sku.inventory; %>
+                                <% combo_price = combo_price + unit.comboPrice; %>
+                                <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
+                                <li>
+                                    <div class="product_img">
+                                        <img src="/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>" alt="">
+                                    </div>
+                                    <div class="product_details">
+                                        <div class="combine_product_name">
+                                            <%= unit.sku.name %>
+                                        </div>
+                                        <div class="detail_content">
+                                            <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
+                                            <span class="original_price">￥<%= unit.sku.salesPrice %></span>
+                                            <span class="product_amount">x<%= unit.quantity %></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            <% }) %>
+                        </ul>
+                        <div class="combine_amount">
+                            <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
+                            <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
+                            <div class="product_amount" data-inventory="<%= combo_inventory %>">
+                                <span class="sub">
+                                    <img src="../images/shoppingcar/shopping_11.png" data-id="<%= item.id %>" onclick="sub_quantity(event)">
+                                </span>
+                                <span class="quantity">
+                                    <%= item.quantity %>
+                                </span>
+                                <span class="add">
+                                    <img src="../images/shoppingcar/shopping_16.png" data-id="<%= item.id %>" onclick="add_quantity(event)">
+                                </span>
+                            </div>
+                            <% if(item.type === "offline" && !item.combo.hasPrescription) { %>
+                                <button onclick="move_to_shopping_cart(<%= item.id %>, 'online')">去邮购</button>
+                            <% } else if(item.type === "online") { %>
+                                <button onclick="move_to_shopping_cart(<%= item.id %>, 'offline')">去药店</button>
+                            <% } %>
+                        </div>
+                    </div>
                 <% } %>
             </li>
-        <% }); %>
-    </ul>
-</script>
-<script type="text/template" id="online_shopping_car_template">
-    <ul class="shoppingCar_content">
-        <% _.each(items, function (item) { %>
-        <li>
-            <div class="select_img"><img src="../images/shoppingcar/shopping_60.png" alt=""></div>
-            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <span class="pharmacy">药店</span>
-                <span class="mail_order">邮购</span>
-                <div class="detail_title">
-                    <span class="product_name">商品名称商品名称</span>
-                </div>
-                <div class="product_price">￥588</div>
-                <div class="product_amount">
-                    <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                    <span class="amount">10</span>
-                    <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
-                </div>
-                <button>去药店</button>
-            </div>
-        </li>
-        <% }); %>
+        <% }) %>
     </ul>
 </script>
 <script>
 
-    var online_template = _.template($("#online_shopping_car_template").html());
-    var offline_template = _.template($("#offline_shopping_car_template").html());
+    var shopping_car_items = [];
+    var selected_items = [];
+    var shopping_car_template = _.template($("#shopping_car_template").html());
     var $online_shopping_car = $("#online_shopping_car");
     var $offline_shopping_car = $("#offline_shopping_car");
     var $online_empty_car = $(".online.empty_shoppingCar");
     var $offline_empty_car = $(".offline.empty_shoppingCar");
 
-    get_shopping_car("online");
+    get_shopping_car();
 
-    get_shopping_car("offline");
-
-    function get_shopping_car(type) {
+    function get_shopping_car() {
+        shopping_car_items = [];
         ajax({
             url: "/shopping_cart",
-            data: {"type": type},
-            headers: {"X-Requested-With": "h5"},
+            data: {"type": "online"},
             success: function (json) {
+                shopping_car_items = shopping_car_items.concat(json.success);
                 if(json.success.length) {
-                    if(type === "online") {
-                        $online_empty_car.addClass("hidden");
-                        $online_shopping_car.html(online_template({"items": json.success}));
-                    }else if(type === "offline") {
-                        $offline_empty_car.addClass("hidden");
-                        $offline_shopping_car.html(offline_template({"items": json.success}));
-                    }
+                    if(!$online_empty_car.hasClass("hidden")) $online_empty_car.addClass("hidden");
+                    $online_shopping_car.html(shopping_car_template({"items": json.success}));
+                    refresh_select_all("online");
+                    refresh_total();
                 }else {
-                    if(type === "online") {
-                        $online_empty_car.removeClass("hidden");
-                    }else if(type === "offline") {
-                        $offline_empty_car.removeClass("hidden");
-                    }
+                    if($online_empty_car.hasClass("hidden")) $online_empty_car.removeClass("hidden");
+                }
+            }
+        });
+        ajax({
+            url: "/shopping_cart",
+            data: {"type": "offline"},
+            success: function (json) {
+                shopping_car_items = shopping_car_items.concat(json.success);
+                if(json.success.length) {
+                    if(!$offline_empty_car.hasClass("hidden")) $offline_empty_car.addClass("hidden");
+                    $offline_shopping_car.html(shopping_car_template({"items": json.success}));
+                    refresh_select_all("offline");
+                    refresh_total();
+                }else {
+                    if($offline_empty_car.hasClass("hidden")) $offline_empty_car.removeClass("hidden");
                 }
             }
         });
     }
+    
+    function move_to_shopping_cart(id, type) {
+        ajax({
+            url: "/shopping_cart/move_to",
+            data: {"ids[0]": id, "type": type},
+            type: "post",
+            success: function () {
+                get_shopping_car();
+            }
+        });
+    }
+
+    function sub_quantity(e) {
+        var $quantity = $(e.target.parentNode).next();
+        var quantity = parseInt($quantity.text());
+        if(quantity > 1) {
+            var item_id = parseInt($(e.target).attr("data-id"));
+            ajax({
+                url: "/shopping_cart/update",
+                data: {"id": item_id, "quantity": quantity - 1},
+                type: "post",
+                success: function () {
+                    get_shopping_car();
+                }
+            });
+        }
+    }
+
+    function add_quantity(e) {
+        var $quantity = $(e.target.parentNode).prev();
+        var quantity = parseInt($quantity.text());
+        var inventory = parseInt($quantity.parent().attr("data-inventory"));
+        if(quantity < inventory) {
+            var item_id = parseInt($(e.target).attr("data-id"));
+            ajax({
+                url: "/shopping_cart/update",
+                data: {"id": item_id, "quantity": quantity + 1},
+                type: "post",
+                success: function () {
+                    get_shopping_car();
+                }
+            });
+        }else {
+            swal("", "库存不足");
+        }
+    }
+
+    function toggle_item(e) {
+        var $element = $(e.target);
+        var item_id = parseInt($element.attr("data-id"));
+        var item_type = $element.attr("data-type");
+        if(/shopping_57.png$/.test($element.attr("src"))) {
+            $element.attr("src", "../images/shoppingcar/shopping_60.png");
+            var index = find_selected_item_index(item_id);
+            if(index !== -1) selected_items.splice(index, 1);
+        }else {
+            $element.attr("src", "../images/shoppingcar/shopping_57.png");
+            selected_items.push(item_id);
+        }
+        refresh_select_all(item_type);
+        refresh_total();
+    }
+
+    function toggle_online_all(e) {
+        var $element =  $(e.target);
+        if(/shopping_57.png$/.test($element.attr("src"))) {
+            $element.attr("src", "../images/shoppingcar/shopping_60.png");
+            $(".carTwo img[src$='shopping_57.png']").each(function () {
+                $(this).attr("src", "../images/shoppingcar/shopping_60.png");
+                var item_id = parseInt($(this).attr("data-id"));
+                _.without(selected_items, item_id);
+            });
+        }else {
+            $element.attr("src", "../images/shoppingcar/shopping_57.png");
+            $(".carTwo  img[src$='shopping_60.png']").each(function () {
+                $(this).attr("src", "../images/shoppingcar/shopping_57.png");
+                var item_id = parseInt($(this).attr("data-id"));
+                selected_items.push(item_id);
+            });
+        }
+        refresh_total();
+    }
+
+    function toggle_offline_all(e) {
+        var $element =  $(e.target);
+        if(/shopping_57.png$/.test($element.attr("src"))) {
+            $element.attr("src", "../images/shoppingcar/shopping_60.png");
+            $(".carOne img[src$='shopping_57.png']").each(function () {
+                $(this).attr("src", "../images/shoppingcar/shopping_60.png");
+                var item_id = parseInt($(this).attr("data-id"));
+                _.without(selected_items, item_id);
+            });
+        }else {
+            $element.attr("src", "../images/shoppingcar/shopping_57.png");
+            $(".carOne  img[src$='shopping_60.png']").each(function () {
+                $(this).attr("src", "../images/shoppingcar/shopping_57.png");
+                var item_id = parseInt($(this).attr("data-id"));
+                selected_items.push(item_id);
+            });
+        }
+        refresh_total();
+    }
+
+    function find_selected_item_index(id) {
+        return _.indexOf(selected_items, id);
+    }
+
+    function refresh_select_all(type) {
+        if($("img[src='../images/shoppingcar/shopping_60.png'][data-type='" + type + "']").length === 0) {
+            $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_57.png");
+        }else {
+            $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_60.png");
+        }
+    }
+
+    function refresh_total() {
+        var total = get_selected_total();
+        var $count = $(".settle_accounts .count");
+        var $price = $(".settle_accounts .price");
+        $count.html("共" + total.count + "件商品");
+        $price.html("￥" + Math.round(total.price * 100) / 100);
+    }
+
+    function get_selected_total() {
+        var count = 0;
+        var price = 0;
+        _.map(selected_items, function (id) {
+            var item = _.find(shopping_car_items, {id: id});
+            if(item) {
+                count = count + 1;
+                if(item.sku) {
+                    price = price + item.sku.salesPrice * item.quantity;
+                }else {
+                    var comboPrice = 0;
+                    _.map(item.combo.units, function (unit) {
+                        comboPrice = comboPrice + unit.comboPrice;
+                    });
+                    price = price + comboPrice * item.quantity;
+                }
+            }
+        });
+        return {count: count, price: price};
+    }
+
 </script>
 </html>
