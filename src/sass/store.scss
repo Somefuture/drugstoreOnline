@@ -52,17 +52,25 @@ $bottom-border:p2r(1) solid #e7e7e7;
 }
 .store_body{
   background: #fafafa;
+  padding-bottom: p2r(140);
   .banner{
     width: 100%;
     height: p2r(345);
     background: #e7e7e7;
+    img {
+      width: 100%;
+      height: p2r(345);
+    }
   }
   .category{
     width: 100%;
-    padding-bottom: p2r(54);
+    img{
+      width: 100%;
+    }
     ul{
+      display: none;
       width: 94%;
-      margin: 0 auto;
+      margin: p2r(54) auto p2r(20) auto;
       li{
         display: inline-block;
         width: 23.5%;
@@ -78,7 +86,6 @@ $bottom-border:p2r(1) solid #e7e7e7;
     }
   }
   .product_lists{
-    padding-bottom: p2r(140);
     .bottom_info{
       display: block;
       width: 100%;

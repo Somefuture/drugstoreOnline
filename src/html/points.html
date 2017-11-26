@@ -26,7 +26,6 @@
 </head>
 <body>
 <div class="shopping_header">
-    <img src="../images/tab/tab_03.png" alt="">
     <p class="title">我的积分</p>
 </div>
 <div class="total_body">
@@ -64,7 +63,7 @@
 </body>
 <script type="text/template" id="point_template">
     <div class="usable_total">
-        <p><%= point.frozenBalance %></p>
+        <p><%= point.balance %></p>
         <span>当前可用积分</span>
     </div>
 </script>
@@ -129,7 +128,6 @@
                 if (json && json.error) {
                     swal("", json.error.message);
                 } else {
-                    console.log(json.success);
                     $("#point_detail").html(point_detail_template({"points": json.success}));
                 }
             },
