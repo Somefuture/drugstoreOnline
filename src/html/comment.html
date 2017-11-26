@@ -42,11 +42,10 @@
 </head>
 <body>
 <div class="detail_header">
-    <img src="../images/details/tab_03.png" alt="">
     <div class="items">
-        <span><a href="productDetails.html">商品</a></span>
-        <span><a href="specification.html">说明书</a></span>
-        <span class="active"><a href="#">评论</a></span>
+        <span><a href="#" id="product_menu">商品</a></span>
+        <span><a href="#" id="instruction_menu">说明书</a></span>
+        <span class="active"><a href="#" id="post_menu">评论</a></span>
     </div>
 </div>
 <div class="comment">
@@ -168,4 +167,32 @@
     </ul>
 </div>
 </body>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="../javascript/sweetalert.min.js"></script>
+<script src="../javascript/swiper.min.js"></script>
+<script src="../javascript/underscore-1.8.3.min.js"></script>
+<script src="../javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        var id = get_query_string("id");
+        var $instruction_menu = $("#instruction_menu");
+        $instruction_menu.click(function(){
+            if(!$instruction_menu.hasClass("active")){
+                window.location.href = "/html/specification.html?id="+id;
+            }
+        });
+        var $product_menu = $("#product_menu");
+        $product_menu.click(function(){
+            if(!$product_menu.hasClass("active")){
+                window.location.href = "/html/productDetails.html?id="+id;
+            }
+        });
+        var $post_menu = $("#post_menu");
+        $post_menu.click(function(){
+            if(!$post_menu.hasClass("active")){
+                window.location.href = "/html/comment.html?id="+id;
+            }
+        });
+    });
+</script>
 </html>

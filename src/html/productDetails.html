@@ -46,9 +46,9 @@
 <body>
 <div class="detail_header">
     <div class="items">
-        <span class="active"><a href="#">商品</a></span>
-        <span><a href="specification.html">说明书</a></span>
-        <span><a href="comment.html">评论</a></span>
+        <span class="active"><a href="#" id="product_menu">商品</a></span>
+        <span><a href="#" id="instruction_menu">说明书</a></span>
+        <span><a href="#" id="post_menu">评论</a></span>
     </div>
 </div>
 <div id="product_body"></div>
@@ -137,32 +137,30 @@
             </div>
         </div>
         <ul class="detail_function">
-            <li>
-                <img src="../images/details/shoppingcar_17.png" alt="">
-                <div>附近药店</div>
-                <div class="toDetail">
-                    <img src="../images/details/home_57@2x.png" alt="">
-                </div>
-            </li>
-            <li>
+            <!--<li>-->
+            <!--<img src="../images/details/shoppingcar_17.png" alt="">-->
+            <!--<div>附近药店</div>-->
+            <!--<div class="toDetail">-->
+            <!--<img src="../images/details/home_57@2x.png" alt="">-->
+            <!--</div>-->
+            <!--</li>-->
+            <li id="select_specs_option">
                 <div>选择（可选择规格 组合）</div>
                 <div class="toDetail">
                     <img src="../images/details/home_57@2x.png" alt="">
                 </div>
             </li>
-            <li>
-                <div>配送地</div>
-                <div class="toDetail">
-                    <img src="../images/details/home_57@2x.png" alt="">
-                </div>
-            </li>
+            <!--<li>-->
+            <!--<div>配送地</div>-->
+            <!--<div class="toDetail">-->
+            <!--<img src="../images/details/home_57@2x.png" alt="">-->
+            <!--</div>-->
+            <!--</li>-->
         </ul>
         <div class="warning">
             温馨提醒：请按药品说明书或在药师指导下购买和使用。
         </div>
-        <div class="particulars">
-            下拉加载图文详情
-        </div>
+        <div id="product_detail" class="particulars"></div>
     </div>
 </script>
 <script src="../javascript/jquery-3.2.1.min.js"></script>
@@ -183,6 +181,7 @@
         var key_names = {};
         var skus = {};
         var sku_images = {};
+
         get_product(id);
         render_banner(id);
 
@@ -352,14 +351,33 @@
                 url: "/shopping_cart/sku_item/add",
                 method: "post",
                 data: {productSKUID: sku_id, quantity: $sku_quantity.html()},
-                success:function(){
+                success: function () {
                     $keys.find("span").removeClass("selected").removeClass("disabled");
                     hide_specs_selector();
                 }
             });
         }
 
-        $("#add_to_shopping_cart_inner_button").click(function(){
+        var $instruction_menu = $("#instruction_menu");
+        $instruction_menu.click(function(){
+            if(!$instruction_menu.hasClass("active")){
+                window.location.href = "/html/specification.html?id="+id;
+            }
+        });
+        var $product_menu = $("#product_menu");
+        $product_menu.click(function(){
+            if(!$product_menu.hasClass("active")){
+                window.location.href = "/html/productDetails.html?id="+id;
+            }
+        });
+        var $post_menu = $("#post_menu");
+        $post_menu.click(function(){
+            if(!$post_menu.hasClass("active")){
+                window.location.href = "/html/comment.html?id="+id;
+            }
+        });
+
+        $("#add_to_shopping_cart_inner_button").click(function () {
             var maybe_sku = get_sku();
             if (maybe_sku) {
                 add_sku_to_shopping_cart(maybe_sku);
@@ -381,6 +399,17 @@
                 data: {"id": id},
                 success: function (json) {
                     $("#product_body").html(product_template({"product": json.success}));
+                    ajax({
+                        url: "/product/detail",
+                        data: {"id": id},
+                        success: function (json) {
+                            console.log(json.success);
+                            $("#product_detail").html(json.success);
+                        }
+                    });
+                    $("#select_specs_option").click(function () {
+                        show_specs_selector();
+                    });
                 }
             });
         }
