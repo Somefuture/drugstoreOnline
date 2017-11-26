@@ -72,7 +72,7 @@
 <div class="SKU_select">
     <div class="SKU_select_content">
         <div class="SKU_detail">
-            <img src="../images/details/home_48@2x.png" alt="">
+            <img id="sku_image" alt="" src="">
             <span class="SKU_price">￥198</span>
         </div>
         <div class="SKU_category">
@@ -81,7 +81,7 @@
             数量
             <div class="product_amount">
                 <span class="sub"><img src="../images/shoppingcar/shopping_11.png" alt=""></span>
-                <span class="amount">10</span>
+                <span id="sku_quantity" class="amount">1</span>
                 <span class="add"><img src="../images/shoppingcar/shopping_16.png" alt=""></span>
             </div>
         </div>
@@ -170,181 +170,206 @@
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
 <script>
-    var id = get_query_string("id");
-    var product_template = _.template($("#product_template").html());
-    var $specs_selector_layer = $(".SKU_select");
-    var $specs_selector = $(".SKU_select_content");
-    var $add_shopping_cart_button = $(".addToCar");
-    var $specs = $(".SKU_category");
-    get_product(id);
-    render_banner(id);
+    $(document).ready(function () {
+        var id = get_query_string("id");
+        var product_template = _.template($("#product_template").html());
+        var $specs_selector_layer = $(".SKU_select");
+        var $specs_selector = $(".SKU_select_content");
+        var $add_shopping_cart_button = $(".addToCar");
+        var $specs = $(".SKU_category");
+        get_product(id);
+        render_banner(id);
 
-    function load_skus() {
-        ajax({
-            url: "/product/skus/by_product",
-            data: {"productID": id},
-            success: function (json) {
-                var keys = {};
-                var key_names = {};
-                var skus = {};
-                _.each(json.success, function (data) {
-                    var sku_keys = {};
-                    _.each(data.spec, function (spec) {
-                        var value = [spec.valueID ? spec.valueID : 0, spec.value];
-                        var values = keys[spec.keyID];
-                        if (values) {
-                            if (_.every(values, function (_value) {
-                                    return !((_value[0] === value[0]) && (_value[1] === value[1]));
-                                })) {
-                                values.push(value);
-                            }
-                        } else {
-                            key_names[spec.keyID] = spec.keyName;
-                            keys[spec.keyID] = [value];
-                        }
-                        sku_keys[spec.keyID] = value;
-                    });
-                    skus[data.sku.id] = sku_keys;
-                });
-                var _template = _.template($("#specs").html());
-                $specs.html(_template({
-                    data: {
-                        keys: keys,
-                        key_names: key_names
-                    }
-                }));
 
-                var $keys = $specs.find("div");
-
-                function get_selected() {
-                    var selected = [];
-                    _.each($keys.find("span.selected"), function (_value) {
-                        var $value = $(_value);
-                        var valueID = parseInt($value.attr("data-value-id"));
-                        var value = $value.html();
-                        var keyID = parseInt($value.attr("data-key-id"));
-                        selected.push([keyID, [valueID, value]]);
-                    });
-                    return selected;
-                }
-
-                function get_available_skus_by_spec(sku_keys, keyID, valueID, value) {
-                    return _.filter(sku_keys, function (sku_id) {
-                        console.log(sku_id,skus[sku_id][keyID]);
-                        return skus[sku_id][keyID][0] === valueID && skus[sku_id][keyID][1] === value;
-                    });
-                }
-
-                $keys.delegate("span", "click", function () {
-                    var $this = $(this);
-                    var this_key_id = parseInt($this.attr("data-key-id"));
-                    var this_value_id = parseInt($this.attr("data-value-id"));
-                    var this_value = $this.html();
-                    var $key = $this.parent();
-                    var available_sku_ids;
-                    var selected_specs;
-                    if ($this.hasClass("selected")) {
-                        $this.removeClass("selected");
-                        available_sku_ids = _.keys(skus);
-                        selected_specs = get_selected();
-                    } else {
-                        $key.find(".selected").removeClass("selected");
-                        $this.addClass("selected");
-                        available_sku_ids = get_available_skus_by_spec(_.keys(skus), this_key_id, this_value_id, this_value);
-                        selected_specs = [[this_key_id, [this_value_id, this_value]]];
-                    }
-                    _.each(selected_specs, function (selected_spec) {
-                        available_sku_ids = get_available_skus_by_spec(available_sku_ids, selected_spec[0], selected_spec[1][0], selected_spec[1][1]);
-                    });
-                    var available_specs = {};
-                    _.each(available_sku_ids, function (available_sku_id) {
-                        _.each(_.pairs(skus[available_sku_id]), function (spec) {
-                            var values = available_specs[spec[0]];
+        function load_skus() {
+            ajax({
+                url: "/product/skus/by_product",
+                data: {"productID": id},
+                success: function (json) {
+                    var keys = {};
+                    var key_names = {};
+                    var skus = {};
+                    var sku_images = {};
+                    _.each(json.success, function (data) {
+                        var sku_keys = {};
+                        sku_images[data.sku.id] = data.sku.image;
+                        _.each(data.spec, function (spec) {
+                            var value = [spec.valueID ? spec.valueID : 0, spec.value];
+                            var values = keys[spec.keyID];
                             if (values) {
-                                if (!_.some(values, function (value) {
-                                        return value[0] === spec[1][0] && value[1] === spec[1][1];
+                                if (_.every(values, function (_value) {
+                                        return !((_value[0] === value[0]) && (_value[1] === value[1]));
                                     })) {
-                                    values.push([spec[1][0], spec[1][1]]);
+                                    values.push(value);
                                 }
                             } else {
-                                available_specs[spec[0]] = [[spec[1][0], spec[1][1]]];
+                                key_names[spec.keyID] = spec.keyName;
+                                keys[spec.keyID] = [value];
                             }
+                            sku_keys[spec.keyID] = value;
                         });
+                        skus[data.sku.id] = sku_keys;
                     });
-                    $keys.each(function () {
-                        $(this).children().each(function () {
-                            var $spec = $(this);
-                            var spec_key_id = $spec.attr("data-key-id");
-                            var spec_value_id = parseInt($spec.attr("data-value-id"));
-                            var spec_value = $spec.html();
-                            var values = available_specs[spec_key_id];
-                            if(values){
-                                if(_.some(values, function(value){return value[0] === spec_value_id && value[1] === spec_value;})){
-                                    $spec.removeClass("disabled");
+                    var _template = _.template($("#specs").html());
+                    $specs.html(_template({
+                        data: {
+                            keys: keys,
+                            key_names: key_names
+                        }
+                    }));
+
+                    var $keys = $specs.find("div");
+
+                    function get_selected() {
+                        var selected = [];
+                        _.each($keys.find("span.selected"), function (_value) {
+                            var $value = $(_value);
+                            var valueID = parseInt($value.attr("data-value-id"));
+                            var value = $value.html();
+                            var keyID = parseInt($value.attr("data-key-id"));
+                            selected.push([keyID, [valueID, value]]);
+                        });
+                        return selected;
+                    }
+
+                    function get_available_skus_by_spec(sku_keys, keyID, valueID, value) {
+                        return _.filter(sku_keys, function (sku_id) {
+                            return skus[sku_id][keyID][0] === valueID && skus[sku_id][keyID][1] === value;
+                        });
+                    }
+
+                    function get_sku() {
+                        var maybe_selected_all = get_selected();
+                        if (maybe_selected_all.length === _.keys(keys).length) {
+                            return _.filter(_.keys(skus), function (sku_id) {
+                                return _.every(maybe_selected_all, function (spec) {
+                                    var sku_spec = skus[sku_id][spec[0]];
+                                    return sku_spec[0] === spec[1][0] && sku_spec[1] === spec[1][1];
+                                });
+                            })[0];
+                        }
+                        return 0;
+                    }
+
+                    $keys.delegate("span", "click", function () {
+                        var $this = $(this);
+                        var this_key_id = parseInt($this.attr("data-key-id"));
+                        var this_value_id = parseInt($this.attr("data-value-id"));
+                        var this_value = $this.html();
+                        var $key = $this.parent();
+                        var available_sku_ids;
+                        var selected_specs;
+                        if ($this.hasClass("selected")) {
+                            $this.removeClass("selected");
+                            available_sku_ids = _.keys(skus);
+                            selected_specs = get_selected();
+                        } else {
+                            $key.find(".selected").removeClass("selected");
+                            $this.addClass("selected");
+                            available_sku_ids = get_available_skus_by_spec(_.keys(skus), this_key_id, this_value_id, this_value);
+                            selected_specs = [[this_key_id, [this_value_id, this_value]]];
+                        }
+                        _.each(selected_specs, function (selected_spec) {
+                            available_sku_ids = get_available_skus_by_spec(available_sku_ids, selected_spec[0], selected_spec[1][0], selected_spec[1][1]);
+                        });
+                        var available_specs = {};
+                        _.each(available_sku_ids, function (available_sku_id) {
+                            _.each(_.pairs(skus[available_sku_id]), function (spec) {
+                                var values = available_specs[spec[0]];
+                                if (values) {
+                                    if (!_.some(values, function (value) {
+                                            return value[0] === spec[1][0] && value[1] === spec[1][1];
+                                        })) {
+                                        values.push([spec[1][0], spec[1][1]]);
+                                    }
+                                } else {
+                                    available_specs[spec[0]] = [[spec[1][0], spec[1][1]]];
+                                }
+                            });
+                        });
+                        $keys.each(function () {
+                            $(this).children().each(function () {
+                                var $spec = $(this);
+                                var spec_key_id = $spec.attr("data-key-id");
+                                var spec_value_id = parseInt($spec.attr("data-value-id"));
+                                var spec_value = $spec.html();
+                                var values = available_specs[spec_key_id];
+                                if (values) {
+                                    if (_.some(values, function (value) {
+                                            return value[0] === spec_value_id && value[1] === spec_value;
+                                        })) {
+                                        $spec.removeClass("disabled");
+                                    } else {
+                                        $spec.removeClass("selected");
+                                        $spec.addClass("disabled");
+                                    }
                                 } else {
                                     $spec.removeClass("selected");
                                     $spec.addClass("disabled");
                                 }
-                            } else {
-                                $spec.removeClass("selected");
-                                $spec.addClass("disabled");
-                            }
+                            });
                         });
+                        var maybe_sku = get_sku();
+                        if (maybe_sku) {
+                            $("#sku_image").attr("src", "/file/public/" + sku_images[maybe_sku].id + "." + sku_images[maybe_sku].ext);
+                        }
                     });
-                });
-            }
+                }
+            });
+        }
+
+        load_skus();
+
+        function show_specs_selector() {
+            $specs_selector_layer.addClass("show");
+        }
+
+        function hide_specs_selector() {
+            $specs_selector_layer.removeClass("show");
+        }
+
+        $specs_selector.click(function (e) {
+            e.stopPropagation();
         });
-    }
 
-    load_skus();
+        $specs_selector_layer.click(hide_specs_selector);
 
-    function show_specs_selector() {
-        $specs_selector_layer.addClass("show");
-    }
+        $add_shopping_cart_button.click(show_specs_selector);
 
-    function hide_specs_selector() {
-        $specs_selector_layer.removeClass("show");
-    }
+        function get_product(id) {
+            ajax({
+                url: "/product",
+                data: {"id": id},
+                success: function (json) {
+                    $("#product_body").html(product_template({"product": json.success}));
+                }
+            });
+        }
 
-    $specs_selector.click(function (e) {
-        e.stopPropagation();
+        function render_banner() {
+            ajax({
+                url: "/product/images",
+                data: {"id": id},
+                success: function (json) {
+                    console.log(json.success[0]);
+                    $("#sku_image").attr("src", "/file/public/" + json.success[0].id + "." + json.success[0].ext);
+                    var banner_template = _.template($("#banner_template").html());
+                    $("#banner").html(banner_template({"images": json.success}));
+                    new Swiper('.swiper-container', {
+                        slidesPerView: 'auto',
+                        centeredSlides: true,
+                        autoplay: {
+                            delay: 2500
+                        },
+                        lazy: true,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true
+                        }
+                    });
+                }
+            });
+        }
     });
-
-    $specs_selector_layer.click(hide_specs_selector);
-
-    $add_shopping_cart_button.click(show_specs_selector);
-
-    function get_product(id) {
-        ajax({
-            url: "/product",
-            data: {"id": id},
-            success: function (json) {
-                $("#product_body").html(product_template({"product": json.success}));
-            }
-        });
-    }
-
-    function render_banner() {
-        ajax({
-            url: "/product/images",
-            data: {"id": id},
-            success: function (json) {
-                var banner_template = _.template($("#banner_template").html());
-                $("#banner").html(banner_template({"images": json.success}));
-                new Swiper('.swiper-container', {
-                    slidesPerView: 'auto',
-                    centeredSlides: true,
-                    autoplay: {
-                        delay: 2500
-                    },
-                    lazy: true,
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true
-                    }
-                });
-            }
-        });
-    }
 </script>
 </html>

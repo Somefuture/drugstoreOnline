@@ -208,13 +208,14 @@ $color-main:#0fb87f;
         background: #ffffff;
         font-size: p2r(28);
         color:#3c3c3c;
-        padding: p2r(5);
+        padding: 5px 10px;
         border: p2r(1) solid #b2b2b2;
-        border-radius: p2r(20);
-        margin-left: p2r(30);
+        border-radius: p2r(10);
+        margin: 0 0 10px 10px;
       }
       span.disabled{
         background: #f9f9f9;
+        border-color: #cbcbcb;
         color: #cbcbcb;
       }
       span.selected{
