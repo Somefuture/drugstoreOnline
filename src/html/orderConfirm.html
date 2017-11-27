@@ -67,30 +67,6 @@
         </div>
     </div>
     <ul class="order_product">
-        <li>
-            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <div class="detail_title">
-                    商品名称商品名称
-                </div>
-                <div class="detail_content">
-                    <span class="product_price">￥588</span>
-                    <span class="product_amount">x1</span>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <div class="detail_title">
-                    商品名称商品名称
-                </div>
-                <div class="detail_content">
-                    <span class="product_price">￥588</span>
-                    <span class="product_amount">x1</span>
-                </div>
-            </div>
-        </li>
     </ul>
     <div class="order_functions">
         <div class="delivery">
@@ -190,28 +166,47 @@
 <script src="../javascript/swiper.min.js"></script>
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
+<script type="text/template" id="product_template">
+    <li>
+        <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+        <div class="product_details">
+            <div class="detail_title">
+                商品名称商品名称
+            </div>
+            <div class="detail_content">
+                <span class="product_price">￥588</span>
+                <span class="product_amount">x1</span>
+            </div>
+        </div>
+    </li>
+</script>
 <script>
     $(document).ready(function () {
         ajax({
-            url:"/user/session",
-            success:function(json){
-                console.log(json);
-                if(json.success){
+            url: "/user/session",
+            success: function (json) {
+                if (json.success) {
                     $(".consignee_content .name").append(json.success.user.name);
                     $(".consignee_content .phone").append(json.success.user.mobile);
-                    ajax({
-                        url:"/user/session",
-                        success:function(json){
-                            console.log(json);
-                            if(json.success){
-                                $(".consignee_content .name").append(json.success.user.name);
-                                $(".consignee_content .phone").append(json.success.user.mobile);
-                            }
-                        }
-                    })
                 }
             }
         });
+
+        var scids = get_query_string("scids").split(";");
+        if (scids.length) {
+            var params = [];
+            for (var i = 0; i < scids.length; i++) {
+                params.push("ids[" + i + "]=" + scids[i])
+            }
+            ajax({
+                url: "/items/online/by_shopping_cart_item?" + params.join("&"),
+                success: function (json) {
+                    if (json.success) {
+
+                    }
+                }
+            });
+        }
     });
 </script>
 </html>

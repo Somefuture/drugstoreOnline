@@ -213,6 +213,10 @@
             }
         });
 
+        $(".shoppingCar").click(function(){
+            window.location.href = "/html/shoppingCar.html";
+        });
+
         var $sku_quantity = $("#sku_quantity");
         $("#minus_sku_quantity").click(function () {
             var quantity = parseInt($sku_quantity.html());

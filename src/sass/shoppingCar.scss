@@ -63,7 +63,7 @@ $color-main:#0fb87f;
         display: inline-block;
         width: p2r(32);
         height: p2r(30);
-        margin-left: p2r(20);
+        margin: 0 p2r(10) p2r(100) p2r(20);
         background-image: url(/images/shoppingcar/shopping_60.png);
       }
       .checkbox.selected{
@@ -229,6 +229,7 @@ $color-main:#0fb87f;
       }
     }
     .account{
+      float:right;
       display: inline-block;
       width: 30%;
       height: p2r(76);
