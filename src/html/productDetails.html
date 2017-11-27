@@ -206,6 +206,13 @@
             return 0;
         }
 
+        $(".buy_now").click(function(){
+            var sku_id = get_sku();
+            if(sku_id){
+                window.location.href = "/html/orderConfirm.html?sid="+sku_id;
+            }
+        });
+
         var $sku_quantity = $("#sku_quantity");
         $("#minus_sku_quantity").click(function () {
             var quantity = parseInt($sku_quantity.html());
