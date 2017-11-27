@@ -6,7 +6,7 @@ function get_query_string(name) {
 }
 
 function ajax(params) {
-    var final_params = $.extend({headers: {"X-Requested-With": "ec.mobile"}}, params);
+    var final_params = $.extend({headers: {"X-Requested-With": "ec.mobile", "Cache-Control": "no-cache"}}, params);
     final_params.complete = function (response) {
         if (response.status === 401 || response.status === 410) {
             window.location.href = "login.html";
