@@ -59,7 +59,7 @@
         <h2>详细地址</h2>
         <textarea name="" id="detailed_adr" cols="30" rows="5">
         </textarea>
-        <span id="isDefault" name="0">
+        <span id="isDefault">
             <img src="../images/shoppingcar/shopping_60.png" alt="">
             设为默认
         </span>
@@ -100,11 +100,13 @@
     <% }) %>
 </script>
 <script type="text/template" id="city_template">
+    <option value="default">请选择城市</option>
     <% _.each(cities,function(city){ %>
     <option value="<%= city.id %>"><%= city.name %></option>
     <% }) %>
 </script>
 <script type="text/template" id="suburb_template">
+    <option value="default">请选择地区</option>
     <% _.each(suburbs,function(suburb){ %>
     <option value="<%= suburb.id %>"><%= suburb.name %></option>
     <% }) %>
@@ -135,7 +137,7 @@
                 success:function(json){
                     if(!json.error){
                         var city_template = _.template($("#city_template").html());
-                        $("#cities").append(city_template({"cities": json.success}));
+                        $("#cities").html(city_template({"cities": json.success}));
                     }
                 }
             })
@@ -148,7 +150,7 @@
                 success:function(json){
                     if(!json.error){
                         var suburb_template = _.template($("#suburb_template").html());
-                        $("#suburbs").append(suburb_template({"suburbs": json.success}));
+                        $("#suburbs").html(suburb_template({"suburbs": json.success}));
                     }
                 }
             })
@@ -162,14 +164,12 @@
         });
         var isDefault=false;
         function set_default(){
-            isDefault=!isDefault;
             if(isDefault){
                 $("#isDefault").html("<img src=\"../images/shoppingcar/shopping_60.png\" alt=\"\">\n" + "设为默认");
-                $("#isDefault")[0].setAttribute("name","0");
             }else{
                 $("#isDefault").html("<img src=\"../images/shoppingcar/shopping_57.png\" alt=\"\">\n" + "默认地址");
-                $("#isDefault")[0].setAttribute("name","1");
             }
+            isDefault=!isDefault;
         }
         $("#isDefault").click(set_default);
         function addAdr() {
@@ -179,7 +179,7 @@
             var cityID=$("#cities").val();
             var suburbID=$("#suburbs").val();
             var detailed_adr=$("#detailed_adr").val();
-            var default_name=!!$("#isDefault")[0].getAttribute("name");
+            var default_name=isDefault;
             ajax({
                 url:"/user/address/create",
                 type:"post",

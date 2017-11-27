@@ -255,7 +255,6 @@
                     if (json && json.error) {
 
                     } else {
-                        console.log(json);
                         var notice_template = _.template($("#notice_template").html());
                         $("#notice").html(notice_template({"notices": json.success}));
                         setInterval(function(){
@@ -263,7 +262,6 @@
                             the_one.clone(true).addClass("hide").appendTo('.notice');
                             the_one.remove();
                             $('#notice .content').first().removeClass("hide");
-                            console.log($('#notice .content').first().html());
                         },3000);
                     }
                 }
