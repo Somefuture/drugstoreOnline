@@ -32,29 +32,15 @@
 <div class="shoppingCar_body">
     <div class="carOne">
         <div class="shoppingCar_title">
-            <img class="toggle-offline-all" src="../images/shoppingcar/shopping_60.png">
+            <div class="checkbox-all cover"></div>
             全选 <span>1号购物车（药店取货）</span>
         </div>
-        <div class="offline empty_shoppingCar hidden">
-            <img src="../images/shoppingcar/shopping_44.png" alt="">
-            <p>购物车空空如也 <br>去抢购吧…</p>
-            <a href="store.html">
-                <button>去逛逛</button>
-            </a>
-        </div>
-        <div id="offline_shopping_car"></div>
+        <div id="offline_shopping_cart"></div>
     </div>
     <div class="carTwo">
         <div class="shoppingCar_title">
-            <img class="toggle-online-all" src="../images/shoppingcar/shopping_60.png">
+            <div class="checkbox-all cover"></div>
             全选 <span>2号购物车（邮购）</span>
-        </div>
-        <div class="online empty_shoppingCar hidden">
-            <img src="../images/shoppingcar/shopping_44.png" alt="">
-            <p>购物车空空如也 <br>去抢购吧…</p>
-            <a href="store.html">
-                <button>去逛逛</button>
-            </a>
         </div>
         <div id="online_shopping_car"></div>
     </div>
@@ -62,7 +48,10 @@
         <span class="account_details">
             <span class="count">共0件商品</span>
             总价<span class="price">￥0.00</span>
-        </span><span class="account" onclick="location='orderConfirm.html'">去结算</span>
+        </span>
+        <span class="account" onclick="location='orderConfirm.html'">
+            去结算
+        </span>
     </div>
 </div>
 <div class="footer">
@@ -98,21 +87,15 @@
 <script src="../javascript/sweetalert.min.js"></script>
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
-<script type="text/template" id="shopping_car_template">
-    <ul class="shoppingCar_content">
+<script type="text/template" id="shopping_cart_template">
+    <% if(items.length) { %>
+    <ul class="shopping-cart-content" data-type="<%= items[0].type %>">
         <% _.each(items, function (item) { %>
-        <% var select_img_url = "../images/shoppingcar/shopping_" + (_.indexOf(selected_items, item.id) === -1 ? "60" :
-        "57") + ".png"; %>
-        <% var shopping_car_id = item.type + "_shopping_car"; %>
-        <li>
+        <li class="item" data-id="<%= item.id %>">
             <% if(item.sku) { %>
-            <div class="select_img">
-                <img class="toggle-item" src="<%= select_img_url %>" data-type="<%= item.type %>"
-                     data-id="<%= item.id %>">
-            </div>
-            <div class="product_img">
-                <img src="/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>" alt="">
-            </div>
+            <div class="checkbox cover <%=item.selected ? 'selected' : ''%>"></div>
+            <div class="product_img cover"
+                 style="background-image: url(/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>)"></div>
             <div class="product_details">
                 <span class="pharmacy">药店</span>
                 <% if(!item.sku.prescription) { %>
@@ -123,30 +106,20 @@
                 </div>
                 <div class="product_price"><%= item.sku.salesPrice %></div>
                 <div class="product_amount" data-inventory="<%= item.sku.inventory %>">
-                            <span class="sub">
-                                <img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"
-                                     data-id="<%= item.id %>">
-                            </span>
-                    <span class="quantity">
-                                <%= item.quantity %>
-                            </span>
-                    <span class="add">
-                                <img class="add-quantity" src="../images/shoppingcar/shopping_16.png"
-                                     data-id="<%= item.id %>">
-                            </span>
+                    <span class="sub"><img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"></span>
+                    <span class="quantity"><%= item.quantity %></span>
+                    <span class="add"><img class="add-quantity" src="../images/shoppingcar/shopping_16.png"></span>
                 </div>
-                <% if(item.type === "offline" && !item.sku.prescription) { %>
-                <button class="go-online" data-id="<%= item.id %>">去邮购</button>
-                <% } else if(item.type === "online") { %>
-                <button class="go-offline" data-id="<%= item.id %>">去药店</button>
+                <% if(!item.sku.prescription) { %>
+                <button class="toggle-carts">
+                    <%=item.type === "offline"?'去邮购':'去药店'%>
+                </button>
                 <% } %>
             </div>
             <% } else { %>
             <div class="order_combine_product">
                 <div class="combine_name">
-                    <img class="toggle-item" src="<%= select_img_url %>" data-type="<%= item.type %>"
-                         data-id="<%= item.id %>">
-                    <%= item.combo.name %>
+                    <img class="toggle-item <%=item.selected ? 'selected' : ''%>">
                 </div>
                 <ul class="combine_lists">
                     <% var combo_inventory = 0; %>
@@ -178,22 +151,14 @@
                     <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
                     <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
                     <div class="product_amount" data-inventory="<%= combo_inventory %>">
-                                <span class="sub">
-                                    <img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"
-                                         data-id="<%= item.id %>">
-                                </span>
-                        <span class="quantity">
-                                    <%= item.quantity %>
-                                </span>
-                        <span class="add">
-                                    <img class="add-quantity" src="../images/shoppingcar/shopping_16.png"
-                                         data-id="<%= item.id %>">
-                                </span>
+                        <span class="sub"><img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"></span>
+                        <span class="quantity"><%= item.quantity %></span>
+                        <span class="add"><img class="add-quantity" src="../images/shoppingcar/shopping_16.png"></span>
                     </div>
-                    <% if(item.type === "offline" && !item.combo.hasPrescription) { %>
-                    <button class="go-online" data-id="<%= item.id %>">去邮购</button>
-                    <% } else if(item.type === "online") { %>
-                    <button class="go-offline" data-id="<%= item.id %>">去药店</button>
+                    <% if(!item.combo.hasPrescription) { %>
+                    <button class="toggle-carts">
+                        <%=item.type === "offline"?'去邮购':'去药店'%>
+                    </button>
                     <% } %>
                 </div>
             </div>
@@ -201,31 +166,90 @@
         </li>
         <% }) %>
     </ul>
+    <% } else { %>
+    <div class="offline empty_shoppingCar hidden">
+        <img src="../images/shoppingcar/shopping_44.png" alt="">
+        <p>购物车空空如也 <br>去抢购吧…</p>
+        <a href="store.html">
+            <button>去逛逛</button>
+        </a>
+    </div>
+    <% } %>
 </script>
 <script>
+
     $(document).ready(function () {
-        var online_ids = [];
-        var offline_ids = [];
         var shopping_car_items = [];
-        var online_selected_items = [];
-        var offline_selected_items = [];
-        var shopping_cart_template = _.template($("#shopping_car_template").html());
+        var selected_items = [];
+        var shopping_cart_template = _.template($("#shopping_cart_template").html());
+        var $offline_shopping_cart = $("#offline_shopping_cart");
         var $online_shopping_cart = $("#online_shopping_car");
-        var $offline_shopping_car = $("#offline_shopping_car");
-        var $online_empty_car = $(".online.empty_shoppingCar");
-        var $offline_empty_car = $(".offline.empty_shoppingCar");
 
-        get_online_shopping_cart();
-        get_off_line_shopping_cart();
+        var $carts = $(".shoppingCar_body");
 
-        $(".toggle-online-all").click(toggle_online_all);
-        $(".toggle-offline-all").click(toggle_offline_all);
-        var $online_cart = $(".carTwo");
-        $online_cart.delegate(".add-quantity", "click", add_quantity);
-        $online_cart.delegate(".sub-quantity", "click", sub_quantity);
-        $online_cart.delegate(".go-online", "click", go_online);
-        $online_cart.delegate(".go-offline", "click", go_offline);
-        $online_cart.delegate(".toggle-item", "click", toggle_online_item);
+        function update() {
+
+        }
+
+        function add_quantity() {
+            var $parent = $(this).parent();
+            var $quantity = $parent.find(".quantity");
+            var quantity = parseInt($quantity.text());
+            var inventory = parseInt($parent.attr("data-inventory"));
+            var id = $parent.attr("data-id");
+            if (quantity < inventory) {
+                ajax({
+                    url: "/shopping_cart/update",
+                    data: {"id": id, "quantity": quantity + 1},
+                    type: "post",
+                    success: function () {
+                        $quantity.html(quantity + 1);
+                        update();
+                    }
+                });
+            }
+        }
+
+        function sub_quantity() {
+            var $parent = $(this).parent();
+            var $quantity = $parent.find(".quantity");
+            var quantity = parseInt($quantity.text());
+            var id = $parent.attr("data-id");
+            if (quantity > 1) {
+                ajax({
+                    url: "/shopping_cart/update",
+                    data: {"id": id, "quantity": quantity - 1},
+                    type: "post",
+                    success: function () {
+                        $quantity.html(quantity - 1);
+                        update();
+                    }
+                });
+            }
+        }
+
+        function get_shopping_carts() {
+            shopping_car_items = [];
+            get_offline_shopping_cart();
+            get_online_shopping_cart();
+        }
+
+        function get_offline_shopping_cart() {
+            ajax({
+                url: "/shopping_cart",
+                data: {"type": "offline"},
+                success: function (json) {
+                    if (json.success) {
+                        shopping_car_items = shopping_car_items.concat(json.success);
+                        _.each(json.success, function (item) {
+                            item.selected = selected_items.indexOf(item.id) > -1;
+                        });
+                        $offline_shopping_cart.html(shopping_cart_template({items: json.success}));
+                    }
+                    update();
+                }
+            });
+        }
 
         function get_online_shopping_cart() {
             ajax({
@@ -233,194 +257,119 @@
                 data: {"type": "online"},
                 success: function (json) {
                     if (json.success) {
-                        $online_shopping_cart.html(shopping_cart_template({
-                            items: json.success,
-                            selected_items: selected_items
-                        }));
-                    }
-                }
-            });
-        }
-
-        function get_off_line_shopping_cart() {
-            ajax({
-                url: "/shopping_cart",
-                data: {"type": "offline"},
-                success: function (json) {
-                    shopping_car_items = shopping_car_items.concat(json.success);
-                    if (json.success.length) {
-                        if (!$offline_empty_car.hasClass("hidden")) $offline_empty_car.addClass("hidden");
-                        $offline_shopping_car.html(shopping_car_template({
-                            items: json.success,
-                            selected_items: selected_items
-                        }));
-                        refresh_select_all("offline");
-                        refresh_total();
-                    } else {
-                        if ($offline_empty_car.hasClass("hidden")) $offline_empty_car.removeClass("hidden");
-                    }
-                }
-            });
-        }
-
-        function go_online(e) {
-            var id = $(e.target).attr("data-id");
-            ajax({
-                url: "/shopping_cart/move_to",
-                data: {"ids[0]": id, "type": "online"},
-                type: "post",
-                success: function () {
-                    get_shopping_car();
-                }
-            });
-        }
-
-        function go_offline(e) {
-            var id = $(e.target).attr("data-id");
-            ajax({
-                url: "/shopping_cart/move_to",
-                data: {"ids[0]": id, "type": "offline"},
-                type: "post",
-                success: function () {
-                    get_shopping_car();
-                }
-            });
-        }
-
-        function sub_quantity(e) {
-            var $quantity = $(e.target.parentNode).next();
-            var quantity = parseInt($quantity.text());
-            if (quantity > 1) {
-                var item_id = parseInt($(e.target).attr("data-id"));
-                ajax({
-                    url: "/shopping_cart/update",
-                    data: {"id": item_id, "quantity": quantity - 1},
-                    type: "post",
-                    success: function () {
-                        get_shopping_car();
-                    }
-                });
-            }
-        }
-
-        function add_quantity(e) {
-            var $quantity = $(e.target.parentNode).prev();
-            var quantity = parseInt($quantity.text());
-            var inventory = parseInt($quantity.parent().attr("data-inventory"));
-            if (quantity < inventory) {
-                var item_id = parseInt($(e.target).attr("data-id"));
-                ajax({
-                    url: "/shopping_cart/update",
-                    data: {"id": item_id, "quantity": quantity + 1},
-                    type: "post",
-                    success: function () {
-                        get_shopping_car();
-                    }
-                });
-            } else {
-                swal("", "库存不足");
-            }
-        }
-
-        var $online_select_all = $(".online-select-all");
-
-        function toggle_online_item() {
-            var $element = $(this);
-            var item_id = parseInt($element.attr("data-id"));
-            if (online_selected_items.indexOf(item_id) > -1) {
-                online_selected_items = _.without(online_selected_items, item_id);
-                $element.removeClass("selected");
-                $online_select_all.removeClass("selected")
-            } else {
-                online_selected_items.push(item_id);
-                $element.addClass("selected");
-                if (_.difference(online_ids, online_selected_items).length === 0) {
-                    $online_select_all.addClass("selected");
-                }
-            }
-            online_selected_items
-        }
-
-        function toggle_online_all(e) {
-            var $element = $(e.target);
-            if (/shopping_57.png$/.test($element.attr("src"))) {
-                $element.attr("src", "../images/shoppingcar/shopping_60.png");
-                $(".carTwo img[src$='shopping_57.png']").each(function () {
-                    $(this).attr("src", "../images/shoppingcar/shopping_60.png");
-                    var item_id = parseInt($(this).attr("data-id"));
-                    _.without(selected_items, item_id);
-                });
-            } else {
-                $element.attr("src", "../images/shoppingcar/shopping_57.png");
-                $(".carTwo  img[src$='shopping_60.png']").each(function () {
-                    $(this).attr("src", "../images/shoppingcar/shopping_57.png");
-                    var item_id = parseInt($(this).attr("data-id"));
-                    selected_items.push(item_id);
-                });
-            }
-            refresh_total();
-        }
-
-        function toggle_offline_all(e) {
-            var $element = $(e.target);
-            if (/shopping_57.png$/.test($element.attr("src"))) {
-                $element.attr("src", "../images/shoppingcar/shopping_60.png");
-                $(".carOne img[src$='shopping_57.png']").each(function () {
-                    $(this).attr("src", "../images/shoppingcar/shopping_60.png");
-                    var item_id = parseInt($(this).attr("data-id"));
-                    _.without(selected_items, item_id);
-                });
-            } else {
-                $element.attr("src", "../images/shoppingcar/shopping_57.png");
-                $(".carOne  img[src$='shopping_60.png']").each(function () {
-                    $(this).attr("src", "../images/shoppingcar/shopping_57.png");
-                    var item_id = parseInt($(this).attr("data-id"));
-                    selected_items.push(item_id);
-                });
-            }
-            refresh_total();
-        }
-
-        function find_selected_item_index(id) {
-            return _.indexOf(selected_items, id);
-        }
-
-        function refresh_select_all(type) {
-            if ($("img[src='../images/shoppingcar/shopping_60.png'][data-type='" + type + "']").length === 0) {
-                $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_57.png");
-            } else {
-                $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_60.png");
-            }
-        }
-
-        function refresh_total() {
-            var total = get_selected_total();
-            var $count = $(".settle_accounts .count");
-            var $price = $(".settle_accounts .price");
-            $count.html("共" + total.count + "件商品");
-            $price.html("￥" + Math.round(total.price * 100) / 100);
-        }
-
-        function get_selected_total() {
-            var count = 0;
-            var price = 0;
-            _.map(selected_items, function (id) {
-                var item = _.find(shopping_car_items, {id: id});
-                if (item) {
-                    count = count + 1;
-                    if (item.sku) {
-                        price = price + item.sku.salesPrice * item.quantity;
-                    } else {
-                        var comboPrice = 0;
-                        _.map(item.combo.units, function (unit) {
-                            comboPrice = comboPrice + unit.comboPrice;
+                        shopping_car_items = shopping_car_items.concat(json.success);
+                        _.each(json.success, function (item) {
+                            item.selected = selected_items.indexOf(item.id) > -1;
                         });
-                        price = price + comboPrice * item.quantity;
+                        $online_shopping_cart.html(shopping_cart_template({
+                            items: json.success
+                        }));
                     }
+                    update();
                 }
             });
-            return {count: count, price: price};
         }
+
+        function toggle_carts() {
+            var $this = $(this);
+            var id = $this.attr("data-id");
+            var type = $this.parents(".shopping-cart-content").attr("data-type");
+            ajax({
+                url: "/shopping_cart/move_to",
+                data: {"ids[0]": id, "type": type === "online" ? "offline" : "online"},
+                type: "post",
+                success: function (json) {
+                    if(json.error) {
+                        return;
+                    }
+                    get_shopping_carts();
+                }
+            });
+        }
+
+        function toggle_checkbox() {
+            var $this = $(this);
+            var id = $(this).parents("li.item").attr("data-id");
+            if($this.hasClass("selected")){
+                selected_items = _.without(selected_items,id);
+            } else {
+                selected_items.push(id);
+            }
+            $this.toggleClass("selected");
+            var $online_select_all = $(".carOne .checkbox-all");
+            var $offline_select_all = $(".carTwo .checkbox-all");
+            var type = $this.parents(".shopping-cart-content").attr("data-type");
+            var $selected;
+            if(type === "online"){
+                $selected = $offline_shopping_cart.find(".checkbox.selected");
+                $offline_select_all.removeClass("selected");
+            } else {
+                $selected = $online_shopping_cart.find(".checkbox").removeClass("selected");
+                $online_select_all.removeClass("selected");
+            }
+            $selected.removeClass("selected");
+            $selected.parents("li").each(function(){
+                selected_items = _.without(selected_items,$(this).attr("data-id"));
+            });
+            update();
+        }
+
+        $offline_shopping_cart.delegate(".add", "click", add_quantity);
+        $online_shopping_cart.delegate(".add", "click", add_quantity);
+        $offline_shopping_cart.delegate(".sub", "click", sub_quantity);
+        $online_shopping_cart.delegate(".sub", "click", sub_quantity);
+        $carts.delegate(".toggle-carts", "click", toggle_carts);
+        $carts.delegate(".checkbox", "click", toggle_checkbox);
+
+        get_shopping_carts();
+
+
+
+//
+//        var $online_select_all = $(".online-select-all");
+//
+
+//        function find_selected_item_index(id) {
+//            return _.indexOf(selected_items, id);
+//        }
+//
+//        function refresh_select_all(type) {
+//            if ($("img[src='../images/shoppingcar/shopping_60.png'][data-type='" + type + "']").length === 0) {
+//                $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_57.png");
+//            } else {
+//                $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_60.png");
+//            }
+//        }
+//
+//        function refresh_total() {
+//            var total = get_selected_total();
+//            var $count = $(".settle_accounts .count");
+//            var $price = $(".settle_accounts .price");
+//            $count.html("共" + total.count + "件商品");
+//            $price.html("￥" + Math.round(total.price * 100) / 100);
+//        }
+//
+//        function get_selected_total() {
+//            var count = 0;
+//            var price = 0;
+//            _.map(selected_items, function (id) {
+//                var item = _.find(shopping_car_items, {id: id});
+//                if (item) {
+//                    count = count + 1;
+//                    if (item.sku) {
+//                        price = price + item.sku.salesPrice * item.quantity;
+//                    } else {
+//                        var comboPrice = 0;
+//                        _.map(item.combo.units, function (unit) {
+//                            comboPrice = comboPrice + unit.comboPrice;
+//                        });
+//                        price = price + comboPrice * item.quantity;
+//                    }
+//                }
+//            });
+//            return {count: count, price: price};
+//        }
+
     });
 
 </script>
