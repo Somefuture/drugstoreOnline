@@ -19,8 +19,8 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>我的药箱</title>
     <link type="text/css" rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
-    <link type="text/css" rel="stylesheet" href="../css/index.css" />
+    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/index.css"/>
     <link type="text/css" rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
@@ -101,96 +101,104 @@
 <script type="text/template" id="shopping_car_template">
     <ul class="shoppingCar_content">
         <% _.each(items, function (item) { %>
-            <% var select_img_url = "../images/shoppingcar/shopping_" + (_.indexOf(selected_items, item.id) === -1 ? "60" : "57") + ".png"; %>
-            <% var shopping_car_id = item.type + "_shopping_car"; %>
-            <li>
-                <% if(item.sku) { %>
-                    <div class="select_img">
-                        <img class="toggle-item" src="<%= select_img_url %>" data-type="<%= item.type %>" data-id="<%= item.id %>">
-                    </div>
-                    <div class="product_img">
-                        <img src="/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>" alt="">
-                    </div>
-                    <div class="product_details">
-                        <span class="pharmacy">药店</span>
-                        <% if(!item.sku.prescription) { %>
-                            <span class="mail_order">邮购</span>
-                        <% } %>
-                        <div class="detail_title">
-                            <span class="product_name"><%= item.sku.name %></span>
-                        </div>
-                        <div class="product_price"><%= item.sku.salesPrice %></div>
-                        <div class="product_amount" data-inventory="<%= item.sku.inventory %>">
+        <% var select_img_url = "../images/shoppingcar/shopping_" + (_.indexOf(selected_items, item.id) === -1 ? "60" :
+        "57") + ".png"; %>
+        <% var shopping_car_id = item.type + "_shopping_car"; %>
+        <li>
+            <% if(item.sku) { %>
+            <div class="select_img">
+                <img class="toggle-item" src="<%= select_img_url %>" data-type="<%= item.type %>"
+                     data-id="<%= item.id %>">
+            </div>
+            <div class="product_img">
+                <img src="/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>" alt="">
+            </div>
+            <div class="product_details">
+                <span class="pharmacy">药店</span>
+                <% if(!item.sku.prescription) { %>
+                <span class="mail_order">邮购</span>
+                <% } %>
+                <div class="detail_title">
+                    <span class="product_name"><%= item.sku.name %></span>
+                </div>
+                <div class="product_price"><%= item.sku.salesPrice %></div>
+                <div class="product_amount" data-inventory="<%= item.sku.inventory %>">
                             <span class="sub">
-                                <img class="sub-quantity" src="../images/shoppingcar/shopping_11.png" data-id="<%= item.id %>">
+                                <img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"
+                                     data-id="<%= item.id %>">
                             </span>
-                            <span class="quantity">
+                    <span class="quantity">
                                 <%= item.quantity %>
                             </span>
-                            <span class="add">
-                                <img class="add-quantity" src="../images/shoppingcar/shopping_16.png" data-id="<%= item.id %>">
+                    <span class="add">
+                                <img class="add-quantity" src="../images/shoppingcar/shopping_16.png"
+                                     data-id="<%= item.id %>">
                             </span>
+                </div>
+                <% if(item.type === "offline" && !item.sku.prescription) { %>
+                <button class="go-online" data-id="<%= item.id %>">去邮购</button>
+                <% } else if(item.type === "online") { %>
+                <button class="go-offline" data-id="<%= item.id %>">去药店</button>
+                <% } %>
+            </div>
+            <% } else { %>
+            <div class="order_combine_product">
+                <div class="combine_name">
+                    <img class="toggle-item" src="<%= select_img_url %>" data-type="<%= item.type %>"
+                         data-id="<%= item.id %>">
+                    <%= item.combo.name %>
+                </div>
+                <ul class="combine_lists">
+                    <% var combo_inventory = 0; %>
+                    <% var combo_price = 0; %>
+                    <% var combo_original_price = 0; %>
+                    <% _.each(item.combo.units, function(unit) { %>
+                    <% combo_inventory = combo_inventory ? Math.min(combo_inventory, unit.sku.inventory) :
+                    unit.sku.inventory; %>
+                    <% combo_price = combo_price + unit.comboPrice; %>
+                    <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
+                    <li>
+                        <div class="product_img">
+                            <img src="/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>" alt="">
                         </div>
-                        <% if(item.type === "offline" && !item.sku.prescription) { %>
-                            <button class="go-online" data-id="<%= item.id %>">去邮购</button>
-                        <% } else if(item.type === "online") { %>
-                            <button class="go-offline" data-id="<%= item.id %>">去药店</button>
-                        <% } %>
-                    </div>
-                <% } else { %>
-                    <div class="order_combine_product">
-                        <div class="combine_name">
-                            <img class="toggle-item" src="<%= select_img_url %>" data-type="<%= item.type %>" data-id="<%= item.id %>">
-                            <%= item.combo.name %>
+                        <div class="product_details">
+                            <div class="combine_product_name">
+                                <%= unit.sku.name %>
+                            </div>
+                            <div class="detail_content">
+                                <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
+                                <span class="original_price">￥<%= unit.sku.salesPrice %></span>
+                                <span class="product_amount">x<%= unit.quantity %></span>
+                            </div>
                         </div>
-                        <ul class="combine_lists">
-                            <% var combo_inventory = 0; %>
-                            <% var combo_price = 0; %>
-                            <% var combo_original_price = 0; %>
-                            <% _.each(item.combo.units, function(unit) { %>
-                                <% combo_inventory = combo_inventory ? Math.min(combo_inventory, unit.sku.inventory) : unit.sku.inventory; %>
-                                <% combo_price = combo_price + unit.comboPrice; %>
-                                <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
-                                <li>
-                                    <div class="product_img">
-                                        <img src="/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>" alt="">
-                                    </div>
-                                    <div class="product_details">
-                                        <div class="combine_product_name">
-                                            <%= unit.sku.name %>
-                                        </div>
-                                        <div class="detail_content">
-                                            <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
-                                            <span class="original_price">￥<%= unit.sku.salesPrice %></span>
-                                            <span class="product_amount">x<%= unit.quantity %></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            <% }) %>
-                        </ul>
-                        <div class="combine_amount">
-                            <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
-                            <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
-                            <div class="product_amount" data-inventory="<%= combo_inventory %>">
+                    </li>
+                    <% }) %>
+                </ul>
+                <div class="combine_amount">
+                    <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
+                    <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
+                    <div class="product_amount" data-inventory="<%= combo_inventory %>">
                                 <span class="sub">
-                                    <img class="sub-quantity" src="../images/shoppingcar/shopping_11.png" data-id="<%= item.id %>">
+                                    <img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"
+                                         data-id="<%= item.id %>">
                                 </span>
-                                <span class="quantity">
+                        <span class="quantity">
                                     <%= item.quantity %>
                                 </span>
-                                <span class="add">
-                                    <img class="add-quantity" src="../images/shoppingcar/shopping_16.png" data-id="<%= item.id %>">
+                        <span class="add">
+                                    <img class="add-quantity" src="../images/shoppingcar/shopping_16.png"
+                                         data-id="<%= item.id %>">
                                 </span>
-                            </div>
-                            <% if(item.type === "offline" && !item.combo.hasPrescription) { %>
-                                <button class="go-online" data-id="<%= item.id %>">去邮购</button>
-                            <% } else if(item.type === "online") { %>
-                                <button class="go-offline" data-id="<%= item.id %>">去药店</button>
-                            <% } %>
-                        </div>
                     </div>
-                <% } %>
-            </li>
+                    <% if(item.type === "offline" && !item.combo.hasPrescription) { %>
+                    <button class="go-online" data-id="<%= item.id %>">去邮购</button>
+                    <% } else if(item.type === "online") { %>
+                    <button class="go-offline" data-id="<%= item.id %>">去药店</button>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+        </li>
         <% }) %>
     </ul>
 </script>
@@ -219,15 +227,16 @@
         $online_cart.delegate(".go-offline", "click", go_offline);
         $online_cart.delegate(".toggle-item", "click", toggle_online_item);
 
-        function get_online_shopping_cart(){
+        function get_online_shopping_cart() {
             ajax({
                 url: "/shopping_cart",
                 data: {"type": "online"},
                 success: function (json) {
-                    if(json.success) {
-                        $online_shopping_cart.html(shopping_cart_template({items: json.success, selected_items: selected_items}));
-                        refresh_select_all("online");
-                        refresh_total();
+                    if (json.success) {
+                        $online_shopping_cart.html(shopping_cart_template({
+                            items: json.success,
+                            selected_items: selected_items
+                        }));
                     }
                 }
             });
@@ -239,17 +248,21 @@
                 data: {"type": "offline"},
                 success: function (json) {
                     shopping_car_items = shopping_car_items.concat(json.success);
-                    if(json.success.length) {
-                        if(!$offline_empty_car.hasClass("hidden")) $offline_empty_car.addClass("hidden");
-                        $offline_shopping_car.html(shopping_car_template({items: json.success, selected_items: selected_items}));
+                    if (json.success.length) {
+                        if (!$offline_empty_car.hasClass("hidden")) $offline_empty_car.addClass("hidden");
+                        $offline_shopping_car.html(shopping_car_template({
+                            items: json.success,
+                            selected_items: selected_items
+                        }));
                         refresh_select_all("offline");
                         refresh_total();
-                    }else {
-                        if($offline_empty_car.hasClass("hidden")) $offline_empty_car.removeClass("hidden");
+                    } else {
+                        if ($offline_empty_car.hasClass("hidden")) $offline_empty_car.removeClass("hidden");
                     }
                 }
             });
         }
+
         function go_online(e) {
             var id = $(e.target).attr("data-id");
             ajax({
@@ -277,7 +290,7 @@
         function sub_quantity(e) {
             var $quantity = $(e.target.parentNode).next();
             var quantity = parseInt($quantity.text());
-            if(quantity > 1) {
+            if (quantity > 1) {
                 var item_id = parseInt($(e.target).attr("data-id"));
                 ajax({
                     url: "/shopping_cart/update",
@@ -294,7 +307,7 @@
             var $quantity = $(e.target.parentNode).prev();
             var quantity = parseInt($quantity.text());
             var inventory = parseInt($quantity.parent().attr("data-inventory"));
-            if(quantity < inventory) {
+            if (quantity < inventory) {
                 var item_id = parseInt($(e.target).attr("data-id"));
                 ajax({
                     url: "/shopping_cart/update",
@@ -304,24 +317,24 @@
                         get_shopping_car();
                     }
                 });
-            }else {
+            } else {
                 swal("", "库存不足");
             }
         }
 
-        var $online_select_all  = $(".online-select-all");
+        var $online_select_all = $(".online-select-all");
 
         function toggle_online_item() {
             var $element = $(this);
             var item_id = parseInt($element.attr("data-id"));
-            if(online_selected_items.indexOf(item_id) > -1){
-                online_selected_items = _.without(online_selected_items,item_id);
+            if (online_selected_items.indexOf(item_id) > -1) {
+                online_selected_items = _.without(online_selected_items, item_id);
                 $element.removeClass("selected");
                 $online_select_all.removeClass("selected")
             } else {
                 online_selected_items.push(item_id);
                 $element.addClass("selected");
-                if(_.difference(online_ids,online_selected_items).length === 0){
+                if (_.difference(online_ids, online_selected_items).length === 0) {
                     $online_select_all.addClass("selected");
                 }
             }
@@ -329,15 +342,15 @@
         }
 
         function toggle_online_all(e) {
-            var $element =  $(e.target);
-            if(/shopping_57.png$/.test($element.attr("src"))) {
+            var $element = $(e.target);
+            if (/shopping_57.png$/.test($element.attr("src"))) {
                 $element.attr("src", "../images/shoppingcar/shopping_60.png");
                 $(".carTwo img[src$='shopping_57.png']").each(function () {
                     $(this).attr("src", "../images/shoppingcar/shopping_60.png");
                     var item_id = parseInt($(this).attr("data-id"));
                     _.without(selected_items, item_id);
                 });
-            }else {
+            } else {
                 $element.attr("src", "../images/shoppingcar/shopping_57.png");
                 $(".carTwo  img[src$='shopping_60.png']").each(function () {
                     $(this).attr("src", "../images/shoppingcar/shopping_57.png");
@@ -349,15 +362,15 @@
         }
 
         function toggle_offline_all(e) {
-            var $element =  $(e.target);
-            if(/shopping_57.png$/.test($element.attr("src"))) {
+            var $element = $(e.target);
+            if (/shopping_57.png$/.test($element.attr("src"))) {
                 $element.attr("src", "../images/shoppingcar/shopping_60.png");
                 $(".carOne img[src$='shopping_57.png']").each(function () {
                     $(this).attr("src", "../images/shoppingcar/shopping_60.png");
                     var item_id = parseInt($(this).attr("data-id"));
                     _.without(selected_items, item_id);
                 });
-            }else {
+            } else {
                 $element.attr("src", "../images/shoppingcar/shopping_57.png");
                 $(".carOne  img[src$='shopping_60.png']").each(function () {
                     $(this).attr("src", "../images/shoppingcar/shopping_57.png");
@@ -373,9 +386,9 @@
         }
 
         function refresh_select_all(type) {
-            if($("img[src='../images/shoppingcar/shopping_60.png'][data-type='" + type + "']").length === 0) {
+            if ($("img[src='../images/shoppingcar/shopping_60.png'][data-type='" + type + "']").length === 0) {
                 $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_57.png");
-            }else {
+            } else {
                 $("." + type + "-select-all").attr("src", "../images/shoppingcar/shopping_60.png");
             }
         }
@@ -393,11 +406,11 @@
             var price = 0;
             _.map(selected_items, function (id) {
                 var item = _.find(shopping_car_items, {id: id});
-                if(item) {
+                if (item) {
                     count = count + 1;
-                    if(item.sku) {
+                    if (item.sku) {
                         price = price + item.sku.salesPrice * item.quantity;
-                    }else {
+                    } else {
                         var comboPrice = 0;
                         _.map(item.combo.units, function (unit) {
                             comboPrice = comboPrice + unit.comboPrice;

@@ -113,12 +113,12 @@
 </script>
 <script type="text/template" id="notice_template">
     <div class="notice  swiper-container">
-           <span class="icon">
-               <img src="../images/homePage/home_33@2x.png" alt="">
-               公告
-           </span>
+       <span class="icon">
+           <img src="../images/homePage/home_33@2x.png" alt="">
+           公告
+       </span>
         <% _.each(notices, function (notice) { %>
-        <span class="content">
+        <span class="content hide">
              <div class="swiper-slide">
                 <%= notice.summary %>
             </div>
@@ -254,8 +254,10 @@
                         $("#notice").html(notice_template({"notices": json.success}));
                         setInterval(function(){
                             var the_one = $('#notice .content').first();
-                            the_one.clone(true).appendTo('.notice');
+                            the_one.clone(true).addClass("hide").appendTo('.notice');
                             the_one.remove();
+                            $('#notice .content').first().removeClass("hide");
+                            console.log();
                         },3000);
                     }
                 }
