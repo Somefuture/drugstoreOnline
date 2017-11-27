@@ -136,28 +136,18 @@
             <span class="more" onclick="location='/html/store.html'">更多&gt</span>
         </div>
         <div class="product">
-            <div class="pro_one">
-                <h2><%= product[0].title %></h2>
-                <span class="white">好货</span>
-                <span class="green">及时抢购</span>
-                <img src="/file/public/<%= product[0].image.id %>.<%= product[0].image.ext %>" alt="">
-            </div>
-            <div class="pro_two">
-                <h2><%= product[1].title %></h2>
-                <span class="white">好货</span>
-                <span class="orange">及时抢购</span>
-                <img src="/file/public/<%= product[1].image.id %>.<%= product[1].image.ext %>" alt="">
-            </div>
-            <div class="pro_three">
-                <h2><%= product[2].title %></h2>
-                <p><%= product[2].summary %></p>
-                <img src="/file/public/<%= product[2].image.id %>.<%= product[2].image.ext %>" alt="">
-            </div>
-            <div class="pro_four">
-                <h2><%= product[2].title %></h2>
-                <p><%= product[2].summary %></p>
-                <img src="/file/public/<%= product[2].image.id %>.<%= product[2].image.ext %>" alt="">
-            </div>
+            <% if(product.length > 0){ %>
+            <div class="pro_one cover" data-url="/html/productDetails.html?id=<%= product[0].moduleID %>"  style="background-image: url(/file/public/<%= product[0].image.id %>.<%= product[0].image.ext %>)"></div>
+            <% } %>
+            <% if(product.length > 1){ %>
+            <div class="pro_two cover" data-url="/html/productDetails.html?id=<%= product[1].moduleID %>" style="background-image: url(/file/public/<%= product[1].image.id %>.<%= product[1].image.ext %>)"></div>
+            <% } %>
+            <% if(product.length > 2){ %>
+            <div class="pro_three cover" data-url="/html/productDetails.html?id=<%= product[2].moduleID %>" style="background-image: url(/file/public/<%= product[2].image.id %>.<%= product[2].image.ext %>)"></div>
+            <% } %>
+            <% if(product.length > 3){ %>
+            <div class="pro_four cover" data-url="/html/productDetails.html?id=<%= product[3].moduleID %>" style="background-image: url(/file/public/<%= product[3].image.id %>.<%= product[3].image.ext %>)"></div>
+            <% } %>
         </div>
     </div>
 </script>
@@ -218,140 +208,109 @@
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
 <script>
-    render_banner();
-    function render_banner() {
-        $.ajax({
-            url: "/advertisement/materials/by_collection",
-            data: {"collectionID": 1},
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if(json && json.error) {
-                    swal("", json.error.message);
-                }else {
-                    var banner_template = _.template($("#banner_template").html());
-                    $("#banner").html(banner_template({"images": json.success}));
-                    new Swiper('.swiper-container', {
-                        slidesPerView: 'auto',
-                        centeredSlides: true,
-                        autoplay: {
-                            delay: 2500
-                        },
-                        lazy: true,
-                        pagination: {
-                            el: '.swiper-pagination',
-                            clickable: true
-                        }
-                    });
-                }
-            },
-            error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
-            }
+    $(document).ready(function(){
+        $(".knowledge").click(function(){
+            swal("","功能开发建设中");
         });
-    }
-    get_notice();
-    function get_notice(){
-        $.ajax({
-            url: "/advertisement/materials/by_collection",
-            data: {"collectionID": 2},
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if (json && json.error) {
-                    swal("", json.error.message);
-                } else {
-                    var notice_template = _.template($("#notice_template").html());
-                    $("#notice").html(notice_template({"notices": json.success}));
-                    new Swiper('.swiper-container', {
-                        slidesPerView: 'auto',
-                        centeredSlides: true,
-                        autoplay: {
-                            delay: 2500
-                        },
-                        lazy: true
-                    });
+
+        render_banner();
+
+        function render_banner() {
+            ajax({
+                url: "/advertisement/materials/by_collection",
+                data: {"collectionID": 1},
+                success: function (json) {
+                    if(!json.error) {
+                        var banner_template = _.template($("#banner_template").html());
+                        $("#banner").html(banner_template({"images": json.success}));
+                        new Swiper('.swiper-container', {
+                            slidesPerView: 'auto',
+                            centeredSlides: true,
+                            autoplay: {
+                                delay: 2500
+                            },
+                            lazy: true,
+                            pagination: {
+                                el: '.swiper-pagination',
+                                clickable: true
+                            }
+                        });
+                    }
                 }
-            },
-            error: function (xhr, status, message) {
-                if (message === "Unauthorized") {
-                    window.location.href = "login.html";
-                } else {
-                    swal("", "系统繁忙，请稍后再试。");
+            });
+        }
+
+        get_notice();
+
+        function get_notice(){
+            ajax({
+                url: "/advertisement/materials/by_collection",
+                data: {"collectionID": 2},
+                success: function (json) {
+                    if (json && json.error) {
+
+                    } else {
+                        var notice_template = _.template($("#notice_template").html());
+                        $("#notice").html(notice_template({"notices": json.success}));
+                        setInterval(function(){
+                            var the_one = $('#notice .content').first();
+                            the_one.clone(true).appendTo('.notice');
+                            the_one.remove();
+                        },3000);
+                    }
                 }
-            }
-        });
-    }
-    get_reputation();
-    function get_reputation() {
-        $.ajax({
-            url: "/advertisement/materials/by_collection",
-            data: {"collectionID": 3},
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if(json && json.error) {
-                    swal("", json.error.message);
-                }else {
-                    var reputation_template = _.template($("#reputation_template").html());
-                    $("#reputation").html(reputation_template({"product": json.success}));
+            });
+        }
+
+        get_reputation();
+
+        function get_reputation() {
+            ajax({
+                url: "/advertisement/materials/by_collection",
+                data: {"collectionID": 3},
+                success: function (json) {
+                    if(json && json.error) {
+
+                    }else {
+                        var reputation_template = _.template($("#reputation_template").html());
+                        $("#reputation").html(reputation_template({"product": json.success}));
+                        $(".reputation .product div").click(function(){
+                            window.location.href = $(this).attr("data-url");
+                        });
+                    }
                 }
-            },
-            error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
+            });
+        }
+        get_welfare()
+        function get_welfare() {
+            ajax({
+                url: "/advertisement/materials/by_collection",
+                data: {"collectionID": 4},
+                success: function (json) {
+                    if(json && json.error) {
+
+                    }else {
+                        var welfare_template = _.template($("#welfare_template").html());
+                        $("#welfare").html(welfare_template({"welfare": json.success}));
+                    }
                 }
-            }
-        });
-    }
-    get_welfare()
-    function get_welfare() {
-        $.ajax({
-            url: "/advertisement/materials/by_collection",
-            data: {"collectionID": 4},
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if(json && json.error) {
-                    swal("", json.error.message);
-                }else {
-                    var welfare_template = _.template($("#welfare_template").html());
-                    $("#welfare").html(welfare_template({"welfare": json.success}));
+            });
+        }
+        get_healthy();
+        function get_healthy(){
+            ajax({
+                url: "/advertisement/materials/by_collection",
+                data: {"collectionID": 12},
+                success: function (json) {
+                    if(json && json.error) {
+
+                    }else {
+                        var healthy_template = _.template($("#healthy_template").html());
+                        $("#healthy").html(healthy_template({"healthy": json.success}));
+                    }
                 }
-            },
-            error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
-            }
-        });
-    }
-    get_healthy()
-    function get_healthy(){
-        $.ajax({
-            url: "/advertisement/materials/by_collection",
-            data: {"collectionID": 12},
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if(json && json.error) {
-                    swal("", json.error.message);
-                }else {
-                    var healthy_template = _.template($("#healthy_template").html());
-                    $("#healthy").html(healthy_template({"healthy": json.success}));
-                }
-            },
-            error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
-            }
-        });
-    }
+            });
+        }
+    });
 </script>
 </html>

@@ -201,13 +201,14 @@
         var shopping_car_items = [];
         var online_selected_items = [];
         var offline_selected_items = [];
-        var shopping_car_template = _.template($("#shopping_car_template").html());
-        var $online_shopping_car = $("#online_shopping_car");
+        var shopping_cart_template = _.template($("#shopping_car_template").html());
+        var $online_shopping_cart = $("#online_shopping_car");
         var $offline_shopping_car = $("#offline_shopping_car");
         var $online_empty_car = $(".online.empty_shoppingCar");
         var $offline_empty_car = $(".offline.empty_shoppingCar");
 
-        get_shopping_car();
+        get_online_shopping_cart();
+        get_off_line_shopping_cart();
 
         $(".toggle-online-all").click(toggle_online_all);
         $(".toggle-offline-all").click(toggle_offline_all);
@@ -216,25 +217,23 @@
         $online_cart.delegate(".sub-quantity", "click", sub_quantity);
         $online_cart.delegate(".go-online", "click", go_online);
         $online_cart.delegate(".go-offline", "click", go_offline);
-        $online_cart.delegate(".toggle-item", "click", toggle_item);
+        $online_cart.delegate(".toggle-item", "click", toggle_online_item);
 
-        function get_shopping_car() {
-            shopping_car_items = [];
+        function get_online_shopping_cart(){
             ajax({
                 url: "/shopping_cart",
                 data: {"type": "online"},
                 success: function (json) {
-                    shopping_car_items = shopping_car_items.concat(json.success);
-                    if(json.success.length) {
-                        if(!$online_empty_car.hasClass("hidden")) $online_empty_car.addClass("hidden");
-                        $online_shopping_car.html(shopping_car_template({items: json.success, selected_items: selected_items}));
+                    if(json.success) {
+                        $online_shopping_cart.html(shopping_cart_template({items: json.success, selected_items: selected_items}));
                         refresh_select_all("online");
                         refresh_total();
-                    }else {
-                        if($online_empty_car.hasClass("hidden")) $online_empty_car.removeClass("hidden");
                     }
                 }
             });
+        }
+
+        function get_off_line_shopping_cart() {
             ajax({
                 url: "/shopping_cart",
                 data: {"type": "offline"},

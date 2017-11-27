@@ -227,6 +227,9 @@
                 url: "/product/skus/by_product",
                 data: {"productID": id},
                 success: function (json) {
+                    if(json.error){
+                        return;
+                    }
                     _.each(json.success, function (data) {
                         var sku_keys = {};
                         sku_images[data.sku.id] = data.sku.image;
@@ -351,7 +354,10 @@
                 url: "/shopping_cart/sku_item/add",
                 method: "post",
                 data: {productSKUID: sku_id, quantity: $sku_quantity.html()},
-                success: function () {
+                success: function (json) {
+                    if(json.error){
+                        return;
+                    }
                     $keys.find("span").removeClass("selected").removeClass("disabled");
                     hide_specs_selector();
                 }
@@ -398,12 +404,17 @@
                 url: "/product",
                 data: {"id": id},
                 success: function (json) {
+                    if(json.error){
+                        return;
+                    }
                     $("#product_body").html(product_template({"product": json.success}));
                     ajax({
                         url: "/product/detail",
                         data: {"id": id},
                         success: function (json) {
-                            console.log(json.success);
+                            if(json.error){
+                                return;
+                            }
                             $("#product_detail").html(json.success);
                         }
                     });
@@ -419,6 +430,9 @@
                 url: "/product/images",
                 data: {"id": id},
                 success: function (json) {
+                    if(json.error){
+                        return;
+                    }
                     $("#sku_image").attr("src", "/file/public/" + json.success[0].id + "." + json.success[0].ext);
                     var banner_template = _.template($("#banner_template").html());
                     $("#banner").html(banner_template({"images": json.success}));
