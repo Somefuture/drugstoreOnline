@@ -23,71 +23,76 @@
 			<button id="login">登 录</button>
 			<div class="lo-more div-flex">
 				<div class="one-flex align-l">
-					<a href="/html/register.html">
-						<span>注册新用户</span>
-					</a>
+					<span id="register">注册新用户</span>
 				</div>
 				<div class="one-flex align-r">
-					<a href="/html/changePassword.html">
-						<span>忘记密码？</span>
-					</a>
+					<span id="forget_password">忘记密码？</span>
 				</div>
 			</div>
 		</div>
-		<!--<div class="lo-foot">-->
-		<!--<div class="po-r lo-third">使用第三方快速登录</div>-->
-		<!--<div class="div-flex">-->
-		<!--<div class="one-flex"><img src="../images/imgs/lo-qq.png" /></div>-->
-		<!--<div class="one-flex align-c"><img src="../images/imgs/lo-wx.png" /></div>-->
-		<!--<div class="one-flex align-r"><img src="../images/imgs/lo-xlwb.png" /></div>-->
-		<!--</div>-->
-		<!--</div>-->
 	</body>
 	<script src="../javascript/jquery-3.2.1.min.js"></script>
 	<script src="../javascript/sweetalert.min.js"></script>
 	<script src="../javascript/util.js"></script>
 	<script>
-        var show_swal = false;
-        function login() {
-            var username = $("#username").val();
-            var password = $("#password").val();
-            if (!username) {
-                show_swal = true;
-                swal("", "请输入手机号码");
-            } else if (!password) {
-                show_swal = true;
-                swal("", "请输入登录密码");
-            }else if(username.length!==11){
-                show_swal = true;
-                swal("", "请输入11位手机号");
-            } else if(password.length<6){
-                show_swal = true;
-                swal("", "密码输入有误");
-            }else {
-                ajax({
-                    type: "post",
-                    url: "/account/mobile/signin",
-                    data: {"mobile": username, "password": password},
-                    success: function (json) {
-                        if(!json.error){
-                            window.localStorage.setItem('userId',JSON.stringify(json.success));
-                            window.location.href = "index.html";
-						}
-                    }
-                });
-            }
-        }
+		$(document).ready(function () {
+            var show_swal = false;
+            var redirect = get_query_string("redirect");
 
-        $("#login").click(login);
+            $("#register").click(function () {
+                window.location.href = "/html/register.html" + (redirect ? ("?redirect=" + redirect) : "");
+            });
 
-        $("#user_form").keyup(function (e) {
-            if(Number(e.keyCode) === 13) {
-                if(show_swal) {
-                    show_swal = false;
+            $("#forget_password").click(function () {
+                window.location.href = "/html/changePassword.html" + (redirect ? ("?redirect=" + redirect) : "");
+            });
+
+            function login() {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                if (!username) {
+                    show_swal = true;
+                    swal("", "请输入手机号码");
+                } else if (!password) {
+                    show_swal = true;
+                    swal("", "请输入登录密码");
+                }else if(username.length!==11){
+                    show_swal = true;
+                    swal("", "请输入11位手机号");
+                } else if(password.length<6){
+                    show_swal = true;
+                    swal("", "密码输入有误");
                 }else {
-                    login();
+                    ajax({
+                        type: "post",
+                        url: "/account/mobile/signin",
+                        data: {"mobile": username, "password": password},
+                        success: function (json) {
+                            if(!json.error){
+                                window.localStorage.setItem('userId',JSON.stringify(json.success));
+                                if(redirect) {
+                                    window.location.href = redirect;
+                                }else {
+                                    window.location.href = "index.html";
+                                }
+                            }
+                        }
+                    });
                 }
             }
-        })
+
+            $("#login").click(login);
+
+            $("#user_form").keyup(function (e) {
+                if(Number(e.keyCode) === 13) {
+                    if(show_swal) {
+                        show_swal = false;
+                    }else {
+                        login();
+                    }
+                }
+            })
+        });
+
 	</script>
 </html>

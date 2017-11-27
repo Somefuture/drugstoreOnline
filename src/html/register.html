@@ -33,11 +33,13 @@
 			</div>
 			<div class="protocol">
                 <input type="checkbox" id="protocol_select">
-				<div class="one-flex wordprotocol"><a href="/statics/product/protocol.html">《新特药》用户协议</a></div>
+				<div class="one-flex wordprotocol">
+					<a href="/statics/product/protocol.html">《新特药》用户协议</a>
+				</div>
 			</div>
 			<button id="sign_in">注册</button>
 			<div class="lo-more div-flex">
-				<div class="one-flex align-l"><a href="/html/login.html">已有账号？立即登录</a></div>
+				<div class="one-flex align-l" id="to_login">已有账号？立即登录</div>
 			</div>
 		</div>
 	</body>
@@ -45,7 +47,60 @@
 	<script src="../javascript/sweetalert.min.js"></script>
 	<script src="../javascript/util.js"></script>
 	<script>
-        var show_swal = false;
+		$(document).ready(function () {
+            var show_swal = false;
+            var redirect = get_query_string("redirect");
+
+            $("#verification_code_btn").click(get_verification_code);
+            $("#sign_in").click(register);
+			$("#to_login").click(function () {
+                window.location.href = "/html/login.html" + (redirect ? ("?redirect=" + redirect) : "");
+            });
+
+            function register() {
+                var mobile = $("#mobile").val();
+                var verification_code= $("#verification_code").val();
+                var password = $("#password").val();
+                var passwordAgain= $("#passwordAgain").val();
+                var protocol_select=$("#protocol_select")[0].checked;
+                if (!mobile) {
+                    show_swal = true;
+                    swal("", "请输入手机号");
+                }else if(!password){
+                    show_swal = true;
+                    swal("", "请输入密码");
+                } else if(password.length<6||password.length>20){
+                    show_swal = true;
+                    swal("", "密码格式有误");
+                }else if(password!==passwordAgain){
+                    show_swal = true;
+                    swal("", "两次密码输入不一致");
+                }else if(protocol_select===false){
+                    show_swal = true;
+                    swal("", "请勾选用户协议");
+                }else {
+                    ajax({
+                        type: "post",
+                        url: "/account/mobile/signup",
+                        data: {mobile: mobile,password:password,authentication_code:verification_code},
+                        success: function (json) {
+                            if(!json.error){
+                                show_swal=true;
+                                swal({
+                                        title:"",
+                                        text:"注册成功,请登陆"},
+                                    function(){
+                                        window.location.href='/html/login.html';
+                                    }
+                                );
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+
         function get_verification_code() {
             var mobile = $("#mobile").val();
             if(!mobile){
@@ -89,48 +144,5 @@
                 })
             }
         }
-        $("#verification_code_btn").click(get_verification_code);
-        function register() {
-            var mobile = $("#mobile").val();
-            var verification_code= $("#verification_code").val();
-            var password = $("#password").val();
-            var passwordAgain= $("#passwordAgain").val();
-            var protocol_select=$("#protocol_select")[0].checked;
-            if (!mobile) {
-                show_swal = true;
-                swal("", "请输入手机号");
-            }else if(!password){
-                show_swal = true;
-                swal("", "请输入密码");
-            } else if(password.length<6||password.length>20){
-                show_swal = true;
-                swal("", "密码格式有误");
-            }else if(password!==passwordAgain){
-                show_swal = true;
-                swal("", "两次密码输入不一致");
-            }else if(protocol_select===false){
-                show_swal = true;
-                swal("", "请勾选用户协议");
-            }else {
-                ajax({
-                    type: "post",
-                    url: "/account/mobile/signup",
-                    data: {mobile: mobile,password:password,authentication_code:verification_code},
-                    success: function (json) {
-                        if(!json.error){
-                            show_swal=true;
-                            swal({
-                                    title:"",
-                                    text:"注册成功,请登陆"},
-                                function(){
-                                    window.location.href='/html/login.html';
-                                }
-                            );
-                        }
-                    }
-                });
-            }
-        }
-        $("#sign_in").click(register);
 	</script>
 </html>

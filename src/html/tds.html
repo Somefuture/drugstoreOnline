@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>注册领券</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/sweetalert.css" rel="stylesheet">
+    <link href="../css/dc.css" rel="stylesheet">
+</head>
+<body>
+<div class="ui dimmer">
+    <div class="ui loader"></div>
+</div>
+<div id="coupon_body" style="display: none">
+    <div id="coupon_list"></div>
+    <div class="coupon_footer">
+        <button>立即使用</button>
+    </div>
+</div>
+</body>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="../javascript/sweetalert.min.js"></script>
+<script src="../javascript/underscore-1.8.3.min.js"></script>
+<script src="../javascript/util.js"></script>
+<script type="text/template" id="coupons_template">
+    <div class="coupon_header">
+        <h1>恭喜您</h1>
+        <h2>获得<%= coupons.length %>张优惠券</h2>
+        <h3>
+            <span class="coupon_bg_image"></span>
+        </h3>
+    </div>
+    <div class="coupon_body">
+        <ul>
+            <% _.each(coupons, function(coupon) { %>
+            <li>
+                <h1><%= coupon.value %></h1>
+                <h5>RMB</h5>
+                <h5 class="green_line"></h5>
+                <p><%= coupon.description %></p>
+                <span><%= coupon.name %></span>
+            </li>
+            <% }) %>
+        </ul>
+    </div>
+</script>
+<script>
+    $(document).ready(function () {
+        var $coupons = $("#coupon_list");
+        var template = _.template($("#coupons_template").html());
+
+        $(".coupon_footer").click(function () {
+            window.location.href = "/html/index.html";
+        });
+
+        get_coupons();
+
+        function get_coupons() {
+            show_loader();
+            ajax({
+                url: "/product/user_coupons/show",
+                data: window.location.search.substr(1),
+                complete: hide_loader,
+                success: function (json) {
+                    if(json.error || json.success.length === 0) {
+                        window.location.href = "/html/index.html";
+                    }
+                    $("#coupon_body").css("display", "block");
+                    $coupons.html(template({coupons: json.success}));
+                }
+            });
+        }
+
+        function show_loader() {
+            $(".ui.dimmer").addClass("active");
+        }
+
+        function hide_loader() {
+            $(".ui.dimmer").removeClass("active");
+        }
+
+    });
+</script>
+
+</html>
