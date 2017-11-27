@@ -85,14 +85,12 @@
                         data: {mobile: mobile,password:password,authentication_code:verification_code},
                         success: function (json) {
                             if(!json.error){
-                                show_swal=true;
-                                swal({
-                                        title:"",
-                                        text:"注册成功,请登陆"},
-                                    function(){
-                                        window.location.href='/html/login.html';
-                                    }
-                                );
+                                console.log(redirect);
+                                if(redirect) {
+                                    window.location.href = redirect;
+                                }else {
+                                    window.location.href = "index.html";
+                                }
                             }
                         }
                     });

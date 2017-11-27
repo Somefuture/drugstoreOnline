@@ -94,8 +94,8 @@
             ajax({
                 url: "/product/user_coupons/show",
                 data: window.location.search.substr(1),
-                complete: hide_loader,
                 success: function (json) {
+                    hide_loader();
                     if(json.error || json.success.length === 0) {
                         window.location.href = "/html/index.html";
                     }
