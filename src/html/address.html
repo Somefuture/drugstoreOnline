@@ -152,6 +152,7 @@
             data: {id: id},
             success: function (json) {
                 if (!json.error) {
+                    console.log(json);
                     swal({
                             title: "",
                             text: "默认地址设置成功"

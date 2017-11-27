@@ -70,13 +70,26 @@ $bottom-border:p2r(1) solid #e7e7e7;
     border-left: none;
     border-right: none;
     background: #fafafa;
-    padding: p2r(22) 0 p2r(24) p2r(20);
+    //padding: p2r(22) 0 p2r(24) p2r(20);
+    position: relative;
+    height:40px;
+    line-height: 40px;
     span {
-      height: p2r(22);
-      display: inline-block;
-      line-height: p2r(22);
+      position: absolute;
+      left:0;
+      top:0;
+      height:40px;
+      line-height: 40px;
+      padding-left:90px;
+      overflow: hidden;
     }
     .icon {
+      height:40px;
+      line-height: 40px;
+      position: absolute ;
+      left:20px;
+      top:0;
+      padding:0;
       img {
         vertical-align: top;
       }
