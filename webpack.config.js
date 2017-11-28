@@ -38,7 +38,7 @@ module.exports = {
             port:8000,
             file:'',
             server:{
-                baseDir:'./src'
+                baseDir: __dirname +'/src'
             }
         }),
         extractSass

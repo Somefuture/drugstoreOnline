@@ -11,11 +11,11 @@
     <!-- QQ应用模式 -->
     <meta name="x5-page-mode" content="app">
     <title>收货地址</title>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <div class="shopping_header">
@@ -26,25 +26,25 @@
     <ul class="nav">
         <li>
             <a href="index.html">
-                <img src="../images/tab/tab_32.png" alt="">
+                <img src="/images/tab/tab_32.png" alt="">
                 首页
             </a>
         </li>
         <li>
             <a href="store.html">
-                <img src="../images/tab/tab_36.png" alt="">
+                <img src="/images/tab/tab_36.png" alt="">
                 精品商城
             </a>
         </li>
         <li>
             <a href="shoppingCar.html">
-                <img src="../images/tab/tab_38.png" alt="">
+                <img src="/images/tab/tab_38.png" alt="">
                 我的药箱
             </a>
         </li>
         <li>
             <a href="personal.html">
-                <img src="../images/tab/tab_40.png" alt="">
+                <img src="/images/tab/tab_40.png" alt="">
                 个人中心
             </a>
         </li>
@@ -70,15 +70,15 @@
 <script type="text/template" id="address_template">
     <div class="edit_body">
         <div class="name">
-            <img src="../images/personal/personal_26.png" alt="">
+            <img src="/images/personal/personal_26.png" alt="">
             <input type="text" placeholder="收货人" id="consignee" value="<%= address.consignee %>">
         </div>
         <div class="phone">
-            <img src="../images/personal/personal_29.png" alt="">
+            <img src="/images/personal/personal_29.png" alt="">
             <input type="number" placeholder="手机号码" id="mobile" value="<%= address.mobile %>">
         </div>
         <div class="department">
-            <img src="../images/personal/personal_32.png" alt="">
+            <img src="/images/personal/personal_32.png" alt="">
             收货区域
         </div>
         <div class="department_select" id="suburbID">
@@ -96,17 +96,17 @@
             <h2>详细地址</h2>
             <textarea name="" id="detailed_adr" cols="30" rows="5"><%= address.unitDetail %></textarea>
             <span id="isDefault" name="<%= address.default %>">
-            <img src="../images/shoppingcar/shopping_60.png" alt="">
+            <img src="/images/shoppingcar/shopping_60.png" alt="">
             设为默认
             </span>
             <div class="save_btn" id="save_btn">保存设置</div>
         </div>
     </div>
 </script>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function () {
         var id=get_query_string("id");
@@ -177,9 +177,9 @@
         var isDefault=false;
         function set_default(){
             if(isDefault){
-                $("#isDefault").html("<img src=\"../images/shoppingcar/shopping_60.png\" alt=\"\">\n" + "设为默认");
+                $("#isDefault").html("<img src='/images/shoppingcar/shopping_60.png' alt=''>\n" + "设为默认");
             }else{
-                $("#isDefault").html("<img src=\"../images/shoppingcar/shopping_57.png\" alt=\"\">\n" + "默认地址");
+                $("#isDefault").html("<img src='/images/shoppingcar/shopping_57.png' alt=''>>\n" + "默认地址");
             }
             isDefault=!isDefault;
         }

@@ -18,10 +18,10 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>我的药箱</title>
-    <link type="text/css" rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css"/>
-    <link type="text/css" rel="stylesheet" href="../css/index.css"/>
-    <link type="text/css" rel="stylesheet" href="../css/reset.css">
+    <link type="text/css" rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/index.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/reset.css">
 </head>
 <body>
 <div class="shopping_header">
@@ -56,35 +56,35 @@
     <ul class="nav">
         <li>
             <a href="index.html">
-                <img src="../images/tab/tab_32.png" alt="">
+                <img src="/images/tab/tab_32.png" alt="">
                 首页
             </a>
         </li>
         <li>
             <a href="store.html">
-                <img src="../images/tab/tab_36.png" alt="">
+                <img src="/images/tab/tab_36.png" alt="">
                 精品商城
             </a>
         </li>
         <li class="active">
             <a href="">
-                <img src="../images/tab/tab_50.png" alt="">
+                <img src="/images/tab/tab_50.png" alt="">
                 我的药箱
             </a>
         </li>
         <li>
             <a href="personal.html">
-                <img src="../images/tab/tab_40.png" alt="">
+                <img src="/images/tab/tab_40.png" alt="">
                 个人中心
             </a>
         </li>
     </ul>
 </div>
 </body>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
 <script type="text/template" id="shopping_cart_template">
     <% if(items.length) { %>
     <ul class="shopping-cart-content" data-type="<%= items[0].type %>">
@@ -104,9 +104,9 @@
                 </div>
                 <div class="product_price"><%= item.sku.salesPrice %></div>
                 <div class="product_amount" data-inventory="<%= item.sku.inventory %>">
-                    <span class="sub"><img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"></span>
+                    <span class="sub"><img class="sub-quantity" src="/images/shoppingcar/shopping_11.png"></span>
                     <span class="quantity"><%= item.quantity %></span>
-                    <span class="add"><img class="add-quantity" src="../images/shoppingcar/shopping_16.png"></span>
+                    <span class="add"><img class="add-quantity" src="/images/shoppingcar/shopping_16.png"></span>
                 </div>
                 <% if(!item.sku.prescription) { %>
                 <button class="toggle-carts">
@@ -149,9 +149,9 @@
                     <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
                     <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
                     <div class="product_amount" data-inventory="<%= combo_inventory %>">
-                        <span class="sub"><img class="sub-quantity" src="../images/shoppingcar/shopping_11.png"></span>
+                        <span class="sub"><img class="sub-quantity" src="/images/shoppingcar/shopping_11.png"></span>
                         <span class="quantity"><%= item.quantity %></span>
-                        <span class="add"><img class="add-quantity" src="../images/shoppingcar/shopping_16.png"></span>
+                        <span class="add"><img class="add-quantity" src="/images/shoppingcar/shopping_16.png"></span>
                     </div>
                     <% if(!item.combo.hasPrescription) { %>
                     <button class="toggle-carts">
@@ -166,7 +166,7 @@
     </ul>
     <% } else { %>
     <div class="offline empty_shoppingCar hidden">
-        <img src="../images/shoppingcar/shopping_44.png" alt="">
+        <img src="/images/shoppingcar/shopping_44.png" alt="">
         <p>购物车空空如也 <br>去抢购吧…</p>
         <a href="store.html">
             <button>去逛逛</button>

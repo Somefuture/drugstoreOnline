@@ -18,11 +18,11 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>编辑信息</title>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <div class="shopping_header">
@@ -31,31 +31,31 @@
 </div>
 <div class="personal_edit_body">
     <div class="info_title">
-        <img src="../images/personal/user_103.png" alt="">
+        <img src="/images/personal/user_103.png" alt="">
         基础信息
     </div>
     <div class="info_item" onclick="location='changeName.html'">
         姓名
         <span class="to_edit">
-            <img src="../images/personal/home_57@2x.png" alt="">
+            <img src="/images/personal/home_57@2x.png" alt="">
         </span>
         <span id="user_name"></span>
     </div>
     <div class="info_title">
-        <img src="../images/personal/user_100.png" alt="">
+        <img src="/images/personal/user_100.png" alt="">
         账号信息
     </div>
     <div class="info_item" onclick="location='changePassword.html'">
         修改密码
         <span class="to_edit">
-            <img src="../images/personal/home_57@2x.png" alt="" >
+            <img src="/images/personal/home_57@2x.png" alt="" >
         </span>
 
     </div>
     <div class="info_item" onclick="location='changePhone.html'">
         更换手机号码
         <span class="to_edit">
-            <img src="../images/personal/home_57@2x.png" alt="">
+            <img src="/images/personal/home_57@2x.png" alt="">
         </span>
         <span class="default_info"> </span>
     </div>
@@ -64,25 +64,25 @@
     <ul class="nav">
         <li>
             <a href="index.html">
-                <img src="../images/tab/tab_32.png" alt="">
+                <img src="/images/tab/tab_32.png" alt="">
                 首页
             </a>
         </li>
         <li>
             <a href="store.html">
-                <img src="../images/tab/tab_36.png" alt="">
+                <img src="/images/tab/tab_36.png" alt="">
                 精品商城
             </a>
         </li>
         <li>
             <a href="">
-                <img src="../images/tab/tab_38.png" alt="">
+                <img src="/images/tab/tab_38.png" alt="">
                 我的药箱
             </a>
         </li>
         <li>
             <a href="personal.html">
-                <img src="../images/tab/tab_40.png" alt="">
+                <img src="/images/tab/tab_40.png" alt="">
                 个人中心
             </a>
         </li>
@@ -92,10 +92,10 @@
 <script type="text/template" id="name_template">
     <span class="default_info"><%= personal.name %></span>
 </script>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
 <script>
     get_personal(window.localStorage.getItem('userId'));
     function get_personal(id) {

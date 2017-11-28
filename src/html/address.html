@@ -16,11 +16,11 @@
     <!-- QQ应用模式 -->
     <meta name="x5-page-mode" content="app">
     <title>收货地址</title>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <div class="shopping_header">
@@ -32,25 +32,25 @@
     <ul class="nav">
         <li>
             <a href="index.html">
-                <img src="../images/tab/tab_32.png" alt="">
+                <img src="/images/tab/tab_32.png" alt="">
                 首页
             </a>
         </li>
         <li>
             <a href="store.html">
-                <img src="../images/tab/tab_36.png" alt="">
+                <img src="/images/tab/tab_36.png" alt="">
                 精品商城
             </a>
         </li>
         <li>
             <a href="shoppingCar.html">
-                <img src="../images/tab/tab_38.png" alt="">
+                <img src="/images/tab/tab_38.png" alt="">
                 我的药箱
             </a>
         </li>
         <li>
             <a href="personal.html">
-                <img src="../images/tab/tab_40.png" alt="">
+                <img src="/images/tab/tab_40.png" alt="">
                 个人中心
             </a>
         </li>
@@ -61,7 +61,7 @@
     <div class="address_body">
         <% if(address.length==0){ %>
         <div class="empty_address">
-            <img src="../images/personal/personal_52.png" alt="">
+            <img src="/images/personal/personal_52.png" alt="">
             还未添加收货地址~
         </div>
         <% }else{ %>
@@ -70,36 +70,36 @@
             <li>
                 <div class="title">
                 <span class="name">
-                    <img src="../images/order/shopping_24.png" alt="">
+                    <img src="/images/order/shopping_24.png" alt="">
                     <%= add.consignee %>
                 </span>
                     <span class="phone">
-                    <img src="../images/order/shopping_30.png" alt="">
+                    <img src="/images/order/shopping_30.png" alt="">
                     <%= add.mobile %>
                 </span>
                 </div>
                 <div class="address">
-                    <img src="../images/order/shopping_27.png" alt="">
+                    <img src="/images/order/shopping_27.png" alt="">
                     <p><%= add.provinceName %><%= add.cityName %><%= add.suburbName %><%= add.unitDetail %></p>
                 </div>
                 <div class="edit_address">
                     <% if(add.default===true){ %>
                     <span class="default">
-                            <img src="../images/shoppingcar/shopping_57.png" alt="">
+                            <img src="/images/shoppingcar/shopping_57.png" alt="">
                             默认地址
                         </span>
                     <% }else{ %>
                     <span class="default" onclick="set_def('<%= add.id %>')">
-                        <img src="../images/shoppingcar/shopping_60.png" alt="">
+                        <img src="/images/shoppingcar/shopping_60.png" alt="">
                         设为默认
                         </span>
                     <% } %>
                     <span class="delete" onclick="delete_address('<%= add.id %>')">
-                    <img src="../images/personal/personal_20.png" alt="">
+                    <img src="/images/personal/personal_20.png" alt="">
                     删除
                 </span>
                     <span class="edit" onclick="location='/html/updateAddress.html?id=<%= add.id %>'">
-                    <img src="../images/personal/personal_23.png" alt="">
+                    <img src="/images/personal/personal_23.png" alt="">
                     编辑
                 </span>
                 </div>
@@ -109,10 +109,10 @@
         <% } %>
     </div>
 </script>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
 <script>
     var address_template = _.template($("#address_template").html());
     get_address();

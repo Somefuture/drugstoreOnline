@@ -34,59 +34,59 @@
     <!-- QQ应用模式 -->
     <meta name="x5-page-mode" content="app">
     <title>个人中心</title>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <div id="personal_body"></div>
 <div class="record">
     <div class="record_coupon" onclick="location='coupons.html'">
-        <img src="../images/personal/user_38.png" alt="">
+        <img src="/images/personal/user_38.png" alt="">
         优惠券
     </div>
     <div class="total" onclick="location='points.html'">
-        <img src="../images/personal/user_44.png" alt="">
+        <img src="/images/personal/user_44.png" alt="">
         我的积分
     </div>
 </div>
 <div class="otherItems">
     <div class="address" onclick="location='/html/address.html'">
-        <img src="../images/personal/user_80.png" alt="">
+        <img src="/images/personal/user_80.png" alt="">
         收货地址
-        <span><img src="../images/personal/home_57@2x.png" alt=""></span>
+        <span><img src="/images/personal/home_57@2x.png" alt=""></span>
     </div>
     <div class="setting" onclick="location='/html/setting.html'">
-        <img src="../images/personal/user_87.png" alt="">
+        <img src="/images/personal/user_87.png" alt="">
         设置
-        <span><img src="../images/personal/home_57@2x.png" alt=""></span>
+        <span><img src="/images/personal/home_57@2x.png" alt=""></span>
     </div>
 </div>
 <div class="footer">
     <ul class="nav">
         <li>
             <a href="index.html">
-                <img src="../images/tab/tab_32.png" alt="">
+                <img src="/images/tab/tab_32.png" alt="">
                 首页
             </a>
         </li>
         <li>
             <a href="store.html">
-                <img src="../images/tab/tab_36.png" alt="">
+                <img src="/images/tab/tab_36.png" alt="">
                 精品商城
             </a>
         </li>
         <li>
             <a href="shoppingCar.html">
-                <img src="../images/tab/tab_38.png" alt="">
+                <img src="/images/tab/tab_38.png" alt="">
                 我的药箱
             </a>
         </li>
         <li class="active">
             <a href="#">
-                <img src="../images/tab/tab_51.png" alt="">
+                <img src="/images/tab/tab_51.png" alt="">
                 个人中心
             </a>
         </li>
@@ -97,7 +97,7 @@
     <div class="personal">
         <div class="bg_img">
             <% if(personal.portraitImage==null) {%>
-            <img src="../images/personal/personal_105.png" alt="">
+            <img src="/images/personal/personal_105.png" alt="">
             <%} else {%>
             <img src="/file/public/<%= personal.portraitImage.id %>.<%= personal.portraitImage.ext %>" alt="" class="bg_img">
             <% } %>
@@ -107,7 +107,7 @@
             <div class="person_avatar">
                 <div class="user_avatar">
                     <% if(personal.portraitImage==null) {%>
-                    <img src="../images/personal/personal_105.png" alt="">
+                    <img src="/images/personal/personal_105.png" alt="">
                     <%} else {%>
                     <img src="/file/public/<%= personal.portraitImage.id %>.<%= personal.portraitImage.ext %>" alt="" class="bg_img">
                     <% } %>
@@ -119,23 +119,23 @@
         <div class="user_order">
             <div class="to_order_title">
                 我的订单
-                <img src="../images/personal/user_07.png" alt="" onclick="location='myOrder.html'">
+                <img src="/images/personal/user_07.png" alt="" onclick="location='myOrder.html'">
             </div>
             <ul class="order_tabs">
                 <li>
-                    <img src="../images/personal/user_14.png" alt="">
+                    <img src="/images/personal/user_14.png" alt="">
                     待付款
                 </li>
                 <li>
-                    <img src="../images/personal/user_19.png" alt="">
+                    <img src="/images/personal/user_19.png" alt="">
                     待收货
                 </li>
                 <li>
-                    <img src="../images/personal/user_25.png" alt="">
+                    <img src="/images/personal/user_25.png" alt="">
                     待评价
                 </li>
                 <li>
-                    <img src="../images/personal/user_32.png" alt="">
+                    <img src="/images/personal/user_32.png" alt="">
                     售后/退货
                 </li>
             </ul>
@@ -146,10 +146,10 @@
 <script type="text/template" id="point_template">
     <span><%= point.balance %></span>
 </script>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
 <script>
     var personal_template = _.template($("#personal_template").html());
     get_personal(window.localStorage.getItem('userId'));

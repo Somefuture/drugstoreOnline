@@ -18,11 +18,11 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>我的积分</title>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="../css/swiper.css" />
-    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <div class="shopping_header">
@@ -36,25 +36,25 @@
     <ul class="nav">
         <li>
             <a href="index.html">
-                <img src="../images/tab/tab_32.png" alt="">
+                <img src="/images/tab/tab_32.png" alt="">
                 首页
             </a>
         </li>
         <li>
             <a href="store.html">
-                <img src="../images/tab/tab_36.png" alt="">
+                <img src="/images/tab/tab_36.png" alt="">
                 精品商城
             </a>
         </li>
         <li>
             <a href="">
-                <img src="../images/tab/tab_38.png" alt="">
+                <img src="/images/tab/tab_38.png" alt="">
                 我的药箱
             </a>
         </li>
         <li>
             <a href="personal.html">
-                <img src="../images/tab/tab_40.png" alt="">
+                <img src="/images/tab/tab_40.png" alt="">
                  个人中心
             </a>
         </li>
@@ -77,12 +77,12 @@
             <span class="op_date"><%= point.createAt[0]%>/<%=point.createAt[1]%>/<%=point.createAt[2]%> <%=point.createAt[3]%>:<%=point.createAt[4]%>:<%=point.createAt[5] %></span>
             <% if(point.operation==="freeze"||point.operation==="deduct"){ %>
             <span class="total_value sub">
-                <img src="../images/personal/personal_75.png" alt="">
+                <img src="/images/personal/personal_75.png" alt="">
                 -<%= point.amount %>
             </span>
             <% }else{ %>
             <span class="total_value add">
-                <img src="../images/personal/personal_76.png" alt="">
+                <img src="/images/personal/personal_76.png" alt="">
                 +<%= point.amount %>
             </span>
             <% } %>
@@ -90,10 +90,10 @@
         <% }) %>
     </ul>
 </script>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
 <script>
     var point_template = _.template($("#point_template").html());
     var point_detail_template=_.template($("#point_detail_template").html());

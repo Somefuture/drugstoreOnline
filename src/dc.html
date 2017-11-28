@@ -37,9 +37,9 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>注册领券</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/sweetalert.css" rel="stylesheet">
-    <link href="../css/dc.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sweetalert.css" rel="stylesheet">
+    <link href="css/dc.css" rel="stylesheet">
 </head>
 <body>
 <div class="ui dimmer">
@@ -48,18 +48,17 @@
 <div id="coupon_body" style="display: none">
     <div id="coupon_list"></div>
     <div class="coupon_footer">
-        <button>立即使用</button>
+        <button>立即领券</button>
     </div>
 </div>
 </body>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="javascript/jquery-3.2.1.min.js"></script>
+<script src="javascript/sweetalert.min.js"></script>
+<script src="javascript/underscore-1.8.3.min.js"></script>
+<script src="javascript/util.js"></script>
 <script type="text/template" id="coupons_template">
     <div class="coupon_header">
-        <h1>恭喜您</h1>
-        <h2>获得<%= coupons.length %>张优惠券</h2>
+        <h2>您可领取优惠券</h2>
         <h3>
             <span class="coupon_bg_image"></span>
         </h3>
@@ -80,20 +79,20 @@
 </script>
 <script>
     $(document).ready(function () {
+        var userID = get_query_string("id");
         var $coupons = $("#coupon_list");
         var template = _.template($("#coupons_template").html());
 
         $(".coupon_footer").click(function () {
-            window.location.href = "/html/index.html";
+            window.location.href = "/html/login.html?redirect=/html/tdc.html?id=" + userID;
         });
 
-        get_coupons();
+        get_coupons(userID);
 
-        function get_coupons() {
+        function get_coupons(id) {
             show_loader();
             ajax({
-                url: "/product/user_coupons/show",
-                data: window.location.search.substr(1),
+                url: "/doctor/" + id + "/coupons/available",
                 success: function (json) {
                     hide_loader();
                     if(json.error || json.success.length === 0) {
@@ -112,7 +111,6 @@
         function hide_loader() {
             $(".ui.dimmer").removeClass("active");
         }
-
     });
 </script>
 

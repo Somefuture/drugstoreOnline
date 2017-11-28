@@ -37,25 +37,19 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>注册领券</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/sweetalert.css" rel="stylesheet">
-    <link href="../css/dc.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sweetalert.css" rel="stylesheet">
+    <link href="css/dc.css" rel="stylesheet">
 </head>
 <body>
 <div class="ui dimmer">
     <div class="ui loader"></div>
 </div>
-<div id="coupon_body" style="display: none">
-    <div id="coupon_list"></div>
-    <div class="coupon_footer">
-        <button>立即领券</button>
-    </div>
-</div>
 </body>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
+<script src="javascript/jquery-3.2.1.min.js"></script>
+<script src="javascript/sweetalert.min.js"></script>
+<script src="javascript/underscore-1.8.3.min.js"></script>
+<script src="javascript/util.js"></script>
 <script type="text/template" id="coupons_template">
     <div class="coupon_header">
         <h2>您可领取优惠券</h2>
@@ -79,27 +73,35 @@
 </script>
 <script>
     $(document).ready(function () {
-        var userID = get_query_string("id");
-        var $coupons = $("#coupon_list");
-        var template = _.template($("#coupons_template").html());
 
-        $(".coupon_footer").click(function () {
-            window.location.href = "/html/login.html?redirect=/html/tdc.html?id=" + userID;
-        });
+        var doctorID = get_query_string("id");
 
-        get_coupons(userID);
+        take_coupons(doctorID);
 
-        function get_coupons(id) {
+        function take_coupons(id) {
             show_loader();
             ajax({
-                url: "/doctor/" + id + "/coupons/available",
+                url: "/doctor/" + id + "/take_coupon",
                 success: function (json) {
-                    hide_loader();
-                    if(json.error || json.success.length === 0) {
+                    if (json.error || json.success.length === 0) {
                         window.location.href = "/html/index.html";
+                    } else {
+                        var ids = "";
+                        _.each(json.success, function (id, index) {
+                            ids = ids + "&ids[" + index + "]=" + id;
+                        });
+                        ajax({
+                            url: "/user/session",
+                            success: function (json) {
+                                hide_loader();
+                                if (json.error || json.success.length === 0) {
+                                    window.location.href = "/html/index.html";
+                                }
+                                var userID = json.success.user.id;
+                                window.location.href = "/html/tds.html?userID=" + userID + ids;
+                            }
+                        });
                     }
-                    $("#coupon_body").css("display", "block");
-                    $coupons.html(template({coupons: json.success}));
                 }
             });
         }
@@ -111,6 +113,7 @@
         function hide_loader() {
             $(".ui.dimmer").removeClass("active");
         }
+
     });
 </script>
 
