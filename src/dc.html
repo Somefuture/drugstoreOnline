@@ -82,17 +82,27 @@
         var userID = get_query_string("id");
         var $coupons = $("#coupon_list");
         var template = _.template($("#coupons_template").html());
-
         var sid = getCookie("sid");
 
-        if(sid) {
-            window.location.href = "/tdc.html?id=" + userID;
-        }else {
-            $(".coupon_footer").click(function () {
-                window.location.href = "/html/login.html?r=/tdc.html?id=" + userID;
-            });
-            get_coupons(userID);
-        }
+        $(".coupon_footer").click(function () {
+            if(sid) {
+                window.location.href = "/tdc.html?id=" + userID;
+            }else {
+                swal({
+                        title: "",
+                        text: "请先登录",
+                        confirmButtonText: "去登录",
+                    },
+                    function () {
+                        window.location.href = "/html/login.html?r=/tdc.html?id=" + userID;
+                    }
+                );
+            }
+
+        });
+
+        get_coupons(userID);
+
 
         function get_coupons(id) {
             show_loader();
