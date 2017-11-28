@@ -19,124 +19,23 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>我的药箱</title>
     <link rel="stylesheet" href="../css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="../css/sweetalert.css" />
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
 <div class="shopping_header">
-    <img src="../images/tab/tab_03.png" alt="">
     <p class="title">优惠券</p>
 </div>
 <div class="coupon_body">
-    <div class="coupon_category">
+    <div class="coupon_category" id="coupon_tab">
         <span class="available active">可使用</span>
         <span class="used">已使用</span>
         <span class="unavailable">不可用</span>
     </div>
-    <ul class="coupon_lists">
-        <li class="coupon_hundred">
-            <img src="../images/personal/personal_71.png" alt="" class="limit_status">
-            <div class="coupon_value">
-                <span class="unit">￥</span>
-                <span class="value_num">100</span>
-                <p>
-                    <span class="coupon_title">优惠券</span>
-                    满200使用 仅可购希诺宁100ml
-                    <span class="date_limit">
-                        2017.04.10~2017.05.05
-                    </span>
-                </p>
-            </div>
-            <div class="coupon_detail">
-                <h3>详情 <img src="../images/personal/personal_49.png" alt=""></h3>
-                <ul>
-                    <li>1.仅限购买希诺宁100ml使用</li>
-                    <li>2.仅限购买希诺宁100ml使用</li>
-                </ul>
-            </div>
-        </li>
-        <li class="coupon_fifty">
-            <img src="../images/personal/personal_67.png" alt="" class="limit_status">
-            <div class="coupon_value">
-                <span class="unit">￥</span>
-                <span class="value_num">50</span>
-                <p>
-                    <span class="coupon_title">优惠券</span>
-                    满200使用 仅可购希诺宁100ml
-                    <span class="date_limit">
-                        2017.04.10~2017.05.05
-                    </span>
-                </p>
-            </div>
-            <div class="coupon_detail">
-                <h3>详情 <img src="../images/personal/personal_49.png" alt=""></h3>
-                <ul>
-                    <li>1.仅限购买希诺宁100ml使用</li>
-                    <li>2.仅限购买希诺宁100ml使用</li>
-                </ul>
-            </div>
-        </li>
-        <li class="coupon_twenty">
-            <div class="coupon_value">
-                <span class="unit">￥</span>
-                <span class="value_num">20</span>
-                <p>
-                    <span class="coupon_title">优惠券</span>
-                    满200使用 仅可购希诺宁100ml
-                    <span class="date_limit">
-                        2017.04.10~2017.05.05
-                    </span>
-                </p>
-            </div>
-            <div class="coupon_detail">
-                <h3>详情 <img src="../images/personal/personal_49.png" alt=""></h3>
-                <ul>
-                    <li>1.仅限购买希诺宁100ml使用</li>
-                    <li>2.仅限购买希诺宁100ml使用</li>
-                </ul>
-            </div>
-        </li>
-        <li class="coupon_ten">
-            <div class="coupon_value">
-                <span class="unit">￥</span>
-                <span class="value_num">10</span>
-                <p>
-                    <span class="coupon_title">优惠券</span>
-                    满200使用 仅可购希诺宁100ml
-                    <span class="date_limit">
-                        2017.04.10~2017.05.05
-                    </span>
-                </p>
-            </div>
-            <div class="coupon_detail">
-                <h3>详情 <img src="../images/personal/personal_49.png" alt=""></h3>
-                <ul>
-                    <li>1.仅限购买希诺宁100ml使用</li>
-                    <li>2.仅限购买希诺宁100ml使用</li>
-                </ul>
-            </div>
-        </li>
-        <li class="coupon_five">
-            <div class="coupon_value">
-                <span class="unit">￥</span>
-                <span class="value_num">5</span>
-                <p>
-                    <span class="coupon_title">优惠券</span>
-                    满200使用 仅可购希诺宁100ml
-                    <span class="date_limit">
-                        2017.04.10~2017.05.05
-                    </span>
-                </p>
-            </div>
-            <div class="coupon_detail">
-                <h3>详情 <img src="../images/personal/personal_49.png" alt=""></h3>
-                <ul>
-                    <li>1.仅限购买希诺宁100ml使用</li>
-                    <li>2.仅限购买希诺宁100ml使用</li>
-                </ul>
-            </div>
-        </li>
-    </ul>
+    <div id="coupon_lists">
+        <a href="/product/user_coupons?drop=0&take=10" class="bottom_info"></a>
+    </div>
 </div>
 <div class="footer">
     <ul class="nav">
@@ -167,4 +66,43 @@
     </ul>
 </div>
 </body>
+<script type="text/template" id="coupon_template">
+    <ul class="coupon_lists">
+        <a href="/product/user_coupons?drop=0&take=10" class="bottom_info"></a>
+        <% _.each(coupons,function(coupon){
+        %>
+        <li class="coupon_<%= coupon.value %>">
+            <div class="coupon_value">
+                <span class="unit">￥</span>
+                <span class="value_num"><%= coupon.value %></span>
+                <p>
+                    <span class="coupon_title"><%= coupon.couponName %></span>
+                    <span class="date_limit">
+                        <%= coupon.acquireAt[0] %>.<%= coupon.acquireAt[1] %>.<%= coupon.acquireAt[2] %>~<%= coupon.expireAt[0] %>.<%= coupon.expireAt[1] %>.<%= coupon.expireAt[2] %>
+                    </span>
+                </p>
+            </div>
+            <div class="coupon_detail">
+                <h3>详情 <img src="../images/personal/personal_49.png" alt=""></h3>
+                <p><%= coupon.description %></p>
+            </div>
+        </li>
+        <% }) %>
+    </ul>
+</script>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="../javascript/sweetalert.min.js"></script>
+<script src="../javascript/underscore-1.8.3.min.js"></script>
+<script src="../javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        function get_coupons() {
+            var coupon_template = _.template($("#coupon_template").html());
+            $("#coupon_lists").html(coupon_template({success:null}));
+            console.log(coupon_template({success: null}));
+            scroll_load_more("#coupon_lists", coupon_template, "a.bottom_info");
+        }
+        get_coupons();
+    })
+</script>
 </html>

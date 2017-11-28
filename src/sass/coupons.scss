@@ -7,7 +7,7 @@ $color-main:#0fb87f;
   width: 94%;
   background: #FFFFFF;
   margin: p2r(20) auto;
-  height: p2r(380);
+  height: p2r(350);
   position: relative;
   .limit_status{
     position: absolute;
@@ -59,7 +59,7 @@ $color-main:#0fb87f;
   }
   .coupon_detail {
     width: 100%;
-    height: p2r(180);
+    height: p2r(150);
     padding: p2r(10) p2r(20);
     border-radius: 0 0 p2r(15) p2r(15);
     h3 {
@@ -71,11 +71,9 @@ $color-main:#0fb87f;
         width: p2r(40);
       }
     }
-    ul{
-      li{
+    p{
         font-size: p2r(28);
         line-height: 1.5;
-      }
     }
   }
 }
@@ -83,6 +81,7 @@ $color-main:#0fb87f;
   background: #fafafa;
   padding-bottom: p2r(200);
   .coupon_category{
+    display: none;
     width: 94%;
     height: p2r(70);
     margin:p2r(42) auto p2r(40) auto;
@@ -115,31 +114,31 @@ $color-main:#0fb87f;
     }
   }
   .coupon_lists{
-    .coupon_hundred{
+    .coupon_20{
       .coupon_value{
         background: #6dce65;
       }
       @include coupon_item;
     }
-    .coupon_fifty{
+    .coupon_30{
       .coupon_value{
         background: #64a8cd;
       }
       @include coupon_item;
     }
-    .coupon_twenty{
+    .coupon_40{
       .coupon_value{
         background: #65ceb0;
       }
       @include coupon_item;
     }
-    .coupon_ten{
+    .coupon_50{
       .coupon_value{
         background: #d07fe0;
       }
       @include coupon_item;
     }
-    .coupon_five{
+    .coupon_10{
       .coupon_value{
         background: #cea565;
       }

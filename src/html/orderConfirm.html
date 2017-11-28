@@ -6,14 +6,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 视图窗口，移动端特属的标签。 -->
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <!-- 忽略页面中的数字识别为电话号码,email识别 -->
-    <meta name="format-detection" content="telephone=no, email=no"/>
+    <meta name="format-detection"content="telephone=no, email=no" />
     <!-- 启用360浏览器的极速模式(webkit) -->
     <meta name="renderer" content="webkit">
     <!-- 避免IE使用兼容模式 -->
@@ -55,9 +54,11 @@
         <div class="consignee_content">
             <span class="name">
                 <img src="../images/order/shopping_24.png" alt="">
+                王小明
             </span>
             <span class="phone">
                 <img src="../images/order/shopping_30.png" alt="">
+                133****9999
             </span>
             <div class="address">
                 <img src="../images/order/shopping_27.png" alt="">
@@ -67,6 +68,30 @@
         </div>
     </div>
     <ul class="order_product">
+        <li>
+            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+            <div class="product_details">
+                <div class="detail_title">
+                    商品名称商品名称
+                </div>
+                <div class="detail_content">
+                    <span class="product_price">￥588</span>
+                    <span class="product_amount">x1</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
+            <div class="product_details">
+                <div class="detail_title">
+                    商品名称商品名称
+                </div>
+                <div class="detail_content">
+                    <span class="product_price">￥588</span>
+                    <span class="product_amount">x1</span>
+                </div>
+            </div>
+        </li>
     </ul>
     <div class="order_functions">
         <div class="delivery">
@@ -88,7 +113,7 @@
                 </p>
             </div>
             <div class="btn">
-                <input type="checkbox" name="sex" id="total" class="chooseBtn"/>
+                <input type="checkbox" name="sex" id="total" class="chooseBtn" />
                 <label for="total" class="choose-label"></label>
             </div>
         </div>
@@ -100,7 +125,7 @@
                 </p>
             </div>
             <div class="btn">
-                <input type="checkbox" name="sex" id="invoice" class="chooseBtn"/>
+                <input type="checkbox" name="sex" id="invoice" class="chooseBtn" />
                 <label for="invoice" class="choose-label"></label>
             </div>
         </div>
@@ -161,52 +186,4 @@
     </ul>
 </div>
 </body>
-<script src="../javascript/jquery-3.2.1.min.js"></script>
-<script src="../javascript/sweetalert.min.js"></script>
-<script src="../javascript/swiper.min.js"></script>
-<script src="../javascript/underscore-1.8.3.min.js"></script>
-<script src="../javascript/util.js"></script>
-<script type="text/template" id="product_template">
-    <li>
-        <div class="product_img"><img src="../images/details/home_48@3x.png" alt=""></div>
-        <div class="product_details">
-            <div class="detail_title">
-                商品名称商品名称
-            </div>
-            <div class="detail_content">
-                <span class="product_price">￥588</span>
-                <span class="product_amount">x1</span>
-            </div>
-        </div>
-    </li>
-</script>
-<script>
-    $(document).ready(function () {
-        ajax({
-            url: "/user/session",
-            success: function (json) {
-                if (json.success) {
-                    $(".consignee_content .name").append(json.success.user.name);
-                    $(".consignee_content .phone").append(json.success.user.mobile);
-                }
-            }
-        });
-
-        var scids = get_query_string("scids").split(";");
-        if (scids.length) {
-            var params = [];
-            for (var i = 0; i < scids.length; i++) {
-                params.push("ids[" + i + "]=" + scids[i])
-            }
-            ajax({
-                url: "/items/online/by_shopping_cart_item?" + params.join("&"),
-                success: function (json) {
-                    if (json.success) {
-
-                    }
-                }
-            });
-        }
-    });
-</script>
 </html>
