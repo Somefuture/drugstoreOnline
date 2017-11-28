@@ -307,6 +307,7 @@
                     if(json && json.error) {
 
                     }else {
+                        console.log(json.success);
                         var welfare_template = _.template($("#welfare_template").html());
                         $("#welfare").html(welfare_template({"welfare": json.success}));
                     }

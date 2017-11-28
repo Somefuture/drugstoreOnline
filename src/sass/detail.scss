@@ -182,12 +182,16 @@ $color-main:#0fb87f;
         left: p2r(30);
         border-radius: p2r(20);
       }
-      .SKU_price{
+      .SKU_price,.SKU_name{
         position: absolute;
-        top:p2r(10);
+        top:p2r(20);
         left:p2r(250);
         font-size: p2r(32);
         color:#ff7d5b;
+      }
+      .SKU_name{
+        top:p2r(80);
+        color: #212121;
       }
     }
     .SKU_category{

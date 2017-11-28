@@ -69,10 +69,10 @@
     <div class="SKU_select_content">
         <div class="SKU_detail">
             <img id="sku_image" alt="" src="">
-            <span class="SKU_price">￥198</span>
+            <span class="SKU_price">￥0.00</span>
+            <span class="SKU_name"></span>
         </div>
-        <div class="SKU_category">
-        </div>
+        <div class="SKU_category"></div>
         <div class="SKU_quantity">
             数量
             <div class="product_amount">
@@ -179,9 +179,19 @@
         var key_names = {};
         var skus = {};
         var sku_images = {};
+        var sku_details = {};
 
         get_product(id);
         render_banner(id);
+
+        $(".nextStep").click(function() {
+            var sku_id = get_sku();
+            if(sku_id){
+                swal("","还没完成");
+            } else {
+                show_specs_selector();
+            }
+        });
 
         function get_selected() {
             var selected = [];
@@ -211,7 +221,8 @@
         $(".buy_now").click(function(){
             var sku_id = get_sku();
             if(sku_id){
-                window.location.href = "/html/orderConfirm.html?sid="+sku_id;
+                //window.location.href = "/html/orderConfirm.html?sid="+sku_id;
+                swal("","未实现的功能");
             }
         });
 
@@ -228,7 +239,13 @@
         });
         $("#add_sku_quantity").click(function () {
             var quantity = parseInt($sku_quantity.html());
-            $sku_quantity.html(quantity + 1);
+            var selected_quantity = $("#sku_quantity").html();
+            var sku_id = get_sku();
+            if(sku_id && selected_quantity > sku_details[sku_id].inventory){
+                $sku_quantity.html(sku_details[sku_id].inventory);
+            } else {
+                $sku_quantity.html(quantity + 1);
+            }
         });
 
         function load_skus() {
@@ -258,6 +275,7 @@
                             sku_keys[spec.keyID] = value;
                         });
                         skus[data.sku.id] = sku_keys;
+                        sku_details[data.sku.id] = data.sku;
                     });
                     var _template = _.template($("#specs").html());
                     $specs.html(_template({
@@ -335,6 +353,13 @@
                         });
                         var maybe_sku = get_sku();
                         if (maybe_sku) {
+                            $(".SKU_name").html(sku_details[maybe_sku].name);
+                            $(".SKU_price").html("￥" + sku_details[maybe_sku].salesPrice);
+                            var $sku_quantity = $("#sku_quantity");
+                            var selected_quantity = $sku_quantity.html();
+                            if(sku_details[maybe_sku].inventory < parseInt(selected_quantity)){
+                                $sku_quantity.html(sku_details[maybe_sku].inventory);
+                            }
                             $("#sku_image").attr("src", "/file/public/" + sku_images[maybe_sku].id + "." + sku_images[maybe_sku].ext);
                         }
                     });
@@ -425,6 +450,7 @@
                             if(json.error){
                                 return;
                             }
+                            detail = json.success;
                             $("#product_detail").html(json.success);
                         }
                     });

@@ -78,13 +78,6 @@ $bottom-border:p2r(1) solid #e7e7e7;
     }
   }
   .product_lists{
-    .bottom_info{
-      display: block;
-      width: 100%;
-      text-align: center;
-      color: rgb(172, 172, 172);
-      font-size: p2r(28);
-    }
     ul{
       width: 94%;
       margin: 0 auto;
@@ -126,4 +119,11 @@ $bottom-border:p2r(1) solid #e7e7e7;
       }
     }
   }
+}
+.bottom_info{
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: rgb(172, 172, 172);
+  font-size: p2r(28);
 }

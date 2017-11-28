@@ -33,9 +33,8 @@
         <span class="used">已使用</span>
         <span class="unavailable">不可用</span>
     </div>
-    <div id="coupon_lists">
-        <a href="/product/user_coupons?drop=0&take=10" class="bottom_info"></a>
-    </div>
+    <div id="coupon_lists"></div>
+    <a href="/product/user_coupons?drop=0&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
 </div>
 <div class="footer">
     <ul class="nav">
@@ -66,11 +65,10 @@
     </ul>
 </div>
 </body>
-<script type="text/template" id="coupon_template">
+<script type="text/template" id="coupon_list_template">
     <ul class="coupon_lists">
-        <a href="/product/user_coupons?drop=0&take=10" class="bottom_info"></a>
-        <% _.each(coupons,function(coupon){
-        %>
+        <% if(success){ %>
+        <% _.each(success.list,function(coupon){ %>
         <li class="coupon_<%= coupon.value %>">
             <div class="coupon_value">
                 <span class="unit">￥</span>
@@ -88,6 +86,14 @@
             </div>
         </li>
         <% }) %>
+        <% if(drop < success.count){ %>
+        <a href="/product/user_coupons?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } else { %>
+        <span class="bottom_info">--- 已全部加载完毕 ---</span>
+        <% } %>
+        <% }else{ %>
+        <a href="/product/user_coupons?drop=0&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } %>
     </ul>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
@@ -96,13 +102,8 @@
 <script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function () {
-        function get_coupons() {
-            var coupon_template = _.template($("#coupon_template").html());
-            $("#coupon_lists").html(coupon_template({success:null}));
-            console.log(coupon_template({success: null}));
-            scroll_load_more("#coupon_lists", coupon_template, "a.bottom_info");
-        }
-        get_coupons();
-    })
+        var template = _.template($("#coupon_list_template").html());
+        scroll_load_more("#coupon_lists", template, "a.bottom_info",{});
+    });
 </script>
 </html>

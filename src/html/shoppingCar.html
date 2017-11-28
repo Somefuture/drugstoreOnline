@@ -189,7 +189,10 @@
 
         $(".account").click(function(){
             if(selected_items.length > 0){
-                window.location.href = "/html/orderConfirm.html?scids="+selected_items.join(";")
+                //window.location.href = "/html/orderConfirm.html?scids="+selected_items.join(";")
+                swal("","未实现的功能");
+            }else{
+                swal("","请选择要结算的产品")
             }
         });
 
