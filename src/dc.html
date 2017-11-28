@@ -37,9 +37,9 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>注册领券</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/sweetalert.css" rel="stylesheet">
-    <link href="css/dc.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/sweetalert.css" rel="stylesheet">
+    <link href="/css/dc.css" rel="stylesheet">
 </head>
 <body>
 <div class="ui dimmer">
@@ -52,10 +52,10 @@
     </div>
 </div>
 </body>
-<script src="javascript/jquery-3.2.1.min.js"></script>
-<script src="javascript/sweetalert.min.js"></script>
-<script src="javascript/underscore-1.8.3.min.js"></script>
-<script src="javascript/util.js"></script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
 <script type="text/template" id="coupons_template">
     <div class="coupon_header">
         <h2>您可领取优惠券</h2>
@@ -83,18 +83,23 @@
         var $coupons = $("#coupon_list");
         var template = _.template($("#coupons_template").html());
 
-        $(".coupon_footer").click(function () {
-            window.location.href = "/html/login.html?redirect=/html/tdc.html?id=" + userID;
-        });
+        var sid = getCookie("sid");
 
-        get_coupons(userID);
+        if(sid) {
+            window.location.href = "/tdc.html?id=" + userID;
+        }else {
+            $(".coupon_footer").click(function () {
+                window.location.href = "/html/login.html?r=/tdc.html?id=" + userID;
+            });
+            get_coupons(userID);
+        }
 
         function get_coupons(id) {
             show_loader();
             ajax({
                 url: "/doctor/" + id + "/coupons/available",
+                complete: hide_loader,
                 success: function (json) {
-                    hide_loader();
                     if(json.error || json.success.length === 0) {
                         window.location.href = "/html/index.html";
                     }

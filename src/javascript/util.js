@@ -1,20 +1,39 @@
-function get_query_string(name) {
+function get_query_string(name, location) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    var values = window.location.search.substr(1).match(reg);
+    var values = (location || window.location.search.substr(1)).match(reg);
     if (values !== null) return unescape(values[2]);
     return null;
 }
 
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+
+function get_location_search(url) {
+    var uri =  url;
+    uri = uri.replace("//", "");
+    var index = uri.indexOf("/");
+    if(index > 0) {
+        return uri.substr(index);
+    }else {
+        return url;
+    }
+}
+
 function ajax(params) {
-    var final_params = $.extend({headers: {"X-Requested-With": "ec.mobile", "Cache-Control": "no-cache"}}, params);
+    var final_params = $.extend({headers: {"X-Requested-With": "hec", "Cache-Control": "no-cache"}}, params);
     final_params.complete = function (response) {
+        params.complete && params.complete(response);
         if (response.status === 401 || response.status === 410) {
             window.location.href = "login.html";
-        } else if (response.status === 500) {
+        } else if (response.status >= 400) {
             swal("", "系统繁忙，请稍后再试。");
-        }
-        if (params.complete) {
-            params.complete(response);
         }
     };
     final_params.success = function (json) {

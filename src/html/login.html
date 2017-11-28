@@ -36,15 +36,16 @@
 	<script src="/javascript/util.js"></script>
 	<script>
 		$(document).ready(function () {
+
             var show_swal = false;
-            var redirect = get_query_string("redirect");
+            var redirect_uri = get_query_string("r");
 
             $("#register").click(function () {
-                window.location.href = "/html/register.html" + (redirect ? ("?redirect=" + redirect) : "");
+                window.location.href = "/html/register.html" + (redirect_uri ? ("?r=" + escape(redirect_uri)) : "");
             });
 
             $("#forget_password").click(function () {
-                window.location.href = "/html/changePassword.html" + (redirect ? ("?redirect=" + redirect) : "");
+                window.location.href = "/html/changePassword.html" + (redirect_uri ? ("?r=" + escape(redirect_uri)) : "");
             });
 
             function login() {
@@ -70,8 +71,8 @@
                         success: function (json) {
                             if(!json.error){
                                 window.localStorage.setItem('userId',JSON.stringify(json.success));
-                                if(redirect) {
-                                    window.location.href = redirect;
+                                if(redirect_uri) {
+                                    window.location.href = redirect_uri;
                                 }else {
                                     window.location.href = "index.html";
                                 }

@@ -37,7 +37,6 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>注册领券</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/sweetalert.css" rel="stylesheet">
     <link href="/css/dc.css" rel="stylesheet">
 </head>
@@ -45,74 +44,50 @@
 <div class="ui dimmer">
     <div class="ui loader"></div>
 </div>
-<div id="coupon_body" style="display: none">
-    <div id="coupon_list"></div>
-    <div class="coupon_footer">
-        <button>立即使用</button>
-    </div>
-</div>
 </body>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
-<script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
-<script type="text/template" id="coupons_template">
-    <div class="coupon_header">
-        <h1>恭喜您</h1>
-        <h2>获得<%= coupons.length %>张优惠券</h2>
-        <h3>
-            <span class="coupon_bg_image"></span>
-        </h3>
-    </div>
-    <div class="coupon_body">
-        <ul>
-            <% _.each(coupons, function(coupon) { %>
-            <li>
-                <h1><%= coupon.value %></h1>
-                <h5>RMB</h5>
-                <h5 class="green_line"></h5>
-                <p><%= coupon.description %></p>
-                <span><%= coupon.name %></span>
-            </li>
-            <% }) %>
-        </ul>
-    </div>
-</script>
 <script>
     $(document).ready(function () {
-        var $coupons = $("#coupon_list");
-        var template = _.template($("#coupons_template").html());
 
-        $(".coupon_footer").click(function () {
-            try {
-                //尝试执行 IOS 回调
-                goBackAppMall()
-            }catch(error) {
-                //执行失败, 尝试执行 Android 回调
-                try {
-                    ejia.goBackAppMall()
-                }catch(error) {
-                    //执行失败, 跳转到首页
-                    window.location.href = "/html/index.html";
-                }
+        var redirect_uri = get_query_string("r");
+        var ticket = get_query_string("t");
+        var constrains = get_query_string("c", redirect_uri); //ar "需要登录"
+        var login_uri = "/html/login.html?r=" + escape(redirect_uri);
+
+        if(constrains && constrains === "ar") {
+            if(ticket) {
+                signin_by_ticket();
+            }else {
+                window.location.href = login_uri;
             }
-        });
+        }else {
+            window.location.href = redirect_uri;
+        }
 
-        get_coupons();
 
-        function get_coupons() {
+        function signin_by_ticket() {
             show_loader();
             ajax({
-                url: "/product/user_coupons/show",
-                data: window.location.search.substr(1),
+                type: "post",
+                url: "/account/ticket/signin",
+                data: {ticket: ticket},
                 complete: hide_loader,
                 success: function (json) {
-                    hide_loader();
-                    if(json.error || json.success.length === 0) {
-                        window.location.href = "/html/index.html";
+                    if(json.error) {
+                        swal({
+                                title: "",
+                                text: "请先登录",
+                                confirmButtonText: "去登录",
+                            },
+                            function () {
+                                window.location.href = login_uri;
+                            }
+                        );
+                    }else {
+                        window.location.href = redirect_uri;
                     }
-                    $("#coupon_body").css("display", "block");
-                    $coupons.html(template({coupons: json.success}));
                 }
             });
         }

@@ -49,12 +49,12 @@
 	<script>
 		$(document).ready(function () {
             var show_swal = false;
-            var redirect = get_query_string("redirect");
+            var redirect_uri = get_query_string("r");
 
             $("#verification_code_btn").click(get_verification_code);
             $("#sign_in").click(register);
 			$("#to_login").click(function () {
-                window.location.href = "/html/login.html" + (redirect ? ("?redirect=" + redirect) : "");
+                window.location.href = "/html/login.html" + (redirect_uri ? ("?r=" + escape(redirect_uri)) : "");
             });
 
             function register() {
@@ -85,9 +85,8 @@
                         data: {mobile: mobile,password:password,authentication_code:verification_code},
                         success: function (json) {
                             if(!json.error){
-                                console.log(redirect);
-                                if(redirect) {
-                                    window.location.href = redirect;
+                                if(redirect_uri) {
+                                    window.location.href = redirect_uri;
                                 }else {
                                     window.location.href = "index.html";
                                 }
