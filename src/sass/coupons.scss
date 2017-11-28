@@ -19,9 +19,11 @@ $color-main:#0fb87f;
     width: 100%;
     height: p2r(200);
     background-image: url("/images/personal/coupon_bg.png");
+    background-size: p2r(40);
     background-position: left bottom;
     background-repeat: repeat-x;
     border-radius: p2r(15) p2r(15) 0 0;
+    font-size: 0;
     .unit,.value_num{
       display: inline-block;
       height: p2r(200);
@@ -31,10 +33,12 @@ $color-main:#0fb87f;
     .unit{
       font-size: p2r(50);
       width: 5%;
+      margin-left: p2r(20);
     }
     .value_num{
-      width:38%;
+      width:35%;
       font-size: p2r(120);
+      text-indent: p2r(20);
     }
     p{
       display: inline-block;
@@ -60,9 +64,11 @@ $color-main:#0fb87f;
     border-radius: 0 0 p2r(15) p2r(15);
     h3 {
       font-size: p2r(32);
+      font-weight: normal;
       margin-bottom: p2r(30);
       img {
         float: right;
+        width: p2r(40);
       }
     }
     ul{
@@ -78,13 +84,11 @@ $color-main:#0fb87f;
   padding-bottom: p2r(200);
   .coupon_category{
     width: 94%;
-    height: p2r(50);
-    background: #FFFFFF;
+    height: p2r(70);
     margin:p2r(42) auto p2r(40) auto;
-    border-radius: p2r(5);
     font-size: 0;
-    border-collapse: collapse;
     span{
+      background: #FFFFFF;
       display: inline-block;
       width: 33%;
       height: p2r(70);
@@ -94,6 +98,16 @@ $color-main:#0fb87f;
       box-sizing: border-box;
       border:p2r(1) solid #e7e7e7;
       border-collapse: collapse;
+    }
+    span.used{
+      border-right: none;
+      border-left: none;
+    }
+    span.available{
+      border-radius: p2r(20) 0 0 p2r(20);
+    }
+    span.unavailable{
+      border-radius: 0 p2r(20) p2r(20) 0;
     }
     span.active{
       color:#FFFFFF;
