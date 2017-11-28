@@ -214,6 +214,9 @@
 <script src="../javascript/util.js"></script>
 <script>
     $(document).ready(function(){
+        var width = $(window).width();
+        var height = width * 528 / 997;
+
         $(".knowledge").click(function(){
             swal("","功能开发建设中");
         });
@@ -228,6 +231,9 @@
                     if(!json.error) {
                         var banner_template = _.template($("#banner_template").html());
                         $("#banner").html(banner_template({"images": json.success}));
+
+                        $(".banner").height(height);
+
                         new Swiper('.swiper-container', {
                             slidesPerView: 'auto',
                             centeredSlides: true,
@@ -240,6 +246,11 @@
                                 clickable: true
                             }
                         });
+
+                        $("img.swiper-lazy").each(function () {
+                            $(this).width(width);
+                            $(this).height(height);
+                        })
                     }
                 }
             });

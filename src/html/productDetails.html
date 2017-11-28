@@ -166,6 +166,8 @@
 <script src="../javascript/util.js"></script>
 <script>
     $(document).ready(function () {
+        var width = $(window).width();
+        var height = width;
         var id = get_query_string("id");
         var product_template = _.template($("#product_template").html());
         var $specs_selector_layer = $(".SKU_select");
@@ -415,6 +417,7 @@
                         return;
                     }
                     $("#product_body").html(product_template({"product": json.success}));
+                    $(".banner").height(height);
                     ajax({
                         url: "/product/detail",
                         data: {"id": id},
@@ -443,7 +446,10 @@
                     $("#sku_image").attr("src", "/file/public/" + json.success[0].id + "." + json.success[0].ext);
                     var banner_template = _.template($("#banner_template").html());
                     $("#banner").html(banner_template({"images": json.success}));
+
                     new Swiper('.swiper-container', {
+                        width: width,
+                        height: height,
                         slidesPerView: 'auto',
                         centeredSlides: true,
                         autoplay: {
@@ -455,6 +461,11 @@
                             clickable: true
                         }
                     });
+
+                    $("img.swiper-lazy").each(function () {
+                        $(this).width(width);
+                        $(this).height(height);
+                    })
                 }
             });
         }

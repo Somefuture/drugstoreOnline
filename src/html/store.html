@@ -169,82 +169,95 @@
 <script src="../javascript/underscore-1.8.3.min.js"></script>
 <script src="../javascript/util.js"></script>
 <script>
-    render_banner();
-    function render_banner() {
-        $.ajax({
-            url: "/advertisement/materials/by_collection",
-            data: {"collectionID": 10},
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if(json && json.error) {
-                    swal("", json.error.message);
-                }else {
-                    var banner_template = _.template($("#banner_template").html());
-                    $("#banner").html(banner_template({"images": json.success}));
-                    new Swiper('.swiper-container', {
-                        slidesPerView: 'auto',
-                        centeredSlides: true,
-                        autoplay: {
-                            delay: 2500
-                        },
-                        lazy: true,
-                        pagination: {
-                            el: '.swiper-pagination',
-                            clickable: true
-                        }
-                    });
+    $(document).ready(function () {
+        var width = $(window).width();
+        var height = width * 528 / 997;
+
+        $(".banner").height(height);
+
+        render_banner();
+        function render_banner() {
+            $.ajax({
+                url: "/advertisement/materials/by_collection",
+                data: {"collectionID": 10},
+                headers: {"X-Requested-With": "h5"},
+                success: function (json) {
+                    if(json && json.error) {
+                        swal("", json.error.message);
+                    }else {
+                        var banner_template = _.template($("#banner_template").html());
+                        $("#banner").html(banner_template({"images": json.success}));
+                        new Swiper('.swiper-container', {
+                            slidesPerView: 'auto',
+                            centeredSlides: true,
+                            autoplay: {
+                                delay: 2500
+                            },
+                            lazy: true,
+                            pagination: {
+                                el: '.swiper-pagination',
+                                clickable: true
+                            }
+                        });
+
+                        $("img.swiper-lazy").each(function () {
+                            $(this).width(width);
+                            $(this).height(height);
+                        })
+                    }
+                },
+                error: function (xhr, status, message) {
+                    if(message === "Unauthorized") {
+                        window.location.href = "login.html";
+                    }else {
+                        swal("", "系统繁忙，请稍后再试。");
+                    }
                 }
-            },
-            error: function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
-            }
-        });
-    }
-    var product_list_template = _.template($("#product_list_template").html());
-    $.getData = function (load_data_id) {
-        var $load_data = $(load_data_id);
-        if($load_data.length === 0){
-            // todo : remove scroll event
-            return;
+            });
         }
-        var url = $load_data[0].getAttribute("href");
-        var data = getJsonFromUrl(url);
-        data.drop = parseInt(data.drop);
-        data.take = parseInt(data.take);
-        $.ajax({
-            url: url,
-            headers: {"X-Requested-With": "h5"},
-            success: function (json) {
-                if (json && json.error) {
-                    swal("", json.error.message);
-                } else {
-                    data.success = json.success;
-                    data.drop += 10;
-                    $("#loadData")[0].remove();
-                    $("#product_list").append(product_list_template(data));
-                }
-            },
-            error: function (xhr, status, message) {
-                if (message === "Unauthorized") {
-                    window.location.href = "login.html";
-                } else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
+        var product_list_template = _.template($("#product_list_template").html());
+        $.getData = function (load_data_id) {
+            var $load_data = $(load_data_id);
+            if($load_data.length === 0){
+                // todo : remove scroll event
+                return;
             }
-        });
-    };
-    var load_data_id = "#loadData";
-    var bottom_offset = 400;
-    $.getData(load_data_id);
-    var loadMore = _.debounce(function () {
-        if (($(document).height() - $(window).scrollTop()) > bottom_offset) {
-            $.getData(load_data_id);
-        }
-    }, 500);
-    $(window).scroll(loadMore);
+            var url = $load_data[0].getAttribute("href");
+            var data = getJsonFromUrl(url);
+            data.drop = parseInt(data.drop);
+            data.take = parseInt(data.take);
+            $.ajax({
+                url: url,
+                headers: {"X-Requested-With": "h5"},
+                success: function (json) {
+                    if (json && json.error) {
+                        swal("", json.error.message);
+                    } else {
+                        data.success = json.success;
+                        data.drop += 10;
+                        $("#loadData")[0].remove();
+                        $("#product_list").append(product_list_template(data));
+                    }
+                },
+                error: function (xhr, status, message) {
+                    if (message === "Unauthorized") {
+                        window.location.href = "login.html";
+                    } else {
+                        swal("", "系统繁忙，请稍后再试。");
+                    }
+                }
+            });
+        };
+        var load_data_id = "#loadData";
+        var bottom_offset = 400;
+        $.getData(load_data_id);
+        var loadMore = _.debounce(function () {
+            if (($(document).height() - $(window).scrollTop()) > bottom_offset) {
+                $.getData(load_data_id);
+            }
+        }, 500);
+        $(window).scroll(loadMore);
+    });
+
 </script>
 </html>
