@@ -61,33 +61,36 @@
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
-    var show_swal = false;
-    function changeName() {
-        var username = $("#username").val();
-        if (!username) {
-            show_swal = true;
-            swal("", "请输入姓名");
-        } else if(username.length<2||username.length>20){
-            show_swal = true;
-            swal("", "格式有误");
-        }else {
-            ajax({
-                type: "post",
-                url: "/user/name/update",
-                data: {"name": username},
-                success: function (json) {
-                    if(!json.error){
-                        swal({
-                                title:"",
-                                text:"姓名修改成功"},
-                            function(){window.location.href='/html/personal.html'}
-                        );
+    $(document).ready(function () {
+        var show_swal = false;
+        function changeName() {
+            var username = $("#username").val();
+            if (!username) {
+                show_swal = true;
+                swal("", "请输入姓名");
+            } else if(username.length<2||username.length>20){
+                show_swal = true;
+                swal("", "格式有误");
+            }else {
+                ajax({
+                    type: "post",
+                    url: "/user/name/update",
+                    data: {"name": username},
+                    success: function (json) {
+                        if(!json.error){
+                            swal({
+                                    title:"",
+                                    text:"姓名修改成功"},
+                                function(){window.location.href='/html/personal.html'}
+                            );
+                        }
                     }
-                }
-            });
+                });
+            }
         }
-    }
 
-    $("#edit_btn").click(changeName);
+        $("#edit_btn").click(changeName);
+    })
+
 </script>
 </html>

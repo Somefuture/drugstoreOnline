@@ -70,7 +70,6 @@
                         data: {"mobile": username, "password": password},
                         success: function (json) {
                             if(!json.error){
-                                window.localStorage.setItem('userId',JSON.stringify(json.success));
                                 if(redirect_uri) {
                                     window.location.href = redirect_uri;
                                 }else {

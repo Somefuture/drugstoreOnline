@@ -393,6 +393,7 @@
                         return;
                     }
                     $keys.find("span").removeClass("selected").removeClass("disabled");
+                    swal("","添加成功");
                     hide_specs_selector();
                 }
             });
@@ -421,6 +422,8 @@
             var maybe_sku = get_sku();
             if (maybe_sku) {
                 add_sku_to_shopping_cart(maybe_sku);
+            } else {
+                swal("","请先选择产品规格");
             }
         });
 

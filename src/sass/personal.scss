@@ -67,7 +67,7 @@ $color-main:#0fb87f;
   }
   .user_order{
     width: 92%;
-    height: p2r(180);
+    height: p2r(210);
     background: $color-main;
     position: absolute;
     top:p2r(500);
@@ -75,7 +75,7 @@ $color-main:#0fb87f;
     border-radius: p2r(10);
     overflow: hidden;
     .to_order_title{
-      margin: p2r(20) 0 0 p2r(20);
+      padding:p2r(20);
       font-size: p2r(32);
       color:#ffffff;
       img{
@@ -90,23 +90,25 @@ $color-main:#0fb87f;
         display: inline-block;
         width: 23%;
         text-align: center;
-        font-size: p2r(24);
-        color:#FFFFFF;
+        margin-bottom: p2r(10);
         img{
           width: p2r(80);
           display: block;
           margin: 0 auto;
+        }
+        a{
+          color: #ffffff;
+          font-size: p2r(24);
         }
       }
       li:nth-child(4){
         margin-right: p2r(-35);
       }
     }
-
   }
   h2{
     position: absolute;
-    top:p2r(710);
+    top:p2r(720);
     left:4%;
     color:#3c3c3c;
     font-size: p2r(32);

@@ -9,7 +9,6 @@ html, body, div, input {
 html, body{
 	width: 100%;
 	height: 100%;
-    overflow: hidden;
 }
 /*弹性盒样式*/
 .div-flex{
@@ -60,14 +59,16 @@ html, body{
     padding-left:20px;
 }
 body{
+    width: 100%;
+    height: 550px;
 	background: url(/images/imgs/login.png) no-repeat;
-	background-size: cover;
+	background-size:100% 100%;
 	margin: 0;
 	/*background: gray;*/
 }
 .lo-img{
 	text-align: center;
-    margin: 20% 0;
+    margin: 15% 0;
 }
 .lo-ipt-box{
 	margin: 0 auto;
@@ -75,7 +76,7 @@ body{
 }
 .lo-ipt{
 	border-bottom: 1px solid #ccc;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	padding: 5px 0;
 }
 .lo-ipt input{
@@ -98,8 +99,8 @@ body{
 	width: 100%;
 	height: 44px;
 	font-size: 16px;
-	margin-top: 30px;
-	margin-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 10px;
 }
 .lo-more span{
 	font-size: 14px;

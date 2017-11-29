@@ -6,18 +6,18 @@ $color-main:#0fb87f;
 .order_tab{
   width: 100%;
   height: p2r(80);
+  font-size: 0;
   li{
-    display: inline-block;
-    width: 24%;
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
     height: p2r(80);
     line-height: p2r(80);
     text-align: center;
     font-size: p2r(24);
     color:#3c3c3c;
     border-right: p2r(1) solid #e7e7e7;
-  }
-  li:nth-child(4){
-    margin-right: p2r(-10);
+    border-bottom: p2r(1) solid #e7e7e7;
   }
   .active{
     border-bottom: p2r(5) solid $color-main;

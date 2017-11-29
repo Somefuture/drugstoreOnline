@@ -44,13 +44,8 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-<div class="store_header">
-
-    <div class="search">
-        <img src="/images/tab/tab_07.png" alt="">
-        <input type="search" placeholder="请输入要搜索的药品">
-    </div>
-    <button>搜药</button>
+<div class="shopping_header">
+    <p class="title">精品商城</p>
 </div>
 <div class="store_body">
     <div class="banner" id="banner"></div>
@@ -150,8 +145,7 @@
                     <div class="img"
                          style="background-image: url('/file/public/<%=ele.image.id%>.<%=ele.image.ext%>');">
                     </div>
-                    <span class="pro_price">￥<%=ele.minSalesPrice%></span>
-                    <span class="sale_volume">销量：<%=ele.salesVolume%></span>
+                    <span class="pro_price">价格：￥<%=ele.minSalesPrice%></span>
                 </a>
             </li>
             <% }) %>
