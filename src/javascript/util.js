@@ -14,24 +14,12 @@ function getCookie(name)
         return null;
 }
 
-
-function get_location_search(url) {
-    var uri =  url;
-    uri = uri.replace("//", "");
-    var index = uri.indexOf("/");
-    if(index > 0) {
-        return uri.substr(index);
-    }else {
-        return url;
-    }
-}
-
 function ajax(params) {
     var final_params = $.extend({headers: {"X-Requested-With": "hec", "Cache-Control": "no-cache"}}, params);
     final_params.complete = function (response) {
         params.complete && params.complete(response);
         if (response.status === 401 || response.status === 410) {
-            window.location.href = "login.html";
+            window.location.href = "/html/login.html";
         } else if (response.status >= 400) {
             swal("", "系统繁忙，请稍后再试。");
         }
