@@ -34,25 +34,25 @@
         <img src="/images/personal/user_103.png" alt="">
         基础信息
     </div>
-    <div class="info_item" onclick="location='changeName.html'">
+    <div class="info_item" onclick="location='/html/changeName.html'">
         姓名
         <span class="to_edit">
             <img src="/images/personal/home_57@2x.png" alt="">
         </span>
-        <span id="user_name"></span>
+        <span class="default_info name">111</span>
     </div>
     <div class="info_title">
         <img src="/images/personal/user_100.png" alt="">
         账号信息
     </div>
-    <div class="info_item" onclick="location='changePassword.html'">
+    <div class="info_item" onclick="location='/html/changePassword.html'">
         修改密码
         <span class="to_edit">
             <img src="/images/personal/home_57@2x.png" alt="" >
         </span>
 
     </div>
-    <div class="info_item" onclick="location='changePhone.html'">
+    <div class="info_item" onclick="location='/html/changePhone.html'">
         更换手机号码
         <span class="to_edit">
             <img src="/images/personal/home_57@2x.png" alt="">
@@ -89,36 +89,19 @@
     </ul>
 </div>
 </body>
-<script type="text/template" id="name_template">
-    <span class="default_info"><%= personal.name %></span>
-</script>
+
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
-    get_personal(window.localStorage.getItem('userId'));
-    function get_personal(id) {
-        $.ajax({
-            url:"/user",
-            data:{"userID":id},
-            headers: {"X-Requested-With": "h5"},
-            success:function(json) {
-                if (json && json.error) {
-                    swal("", json.error.message);
-                } else {
-                    var name_template = _.template($("#name_template").html());
-                    $("#user_name").html(name_template({"personal": json.success}));
-                }
-            },
-            error:function (xhr, status, message) {
-                if(message === "Unauthorized") {
-                    window.location.href = "login.html";
-                }else {
-                    swal("", "系统繁忙，请稍后再试。");
-                }
+    $(document).ready(function () {
+        ajax({
+            url:"/user/session",
+            success:function (json) {
+                $(".name").html(json.success.user.name);
             }
         });
-    }
+    });
 </script>
 </html>

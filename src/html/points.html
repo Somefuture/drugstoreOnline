@@ -33,7 +33,9 @@
         <p id="present_point">100</p>
         <span>当前可用积分</span>
     </div>
-    <div id="point_detail"></div>
+    <div id="point_detail">
+        <a href="/product/account/points/logs?drop=0&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+    </div>
 </div>
 <div class="footer">
     <ul class="nav">
@@ -66,7 +68,8 @@
 </body>
 <script type="text/template" id="point_detail_template">
     <ul class="total_use_record">
-        <% _.each(points,function(point){ %>
+        <% if(success){ %>
+        <% _.each(success,function(point){ %>
         <li>
             <h2>
                 <%= point.triggerBy %>
@@ -85,6 +88,14 @@
             <% } %>
         </li>
         <% }) %>
+        <% if(drop < success.length){ %>
+        <a href="/product/account/points/logs?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } else { %>
+        <span class="bottom_info">--- 已全部加载完毕 ---</span>
+        <% } %>
+        <% }else{ %>
+        <a href="/product/account/points/logs?drop=0&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } %>
     </ul>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
@@ -93,17 +104,8 @@
 <script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function(){
-        var point_detail_template=_.template($("#point_detail_template").html());
-        ajax({
-            url:"/product/account/points/logs",
-            success:function (json) {
-                if(json.error){
-                    return;
-                }
-                console.log(json.success);
-                $("#point_detail").html(point_detail_template({"points": json.success}));
-            }
-        })
+        var template=_.template($("#point_detail_template").html());
+        scroll_load_more("#point_detail", template, "a.bottom_info",{});
         ajax({
             url:"/product/account/points",
             success:function(point_json){

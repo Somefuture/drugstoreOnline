@@ -45,18 +45,30 @@
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
-    $('#sign_out_btn')[0].onclick=function () {
-        swal({
-            title:"",
-            text:"确认退出吗？",
-            showCancelButton:true,
-            cancelButtonText:"取消",
-            confirmButtonText:"确认",
-        },
-            function () {
-                window.location.href='/html/login.html';
-            }
-        )
-    }
+    $(document).ready(function () {
+        $('#sign_out_btn')[0].onclick=function () {
+            swal({
+                    title:"",
+                    text:"确认退出吗？",
+                    showCancelButton:true,
+                    cancelButtonText:"取消",
+                    confirmButtonText:"确认",
+                },
+                function () {
+                    ajax({
+                        url:"/account/signout",
+                        type:"post",
+                        success:function (json) {
+                            if(json.error){
+                                return;
+                            }
+                            window.location.href='/html/login.html';
+                        }
+                    });
+                }
+            );
+        }
+    })
+
 </script>
 </html>
