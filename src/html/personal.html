@@ -118,25 +118,35 @@
         </div>
         <div class="user_order">
             <div class="to_order_title">
-                我的订单
-                <img src="/images/personal/user_07.png" alt="" onclick="location='myOrder.html'">
+                <a href="/html/myOrder.html">
+                    我的订单
+                    <img src="/images/personal/user_07.png" alt="">
+                </a>
             </div>
             <ul class="order_tabs">
                 <li>
-                    <img src="/images/personal/user_14.png" alt="">
-                    待付款
+                    <a href="/html/myOrder.html?status=obligation">
+                        <img src="/images/personal/user_14.png" alt="">
+                        待付款
+                    </a>
                 </li>
                 <li>
-                    <img src="/images/personal/user_19.png" alt="">
-                    待收货
+                    <a href="/html/myOrder.html?status=receiving">
+                        <img src="/images/personal/user_19.png" alt="">
+                        待收货
+                    </a>
                 </li>
                 <li>
-                    <img src="/images/personal/user_25.png" alt="">
-                    待评价
+                    <a onclick='swal("","功能开发建设中")'>
+                        <img src="/images/personal/user_25.png" alt="">
+                        待评价
+                    </a>
                 </li>
                 <li>
-                    <img src="/images/personal/user_32.png" alt="">
-                    售后/退货
+                    <a onclick='swal("","功能开发建设中")'>
+                        <img src="/images/personal/user_32.png" alt="">
+                        售后/退货
+                    </a>
                 </li>
             </ul>
         </div>

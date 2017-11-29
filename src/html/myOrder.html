@@ -182,6 +182,10 @@
 
         load_orders();
 
+        var status = get_query_string("status") || "all";
+
+        $(".order_tab > li." + status).click();
+
         function load_orders() {
             $("#order_list").html(template({success: null, statuses: active_order_statuses}));
             scroll_load_more("#order_list", template, "a.bottom_info", {statuses: active_order_statuses});
