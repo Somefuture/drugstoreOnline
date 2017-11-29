@@ -22,7 +22,6 @@
     <meta name="x5-page-mode" content="app">
     <title>我的订单</title>
     <link type="text/css" rel="stylesheet" href="/css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
     <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
     <link type="text/css" rel="stylesheet" href="/css/index.css" />
     <link type="text/css" rel="stylesheet" href="/css/reset.css">
@@ -32,7 +31,7 @@
     <p class="title">我的订单</p>
 </div>
 <ul class="order_tab">
-    <li class="all active">全部</li>
+    <li class="all">全部</li>
     <li class="obligation">待付款</li>
     <li class="receiving">待收货</li>
     <li class="finished">已完成</li>
@@ -70,7 +69,6 @@
 </body>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
-<script src="/javascript/swiper.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script type="text/template" id="order_list_template">
@@ -179,8 +177,6 @@
         var template = _.template($("#order_list_template").html());
 
         $(".order_tab").delegate("li", "click", active_order_tab);
-
-        load_orders();
 
         var status = get_query_string("status") || "all";
 
