@@ -70,7 +70,6 @@ function scroll_load_more(list_id, underscore_template, load_data_id, options) {
         data.take = parseInt(data.take);
         ajax({
             url: url,
-            headers: {"X-Requested-With": "h5"},
             success: function (json) {
                 data.success = json.success;
                 data.drop += 10;

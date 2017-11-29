@@ -57,8 +57,7 @@
     </div>
     <div class="detail_address">
         <h2>详细地址</h2>
-        <textarea name="" id="detailed_adr" cols="30" rows="5">
-        </textarea>
+        <textarea name="" id="detailed_adr" cols="30" rows="5">请输入详细地址</textarea>
         <span id="isDefault">
             <img src="/images/shoppingcar/shopping_60.png" alt="">
             设为默认
@@ -117,6 +116,10 @@
 <script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function () {
+        $("#detailed_adr").click(function () {
+            $("#detailed_adr").attr("autofocus");
+            $("#detailed_adr").html("");
+        })
         function get_provinces(){
             ajax({
                 url:"/region/provinces",
@@ -165,9 +168,9 @@
         var isDefault=false;
         function set_default(){
             if(isDefault){
-                $("#isDefault").html("<img src='/images/shoppingcar/shopping_60.png' alt=''>\n" + "设为默认");
+                $("#isDefault").html("<img src='/images/shoppingcar/shopping_60.png' alt=''>" + "设为默认");
             }else{
-                $("#isDefault").html("<img src='/images/shoppingcar/shopping_57.png' alt=''>>\n" + "默认地址");
+                $("#isDefault").html("<img src='/images/shoppingcar/shopping_57.png' alt=''>" + "默认地址");
             }
             isDefault=!isDefault;
         }

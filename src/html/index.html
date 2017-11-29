@@ -187,12 +187,15 @@
         </div>
         <div class="top-news">
             <div class="img">
+                <a href="<%= healthy[0].link %>">
                 <img src="/file/public/<%= healthy[0].image.id %>.<%= healthy[0].image.ext %>" alt="">
                 <div class="news_content"><%= healthy[0].title %></div>
+                </a>
             </div>
         </div>
         <ul class="list-news">
             <% _.each(healthy,function(heal){ %>
+            <a href="<%= healthy[0].link %>">
             <li class="lists">
                 <ul>
                     <li class="newsimg"><img src="/file/public/<%= heal.image.id %>.<%= heal.image.ext %>" alt=""></li>
@@ -203,6 +206,7 @@
                     <li class="todetail"><img src="/images/homePage/home_57@1x.png" alt=""></li>
                 </ul>
             </li>
+            </a>
             <% }) %>
         </ul>
     </div>
@@ -307,7 +311,6 @@
                     if(json && json.error) {
 
                     }else {
-                        console.log(json.success);
                         var welfare_template = _.template($("#welfare_template").html());
                         $("#welfare").html(welfare_template({"welfare": json.success}));
                     }

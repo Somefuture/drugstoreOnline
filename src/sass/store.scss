@@ -46,14 +46,14 @@ $bottom-border:p2r(1) solid #e7e7e7;
     margin-right: p2r(10);
   }
 }
+.banner{
+  width: 100%;
+  height: p2r(345);
+  background: #e7e7e7;
+}
 .store_body{
   background: #fafafa;
   padding-bottom: p2r(140);
-  .banner{
-    width: 100%;
-    height: p2r(345);
-    background: #e7e7e7;
-  }
   .category{
     width: 100%;
     img{

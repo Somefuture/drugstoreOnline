@@ -31,25 +31,25 @@
 <div class="footer">
     <ul class="nav">
         <li>
-            <a href="index.html">
+            <a href="/html/index.html">
                 <img src="/images/tab/tab_32.png" alt="">
                 首页
             </a>
         </li>
         <li>
-            <a href="store.html">
+            <a href="/html/store.html">
                 <img src="/images/tab/tab_36.png" alt="">
                 精品商城
             </a>
         </li>
         <li>
-            <a href="shoppingCar.html">
+            <a href="/html/shoppingCar.html">
                 <img src="/images/tab/tab_38.png" alt="">
                 我的药箱
             </a>
         </li>
         <li>
-            <a href="personal.html">
+            <a href="/html/personal.html">
                 <img src="/images/tab/tab_40.png" alt="">
                 个人中心
             </a>
@@ -83,18 +83,20 @@
                     <p><%= add.provinceName %><%= add.cityName %><%= add.suburbName %><%= add.unitDetail %></p>
                 </div>
                 <div class="edit_address">
+                    <span class="is_default">
                     <% if(add.default===true){ %>
-                    <span class="default">
+                        <span>
                             <img src="/images/shoppingcar/shopping_57.png" alt="">
                             默认地址
                         </span>
                     <% }else{ %>
-                    <span class="default" onclick="set_def('<%= add.id %>')">
+                    <span class="default" data-id="<%= add.id %>">
                         <img src="/images/shoppingcar/shopping_60.png" alt="">
                         设为默认
                         </span>
                     <% } %>
-                    <span class="delete" onclick="delete_address('<%= add.id %>')">
+                    </span>
+                    <span class="delete"  data-id="<%= add.id %>">
                     <img src="/images/personal/personal_20.png" alt="">
                     删除
                 </span>
@@ -114,56 +116,71 @@
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
-    var address_template = _.template($("#address_template").html());
-    get_address();
-    function get_address() {
-        ajax({
-            url: "/user/addresses",
-            success: function (json) {
-                if (!json.error) {
+    $(document).ready(function () {
+        var address_template = _.template($("#address_template").html());
+        function get_address() {
+            ajax({
+                url: "/user/addresses",
+                success: function (json) {
+                    if (json.error) {
+                        return;
+                    }
                     $("#address").html(address_template({"address": json.success}));
+                    $(".address_lists").delegate(".delete","click",delete_address);
+                    $(".address_lists").delegate(".default","click",set_def);
                 }
-            }
-        })
-    }
-    function delete_address(id) {
-        ajax({
-            url: "/user/address/delete",
-            type: "post",
-            data: {id: id},
-            success: function (json) {
-                if (!json.error) {
-                    swal({
-                            title: "",
-                            text: "地址删除成功"
-                        },
-                        function () {
-                            window.location.reload();
-                        }
-                    );
+            });
+        }
+        function delete_address() {
+            var $this = $(this);
+            var id = $this.attr("data-id");
+            ajax({
+                url: "/user/address/delete",
+                type: "post",
+                data: {id: id},
+                success: function (json) {
+                    if (!json.error) {
+                        swal({
+                                title: "",
+                                text: "地址删除成功"
+                            },
+                            function () {
+                                window.location.reload();
+                            }
+                        );
+                    }
                 }
-            }
-        })
-    }
-    function set_def(id) {
-        ajax({
-            url: "/user/address/set_default",
-            type: "post",
-            data: {id: id},
-            success: function (json) {
-                if (!json.error) {
-                    console.log(json);
-                    swal({
-                            title: "",
-                            text: "默认地址设置成功"
-                        },
-                        function () {
-                            window.location.reload();
-                        }
-                    );
+            })
+        }
+        function set_def() {
+            var $this = $(this);
+            var id = $this.attr("data-id");
+            ajax({
+                url: "/user/address/set_default",
+                type: "post",
+                data: {id: id},
+                success: function (json) {
+                    if (!json.error) {
+                        console.log(json);
+                        swal({
+                                title: "",
+                                text: "默认地址设置成功"
+                            },
+                            function () {
+                                window.location.reload();
+                            }
+                        );
+                    }
                 }
-            }
-        })
-    }
+            });
+        }
+
+
+
+
+        get_address();
+
+    });
+
 </script>
 </html>

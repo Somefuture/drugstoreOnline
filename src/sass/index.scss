@@ -279,6 +279,9 @@ $bottom-border:p2r(1) solid #e7e7e7;
       width: 96%;
       margin: p2r(20) auto;
       position: relative;
+      .img{
+        width: 100%;
+      }
       img {
         display: block;
         width: 100%;
