@@ -8,7 +8,7 @@ $color-main:#0fb87f;
   height: p2r(80);
   li{
     display: inline-block;
-    width: 19%;
+    width: 24%;
     height: p2r(80);
     line-height: p2r(80);
     text-align: center;
@@ -16,7 +16,7 @@ $color-main:#0fb87f;
     color:#3c3c3c;
     border-right: p2r(1) solid #e7e7e7;
   }
-  li:nth-child(5){
+  li:nth-child(4){
     margin-right: p2r(-10);
   }
   .active{
