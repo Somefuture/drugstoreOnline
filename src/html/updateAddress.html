@@ -95,10 +95,6 @@
         <div class="detail_address">
             <h2>详细地址</h2>
             <textarea name="" id="detailed_adr" cols="30" rows="5"><%= address.unitDetail %></textarea>
-            <span id="isDefault" name="<%= address.default %>">
-            <img src="/images/shoppingcar/shopping_60.png" alt="">
-            设为默认
-            </span>
             <div class="save_btn" id="save_btn">保存设置</div>
         </div>
     </div>
@@ -168,20 +164,10 @@
                                 get_suburbs($("#cities").val());
                             }
                         });
-                        $("#isDefault").click(set_default);
                         $("#save_btn").click(updateAdr);
                     }
                 }
             })
-        }
-        var isDefault=false;
-        function set_default(){
-            if(isDefault){
-                $("#isDefault").html("<img src='/images/shoppingcar/shopping_60.png' alt=''>\n" + "设为默认");
-            }else{
-                $("#isDefault").html("<img src='/images/shoppingcar/shopping_57.png' alt=''>\n" + "默认地址");
-            }
-            isDefault=!isDefault;
         }
 
         function updateAdr() {
@@ -191,7 +177,6 @@
             var cityID=$("#cities").val();
             var suburbID=$("#suburbs").val();
             var detailed_adr=$("#detailed_adr").val();
-            var default_name=isDefault;
             ajax({
                 url:"/user/address/update",
                 type:"post",
@@ -202,8 +187,7 @@
                     provinceID:provinceID,
                     cityID:cityID,
                     suburbID:suburbID,
-                    unitDetail:detailed_adr,
-                    default:default_name
+                    unitDetail:detailed_adr
                 },
                 success:function (json) {
                     if(!json.error){
@@ -218,9 +202,9 @@
                         );
                     }
                 }
-            })
+            });
         }
-    })
+    });
 </script>
 </body>
 </html>
