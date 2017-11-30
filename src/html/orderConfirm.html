@@ -440,7 +440,12 @@
                 });
                 return memo + coupon.value * quantity;
             }, 0);
-            $(".coupon_able").html("-￥" + to_decimal(coupons_cost));
+            if(coupons_cost > 0) {
+                $(".coupon_able").html("-￥" + to_decimal(coupons_cost));
+            }else {
+                $(".coupon_able").html("暂无可用的优惠券");
+            }
+
             update_payment({coupons_cost: coupons_cost});
 
         }
