@@ -125,7 +125,6 @@
                     if (json.error) {
                         return;
                     }
-                    console.log(json.success);
                     $("#address").html(address_template({"address": json.success}));
                     $(".address_lists").delegate(".delete","click",delete_address);
                     $(".address_lists").delegate(".default","click",set_def);
