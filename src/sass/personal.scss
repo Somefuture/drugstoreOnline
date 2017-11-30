@@ -45,7 +45,8 @@ $color-main:#0fb87f;
         border:p2r(3) solid #cccccc;
         margin: 0 auto;
         img{
-          width: 100%;
+          width: p2r(300);
+          height: p2r(300);
         }
       }
       .user_name{

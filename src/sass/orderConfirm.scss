@@ -63,27 +63,31 @@ $line-border:p2r(1) solid #cccccc;
 @mixin other_function{
   padding: p2r(30) 0 p2r(24) 0;
   border-bottom: $line-border;
+  overflow: hidden;
   .detail{
-    display: inline-block;
+    display: block;
     width: 70%;
     p{
       font-size: p2r(28);
       color:#3c3c3c;
     }
     .describe{
+      margin-top: p2r(20);
       font-size: p2r(20);
       color:#999999;
     }
   }
   .btn{
-    display: inline-block;
+    display:block;
+    float: right;
+    text-align: right;
+    padding-right: p2r(30);
+    margin-bottom: p2r(20);
     width: 20%;
     @include button;
   }
-  //选中失败
   .checked{
     @include selectButton;
-
   }
 }
 .order_body{
@@ -145,6 +149,10 @@ $line-border:p2r(1) solid #cccccc;
         p{
           display: inline-block;
           width: 80%;
+        }
+        .float_right{
+          float: right;
+          margin-right: p2r(20);
         }
       }
     }
