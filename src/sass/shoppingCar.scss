@@ -245,6 +245,7 @@ body{
         .units {
           .sku {
             height: p2r(120);
+            margin-bottom: p2r(10);
             .image-wrap {
               float: left;
               width: 20%;
@@ -411,5 +412,18 @@ body{
       text-align: center;
       color: #FFFFFF;
     }
+  }
+}
+.qrcode {
+  background: #fff;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  top: 50%;
+  position: relative;
+  margin-top: -115px;
+  .message {
+    color: #fff;
+    padding-top: p2r(20);
   }
 }

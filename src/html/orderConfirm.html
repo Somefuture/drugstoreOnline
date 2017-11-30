@@ -402,13 +402,10 @@
                     url: "/product/user_coupons/available_with_items",
                     data: data,
                     success: function (json) {
-                        if(!json.error) {
-                            if(json.success.length) {
-                                form_data.coupons = json.success;
-                                update_use_coupons();
-                                update_payment({coupons_amount: calculate_coupons_amount()});
-                            }
-
+                        if(!json.error && json.success.length > 0) {
+                            form_data.coupons = json.success;
+                            update_use_coupons();
+                            update_payment({coupons_amount: calculate_coupons_amount()});
                         }
                     }
                 });
@@ -445,7 +442,7 @@
         }
 
         function calculate_coupons_amount() {
-            var coupons_amount = _.reduce(item.coupons, function (memo, coupon) {
+            var coupons_amount = _.reduce(form_data.coupons, function (memo, coupon) {
                 var quantity = 0;
                 _.each(form_data.items, function (item) {
                     if(item.sku && item.sku.productID === coupon.moduleID) {
@@ -470,7 +467,7 @@
         }
 
         function update_use_coupons() {
-            $(".coupon_able").html("使用" + form_data.coupons.length + "张优惠券, 已抵￥" + calculate_coupons_amount());
+            $(".coupon_able").html("使用" + form_data.coupons.length + "张优惠券, 已抵￥" + to_decimal(calculate_coupons_amount()));
         }
 
         function attr_items_amount(amount) {
@@ -488,7 +485,6 @@
             if(_.isUndefined(amount)) {
                 return parseFloat($coupons_amount.text());
             }else {
-                $(".coupon_able").html("-￥" + to_decimal(amount));
                 $coupons_amount.html(to_decimal(amount));
                 return amount;
             }

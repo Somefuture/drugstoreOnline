@@ -47,8 +47,11 @@
             <span class="count">共0件商品</span>
             总价<span class="total">￥0.00</span>
         </span>
-        <span class="account">
+        <span class="account online">
             去结算
+        </span>
+        <span class="account offline hidden">
+            药店取货
         </span>
     </div>
 </div>
@@ -80,8 +83,16 @@
         </li>
     </ul>
 </div>
+<div class="overlay">
+    <div class="qrcode">
+        <div id="qrcode"></div>
+        <div class="message">请展示给药店药师用于取货</div>
+    </div>
+</div>
+
 </body>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/jquery-qrcode.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
@@ -214,11 +225,39 @@
 
         var $carts = $(".shoppingCar_body");
 
-        $(".account").click(function () {
+        $(".overlay").click(function () {
+            $(this).css("display", "none");
+        });
+
+        $(".account.online").click(function () {
             if (selected_items.length > 0) {
-                window.location.href = "/html/orderConfirm.html?scids=" + selected_items.join(";")
+                window.location.href = "/html/orderConfirm.html?scids=" + selected_items.join(";");
             } else {
-                swal("", "请选择要结算的产品")
+                swal("", "请选择要结算的商品");
+            }
+        });
+
+        $(".account.offline").click(function () {
+            if (selected_items.length > 0) {
+                var data = {};
+                _.each(selected_items, function (id, index) {
+                    data["ids[" + index + "]"] = id;
+                });
+                ajax({
+                    url: "/items/exchange_offline_token_by_shopping_cart_ids",
+                    data: data,
+                    type: "post",
+                    success: function (json) {
+                        if (json.success) {
+                            var content = '{"key":"shoppingList","value":"' + json.success + '"}';
+                            $("#qrcode").html("").qrcode(content);
+                            $(".overlay").css("display", "block");
+                        }
+                    }
+                });
+
+            } else {
+                swal("", "请选择药店取货的商品")
             }
         });
 
@@ -360,9 +399,15 @@
             $this.toggleClass("selected");
             var type = $this.parents(".shopping-cart-content").attr("data-type");
             if (type === "online") {
+                $(".account.offline").addClass("hidden");
+                $(".account.online").removeClass("hidden");
                 $offline_shopping_cart.find(".checkbox.selected").removeClass("selected");
                 $select_all_offline_items.removeClass("selected");
             } else {
+                if($this.hasClass("selected")) {
+                    $(".account.online").addClass("hidden");
+                    $(".account.offline").removeClass("hidden");
+                }
                 $online_shopping_cart.find(".checkbox").removeClass("selected").removeClass("selected");
                 $select_all_online_items.removeClass("selected");
             }
@@ -380,6 +425,8 @@
             if ($select_all_online_items.hasClass("selected")) {
                 $(".shopping-cart-content[data-type='online'] .checkbox").removeClass("selected");
             } else {
+                $(".account.offline").addClass("hidden");
+                $(".account.online").removeClass("hidden");
                 $select_all_offline_items.removeClass("selected");
                 $(".shopping-cart-content[data-type='online'] .checkbox").addClass("selected");
                 $(".shopping-cart-content[data-type='offline'] .checkbox").removeClass("selected");
@@ -391,6 +438,8 @@
             if ($select_all_offline_items.hasClass("selected")) {
                 $(".shopping-cart-content[data-type='offline'] .checkbox").removeClass("selected");
             } else {
+                $(".account.online").addClass("hidden");
+                $(".account.offline").removeClass("hidden");
                 $select_all_online_items.removeClass("selected");
                 $(".shopping-cart-content[data-type='offline'] .checkbox").addClass("selected");
                 $(".shopping-cart-content[data-type='online'] .checkbox").removeClass("selected");
