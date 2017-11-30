@@ -249,8 +249,8 @@
                     type: "post",
                     success: function (json) {
                         if (json.success) {
-                            var content = '{"key":"shoppingList","value":"' + json.success + '"}';
-                            $("#qrcode").html("").qrcode(content);
+                            var data = {key:"shoppingList",value:json.success};
+                            $("#qrcode").html("").qrcode({text: JSON.stringify(data)});
                             $(".overlay").css("display", "block");
                         }
                     }
