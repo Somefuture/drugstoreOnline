@@ -317,8 +317,13 @@
 
         function toggle_carts() {
             var $this = $(this);
-            var id = $(this).parents("li.item").attr("data-id");
+            var $item = $(this).parents("li.item");
+            var id = $item.attr("data-id");
             var type = $this.parents(".shopping-cart-content").attr("data-type");
+            var $checkbox = $item.find(".checkbox");
+            if($checkbox.hasClass("selected")){
+                $checkbox.removeClass("selected");
+            }
             ajax({
                 url: "/shopping_cart/move_to",
                 data: {"ids[0]": id, "type": type === "online" ? "offline" : "online"},
