@@ -119,13 +119,15 @@
        </span>
         <span class="content">
              <div>
+                 <a href='/html/info.html?id=<%= notices[0].id %>'>
                 <%= notices[0].summary %>
+                 </a>
             </div>
         </span>
         <% _.each(_.rest(notices), function (notice) { %>
         <span class="content hide">
              <div>
-                 <a href='<%= notice.link %>'>
+                 <a href='/html/info.html?id=<%= notice.id %>'>
                      <%= notice.summary %>
                  </a>
             </div>
