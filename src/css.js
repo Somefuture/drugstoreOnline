@@ -9,3 +9,4 @@ require('./sass/myOrder.scss');
 require('./sass/personal.scss');
 require('./sass/coupons.scss');
 require('./sass/utils.scss');
+require('./sass/info.scss');

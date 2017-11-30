@@ -16,6 +16,7 @@ $color-main:#0fb87f;
     .bg_img{
       width: 100%;
       height: 100%;
+      background-position: center center;
       background-size: cover;
     }
   }
@@ -45,8 +46,9 @@ $color-main:#0fb87f;
         border:p2r(3) solid #cccccc;
         margin: 0 auto;
         .avatar_img{
-          width: p2r(300);
-          height: p2r(300);
+          width: p2r(210);
+          height: p2r(210);
+          background-position: center center;
           background-size: cover;
         }
       }

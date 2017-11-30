@@ -78,6 +78,9 @@ $line-border:p2r(1) solid #cccccc;
 }
 .edit_body {
   width: 100%;
+  input{
+    background: transparent;
+  }
   .name{
     width: 92%;
     margin: p2r(10) auto 0 auto ;

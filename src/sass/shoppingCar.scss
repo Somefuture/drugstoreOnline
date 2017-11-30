@@ -4,6 +4,9 @@
 }
 
 $color-main: #0fb87f;
+body{
+  background: #fafafa;
+}
 @mixin shoppingCar {
   .shoppingCar_title {
     width: 100%;
@@ -55,12 +58,12 @@ $color-main: #0fb87f;
     }
   }
   .shopping-cart-content {
-    background: #fafafa;
     width: 100%;
-    padding-bottom: p2r(50);
     li.item {
       width: 100%;
-      padding-top: p2r(50);
+      padding: p2r(50) 0;
+      margin-bottom: p2r(50);
+      background-color: #fff;
       .sku {
         height: p2r(200);
         .checkbox-wrap {
@@ -168,8 +171,8 @@ $color-main: #0fb87f;
                 background-repeat: no-repeat;
                 opacity: .5;
                 background-position: center;
-                background-image: url(/images/shoppingcar/shopping_11.png);
-                background-size: p2r(10) p2r(10);
+                background-image: url(/images/shoppingcar/shopping_11.jpg);
+                background-size: p2r(32) p2r(32);
               }
               .add {
                 background-repeat: no-repeat;
@@ -183,9 +186,11 @@ $color-main: #0fb87f;
         }
       }
       .combo {
+        width: 100%;
+        background-color: #fff;
         .row-1 {
+          padding-right: 5%;
           height: p2r(70);
-          width: 100%;
           .checkbox-wrap {
             float: left;
             width: 10%;
@@ -202,141 +207,132 @@ $color-main: #0fb87f;
             }
           }
           .combo-name {
+            position: relative;
             float: left;
             width: 90%;
             line-height: p2r(70);
             height: p2r(70);
             overflow: hidden;
-          }
-        }
-        .detail {
-          width: 90%;
-          float: right;
-          .units {
-            .combo-skus {
-              .sku {
-                height: p2r(200);
-                .checkbox-wrap {
-                  float: left;
-                  width: 10%;
-                  height: p2r(200);
-                  .checkbox {
-                    width: p2r(32);
-                    height: p2r(32);
-                    vertical-align: middle;
-                    margin: p2r(84) auto;
-                    background-image: url(/images/shoppingcar/shopping_60.png);
-                  }
-                  .checkbox.selected {
-                    background-image: url(/images/shoppingcar/shopping_57.png);
-                  }
-                }
-                .image-wrap {
-                  float: left;
-                  width: 30%;
-                  .product_img {
-                    width: p2r(200);
-                    height: p2r(200);
-                  }
-                }
-                .info {
-                  float: left;
-                  width: 60%;
-                  height: p2r(200);
-                  padding-right: 5%;
-                  .row-1 {
-                    height: p2r(140);
-                    position: relative;
-                    .name {
-                      font-size: p2r(32);
-                      line-height: p2r(50);
-                      float: left;
-                      width: 60%;
-                    }
-                    .row-1-1 {
-                      float: right;
-                      width: 40%;
-                      text-align: right;
-                      .tags {
-                        height: p2r(40);
-                        .tag {
-                          float: right;
-                          line-height: p2r(36);
-                          height: p2r(36);
-                          font-size: p2r(24);
-                          color: #fff;
-                          padding: 0 p2r(10);
-                        }
-                        .tag-1 {
-                          background: $color-main;
-                        }
-                        .tag-2 {
-                          background: #91c46c;
-                        }
-                      }
-                      .switch-cart {
-                        border-radius: p2r(30);
-                        margin-top: p2r(20);
-                        height: p2r(50);
-                        line-height: p2r(50);
-                        width: p2r(137);
-                        color: $color-main;
-                        font-size: p2r(28);
-                        border: p2r(1) solid $color-main;
-                        background: transparent;
-                      }
-                    }
-                  }
-                  .row-2 {
-                    height: p2r(60);
-                    .price {
-                      float: left;
-                      font-size: p2r(38);
-                      line-height: p2r(60);
-                      height: p2r(60);
-                      color: #d9a86c;
-                      width: 40%;
-                    }
-                    .quantity-wrap {
-                      text-align: right;
-                      float: right;
-                      height: p2r(60);
-                      border: solid #e7e7e7 p2r(2);
-                      div {
-                        float: right;
-                        height: p2r(56);
-                        width: p2r(56);
-                        background: #ffffff;
-                      }
-                      .quantity {
-                        width: p2r(80);
-                        height: p2r(56);
-                        font-size: p2r(28);
-                        line-height: p2r(56);
-                        text-align: center;
-                        border-left: p2r(1) solid #e7e7e7;
-                        border-right: p2r(1) solid #e7e7e7;
-                      }
-                      .sub {
-                        background-repeat: no-repeat;
-                        opacity: .5;
-                        background-position: center;
-                        background-image: url(/images/shoppingcar/shopping_11.png);
-                        background-size: p2r(10) p2r(10);
-                      }
-                      .add {
-                        background-repeat: no-repeat;
-                        background-position: center;
-                        opacity: .5;
-                        background-image: url(/images/shoppingcar/shopping_16.png);
-                        background-size: p2r(32) p2r(32);
-                      }
-                    }
-                  }
-                }
+            .tags {
+              height: p2r(40);
+              position: absolute;
+              right: 0;
+              top: p2r(15);
+              .tag {
+                float: right;
+                line-height: p2r(36);
+                height: p2r(36);
+                font-size: p2r(24);
+                color: #fff;
+                padding: 0 p2r(10);
+              }
+              .tag-1 {
+                background: $color-main;
+              }
+              .tag-2 {
+                background: #91c46c;
               }
             }
           }
+        }
+        .detail {
+          width: 100%;
+          padding-left:10%;
+          padding-right: 5%;
+          background-color: #fff;
+          .units {
+              .sku {
+                height: p2r(120);
+                .image-wrap {
+                  float: left;
+                  width: 20%;
+                  .product_img {
+                    width: p2r(120);
+                    height: p2r(120);
+                  }
+                }
+                .info {
+                  width:80%;
+                  float: left;
+                  padding:0;
+                  height: p2r(120);
+                  font-size: p2r(24);
+                  .name{
+                    overflow: hidden;
+                  }
+                  div {
+                    height: p2r(60);
+                    line-height: p2r(60);
+                  }
+                }
+              }
+          }
+          .combo-info {
+            height: p2r(160);
+            line-height: p2r(80);
+            .row-2-1{
+              .switch-cart {
+                float: right;
+                margin-top:p2r(15);
+                border-radius: p2r(30);
+                height: p2r(50);
+                line-height: p2r(50);
+                width: p2r(137);
+                color: $color-main;
+                font-size: p2r(28);
+                border: p2r(1) solid $color-main;
+                background: transparent;
+              }
+            }
+            .row-2-2 {
+              .price {
+                color: #d9a86c;
+                height: p2r(80);
+                font-size: p2r(38);
+                float: none;
+              }
+              .quantity-wrap {
+                float: right;
+                margin:p2r(10) 0;
+                height: p2r(60);
+                border: solid #e7e7e7 p2r(2);
+                div {
+                  float: right;
+                  height: p2r(60);
+                  line-height:p2r(60);
+                  width: p2r(60);
+                  background: #ffffff;
+                }
+                .quantity {
+                  width: p2r(80);
+                  height: p2r(56);
+                  font-size: p2r(28);
+                  line-height: p2r(56);
+                  text-align: center;
+                  border-left: p2r(1) solid #e7e7e7;
+                  border-right: p2r(1) solid #e7e7e7;
+                }
+                .sub {
+                  background-repeat: no-repeat;
+                  opacity: .5;
+                  background-position: center;
+                  background-image: url(/images/shoppingcar/shopping_11.jpg);
+                  background-size: p2r(32) p2r(32);
+                }
+                .add {
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  opacity: .5;
+                  background-image: url(/images/shoppingcar/shopping_16.png);
+                  background-size: p2r(32) p2r(32);
+                }
+              }
+            }
+            .switch-cart {
+              float: none;
+            }
+          }
+
         }
       }
 
@@ -374,7 +370,7 @@ $color-main: #0fb87f;
 }
 
 .shoppingCar_body {
-  margin-bottom: p2r(200);
+  margin-bottom: p2r(186);
   .carOne {
     @include shoppingCar;
   }
