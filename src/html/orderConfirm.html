@@ -63,8 +63,8 @@
             <div class="total_use">
                 <div class="detail">
                     <p class="title">使用积分</p>
-                    <p class="describe" id="total_points">
-                        您总共有0积分，可抵￥0.00
+                    <p class="describe">
+                        您总共有<span id="total_points">0</span>积分，可抵￥<span id="total_points_amount">0.00</span>
                     </p>
                 </div>
                 <div class="btn">
@@ -72,8 +72,8 @@
                     <label for="points_toggle" class="choose-label"></label>
                 </div>
                 <div class="detail">
-                    <p class="describe" id="use_points">
-                        本次使用0积分，已抵￥0.00
+                    <p class="describe">
+                        本次使用<span id="use_points">0</span>积分，已抵￥<span class="use_points_amount">0.00</span>
                     </p>
                 </div>
             </div>
@@ -92,25 +92,25 @@
         <table class="order_details">
             <tr>
                 <td>合计：</td>
-                <td id="total_cost">￥0.00</td>
-            </tr>
-            <tr>
-                <td>运费：</td>
-                <td id="delivery_cost">￥0.00</td>
+                <td>￥<span id="items_amount">0.00</span></td>
             </tr>
             <tr>
                 <td>优惠券：</td>
-                <td id="coupons_cost">-￥0.00</td>
+                <td>-￥<span class="coupons_amount">0.00</span></td>
             </tr>
             <tr>
                 <td>积分抵扣：</td>
-                <td id="points_cost">-￥0.00</td>
+                <td>-￥<span class="use_points_amount">0.00</span></td>
+            </tr>
+            <tr>
+                <td>运费：</td>
+                <td>-￥<span id="delivery_amount">0.00</span></td>
             </tr>
         </table>
         <div class="settle_accounts">
         <span class="account_details">
             <p>实际付款</p>
-            <span class="price" id="payment">￥0.00</span>
+            <span class="price">￥<span id="payment">0.00</span></span>
         </span><span class="account" id="submit">提交订单</span>
         </div>
         </div>
@@ -201,7 +201,6 @@
             points: 0,
             items: []
         };
-        var points_balance = 0;
         var points_exchange_rate = 0;
         var $address_popup = $("#address_popup");
         var $root = $("#root");
@@ -233,12 +232,13 @@
         });
 
         $("#points_toggle").click(function () {
-            if(form_data.payment > 0) {
+            if(attr_payment() > 0) {
                 var $parent = $(this).parent();
+                var points_balance = attr_total_points();
                 if(!$parent.hasClass("checked")) {
                     swal({
                         title: "使用积分",
-                        text: "您总共有" + points_balance + "积分",
+                        text: "您总共有" + points_balance + "积分, 可抵￥" + to_decimal(points_balance * points_exchange_rate),
                         type: "input",
                         showCancelButton: true,
                         cancelButtonText: "取消",
@@ -257,11 +257,11 @@
                             }else if(points > points_balance){
                                 swal.showInputError("积分不足");
                             }else {
-                                if(points > (form_data.payment / points_exchange_rate)) {
-                                    points = form_data.payment / points_exchange_rate;
-                                }
-                                update_use_points(points);
                                 $parent.addClass("checked");
+                                var max_points = Math.round((attr_items_amount() - attr_coupons_amount()) / points_exchange_rate);
+                                points = Math.min(points, max_points);
+                                form_data.points = points;
+                                update_payment({use_points: points});
                                 swal.close();
                             }
                         }
@@ -269,7 +269,8 @@
                     });
                 }else {
                     $parent.removeClass("checked");
-                    update_use_points(0);
+                    form_data.points = 0;
+                    update_payment({use_points: 0});
                 }
             }
         });
@@ -293,9 +294,8 @@
                 url: "/product/account/points",
                 success: function (json) {
                     if(!json.error) {
-                        points_balance = json.success.balance;
                         points_exchange_rate = json.success.exchangeRate;
-                        update_total_points();
+                        attr_total_points(json.success.balance);
                     }
                 }
             });
@@ -322,12 +322,12 @@
                             }
                             items["items[" + index + "].quantity"] = item.quantity;
                         });
-                        if(json.success.length > 0) {
+                        if(_.size(items)) {
                             get_available_coupons(items);
                         }
                         form_data.items = json.success;
                         $items.html(items_template({items: json.success}));
-                        update_payment({total_cost: calculate_items_total_cost(json.success)});
+                        update_payment({items_amount: calculate_items_amount()});
                     }
                 }
             });
@@ -339,23 +339,27 @@
                 data: JSON.parse(item),
                 success: function (json) {
                     if(!json.error) {
-                        var items = JSON.parse(item);
                         form_data.items = json.success;
-                        get_available_coupons(items);
+                        get_available_coupons();
                         $items.html(items_template({items: json.success}));
-                        update_payment({total_cost: calculate_items_total_cost(json.success)});
+                        update_payment({items_amount: calculate_items_amount()});
                     }
                 }
             });
         }
 
-        function get_available_coupons(items) {
+        function get_available_coupons() {
             ajax({
                 url: "/product/user_coupons/available_with_items",
-                data: items,
+                data: JSON.parse(item),
                 success: function (json) {
                     if(!json.error) {
-                        update_use_coupons(json.success);
+                        if(json.success.length) {
+                            form_data.coupons = json.success;
+                            update_use_coupons();
+                            update_payment({coupons_amount: calculate_coupons_amount()});
+                        }
+
                     }
                 }
             });
@@ -380,60 +384,18 @@
             });
         }
 
-        function calculate_items_total_cost(items) {
-            var total_cost = _.reduce(items, function (memo, item) {
+        function calculate_items_amount() {
+            var items_amount = _.reduce(form_data.items, function (memo, item) {
                 var sales_price = item.sku ? item.sku.salesPrice : _.reduce(item.combo.units, function (memo, unit) {
                     return memo + unit.comboPrice
                 }, 0);
                 return memo + sales_price * item.quantity;
             }, 0);
-            return Math.round(total_cost * 100) / 100
+            return Math.round(items_amount * 100) / 100
         }
 
-        function update_payment(data) {
-            var $total_cost = $("#total_cost");
-            var $delivery_cost = $("#delivery_cost");
-            var $coupons_cost = $("#coupons_cost");
-            var $points_cost = $("#points_cost");
-            var $payment = $("#payment");
-            var total_cost = parseFloat($total_cost.text().replace("￥", ""));
-            var coupons_cost = parseFloat($coupons_cost.text().replace("-￥", ""));
-            var points_cost = parseFloat($points_cost.text().replace("-￥", ""));
-            if(data.total_cost !== undefined) {
-                total_cost = data.total_cost;
-                $total_cost.html("￥" + to_decimal(total_cost));
-            }
-            if(data.coupons_cost !== undefined) {
-                coupons_cost = data.coupons_cost;
-                $coupons_cost.html("-￥" + to_decimal(coupons_cost));
-            }
-            if(data.points_cost !== undefined) {
-                points_cost = data.points_cost;
-                $points_cost.html("-￥" + to_decimal(points_cost));
-            }
-            var payment = total_cost - coupons_cost - points_cost;
-            var delivery_cost = payment < 68 ? 10 : 0;
-            $delivery_cost.html("￥" + to_decimal(delivery_cost));
-            payment = payment + delivery_cost;
-            form_data.payment = Math.round(payment * 100) / 100;
-            $payment.html("￥" + to_decimal(payment));
-        }
-
-        function update_total_points() {
-            $("#total_points").html("您总共有" + points_balance + "积分，可抵￥" + to_decimal(points_balance * points_exchange_rate));
-        }
-
-        function update_use_points(points) {
-            form_data.points = points;
-            $("#use_points").html("本次使用" + points + "积分，已抵￥" + to_decimal(points * points_exchange_rate));
-            update_payment({points_cost: points * points_exchange_rate});
-        }
-
-        function update_use_coupons(coupons) {
-            form_data.coupons = _.map(coupons, function (coupon) {
-                return coupon.id;
-            });
-            var coupons_cost = _.reduce(coupons, function (memo, coupon) {
+        function calculate_coupons_amount() {
+            var coupons_amount = _.reduce(item.coupons, function (memo, coupon) {
                 var quantity = 0;
                 _.each(form_data.items, function (item) {
                     if(item.sku && item.sku.productID === coupon.moduleID) {
@@ -442,14 +404,87 @@
                 });
                 return memo + coupon.value * quantity;
             }, 0);
-            if(coupons_cost > 0) {
-                $(".coupon_able").html("-￥" + to_decimal(coupons_cost));
+            return Math.round(coupons_amount) * 100 / 100;
+        }
+
+        function update_payment(payment) {
+            var items_amount = attr_items_amount(payment.items_amount);
+            var coupons_amount = attr_coupons_amount(payment.coupons_amount);
+            var points = attr_use_points(payment.use_points);
+            payment = items_amount - coupons_amount - points * points_exchange_rate;
+            var delivery_amount = payment < 68 ? 10 : 0;
+            attr_delivery_amount(delivery_amount);
+            payment = Math.round(payment + delivery_amount) * 100 / 100;
+            form_data.payment = payment;
+            attr_payment(payment);
+        }
+
+        function update_use_coupons() {
+            $(".coupon_able").html("使用" + form_data.coupons.length + "张优惠券, 已抵￥" + calculate_coupons_amount());
+        }
+
+        function attr_items_amount(amount) {
+            var $items_amount = $("#items_amount");
+            if(_.isUndefined(amount)) {
+                return parseFloat($items_amount.text());
             }else {
-                $(".coupon_able").html("暂无可用的优惠券");
+                $items_amount.html(to_decimal(amount));
+                return amount;
             }
+        }
 
-            update_payment({coupons_cost: coupons_cost});
+        function attr_coupons_amount(amount) {
+            var $coupons_amount = $(".coupons_amount");
+            if(_.isUndefined(amount)) {
+                return parseFloat($coupons_amount.text());
+            }else {
+                $(".coupon_able").html("-￥" + to_decimal(amount));
+                $coupons_amount.html(to_decimal(amount));
+                return amount;
+            }
+        }
 
+        function attr_use_points(points) {
+            form_data.points = points;
+            var $use_points = $("#use_points");
+            var $points_amount = $(".use_points_amount");
+            if(_.isUndefined(points)) {
+                return parseInt($use_points.text());
+            }else {
+                $use_points.html(Math.round(points));
+                $points_amount.html(to_decimal(points * points_exchange_rate));
+                return points;
+            }
+        }
+
+        function attr_delivery_amount(amount) {
+            var $delivery_amount = $("#delivery_amount");
+            if(_.isUndefined(amount)) {
+                return parseFloat($delivery_amount.text());
+            }else {
+                $delivery_amount.html(to_decimal(amount));
+                return amount;
+            }
+        }
+
+        function attr_payment(amount) {
+            var $payment = $("#payment");
+            if(_.isUndefined(amount)) {
+                return parseFloat($payment.text());
+            }else {
+                $payment.html(to_decimal(amount));
+                return amount;
+            }
+        }
+
+        function attr_total_points(points) {
+            var $total_points = $("#total_points");
+            if(_.isUndefined(points)) {
+                return parseInt($total_points.text());
+            }else {
+                $total_points.html(Math.round(points));
+                return points;
+            }
         }
 
         function submit() {
@@ -463,7 +498,7 @@
                 delete data.coupons;
                 delete data.items;
                 _.each(form_data.coupons, function (coupon, index) {
-                    data["coupons[" + index + "]"] = coupon;
+                    data["coupons[" + index + "]"] = coupon.id;
                 });
                 _.each(form_data.items, function (item, index) {
                     if(item.sku) {
