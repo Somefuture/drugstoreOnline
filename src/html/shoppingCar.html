@@ -31,15 +31,14 @@
     <div class="carOne">
         <div class="shoppingCar_title">
             <div id="select_all_offline_items" class="checkbox-all cover"></div>
-            <div><b>全选</b></div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;1号购物车（药店取货）</div>
+            <div><b>全选&nbsp;&nbsp;&nbsp;&nbsp;1号购物车（药店取货）</b></div>
         </div>
         <div id="offline_shopping_cart"></div>
     </div>
     <div class="carTwo">
         <div class="shoppingCar_title">
             <div id="select_all_online_items" class="checkbox-all cover"></div>
-            全选 <span>2号购物车（邮购）</span>
+            <div><b>全选&nbsp;&nbsp;&nbsp;&nbsp;2号购物车（邮购）</b></div>
         </div>
         <div id="online_shopping_car"></div>
     </div>
@@ -149,29 +148,21 @@
 
                         <div class="sku">
                             <div class="image-wrap">
-                                <div class="product_img cover"
-                                     style="background-image: url(/file/public/<%=unit.sku.image.id%>.<%=unit.sku.image.ext%>)"></div>
+                                <div class="product_img cover" style="background-image: url(/file/public/<%=unit.sku.image.id%>.<%=unit.sku.image.ext%>)"></div>
                             </div>
                             <div class="info">
-                                <div class="row-1">
-                                    <div class="name"><%= unit.sku.name %></div>
-                                    <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
-                                    <span class="original_price">￥<%= unit.sku.salesPrice %></span>
-                                    <span class="product_amount">x<%= unit.quantity %></span>
-                                </div>
+                                <div><%= unit.sku.name %>&nbsp;&nbsp;￥<%= unit.sku.salesPrice %>&nbsp;&nbsp;x&nbsp;&nbsp;<%= unit.quantity %></div>
+                                <div><i style="text-decoration: line-through">￥<%= unit.sku.salesPrice * unit.quantity %></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>￥<%= unit.comboPrice %></b></div>
                             </div>
                         </div>
                         <% }) %>
                     </div>
-                    <div class="combine_amount">
-                        <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
-                        <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
-                        <div class="product_amount" data-inventory="<%= combo_inventory %>">
-                            <span class="sub"><img class="sub-quantity"
-                                                   src="/images/shoppingcar/shopping_11.png"></span>
-                            <span class="quantity"><%= item.quantity %></span>
-                            <span class="add"><img class="add-quantity"
-                                                   src="/images/shoppingcar/shopping_16.png"></span>
+                    <div class="combo-info">
+                        <div class="combo-price"><i style="text-decoration: line-through">￥<%= Math.round(combo_original_price * 100) / 100 %></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="price">￥<%= Math.round(combo_price * 100) / 100 %></i></div>
+                        <div class="quantity-wrap" data-inventory="<%= item.inventory %>">
+                            <div class="add"></div>
+                            <div class="quantity"><%= item.quantity %></div>
+                            <div class="sub"></div>
                         </div>
                         <% if(!item.combo.hasPrescription) { %>
                         <button class="toggle-carts">
