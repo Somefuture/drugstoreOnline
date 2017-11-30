@@ -31,7 +31,8 @@
     <div class="carOne">
         <div class="shoppingCar_title">
             <div id="select_all_offline_items" class="checkbox-all cover"></div>
-            全选 <span>1号购物车（药店取货）</span>
+            <div><b>全选</b></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;1号购物车（药店取货）</div>
         </div>
         <div id="offline_shopping_cart"></div>
     </div>
@@ -45,7 +46,7 @@
     <div class="settle_accounts">
         <span class="account_details">
             <span class="count">共0件商品</span>
-            总价<span class="price">￥0.00</span>
+            总价<span class="total">￥0.00</span>
         </span>
         <span class="account">
             去结算
@@ -91,73 +92,93 @@
         <% _.each(items, function (item) { %>
         <li class="item" data-id="<%= item.id %>">
             <% if(item.sku) { %>
-            <div class="checkbox cover <%=item.selected ? 'selected' : ''%>"></div>
-            <div class="product_img cover"
-                 style="background-image: url(/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>)"></div>
-            <div class="product_details">
-                <span class="pharmacy">药店</span>
-                <% if(!item.sku.prescription) { %>
-                <span class="mail_order">邮购</span>
-                <% } %>
-                <div class="detail_title">
-                    <span class="product_name"><%= item.sku.name %></span>
+            <div class="sku">
+                <div class="checkbox-wrap">
+                    <div class="checkbox cover <%=item.selected ? 'selected' : ''%>"></div>
                 </div>
-                <div class="product_price"><%= item.sku.salesPrice %></div>
-                <div class="product_amount" data-inventory="<%= item.sku.inventory %>">
-                    <span class="sub"><img class="sub-quantity" src="/images/shoppingcar/shopping_11.png"></span>
-                    <span class="quantity"><%= item.quantity %></span>
-                    <span class="add"><img class="add-quantity" src="/images/shoppingcar/shopping_16.png"></span>
+                <div class="image-wrap">
+                    <div class="product_img cover"
+                         style="background-image: url(/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>)"></div>
                 </div>
-                <% if(!item.sku.prescription) { %>
-                <button class="toggle-carts">
-                    <%=item.type === "offline"?'去邮购':'去药店'%>
-                </button>
-                <% } %>
+                <div class="info">
+                    <div class="row-1">
+                        <div class="name"><%= item.sku.name %></div>
+                        <div class="row-1-1">
+                            <div class="tags">
+                                <div class="tag tag-1">药店</div>
+                                <% if(!item.sku.prescription) { %>
+                                <div class="tag tag-2">邮购</div>
+                                <% } %>
+                            </div>
+                            <% if(!item.sku.prescription) { %>
+                            <button class="switch-cart">
+                                <%=item.type === "offline"?'去邮购':'去药店'%>
+                            </button>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="row-2">
+                        <div class="price">￥<%= item.sku.salesPrice * item.quantity %></div>
+                        <div class="quantity-wrap" data-inventory="<%= item.sku.inventory %>">
+                            <div class="add"></div>
+                            <div class="quantity"><%= item.quantity %></div>
+                            <div class="sub"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <% } else { %>
-            <div class="order_combine_product">
-                <div class="combine_name">
-                    <img class="toggle-item <%=item.selected ? 'selected' : ''%>">
-                </div>
-                <ul class="combine_lists">
-                    <% var combo_inventory = 0; %>
-                    <% var combo_price = 0; %>
-                    <% var combo_original_price = 0; %>
-                    <% _.each(item.combo.units, function(unit) { %>
-                    <% combo_inventory = combo_inventory ? Math.min(combo_inventory, unit.sku.inventory) :
-                    unit.sku.inventory; %>
-                    <% combo_price = combo_price + unit.comboPrice; %>
-                    <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
-                    <li>
-                        <div class="product_img">
-                            <img src="/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>" alt="">
-                        </div>
-                        <div class="product_details">
-                            <div class="combine_product_name">
-                                <%= unit.sku.name %>
-                            </div>
-                            <div class="detail_content">
-                                <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
-                                <span class="original_price">￥<%= unit.sku.salesPrice %></span>
-                                <span class="product_amount">x<%= unit.quantity %></span>
-                            </div>
-                        </div>
-                    </li>
-                    <% }) %>
-                </ul>
-                <div class="combine_amount">
-                    <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
-                    <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
-                    <div class="product_amount" data-inventory="<%= combo_inventory %>">
-                        <span class="sub"><img class="sub-quantity" src="/images/shoppingcar/shopping_11.png"></span>
-                        <span class="quantity"><%= item.quantity %></span>
-                        <span class="add"><img class="add-quantity" src="/images/shoppingcar/shopping_16.png"></span>
+            <div class="combo">
+                <div class="row-1">
+                    <div class="checkbox-wrap">
+                        <div class="checkbox cover <%=item.selected ? 'selected' : ''%>"></div>
                     </div>
-                    <% if(!item.combo.hasPrescription) { %>
-                    <button class="toggle-carts">
-                        <%=item.type === "offline"?'去邮购':'去药店'%>
-                    </button>
-                    <% } %>
+                    <div class="combo-name"><%= item.combo.name %></div>
+                </div>
+                <div class="detail">
+                    <div class="units">
+                        <% var combo_inventory = 0; %>
+                        <% var combo_price = 0; %>
+                        <% var combo_original_price = 0; %>
+
+                        <% _.each(item.combo.units, function(unit) { %>
+                        <% combo_inventory = combo_inventory ? Math.min(combo_inventory, unit.sku.inventory) :
+                        unit.sku.inventory; %>
+                        <% combo_price = combo_price + unit.comboPrice; %>
+                        <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
+
+                        <div class="sku">
+                            <div class="image-wrap">
+                                <div class="product_img cover"
+                                     style="background-image: url(/file/public/<%=unit.sku.image.id%>.<%=unit.sku.image.ext%>)"></div>
+                            </div>
+                            <div class="info">
+                                <div class="row-1">
+                                    <div class="name"><%= unit.sku.name %></div>
+                                    <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
+                                    <span class="original_price">￥<%= unit.sku.salesPrice %></span>
+                                    <span class="product_amount">x<%= unit.quantity %></span>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
+                    <div class="combine_amount">
+                        <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
+                        <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
+                        <div class="product_amount" data-inventory="<%= combo_inventory %>">
+                            <span class="sub"><img class="sub-quantity"
+                                                   src="/images/shoppingcar/shopping_11.png"></span>
+                            <span class="quantity"><%= item.quantity %></span>
+                            <span class="add"><img class="add-quantity"
+                                                   src="/images/shoppingcar/shopping_16.png"></span>
+                        </div>
+                        <% if(!item.combo.hasPrescription) { %>
+                        <button class="toggle-carts">
+                            <%=item.type === "offline"?'去邮购':'去药店'%>
+                        </button>
+                        <% } %>
+                    </div>
                 </div>
             </div>
             <% } %>
@@ -187,12 +208,11 @@
 
         var $carts = $(".shoppingCar_body");
 
-        $(".account").click(function(){
-            if(selected_items.length > 0){
-                //window.location.href = "/html/orderConfirm.html?scids="+selected_items.join(";")
-                swal("","未实现的功能");
-            }else{
-                swal("","请选择要结算的产品")
+        $(".account").click(function () {
+            if (selected_items.length > 0) {
+                window.location.href = "/html/orderConfirm.html?scids=" + selected_items.join(";")
+            } else {
+                swal("", "请选择要结算的产品")
             }
         });
 
@@ -209,7 +229,7 @@
                 }, 0);
                 return [memo[0] + item.quantity, memo[1] + item.quantity * sales_price];
             }, [0, 0]);
-            $(".price").html("￥" + info[1]);
+            $(".total").html("￥" + info[1]);
             $(".count").html("共" + info[0] + "件商品");
         }
 
@@ -276,6 +296,7 @@
                                     _.each(json.success, function (item) {
                                         item.selected = selected_items.indexOf(item.id) > -1;
                                         shopping_car_items[item.id] = item;
+                                        console.log(item);
                                     });
                                     $online_shopping_cart.html(shopping_cart_template({
                                         items: json.success
@@ -339,7 +360,7 @@
         $online_shopping_cart.delegate(".add", "click", add_quantity);
         $offline_shopping_cart.delegate(".sub", "click", sub_quantity);
         $online_shopping_cart.delegate(".sub", "click", sub_quantity);
-        $carts.delegate(".toggle-carts", "click", toggle_carts);
+        $carts.delegate(".switch-cart", "click", toggle_carts);
         $carts.delegate(".checkbox", "click", toggle_checkbox);
 
         $select_all_online_items.click(function () {
