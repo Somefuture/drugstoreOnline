@@ -451,7 +451,7 @@
                 });
                 return memo + coupon.value * quantity;
             }, 0);
-            return Math.round(coupons_amount) * 100 / 100;
+            return Math.round(coupons_amount * 100) / 100;
         }
 
         function update_payment(payment) {
@@ -461,7 +461,7 @@
             payment = items_amount - coupons_amount - points * points_exchange_rate;
             var delivery_amount = payment < 68 ? 10 : 0;
             attr_delivery_amount(delivery_amount);
-            payment = Math.round(payment + delivery_amount) * 100 / 100;
+            payment = Math.round((payment + delivery_amount) * 100) / 100;
             form_data.payment = payment;
             attr_payment(payment);
         }
