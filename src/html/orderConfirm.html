@@ -311,21 +311,8 @@
                 data: data,
                 success: function (json) {
                     if(!json.error) {
-                        var items = {};
-                        _.each(json.success, function (item, index) {
-                            if(item.sku) {
-                                items["items[" + index + "].type"] = "sku";
-                                items["items[" + index + "].id"] = item.sku.id;
-                            }else {
-                                items["items[" + index + "].type"] = "combo";
-                                items["items[" + index + "].id"] = item.combo.id;
-                            }
-                            items["items[" + index + "].quantity"] = item.quantity;
-                        });
-                        if(_.size(items)) {
-                            get_available_coupons(items);
-                        }
                         form_data.items = json.success;
+                        get_available_coupons();
                         $items.html(items_template({items: json.success}));
                         update_payment({items_amount: calculate_items_amount()});
                     }
@@ -349,20 +336,33 @@
         }
 
         function get_available_coupons() {
-            ajax({
-                url: "/product/user_coupons/available_with_items",
-                data: JSON.parse(item),
-                success: function (json) {
-                    if(!json.error) {
-                        if(json.success.length) {
-                            form_data.coupons = json.success;
-                            update_use_coupons();
-                            update_payment({coupons_amount: calculate_coupons_amount()});
-                        }
-
+            if(form_data.items.length > 0) {
+                var data = {};
+                _.each(form_data.items, function (item, index) {
+                    if(item.sku) {
+                        data["items[" + index + "].type"] = "sku";
+                        data["items[" + index + "].id"] = item.sku.id;
+                    }else {
+                        data["items[" + index + "].type"] = "combo";
+                        data["items[" + index + "].id"] = item.combo.id;
                     }
-                }
-            });
+                    data["items[" + index + "].quantity"] = item.quantity;
+                });
+                ajax({
+                    url: "/product/user_coupons/available_with_items",
+                    data: data,
+                    success: function (json) {
+                        if(!json.error) {
+                            if(json.success.length) {
+                                form_data.coupons = json.success;
+                                update_use_coupons();
+                                update_payment({coupons_amount: calculate_coupons_amount()});
+                            }
+
+                        }
+                    }
+                });
+            }
         }
 
         function get_default_address() {
