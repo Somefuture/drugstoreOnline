@@ -322,7 +322,7 @@
             var type = $this.parents(".shopping-cart-content").attr("data-type");
             var $checkbox = $item.find(".checkbox");
             if($checkbox.hasClass("selected")){
-                $checkbox.removeClass("selected");
+                toggle_checkbox($checkbox);
             }
             ajax({
                 url: "/shopping_cart/move_to",
@@ -352,8 +352,11 @@
             }
         }
 
-        function toggle_checkbox() {
-            var $this = $(this);
+        function toggle_checkbox_event(){
+            toggle_checkbox($(this));
+        }
+
+        function toggle_checkbox($this) {
             $this.toggleClass("selected");
             var type = $this.parents(".shopping-cart-content").attr("data-type");
             if (type === "online") {
@@ -371,7 +374,7 @@
         $offline_shopping_cart.delegate(".sub", "click", sub_quantity);
         $online_shopping_cart.delegate(".sub", "click", sub_quantity);
         $carts.delegate(".switch-cart", "click", toggle_carts);
-        $carts.delegate(".checkbox", "click", toggle_checkbox);
+        $carts.delegate(".checkbox", "click", toggle_checkbox_event);
 
         $select_all_online_items.click(function () {
             if ($select_all_online_items.hasClass("selected")) {
