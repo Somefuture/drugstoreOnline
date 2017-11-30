@@ -175,7 +175,7 @@
     <% _.each(items, function(item) { %>
         <li>
             <% if(item.sku) { %>
-                <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
+                <div class="product_img"><img src="/file/public/<%= item.sku.image.id %>.<%= item.sku.image.ext %>" alt=""></div>
                 <div class="product_details">
                     <div class="detail_title">
                         <%= item.sku.name %>
