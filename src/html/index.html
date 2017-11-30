@@ -125,7 +125,9 @@
         <% _.each(_.rest(notices), function (notice) { %>
         <span class="content hide">
              <div>
-                <%= notice.summary %>
+                 <a href='<%= notice.link %>'>
+                     <%= notice.summary %>
+                 </a>
             </div>
         </span>
         <% }); %>
