@@ -302,7 +302,6 @@
                                     _.each(json.success, function (item) {
                                         item.selected = selected_items.indexOf(item.id) > -1;
                                         shopping_car_items[item.id] = item;
-                                        console.log(item);
                                     });
                                     $online_shopping_cart.html(shopping_cart_template({
                                         items: json.success

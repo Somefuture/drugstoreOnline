@@ -113,23 +113,21 @@
 </script>
 <script type="text/template" id="notice_template">
     <div class="notice">
+        <a href="/html/collection.html?id=2">
        <span class="icon">
            <img src="/images/homePage/home_33@2x.png" alt="">
            公告
        </span>
         <span class="content">
              <div>
-                 <a href='/html/info.html?id=<%= notices[0].id %>'>
                 <%= notices[0].summary %>
-                 </a>
             </div>
         </span>
+        </a>
         <% _.each(_.rest(notices), function (notice) { %>
         <span class="content hide">
              <div>
-                 <a href='/html/info.html?id=<%= notice.id %>'>
-                     <%= notice.summary %>
-                 </a>
+                 <%= notice.summary %>
             </div>
         </span>
         <% }); %>
