@@ -16,9 +16,10 @@ $color-main:#0fb87f;
   .content{
     .img{
       width: 100%;
-      height: p2r(300);
-      background: #e7e7e7;
-      background-size:cover;
+      height: p2r(400);
+      background-repeat:no-repeat;
+      background-position: center;
+      background-size:contain;
     }
     p{
       font-size: p2r(28);
@@ -42,6 +43,7 @@ $color-main:#0fb87f;
         color: #3c3c3c;
       }
       .img{
+        width: 100%;
         height: p2r(300);
         background-size: cover;
         margin: p2r(20) 0;

@@ -170,13 +170,20 @@
             <span class="more"><a href="/html/collection.html?id=4">更多&gt</a></span>
         </div>
         <div class="content">
-            <% _.each(welfare,function(wel){ %>
+            <a href="/html/info.html?id=<%= welfare[0].id %>">
             <div class="welfare_s">
-                <h3><%= wel.title %></h3>
-                <p><%= wel.summary %></p>
-                <img src="/file/public/<%= wel.image.id %>.<%= wel.image.ext %>" alt="">
+                <h3><%= welfare[0].title %></h3>
+                <p><%= welfare[0].summary %></p>
+                <img src="/file/public/<%= welfare[0].image.id %>.<%= welfare[0].image.ext %>" alt="">
             </div>
-            <% }) %>
+            </a>
+            <a href="/html/info.html?id=<%= welfare[1].id %>">
+            <div class="welfare_s">
+                <h3><%= welfare[1].title %></h3>
+                <p><%= welfare[1].summary %></p>
+                <img src="/file/public/<%= welfare[1].image.id %>.<%= welfare[1].image.ext %>" alt="">
+            </div>
+            </a>
         </div>
     </div>
 </script>
