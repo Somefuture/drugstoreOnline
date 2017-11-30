@@ -6,13 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 视图窗口，移动端特属的标签。 -->
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <!-- 忽略页面中的数字识别为电话号码,email识别 -->
-    <meta name="format-detection"content="telephone=no, email=no" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
     <!-- 启用360浏览器的极速模式(webkit) -->
     <meta name="renderer" content="webkit">
     <!-- 避免IE使用兼容模式 -->
@@ -36,154 +37,467 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>确认订单</title>
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/index.css">
+    <link type="text/css" rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/index.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/reset.css">
 </head>
 <body>
-<div class="shopping_header">
-    <img src="/images/tab/tab_03.png" alt="" onclick="location='shoppingCar.html'">
-    <p class="title">确认订单</p>
-</div>
-<div class="order_body">
-    <div class="consignee_info">
-        <div class="consignee_title">
-            <img src="/images/order/shopping_02.png" alt="">
-            收货人信息
-        </div>
-        <div class="consignee_content">
-            <span class="name">
-                <img src="/images/order/shopping_24.png" alt="">
-                王小明
-            </span>
-            <span class="phone">
-                <img src="/images/order/shopping_30.png" alt="">
-                133****9999
-            </span>
-            <div class="address">
-                <img src="/images/order/shopping_27.png" alt="">
-                <p>广东省深圳市南山区蛇口街道湾厦路22号俪苑小区3栋502</p>
-                <img src="/images/order/index_46.png" alt="" onclick="location='address.html'">
-            </div>
-        </div>
+<div id="address_popup"></div>
+<div id="root">
+    <div class="shopping_header">
+        <p class="title">确认订单</p>
     </div>
-    <ul class="order_product">
-        <li>
-            <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <div class="detail_title">
-                    商品名称商品名称
+    <div class="order_body">
+        <div class="consignee_info"></div>
+        <ul class="order_product"></ul>
+        <div class="order_functions">
+            <div class="coupon_use">
+                <img src="/images/order/shopping_38.png" alt="">
+                <p>使用优惠券</p>
+                <span class="coupon_able">暂无可用的优惠券</span>
+                <span class="to_details"><img src="/images/order/index_46.png" alt=""></span>
+            </div>
+            <div class="total_use">
+                <div class="detail">
+                    <p class="title">使用积分</p>
+                    <p class="describe" id="total_points">
+                        您总共有0积分，可抵￥0.00
+                    </p>
                 </div>
-                <div class="detail_content">
-                    <span class="product_price">￥588</span>
-                    <span class="product_amount">x1</span>
+                <div class="btn">
+                    <input type="checkbox" id="points_toggle" class="chooseBtn"/>
+                    <label for="points_toggle" class="choose-label"></label>
+                </div>
+                <div class="detail">
+                    <p class="describe" id="use_points">
+                        本次使用0积分，已抵￥0.00
+                    </p>
                 </div>
             </div>
-        </li>
-        <li>
-            <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <div class="detail_title">
-                    商品名称商品名称
-                </div>
-                <div class="detail_content">
-                    <span class="product_price">￥588</span>
-                    <span class="product_amount">x1</span>
-                </div>
-            </div>
-        </li>
-    </ul>
-    <div class="order_functions">
-        <div class="delivery">
-            <img src="/images/order/shopping_34.png" alt="">
-            <p>请选择配送方式</p>
-            <span class="to_details"><img src="/images/order/index_46.png" alt=""></span>
-        </div>
-        <div class="coupon_use">
-            <img src="/images/order/shopping_38.png" alt="">
-            <p>使用优惠券</p>
-            <span class="coupon_able">有可用的优惠券</span>
-            <span class="to_details"><img src="/images/order/index_46.png" alt=""></span>
-        </div>
-        <div class="total_use">
-            <div class="detail">
-                <p class="title">使用积分</p>
-                <p class="describe">
-                    您总共有3000积分，可抵￥3.00
-                </p>
-            </div>
-            <div class="btn">
-                <input type="checkbox" name="sex" id="total" class="chooseBtn" />
-                <label for="total" class="choose-label"></label>
-            </div>
-        </div>
-        <div class="invoice_use">
-            <div class="detail">
-                <p class="title">开具发票</p>
-                <p class="describe">
-                    可进行开具发票
-                </p>
-            </div>
-            <div class="btn">
-                <input type="checkbox" name="sex" id="invoice" class="chooseBtn" />
-                <label for="invoice" class="choose-label"></label>
-            </div>
-        </div>
-        <textarea name="" id="" cols="30" rows="5">备注：
+            <!--<div class="invoice_use">-->
+                <!--<div class="detail">-->
+                    <!--<p class="title">开具发票</p>-->
+                <!--</div>-->
+                <!--<div class="btn">-->
+                    <!--<input type="checkbox" id="invoice_toggle" class="chooseBtn"/>-->
+                    <!--<label for="invoice_toggle" class="choose-label"></label>-->
+                <!--</div>-->
+            <!--</div>-->
+            <textarea id="comments" cols="30" rows="5">备注：
         </textarea>
-    </div>
-    <table class="order_details">
-        <tr>
-            <td>合计：</td>
-            <td>￥996.00</td>
-        </tr>
-        <tr>
-            <td>运费：</td>
-            <td>￥10.00</td>
-        </tr>
-        <tr>
-            <td>优惠券：</td>
-            <td>-￥10.00</td>
-        </tr>
-        <tr>
-            <td>积分抵扣：</td>
-            <td>-￥10.00</td>
-        </tr>
-    </table>
-    <div class="settle_accounts">
+        </div>
+        <table class="order_details">
+            <tr>
+                <td>合计：</td>
+                <td id="total_cost">￥0.00</td>
+            </tr>
+            <tr>
+                <td>运费：</td>
+                <td id="delivery_cost">￥0.00</td>
+            </tr>
+            <tr>
+                <td>优惠券：</td>
+                <td id="coupons_cost">-￥0.00</td>
+            </tr>
+            <tr>
+                <td>积分抵扣：</td>
+                <td id="points_cost">-￥0.00</td>
+            </tr>
+        </table>
+        <div class="settle_accounts">
         <span class="account_details">
             <p>实际付款</p>
-            <span class="price">￥996.00</span>
-        </span><span class="account">提交订单</span>
+            <span class="price" id="payment">￥0.00</span>
+        </span><span class="account" id="submit">提交订单</span>
+        </div>
+        </div>
+        <div class="footer">
+            <ul class="nav">
+                <li>
+                    <a href="/html/index.html">
+                        <img src="/images/tab/tab_32.png" alt="">
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="/html/store.html">
+                        <img src="/images/tab/tab_36.png" alt="">
+                        精品商城
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/html/shoppingCar.html">
+                        <img src="/images/tab/tab_50.png" alt="">
+                        我的药箱
+                    </a>
+                </li>
+                <li>
+                    <a href="/html/personal.html">
+                        <img src="/images/tab/tab_40.png" alt="">
+                        个人中心
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
-<div class="footer">
-    <ul class="nav">
-        <li>
-            <a href="index.html">
-                <img src="/images/tab/tab_32.png" alt="">
-                首页
-            </a>
-        </li>
-        <li>
-            <a href="store.html">
-                <img src="/images/tab/tab_36.png" alt="">
-                精品商城
-            </a>
-        </li>
-        <li class="active">
-            <a href="shoppingCar.html">
-                <img src="/images/tab/tab_50.png" alt="">
-                我的药箱
-            </a>
-        </li>
-        <li>
-            <a href="personal.html">
-                <img src="/images/tab/tab_40.png" alt="">
-                个人中心
-            </a>
-        </li>
-    </ul>
-</div>
+
 </body>
+<script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script type="text/template" id="consignee_template">
+    <div class="consignee_title">
+        <img src="/images/order/shopping_02.png" alt="">
+        收货人信息
+    </div>
+    <div class="consignee_content">
+            <span class="name">
+                <img src="/images/order/shopping_24.png" alt="">
+                <%= name %>
+            </span>
+        <span class="phone">
+                <img src="/images/order/shopping_30.png" alt="">
+                <%= mobile %>
+            </span>
+        <div class="address">
+            <img src="/images/order/shopping_27.png" alt="">
+            <p><%= address %></p>
+            <img src="/images/order/index_46.png" alt="">
+        </div>
+    </div>
+</script>
+<script type="text/template" id="items_template">
+    <% _.each(items, function(item) { %>
+        <li>
+            <% if(item.sku) { %>
+                <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
+                <div class="product_details">
+                    <div class="detail_title">
+                        <%= item.sku.name %>
+                    </div>
+                    <div class="detail_content">
+                        <span class="product_price">￥<%= item.sku.salesPrice %></span>
+                        <span class="product_amount">x<%= item.quantity %></span>
+                    </div>
+                </div>
+            <% } %>
+        </li>
+    <% }) %>
+</script>
+<script>
+    $(document).ready(function () {
+        var form_data = {
+            payment: 0,
+            coupons: [],
+            comments: "",
+            addressID: undefined,
+            invoiceID: undefined,
+            invoiceType: undefined,
+            points: 0,
+            items: []
+        };
+        var points_balance = 0;
+        var points_exchange_rate = 0;
+        var $address_popup = $("#address_popup");
+        var $root = $("#root");
+        var $consignee = $(".consignee_info");
+        var $items = $(".order_product");
+        var consignee_template = _.template($("#consignee_template").html());
+        var items_template = _.template($("#items_template").html());
+
+        var shopping_cart_ids = get_query_string("sids");
+        var item = get_query_string("item");
+
+        $consignee.click(function () {
+            $root.css("display", "none");
+            $address_popup.load("/html/selectAddress.html", null, function () {
+                $("#address").delegate("li", "click", function () {
+                    var name = $(this).find(".name").text();
+                    var mobile = $(this).find(".phone").text();
+                    var address = $(this).find(".address").text();
+                    form_data.addressID = $(this).attr("data-id");
+                    $consignee.html(consignee_template({
+                        name: name,
+                        mobile: mobile,
+                        address: address
+                    }));
+                    $address_popup.html("");
+                    $root.css("display", "block");
+                })
+            });
+        });
+
+        $("#points_toggle").click(function () {
+            if(form_data.payment > 0) {
+                var $parent = $(this).parent();
+                if(!$parent.hasClass("checked")) {
+                    swal({
+                        title: "使用积分",
+                        text: "您总共有" + points_balance + "积分",
+                        type: "input",
+                        showCancelButton: true,
+                        cancelButtonText: "取消",
+                        confirmButtonText: "确定",
+                        closeOnConfirm: false,
+                        inputPlaceholder: "请输入要使用的积分数量"
+                    }, function(points) {
+                        if(points === "") {
+                            swal.showInputError("请输入积分数量");
+                        }else if(!/^\d+$/.test(points)){
+                            swal.showInputError("请输入大于0的整数");
+                        }else {
+                            points = parseInt(points);
+                            if (points <= 0) {
+                                swal.showInputError("请输入大于0的整数");
+                            }else if(points > points_balance){
+                                swal.showInputError("积分不足");
+                            }else {
+                                if(points > (form_data.payment / points_exchange_rate)) {
+                                    points = form_data.payment / points_exchange_rate;
+                                }
+                                update_use_points(points);
+                                $parent.addClass("checked");
+                                swal.close();
+                            }
+                        }
+                        return false;
+                    });
+                }else {
+                    $parent.removeClass("checked");
+                    update_use_points(0);
+                }
+            }
+        });
+
+        $("#submit").click(submit);
+
+        get_default_address();
+
+        if(shopping_cart_ids) {
+            //购物车结算
+            get_shopping_carts();
+        }else {
+            //立即购买
+            get_online_items()
+        }
+
+        get_points();
+
+        function get_points() {
+            ajax({
+                url: "/product/account/points",
+                success: function (json) {
+                    if(!json.error) {
+                        points_balance = json.success.balance;
+                        points_exchange_rate = json.success.exchangeRate;
+                        update_total_points();
+                    }
+                }
+            });
+        }
+
+        function get_shopping_carts() {
+            var data = {};
+            _.each(shopping_cart_ids.split(";"), function (id, index) {
+                data["ids[" + index + "]"] = id;
+            });
+            ajax({
+                url: "/items/online/by_shopping_cart_item",
+                data: data,
+                success: function (json) {
+                    if(!json.error) {
+                        var items = {};
+                        _.each(json.success, function (item, index) {
+                            if(item.sku) {
+                                items["items[" + index + "].type"] = "sku";
+                                items["items[" + index + "].id"] = item.sku.id;
+                            }else {
+                                items["items[" + index + "].type"] = "combo";
+                                items["items[" + index + "].id"] = item.combo.id;
+                            }
+                            items["items[" + index + "].quantity"] = item.quantity;
+                        });
+                        if(json.success.length > 0) {
+                            get_available_coupons(items);
+                        }
+                        form_data.items = json.success;
+                        $items.html(items_template({items: json.success}));
+                        update_payment({total_cost: calculate_items_total_cost(json.success)});
+                    }
+                }
+            });
+        }
+
+        function get_online_items() {
+            ajax({
+                url: "/items/online",
+                data: JSON.parse(item),
+                success: function (json) {
+                    if(!json.error) {
+                        var items = JSON.parse(item);
+                        form_data.items = json.success;
+                        get_available_coupons(items);
+                        $items.html(items_template({items: json.success}));
+                        update_payment({total_cost: calculate_items_total_cost(json.success)});
+                    }
+                }
+            });
+        }
+
+        function get_available_coupons(items) {
+            ajax({
+                url: "/product/user_coupons/available_with_items",
+                data: items,
+                success: function (json) {
+                    if(!json.error) {
+                        update_use_coupons(json.success);
+                    }
+                }
+            });
+        }
+
+        function get_default_address() {
+            ajax({
+                url: "/user/address/default",
+                success: function (json) {
+                    if(!json.error) {
+                        var success = json.success || {} ;
+                        form_data.addressID = success.id;
+                        var city_name = success.cityName && success.cityName !== "市辖区" ? success.cityName : "";
+                        var data = {
+                            name: success.consignee || "",
+                            mobile: success.mobile || "",
+                            address: (success.provinceName || "") + city_name + (success.unitDetail || "")
+                        };
+                        $consignee.html(consignee_template(data));
+                    }
+                }
+            });
+        }
+
+        function calculate_items_total_cost(items) {
+            var total_cost = _.reduce(items, function (memo, item) {
+                var sales_price = item.sku ? item.sku.salesPrice : _.reduce(item.combo.units, function (memo, unit) {
+                    return memo + unit.comboPrice
+                }, 0);
+                return memo + sales_price * item.quantity;
+            }, 0);
+            return Math.round(total_cost * 100) / 100
+        }
+
+        function update_payment(data) {
+            var $total_cost = $("#total_cost");
+            var $delivery_cost = $("#delivery_cost");
+            var $coupons_cost = $("#coupons_cost");
+            var $points_cost = $("#points_cost");
+            var $payment = $("#payment");
+            var total_cost = parseFloat($total_cost.text().replace("￥", ""));
+            var coupons_cost = parseFloat($coupons_cost.text().replace("-￥", ""));
+            var points_cost = parseFloat($points_cost.text().replace("-￥", ""));
+            if(data.total_cost !== undefined) {
+                total_cost = data.total_cost;
+                $total_cost.html("￥" + to_decimal(total_cost));
+            }
+            if(data.coupons_cost !== undefined) {
+                coupons_cost = data.coupons_cost;
+                $coupons_cost.html("-￥" + to_decimal(coupons_cost));
+            }
+            if(data.points_cost !== undefined) {
+                points_cost = data.points_cost;
+                $points_cost.html("-￥" + to_decimal(points_cost));
+            }
+            var payment = total_cost - coupons_cost - points_cost;
+            var delivery_cost = payment < 68 ? 10 : 0;
+            $delivery_cost.html("￥" + to_decimal(delivery_cost));
+            payment = payment + delivery_cost;
+            form_data.payment = Math.round(payment * 100) / 100;
+            $payment.html("￥" + to_decimal(payment));
+        }
+
+        function update_total_points() {
+            $("#total_points").html("您总共有" + points_balance + "积分，可抵￥" + to_decimal(points_balance * points_exchange_rate));
+        }
+
+        function update_use_points(points) {
+            form_data.points = points;
+            $("#use_points").html("本次使用" + points + "积分，已抵￥" + to_decimal(points * points_exchange_rate));
+            update_payment({points_cost: points * points_exchange_rate});
+        }
+
+        function update_use_coupons(coupons) {
+            form_data.coupons = _.map(coupons, function (coupon) {
+                return coupon.id;
+            });
+            var coupons_cost = _.reduce(coupons, function (memo, coupon) {
+                var quantity = 0;
+                _.each(form_data.items, function (item) {
+                    if(item.sku && item.sku.productID === coupon.moduleID) {
+                        quantity = item.quantity
+                    }
+                });
+                return memo + coupon.value * quantity;
+            }, 0);
+            if(coupons_cost > 0) {
+                $(".coupon_able").html("-￥" + to_decimal(coupons_cost));
+            }else {
+                $(".coupon_able").html("暂无可用的优惠券");
+            }
+
+            update_payment({coupons_cost: coupons_cost});
+
+        }
+
+        function submit() {
+            if(!form_data.addressID) {
+                swal("", "请选择收货地址");
+            }else if(_.size(form_data.items) === 0) {
+                swal("", "没有商品可结算, 快去选购吧。");
+            }else {
+                form_data.comments = $("#comments").val().replace("备注：", "").trim();
+                var data = $.extend({}, form_data);
+                delete data.coupons;
+                delete data.items;
+                _.each(form_data.coupons, function (coupon, index) {
+                    data["coupons[" + index + "]"] = coupon;
+                });
+                _.each(form_data.items, function (item, index) {
+                    if(item.sku) {
+                        data["items[" + index + "].type"] = "sku";
+                        data["items[" + index + "].id"] = item.sku.id;
+                    }else {
+                        data["items[" + index + "].type"] = "combo";
+                        data["items[" + index + "].id"] = item.combo.id;
+                    }
+                    data["items[" + index + "].quantity"] = item.quantity;
+                    if(item.shoppingCartID) {
+                        data["items[" + index + "].shoppingCartID"] = item.shoppingCartID;
+                    }
+                });
+                ajax({
+                    type: "post",
+                    url: "/product/order/create",
+                    data: data,
+                    success: function (json) {
+                        if(!json.error) {
+                            ajax({
+                                type: "post",
+                                url: "/product/order/pay",
+                                data: {orderID: json.success.id},
+                                success: function (json) {
+                                    if(!json.error) {
+                                       window.location.href = json.success;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
+    })
+</script>
 </html>

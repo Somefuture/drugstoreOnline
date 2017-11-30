@@ -75,3 +75,21 @@ function scroll_load_more(list_id, underscore_template, load_data_id, options) {
     }, 500);
     $(window).scroll(load_more);
 }
+
+function to_decimal(x) {
+    var f = parseFloat(x);
+    if (isNaN(f)) {
+        return f;
+    }
+    f = Math.round(x*100)/100;
+    var s = f.toString();
+    var rs = s.indexOf('.');
+    if (rs < 0) {
+        rs = s.length;
+        s += '.';
+    }
+    while (s.length <= rs + 2) {
+        s += '0';
+    }
+    return s;
+}

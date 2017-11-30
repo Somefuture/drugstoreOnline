@@ -37,7 +37,7 @@
     <li class="finished">已完成</li>
     <!--<li class="closed">待评价</li>-->
 </ul>
-<div id="order_list"></div>
+<div class="order_lists"></div>
 <div class="footer">
     <ul class="nav">
         <li>
@@ -72,7 +72,6 @@
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script type="text/template" id="order_list_template">
-    <div class="order_lists">
         <% var status_params = ""; %>
         <% _.each(statuses, function(status, index) { %>
             <% status_params = status_params + "&statuses[" + index + "]=" + status; %>
@@ -169,7 +168,6 @@
         <% } else { %>
             <a href="/product/orders/by_self?drop=0&take=10<%=status_params%>" class="bottom_info hidden">--- 下拉加载更多数据 ---</a>
         <% } %>
-    </div>
 </script>
 <script>
     $(document).ready(function () {
@@ -182,10 +180,61 @@
 
         $(".order_tab > li." + status).click();
 
-        function load_orders() {
-            $("#order_list").html(template({success: null, statuses: active_order_statuses}));
-            scroll_load_more("#order_list", template, "a.bottom_info", {statuses: active_order_statuses});
-        }
+
+
+
+
+
+
+
+
+
+//
+//        function infinity_load() {
+//            var $appended = $();
+//            var url = $appended.attr("href");
+//            ajax({
+//                url: url,
+//                success: function (json) {
+//                    data.success = json.success;
+//                    data.drop += 10;
+//                    $load_data.remove();
+//                    $list.append(underscore_template(data));
+//                }
+//            });
+//        };
+//
+//        var bottom_offset = 400;
+//        $.get_data();
+//        var load_more = _.debounce(function () {
+//            if (($(document).height() - $(window).scrollTop()) > bottom_offset) {
+//                $.get_data();
+//            }
+//        }, 500);
+//        $(window).scroll(load_more);
+//
+//
+//        $("#order_lists").html(template({success: null, statuses: active_order_statuses}));
+//        scroll_load_more("#order_lists", template, "a.bottom_info", {statuses: active_order_statuses});
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         function active_order_tab() {
             var $this = $(this);
