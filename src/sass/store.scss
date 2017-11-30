@@ -123,6 +123,8 @@ $bottom-border:p2r(1) solid #e7e7e7;
 .bottom_info{
   display: block;
   width: 100%;
+  height: p2r(70);
+  line-height: p2r(70);
   text-align: center;
   color: rgb(172, 172, 172);
   font-size: p2r(28);
