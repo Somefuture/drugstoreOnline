@@ -17,9 +17,14 @@ $line-border:p2r(1) solid #cccccc;
   }
   .to_details{
     display: inline-block;
-    width: p2r(25);
     float: right;
     margin-right: p2r(30);
+    height: p2r(60);
+    overflow: hidden;
+    vertical-align: middle;
+    img{
+      width: p2r(25);
+    }
   }
 }
 @mixin button{
@@ -201,9 +206,11 @@ $line-border:p2r(1) solid #cccccc;
     .coupon_use{
       @include functions;
       .coupon_able{
+        display: inline-block;
         color:#999999;
         font-size: p2r(20);
-        margin-left:30%;
+        height: p2r(60);
+        vertical-align: middle;
       }
     }
     .total_use{
