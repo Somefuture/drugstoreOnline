@@ -54,6 +54,9 @@
 </body>
 <script type="text/template" id="comment_template">
     <ul>
+        <% if(data.length===0){ %>
+            <p>暂无用户评价</p>
+        <% }else{ %>
         <% _.each(data,function(comment){ %>
         <li>
             <div class="user_avatar"><img src="/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>"></div>
@@ -70,7 +73,7 @@
                 </div>
             </div>
         </li>
-        <% }); %>
+        <% })}; %>
     </ul>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>

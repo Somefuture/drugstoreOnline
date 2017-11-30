@@ -253,17 +253,17 @@ $color-main:#0fb87f;
       }
     }
     .SKU_select_footer{
-      margin: p2r(20) 0;
+      margin: p2r(20) 0 0 0 ;
       width: 100%;
-      height: p2r(76);
+      height: p2r(86);
       font-size: 0;
       span{
         display: inline-block;
         width: 50%;
-        height: p2r(76);
+        height: p2r(86);
         font-size: p2r(32);
         text-align: center;
-        line-height: p2r(76);
+        line-height: p2r(86);
         color:#FFFFFF;
       }
       .add_to_shoppingCar{

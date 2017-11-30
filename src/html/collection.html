@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <title>公告</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="shopping_header">
+    <p class="title" id="title"></p>
+</div>
+<div id="content">
+</div>
+<div class="footer">
+    <ul class="nav">
+        <li>
+            <a href="/html/index.html">
+                <img src="/images/tab/tab_32.png" alt="">
+                首页
+            </a>
+        </li>
+        <li>
+            <a href="/html/store.html">
+                <img src="/images/tab/tab_36.png" alt="">
+                精品商城
+            </a>
+        </li>
+        <li>
+            <a href="/html/shoppingCar.html">
+                <img src="/images/tab/tab_38.png" alt="">
+                我的药箱
+            </a>
+        </li>
+        <li>
+            <a href="/html/personal.html">
+                <img src="/images/tab/tab_40.png" alt="">
+                个人中心
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/template" id="content_template">
+    <ul class="col">
+        <% _.each(collection,function(col){ %>
+        <a href="/html/info.html?id=<%= col.id %>">
+        <li>
+            <span class="title"><%= col.title %></span>
+            <div class="img" style="background-image: url('/file/public/<%= col.image.id %>.<%= col.image.ext %>')"></div>
+            <p class="summary"><%= col.summary %></p>
+            <p class="during">
+                <%= col.startAt[0] %>.<%= col.startAt[1] %>.<%= col.startAt[2] %>~<%= col.endAt[0] %>.<%= col.endAt[1] %>.<%= col.endAt[2] %>
+            </p>
+        </li>
+        </a>
+        <% }) %>
+    </ul>
+</script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        var id=get_query_string("id");
+        if(id==="4"){
+            $("#title").html("福利社");
+        }else if(id==="12"){
+            $("#title").html("健康汇");
+        }
+        ajax({
+            url:"/advertisement/materials/by_collection",
+            data:{collectionID:id},
+            success:function(json){
+                if(json.error){
+                    return;
+                }
+                var content_template=_.template($("#content_template").html());
+                $("#content").html(content_template({"collection":json.success}));
+            }
+        })
+    });
+
+</script>
+</html>
