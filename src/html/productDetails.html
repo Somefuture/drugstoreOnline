@@ -220,9 +220,11 @@
 
         $(".buy_now").click(function(){
             var sku_id = get_sku();
+            var quantity = parseInt($sku_quantity.text());
             if(sku_id){
-                //window.location.href = "/html/orderConfirm.html?sid="+sku_id;
-                swal("","未实现的功能");
+                window.location.href = "/html/orderConfirm.html?item={%22items[0].type%22:%22sku%22,%22items[0].id%22:%22" + sku_id + "%22,%22items[0].quantity%22:%22" + quantity + "%22}";
+            }else {
+                swal("","请选择规格");
             }
         });
 

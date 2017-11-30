@@ -54,9 +54,11 @@
         <div class="order_functions">
             <div class="coupon_use">
                 <img src="/images/order/shopping_38.png" alt="">
-                <p>使用优惠券</p>
-                <span class="coupon_able">暂无可用的优惠券</span>
-                <span class="to_details"><img src="/images/order/index_46.png" alt=""></span>
+                <p>使用优惠券 </p>
+                <span class="to_details">
+                    <span class="coupon_able">暂无可用的优惠券</span>
+                    <img src="/images/order/index_46.png" alt="">
+                </span>
             </div>
             <div class="total_use">
                 <div class="detail">
@@ -165,7 +167,7 @@
         <div class="address">
             <img src="/images/order/shopping_27.png" alt="">
             <p><%= address %></p>
-            <img src="/images/order/index_46.png" alt="">
+            <img src="/images/order/index_46.png" alt="" class="float_right">
         </div>
     </div>
 </script>
@@ -173,7 +175,7 @@
     <% _.each(items, function(item) { %>
         <li>
             <% if(item.sku) { %>
-                <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
+                <div class="product_img"><img src="/file/public/<%= item.sku.image.id %>.<%= item.sku.image.ext %>" alt=""></div>
                 <div class="product_details">
                     <div class="detail_title">
                         <%= item.sku.name %>
@@ -208,7 +210,7 @@
         var consignee_template = _.template($("#consignee_template").html());
         var items_template = _.template($("#items_template").html());
 
-        var shopping_cart_ids = get_query_string("sids");
+        var shopping_cart_ids = get_query_string("scids");
         var item = get_query_string("item");
 
         $consignee.click(function () {
