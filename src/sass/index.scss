@@ -103,6 +103,10 @@ $bottom-border:p2r(1) solid #e7e7e7;
       }
     }
     .content {
+      a{
+        color: $color-font;
+        font-size: p2r(24);
+      }
       color: $color-font;
       font-size: p2r(24);
       vertical-align: bottom;
