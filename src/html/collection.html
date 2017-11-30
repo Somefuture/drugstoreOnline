@@ -24,7 +24,7 @@
 </head>
 <body>
 <div class="shopping_header">
-    <p class="title">详情</p>
+    <p class="title" id="title"></p>
 </div>
 <div id="content">
 </div>
@@ -58,14 +58,20 @@
 </div>
 </body>
 <script type="text/template" id="content_template">
-    <div class="info_body">
-        <h1 class="title"><%= info.title %></h1>
-        <div class="content">
-            <div class="img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')">
-            </div>
-            <p class="summary"><%= info.summary %></p>
-        </div>
-    </div>
+    <ul class="col">
+        <% _.each(collection,function(col){ %>
+        <a href="/html/info.html?id=<%= col.id %>">
+        <li>
+            <span class="title"><%= col.title %></span>
+            <div class="img" style="background-image: url('/file/public/<%= col.image.id %>.<%= col.image.ext %>')"></div>
+            <p class="summary"><%= col.summary %></p>
+            <p class="during">
+                <%= col.startAt[0] %>.<%= col.startAt[1] %>.<%= col.startAt[2] %>~<%= col.endAt[0] %>.<%= col.endAt[1] %>.<%= col.endAt[2] %>
+            </p>
+        </li>
+        </a>
+        <% }) %>
+    </ul>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
@@ -74,15 +80,20 @@
 <script>
     $(document).ready(function () {
         var id=get_query_string("id");
+        if(id==="4"){
+            $("#title").html("福利社");
+        }else if(id==="12"){
+            $("#title").html("健康汇");
+        }
         ajax({
-            url:"/advertisement/material/detail",
-            data:{id:id},
+            url:"/advertisement/materials/by_collection",
+            data:{collectionID:id},
             success:function(json){
                 if(json.error){
                     return;
                 }
                 var content_template=_.template($("#content_template").html());
-                $("#content").html(content_template({"info":json.success}));
+                $("#content").html(content_template({"collection":json.success}));
             }
         })
     });

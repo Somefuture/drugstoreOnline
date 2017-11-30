@@ -167,7 +167,7 @@
                    <img src="/images/homePage/home_45@1x.png" alt="">
                </span>
             <span class="title-content">福利社</span>
-            <span class="more">更多&gt</span>
+            <span class="more"><a href="/html/collection.html?id=4">更多&gt</a></span>
         </div>
         <div class="content">
             <% _.each(welfare,function(wel){ %>
@@ -187,11 +187,11 @@
                    <img src="/images/homePage/home_45@1x.png" alt="">
                </span>
             <span class="title-content">健康汇</span>
-            <span class="more">更多&gt</span>
+            <span class="more"><a href="/html/collection.html?id=12">更多&gt</a></span>
         </div>
         <div class="top-news">
             <div class="img">
-                <a href="<%= healthy[0].link %>">
+                <a href="/html/info.html?id=<%= healthy[0].id %>">
                 <img src="/file/public/<%= healthy[0].image.id %>.<%= healthy[0].image.ext %>" alt="">
                 <div class="news_content"><%= healthy[0].title %></div>
                 </a>
@@ -199,7 +199,7 @@
         </div>
         <ul class="list-news">
             <% _.each(healthy,function(heal){ %>
-            <a href="<%= healthy[0].link %>">
+            <a href="/html/info.html?id=<%= heal.id %>">
             <li class="lists">
                 <ul>
                     <li class="newsimg"><img src="/file/public/<%= heal.image.id %>.<%= heal.image.ext %>" alt=""></li>

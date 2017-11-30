@@ -24,6 +24,11 @@ $bottom-border:p2r(1) solid #e7e7e7;
     float: right;
     font-size: p2r(22);
     margin-right: p2r(30);
+    color:#3c3c3c;
+    a{
+      color: #3c3c3c;
+      font-size: p2r(22);
+    }
   }
 }
 @mixin little-title{
