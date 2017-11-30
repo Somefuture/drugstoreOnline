@@ -51,11 +51,12 @@ $line-border:p2r(1) solid #cccccc;
     transition: all 0.5s;
   }
 
-  .chooseBtn:checked + label.choose-label:before {
+
+  .chooseBtn.checked + label.choose-label:before {
     left: 20px;
   }
 
-  .chooseBtn:checked + label.choose-label {
+  .chooseBtn.checked + label.choose-label {
     background-color: #91c46c;
   }
 }
