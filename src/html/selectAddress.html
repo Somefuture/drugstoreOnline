@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <title>选择收货地址</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="shopping_header">
+    <p class="title">选择收货地址</p>
+    <span class="edit_btn" onclick="location='/html/editAddress.html'">新增</span>
+</div>
+<div id="address"></div>
+</body>
+<script type="text/template" id="address_template">
+    <div class="address_body">
+        <% if(address.length==0){ %>
+        <div class="empty_address">
+            <img src="/images/personal/personal_52.png" alt="">
+            还未添加收货地址~
+        </div>
+        <% }else{ %>
+        <ul class="address_lists">
+            <% _.each(address,function(add){ %>
+            <li data-id="<%= add.id %>">
+                <div class="title">
+                    <span class="name">
+                        <img src="/images/order/shopping_24.png" alt="">
+                        <%= add.consignee %>
+                    </span>
+                    <span class="phone">
+                        <img src="/images/order/shopping_30.png" alt="">
+                        <%= add.mobile %>
+                    </span>
+                </div>
+                <div class="address">
+                    <img src="/images/order/shopping_27.png" alt="">
+                    <p><%= add.provinceName %><%= add.cityName %><%= add.suburbName %><%= add.unitDetail %></p>
+                </div>
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+    </div>
+</script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        var address_template = _.template($("#address_template").html());
+        function get_address() {
+            ajax({
+                url: "/user/addresses",
+                success: function (json) {
+                    if (json.error) {
+                        return;
+                    }
+                    $("#address").html(address_template({"address": json.success}));
+                }
+            });
+        }
+
+        get_address();
+
+    });
+
+</script>
+</html>
