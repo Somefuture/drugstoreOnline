@@ -132,7 +132,15 @@
                     <div class="checkbox-wrap">
                         <div class="checkbox cover <%=item.selected ? 'selected' : ''%>"></div>
                     </div>
-                    <div class="combo-name"><%= item.combo.name %></div>
+                    <div class="combo-name">
+                        <%= item.combo.name %>
+                        <div class="tags">
+                            <div class="tag tag-1">药店</div>
+                            <% if(!item.combo.hasPrescription) { %>
+                            <div class="tag tag-2">邮购</div>
+                            <% } %>
+                        </div>
+                    </div>
                 </div>
                 <div class="detail">
                     <div class="units">

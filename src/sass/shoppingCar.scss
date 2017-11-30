@@ -207,11 +207,32 @@ body{
             }
           }
           .combo-name {
+            position: relative;
             float: left;
             width: 90%;
             line-height: p2r(70);
             height: p2r(70);
             overflow: hidden;
+            .tags {
+              height: p2r(40);
+              position: absolute;
+              right: 0;
+              top: p2r(15);
+              .tag {
+                float: right;
+                line-height: p2r(36);
+                height: p2r(36);
+                font-size: p2r(24);
+                color: #fff;
+                padding: 0 p2r(10);
+              }
+              .tag-1 {
+                background: $color-main;
+              }
+              .tag-2 {
+                background: #91c46c;
+              }
+            }
           }
         }
         .detail {
