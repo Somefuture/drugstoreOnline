@@ -50,7 +50,7 @@
     </div>
     <div class="order_body">
         <div class="consignee_info"></div>
-        <ul class="order_product"></ul>
+        <ul class="shopping-cart-content"></ul>
         <div class="order_functions">
             <div class="coupon_use">
                 <img src="/images/order/shopping_38.png" alt="">
@@ -173,20 +173,70 @@
 </script>
 <script type="text/template" id="items_template">
     <% _.each(items, function(item) { %>
-        <li>
-            <% if(item.sku) { %>
-                <div class="product_img"><img src="/file/public/<%= item.sku.image.id %>.<%= item.sku.image.ext %>" alt=""></div>
-                <div class="product_details">
-                    <div class="detail_title">
-                        <%= item.sku.name %>
+    <li class="item" data-id="<%= item.id %>">
+        <% if(item.sku) { %>
+        <div class="sku">
+            <div class="checkbox-wrap">
+            </div>
+            <div class="image-wrap">
+                <div class="product_img cover" style="background-image: url(/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>)"></div>
+            </div>
+            <div class="info">
+                <div class="row-1">
+                    <div class="name"><%= item.sku.name %></div>
+                </div>
+                <div class="row-2">
+                    <div class="price" style="width: 100%">￥<%= item.sku.salesPrice %>&nbsp;<i style="color:#3b3b3b;float:right">X&nbsp;<%= item.quantity %></i></div>
+                </div>
+            </div>
+        </div>
+        <% } else { %>
+        <div class="combo">
+            <div class="row-1">
+                <div class="checkbox-wrap">
+                </div>
+                <div class="combo-name">
+                    <%= item.combo.name %>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="units">
+                    <% var combo_inventory = 0; %>
+                    <% var combo_price = 0; %>
+                    <% var combo_original_price = 0; %>
+
+                    <% _.each(item.combo.units, function(unit) { %>
+                    <% combo_inventory = combo_inventory ? Math.min(combo_inventory, unit.sku.inventory) :
+                    unit.sku.inventory; %>
+                    <% combo_price = combo_price + unit.comboPrice; %>
+                    <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
+
+                    <div class="sku">
+                        <div class="image-wrap">
+                            <div class="product_img cover"
+                                 style="background-image: url(/file/public/<%=unit.sku.image.id%>.<%=unit.sku.image.ext%>)"></div>
+                        </div>
+                        <div class="info">
+                            <div><%= unit.sku.name %>&nbsp;X&nbsp;<%= unit.quantity %>
+                            </div>
+                            <div><i style="text-decoration: line-through">￥<%= unit.sku.salesPrice * unit.quantity %></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>￥<%= unit.comboPrice %></b></div>
+                        </div>
                     </div>
-                    <div class="detail_content">
-                        <span class="product_price">￥<%= item.sku.salesPrice %></span>
-                        <span class="product_amount">x<%= item.quantity %></span>
+                    <% }) %>
+                </div>
+                <div class="combo-info">
+                    <div class="row-2-1">
+                        <i style="text-decoration: line-through">￥<%= Math.round(combo_original_price * 100) / 100
+                            %></i>
+                    </div>
+                    <div class="row-2-2">
+                        <div class="price" style="width: 100%">￥<%= Math.round(combo_price * 100) / 100 %>&nbsp;<i style="color:#3b3b3b;float:right">X&nbsp;<%= item.quantity %></i></div>
                     </div>
                 </div>
-            <% } %>
-        </li>
+            </div>
+        </div>
+        <% } %>
+    </li>
     <% }) %>
 </script>
 <script>
@@ -205,7 +255,7 @@
         var $address_popup = $("#address_popup");
         var $root = $("#root");
         var $consignee = $(".consignee_info");
-        var $items = $(".order_product");
+        var $items = $(".shopping-cart-content");
         var consignee_template = _.template($("#consignee_template").html());
         var items_template = _.template($("#items_template").html());
 
