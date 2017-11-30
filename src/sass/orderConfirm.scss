@@ -80,8 +80,10 @@ $line-border:p2r(1) solid #cccccc;
     width: 20%;
     @include button;
   }
+  //选中失败
   .checked{
     @include selectButton;
+
   }
 }
 .order_body{
