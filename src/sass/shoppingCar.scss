@@ -58,12 +58,12 @@ body{
     }
   }
   .shopping-cart-content {
-    background: #fafafa;
     width: 100%;
-    padding-bottom: p2r(500);
     li.item {
       width: 100%;
-      padding-top: p2r(50);
+      padding: p2r(50) 0;
+      margin-bottom: p2r(50);
+      background-color: #fff;
       .sku {
         height: p2r(200);
         .checkbox-wrap {
@@ -186,9 +186,11 @@ body{
         }
       }
       .combo {
+        width: 100%;
+        background-color: #fff;
         .row-1 {
+          padding-right: 5%;
           height: p2r(70);
-          width: 100%;
           .checkbox-wrap {
             float: left;
             width: 10%;
@@ -213,8 +215,10 @@ body{
           }
         }
         .detail {
-          width: 90%;
-          float: right;
+          width: 100%;
+          padding-left:10%;
+          padding-right: 5%;
+          background-color: #fff;
           .units {
               .sku {
                 height: p2r(120);
@@ -228,7 +232,6 @@ body{
                 }
                 .info {
                   float: left;
-                  width: 80%;
                   height: p2r(120);
                   font-size: p2r(24);
                   div {
@@ -239,48 +242,68 @@ body{
               }
           }
           .combo-info {
-            .combo-price {
-              float: left;
+            height: p2r(160);
+            line-height: p2r(80);
+            .row-2-1{
+              .switch-cart {
+                float: right;
+                margin-top:p2r(15);
+                border-radius: p2r(30);
+                height: p2r(50);
+                line-height: p2r(50);
+                width: p2r(137);
+                color: $color-main;
+                font-size: p2r(28);
+                border: p2r(1) solid $color-main;
+                background: transparent;
+              }
+            }
+            .row-2-2 {
               .price {
                 color: #d9a86c;
                 height: p2r(80);
                 font-size: p2r(38);
+                float: none;
+              }
+              .quantity-wrap {
+                float: right;
+                margin:p2r(10) 0;
+                height: p2r(60);
+                border: solid #e7e7e7 p2r(2);
+                div {
+                  float: right;
+                  height: p2r(60);
+                  line-height:p2r(60);
+                  width: p2r(60);
+                  background: #ffffff;
+                }
+                .quantity {
+                  width: p2r(80);
+                  height: p2r(56);
+                  font-size: p2r(28);
+                  line-height: p2r(56);
+                  text-align: center;
+                  border-left: p2r(1) solid #e7e7e7;
+                  border-right: p2r(1) solid #e7e7e7;
+                }
+                .sub {
+                  background-repeat: no-repeat;
+                  opacity: .5;
+                  background-position: center;
+                  background-image: url(/images/shoppingcar/shopping_11.png);
+                  background-size: p2r(10) p2r(10);
+                }
+                .add {
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  opacity: .5;
+                  background-image: url(/images/shoppingcar/shopping_16.png);
+                  background-size: p2r(32) p2r(32);
+                }
               }
             }
-            .quantity-wrap {
-              text-align: right;
-              float: right;
-              height: p2r(80);
-              border: solid #e7e7e7 p2r(2);
-              div {
-                float: right;
-                height: p2r(56);
-                width: p2r(56);
-                background: #ffffff;
-              }
-              .quantity {
-                width: p2r(80);
-                height: p2r(56);
-                font-size: p2r(28);
-                line-height: p2r(56);
-                text-align: center;
-                border-left: p2r(1) solid #e7e7e7;
-                border-right: p2r(1) solid #e7e7e7;
-              }
-              .sub {
-                background-repeat: no-repeat;
-                opacity: .5;
-                background-position: center;
-                background-image: url(/images/shoppingcar/shopping_11.png);
-                background-size: p2r(10) p2r(10);
-              }
-              .add {
-                background-repeat: no-repeat;
-                background-position: center;
-                opacity: .5;
-                background-image: url(/images/shoppingcar/shopping_16.png);
-                background-size: p2r(32) p2r(32);
-              }
+            .switch-cart {
+              float: none;
             }
           }
 
@@ -321,7 +344,7 @@ body{
 }
 
 .shoppingCar_body {
-  margin-bottom: p2r(200);
+  margin-bottom: p2r(186);
   .carOne {
     @include shoppingCar;
   }

@@ -148,27 +148,37 @@
 
                         <div class="sku">
                             <div class="image-wrap">
-                                <div class="product_img cover" style="background-image: url(/file/public/<%=unit.sku.image.id%>.<%=unit.sku.image.ext%>)"></div>
+                                <div class="product_img cover"
+                                     style="background-image: url(/file/public/<%=unit.sku.image.id%>.<%=unit.sku.image.ext%>)"></div>
                             </div>
                             <div class="info">
-                                <div><%= unit.sku.name %>&nbsp;&nbsp;￥<%= unit.sku.salesPrice %>&nbsp;&nbsp;x&nbsp;&nbsp;<%= unit.quantity %></div>
-                                <div><i style="text-decoration: line-through">￥<%= unit.sku.salesPrice * unit.quantity %></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>￥<%= unit.comboPrice %></b></div>
+                                <div><%= unit.sku.name %>&nbsp;&nbsp;￥<%= unit.sku.salesPrice %>&nbsp;&nbsp;x&nbsp;&nbsp;<%=
+                                    unit.quantity %>
+                                </div>
+                                <div><i style="text-decoration: line-through">￥<%= unit.sku.salesPrice * unit.quantity
+                                    %></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>￥<%= unit.comboPrice %></b></div>
                             </div>
                         </div>
                         <% }) %>
                     </div>
                     <div class="combo-info">
-                        <div class="combo-price"><i style="text-decoration: line-through">￥<%= Math.round(combo_original_price * 100) / 100 %></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="price">￥<%= Math.round(combo_price * 100) / 100 %></i></div>
-                        <div class="quantity-wrap" data-inventory="<%= item.inventory %>">
-                            <div class="add"></div>
-                            <div class="quantity"><%= item.quantity %></div>
-                            <div class="sub"></div>
+                        <div class="row-2-1">
+                            <i style="text-decoration: line-through">￥<%= Math.round(combo_original_price * 100) / 100
+                                %></i>
+                            <% if(!item.combo.hasPrescription) { %>
+                            <button class="switch-cart">
+                                <%=item.type === "offline"?'去邮购':'去药店'%>
+                            </button>
+                            <% } %>
                         </div>
-                        <% if(!item.combo.hasPrescription) { %>
-                        <button class="toggle-carts">
-                            <%=item.type === "offline"?'去邮购':'去药店'%>
-                        </button>
-                        <% } %>
+                        <div class="row-2-2">
+                            <i class="price">￥<%= Math.round(combo_price * 100) / 100 %></i>
+                            <div class="quantity-wrap" data-inventory="<%= item.inventory %>">
+                                <div class="add"></div>
+                                <div class="quantity"><%= item.quantity %></div>
+                                <div class="sub"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
