@@ -231,9 +231,14 @@ body{
                   }
                 }
                 .info {
+                  width:80%;
                   float: left;
+                  padding:0;
                   height: p2r(120);
                   font-size: p2r(24);
+                  .name{
+                    overflow: hidden;
+                  }
                   div {
                     height: p2r(60);
                     line-height: p2r(60);
