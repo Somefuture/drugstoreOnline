@@ -34,22 +34,39 @@ function ajax(params) {
 }
 
 function getJsonFromUrl(url) {
-    var qs = url.split("?")[1];
-    var result = {};
-    qs.split("&").forEach(function (part) {
-        var item = part.split("=");
-        result[item[0]] = decodeURIComponent(item[1]);
-    });
-    return result;
+    var obj = {};
+    var parts = unescape(url).split("?")[1].split("&");
+    for (var i = 0; i < parts.length; ++i) {
+        var part = parts[i];
+        var bracketEqualsPos = part.indexOf(']=');
+        var pos = bracketEqualsPos === -1 ? part.indexOf('=') : bracketEqualsPos + 1;
+        var key, val;
+        if (pos === -1) {
+            key = part;
+            val = null;
+        } else {
+            key = part.slice(0, pos);
+            val = part.slice(pos + 1);
+            var index = key.indexOf('[');
+            if(index === - 1) {
+                obj[key] = val;
+            }else {
+                key = key.slice(0, index);
+                if(!obj.hasOwnProperty(key)) {
+                    obj[key] = []
+                }
+                obj[key].push(val);
+            }
+        }
+    }
+    return obj;
 }
 
 
 function scroll_load_more(load_data_id, callback, notInit) {
     function get_data() {
         var $load_data = $(load_data_id);
-        if ($load_data.length === 0) {
-            $(window).unbind('scroll', load_more);
-        }else {
+        if ($load_data.length > 0) {
             var url = $load_data.first().attr("href");
             var data = getJsonFromUrl(url);
             data.drop = parseInt(data.drop);
@@ -58,6 +75,7 @@ function scroll_load_more(load_data_id, callback, notInit) {
                 url: url,
                 success: function (json) {
                     data.list = json.success.list;
+                    data.count = json.success.count;
                     data.drop = data.drop + data.take;
                     $load_data.remove();
                     callback(data);
@@ -72,7 +90,7 @@ function scroll_load_more(load_data_id, callback, notInit) {
         get_data();
         var load_more = _.debounce(function () {
             if (($(document).height() - $(window).scrollTop()) > bottom_offset) {
-                $.get_data();
+                get_data();
             }
         }, 500);
         $(window).scroll(load_more);

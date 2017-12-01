@@ -5,9 +5,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 视图窗口，移动端特属的标签。 -->
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- uc强制竖屏 -->
     <meta name="screen-orientation" content="portrait">
     <!-- QQ强制竖屏 -->
@@ -22,8 +23,8 @@
     <meta name="x5-page-mode" content="app">
     <title>我的订单</title>
     <link type="text/css" rel="stylesheet" href="/css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
-    <link type="text/css" rel="stylesheet" href="/css/index.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/index.css"/>
     <link type="text/css" rel="stylesheet" href="/css/reset.css">
 </head>
 <body>
@@ -72,119 +73,136 @@
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script type="text/template" id="order_list_template">
-        <% if(list) { %>
-            <% _.each(list, function (order) { %>
-                <% var StatusMap = {"pending": "待付款", "success": "待发货", "done": "已完成", "shipped": "已发货", "returning": "退款中","returned": "已退款", "failed": "付款失败", "canceled": "已取消"} %>
-                <% var is_sku_not_exist = false; %>
-                <div class="order_detail">
-                    <div class="detail_title">
-                        订单编号：<%= order.id %>
-                        <span><%= StatusMap[order.status] %></span>
-                    </div>
-                    <ul class="order_product" onclick="location='orderDetail.html'">
-                        <% _.each(order.items, function (item) { %>
-                            <li>
-                                <% if(item.sku) { %>
-                                    <div class="product_img"><img src="/file/public/<%= item.sku.image.id %>.<%= item.sku.image.ext %>" alt=""></div>
-                                    <div class="product_details">
-                                        <div class="product_name">
-                                            <%= item.sku.name %>
-                                        </div>
-                                        <div class="detail_content">
-                                            <span class="product_price">￥<%= item.sku.salesPrice %></span>
-                                            <span class="product_amount">x<%= item.quantity %></span>
-                                        </div>
-                                    </div>
-                                <% } else if(item.combo) { %>
-                                    <div class="order_combine_product">
-                                        <div class="combine_name"><%= item.combo.name %></div>
-                                        <ul class="combine_lists">
-                                            <% var combo_price = 0; %>
-                                            <% var combo_original_price = 0; %>
-                                            <% _.each(item.combo.units, function(unit) { %>
-                                                <% combo_price = combo_price + unit.comboPrice; %>
-                                                <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
-                                                <li>
-                                                    <div class="product_img">
-                                                        <img src="/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>" alt="">
-                                                    </div>
-                                                    <div class="product_details">
-                                                        <div class="combine_product_name">
-                                                            <%= unit.sku.name %>
-                                                        </div>
-                                                        <div class="detail_content">
-                                                            <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
-                                                            <span class="original_price">￥<%= unit.sku.salesPrice %></span>
-                                                            <span class="product_amount">x<%= unit.quantity %></span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            <% }) %>
-                                        </ul>
-                                        <div class="combine_amount">
-                                            <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
-                                            <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
-                                            <span class="quantity">x<%= item.quantity %></span>
-                                        </div>
-                                    </div>
-                                <% } else { %>
-                                    <% is_sku_not_exist = true; %>
-                                    <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
-                                    <div class="product_details">
-                                        <div class="product_name">
-                                            商品过期不存在
-                                        </div>
-                                        <div class="detail_content">
-                                            <span class="product_price"></span>
-                                            <span class="product_amount"></span>
-                                        </div>
-                                    </div>
-                                <% } %>
-                            </li>
-                        <% }); %>
-                    </ul>
-                    <div class="order_amount">
-                        共<%= order.items.length %>件商品 总价（含运费￥<%= order.deliveryCost %>）
-                        <span class="price">￥<%= order.payment %></span>
-                        <div class="operation">
-                            <% if(!is_sku_not_exist && order.status === "pending") %>
-                                <button class="to_pay" onclick="to_pay(<%= order.id %>)">去支付</button>
-                            <% else if(order.status === "success" || order.status === "shipped") { %>
-                                <button class="done" onclick="order_done(<%= order.id %>)">确认收货</button>
-                            <% } %>
+    <% if(_.isNull(list)) { %>
+        <a href="<%=url%>" class="load_data hidden"></a>
+    <% } else { %>
+        <% _.each(list || [], function (order) { %>
+        <% var StatusMap = {"pending": "待付款", "success": "待发货", "done": "已完成", "shipped": "已发货", "returning": "退款中","returned": "已退款", "failed": "付款失败", "canceled": "已取消"} %>
+        <% var is_sku_not_exist = false; %>
+            <div class="order_detail">
+                <div class="detail_title">
+                    订单编号：<%= order.id %>
+                    <span><%= StatusMap[order.status] %></span>
+                </div>
+                <ul class="order_product" onclick="location='orderDetail.html'">
+                    <% _.each(order.items, function (item) { %>
+                    <li>
+                        <% if(item.sku) { %>
+                        <div class="product_img"><img src="/file/public/<%= item.sku.image.id %>.<%= item.sku.image.ext %>"
+                                                      alt=""></div>
+                        <div class="product_details">
+                            <div class="product_name">
+                                <%= item.sku.name %>
+                            </div>
+                            <div class="detail_content">
+                                <span class="product_price">￥<%= item.sku.salesPrice %></span>
+                                <span class="product_amount">x<%= item.quantity %></span>
+                            </div>
                         </div>
+                        <% } else if(item.combo) { %>
+                        <div class="order_combine_product">
+                            <div class="combine_name"><%= item.combo.name %></div>
+                            <ul class="combine_lists">
+                                <% var combo_price = 0; %>
+                                <% var combo_original_price = 0; %>
+                                <% _.each(item.combo.units, function(unit) { %>
+                                <% combo_price = combo_price + unit.comboPrice; %>
+                                <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
+                                <li>
+                                    <div class="product_img">
+                                        <img src="/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>" alt="">
+                                    </div>
+                                    <div class="product_details">
+                                        <div class="combine_product_name">
+                                            <%= unit.sku.name %>
+                                        </div>
+                                        <div class="detail_content">
+                                            <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
+                                            <span class="original_price">￥<%= unit.sku.salesPrice %></span>
+                                            <span class="product_amount">x<%= unit.quantity %></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <% }) %>
+                            </ul>
+                            <div class="combine_amount">
+                                <span class="price">￥<%= Math.round(combo_price * 100) / 100 %></span>
+                                <span class="original_price">￥<%= Math.round(combo_original_price * 100) / 100 %></span>
+                                <span class="quantity">x<%= item.quantity %></span>
+                            </div>
+                        </div>
+                        <% } else { %>
+                        <% is_sku_not_exist = true; %>
+                        <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
+                        <div class="product_details">
+                            <div class="product_name">
+                                商品过期不存在
+                            </div>
+                            <div class="detail_content">
+                                <span class="product_price"></span>
+                                <span class="product_amount"></span>
+                            </div>
+                        </div>
+                        <% } %>
+                    </li>
+                    <% }); %>
+                </ul>
+                <div class="order_amount">
+                    共<%= order.items.length %>件商品 总价（含运费￥<%= order.deliveryCost %>）
+                    <span class="price">￥<%= order.payment %></span>
+                    <div class="operation">
+                        <% if(!is_sku_not_exist && order.status === "pending") %>
+                        <button class="to_pay" onclick="to_pay(<%= order.id %>)">去支付</button>
+                        <% else if(order.status === "success" || order.status === "shipped") { %>
+                        <button class="done" onclick="order_done(<%= order.id %>)">确认收货</button>
+                        <% } %>
                     </div>
                 </div>
-            <% }); %>
-            <% if(drop < success.count){ %>
-                <a href="<%=url%>" id="load_data" class="bottom_info">--- 下拉加载更多数据 ---</a>
-            <% } else { %>
-                <span class="bottom_info">--- 已全部加载完毕 ---</span>
-            <% } %>
+            </div>
+        <% }); %>
+        <% if(drop < count) { %>
+            <a href="<%=url%>" class="bottom_info load_data">--- 下拉加载更多数据 ---</a>
         <% } else { %>
-            <a href="<%=url%>" id="load_data" class="bottom_info hidden">--- 下拉加载更多数据 ---</a>
+            <span class="bottom_info">--- 已全部加载完毕 ---</span>
         <% } %>
+    <% } %>
+
 </script>
 <script>
     $(document).ready(function () {
         var active_order_statuses = [];
         var template = _.template($("#order_list_template").html());
-        $(".order_tab").delegate("li", "click", active_order_tab);
+        var $order_lists = $(".order_lists");
+        $(".order_tab").delegate("li", "click", function () {
+            var $this = $(this);
+            if($this.text() === "") {
+                swal("","功能开发建设中");
+            }else {
+                active_order_tab($this);
+                refresh_orders();
+            }
+        });
 
-        var status = get_query_string("status") || "all";
-        $(".order_tab > li." + status).click();
+        init();
 
-        $(".order_lists").html(template({list: null, url: "/product/orders/by_self?drop=0&take=10"}));
+        function init() {
+            var status = get_query_string("status") || "all";
+            $(".order_tab > li." + status).click();
+            var url = "/product/orders/by_self?drop=0&take=10";
+            _.each(active_order_statuses, function (status, index) {
+                url = url + "&statuses[" + index + "]=" + status
+            });
+            $order_lists.html(template({list: null, drop: 0, url: url}));
+            scroll_load_more(".load_data", render_orders);
+        }
 
-        scroll_load_more("#load_data", render_orders);
-
-        function load_orders(drop) {
-            scroll_load_more("#load_data", function (data) {
-                if(drop !== undefined) {
-                    data.drop = drop;
-                }
-                render_orders(data);
-            }, true);
+        function refresh_orders() {
+            var url = "/product/orders/by_self?drop=0&take=10";
+            _.each(active_order_statuses, function (status, index) {
+                url = url + "&statuses[" + index + "]=" + status
+            });
+            $order_lists.html(template({list: null, drop: 0, url: url}));
+            scroll_load_more(".load_data", render_orders, true);
         }
 
         function render_orders(data) {
@@ -192,20 +210,15 @@
             _.each(active_order_statuses, function (status, index) {
                 data.url = data.url + "&statuses[" + index + "]=" + status
             });
-            $(".order_lists").html(template(data));
+            $(".order_lists").append(template(data));
         }
 
-        function active_order_tab() {
-            var $this = $(this);
-
-            if($this.hasClass("active")) return;
-
+        function active_order_tab($this) {
+            if ($this.hasClass("active")) return;
             $(".order_tab > li.active").each(function () {
                 $(this).removeClass("active");
             });
-
             $this.addClass("active");
-
             switch ($this.text()) {
                 case "全部":
                     active_order_statuses = [];
@@ -223,8 +236,6 @@
                     active_order_statuses = ["done"];
                     break;
             }
-
-            load_orders();
         }
 
         function to_pay(orderID) {
@@ -244,7 +255,7 @@
                 url: "/product/order/done",
                 data: {"orderID": orderID},
                 success: function () {
-                    load_orders();
+                    refresh_orders();
                 }
             });
         }
