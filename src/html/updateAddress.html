@@ -181,13 +181,13 @@
                 swal("","请输入收货人");
             }else if(mobile.length!==11){
                 swal("","请输入正确的手机号");
-            } else if(!provinceID){
+            } else if(provinceID==="default"){
                 swal("","请选择收货省份");
-            }else if(!cityID){
+            }else if(cityID==="default"){
                 swal("","请选择收货城市");
-            }else if(!suburbID){
+            }else if(suburbID==="default"){
                 swal("","请选择收货地区");
-            }else if(!detailed_adr){
+            }else if(!detailed_adr||detailed_adr==="请输入详细地址"){
                 swal("","请填写详细收货地址");
             }else{
                 ajax({
