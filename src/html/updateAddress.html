@@ -177,32 +177,46 @@
             var cityID=$("#cities").val();
             var suburbID=$("#suburbs").val();
             var detailed_adr=$("#detailed_adr").val();
-            ajax({
-                url:"/user/address/update",
-                type:"post",
-                data:{
-                    id:id,
-                    mobile:mobile,
-                    consignee:consignee,
-                    provinceID:provinceID,
-                    cityID:cityID,
-                    suburbID:suburbID,
-                    unitDetail:detailed_adr
-                },
-                success:function (json) {
-                    if(!json.error){
-                        show_swal = true;
-                        swal({
-                                title: "",
-                                text: "地址修改成功"
-                            },
-                            function () {
-                                window.location.href = '/html/address.html';
-                            }
-                        );
+            if(!consignee){
+                swal("","请输入收货人");
+            }else if(mobile.length!==11){
+                swal("","请输入正确的手机号");
+            } else if(!provinceID){
+                swal("","请选择收货省份");
+            }else if(!cityID){
+                swal("","请选择收货城市");
+            }else if(!suburbID){
+                swal("","请选择收货地区");
+            }else if(!detailed_adr){
+                swal("","请填写详细收货地址");
+            }else{
+                ajax({
+                    url:"/user/address/update",
+                    type:"post",
+                    data:{
+                        id:id,
+                        mobile:mobile,
+                        consignee:consignee,
+                        provinceID:provinceID,
+                        cityID:cityID,
+                        suburbID:suburbID,
+                        unitDetail:detailed_adr
+                    },
+                    success:function (json) {
+                        if(!json.error){
+                            show_swal = true;
+                            swal({
+                                    title: "",
+                                    text: "地址修改成功"
+                                },
+                                function () {
+                                    window.location.href = '/html/address.html';
+                                }
+                            );
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     });
 </script>
