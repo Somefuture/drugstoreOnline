@@ -314,7 +314,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
           li {
             display: inline-block;
           }
-          .newsimg {
+          .newsImg {
             width: p2r(190);
             height: p2r(108);
             img {
@@ -322,14 +322,17 @@ $bottom-border:p2r(1) solid #e7e7e7;
               height: p2r(108);
             }
           }
-          .newscontent {
-            width: 60%;
+          .newsContent {
+            width: 50%;
             height: p2r(106);
             overflow: hidden;
             h1 {
               font-size: p2r(28);
               color: #3c3c3c;
               margin-left: p2r(22);
+              overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
             }
             p {
               width: 100%;
@@ -337,19 +340,20 @@ $bottom-border:p2r(1) solid #e7e7e7;
               color: #666666;
               margin-left: p2r(22);
               padding: p2r(20) 0 ;
-              display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-line-clamp: 3;
               overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
             }
           }
           .to_detail {
-            width: p2r(30);
+            float: right;
+            width: p2r(40);
             height: p2r(106);
             vertical-align: middle;
             margin-left: p2r(30);
             img {
-              width: p2r(30);
+              width: p2r(26);
+              margin-top: p2r(30);
             }
           }
         }
@@ -371,7 +375,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
       display: inline-block;
       width: 23.8%;
       text-align: center;
-      line-height: p2r(24);
+      line-height: p2r(20);
       img {
         display: block;
         width: p2r(56);
@@ -380,7 +384,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
       a {
         font-size: p2r(24);
         color: #535353;
-        line-height: p2r(24);
+        line-height: p2r(20);
       }
     }
     li.active {
