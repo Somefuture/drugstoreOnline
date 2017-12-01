@@ -188,21 +188,25 @@ $color-main:#0fb87f;
 .info_alter{
   width: 94%;
   margin: 0 auto;
-  font-size: p2r(24);
   .alter_items{
-    height: p2r(80);
+    height: p2r(90);
     border-bottom: p2r(1) solid #e7e7e7;
+    font-size: 0;
     input{
-      margin-top: p2r(5);
-      height: p2r(70);
-      vertical-align: bottom;
+      height: p2r(90);
+      background: transparent;
+      font-size: p2r(24);
+      vertical-align: middle;
     }
     img{
       width: p2r(40);
+      margin: p2r(25) p2r(10);
+      vertical-align: middle;
     }
     .verification_code_btn{
-      height: p2r(60);
-      margin-top: p2r(10);
+      height: p2r(50);
+      margin-top: p2r(20);
+      padding: 0 p2r(5);
       background: #91c46c;
       color:#FFFFFF;
       float: right;

@@ -209,12 +209,12 @@
             <a href="/html/info.html?id=<%= heal.id %>">
             <li class="lists">
                 <ul>
-                    <li class="newsimg"><img src="/file/public/<%= heal.image.id %>.<%= heal.image.ext %>" alt=""></li>
-                    <li class="newscontent">
+                    <li class="newsImg"><img src="/file/public/<%= heal.image.id %>.<%= heal.image.ext %>" alt=""></li>
+                    <li class="newsContent">
                         <h1><%= heal.title %></h1>
                         <p><%= heal.summary %></p>
                     </li>
-                    <li class="todetail"><img src="/images/homePage/home_57@1x.png" alt=""></li>
+                    <li class="to_detail"><img src="/images/homePage/home_57@2x.png" alt=""></li>
                 </ul>
             </li>
             </a>
@@ -317,10 +317,10 @@
         function get_welfare() {
             ajax({
                 url: "/advertisement/materials/by_collection",
-                data: {"collectionID": 4},
+                data: {"collectionID":"4"},
                 success: function (json) {
-                    if(json && json.error) {
-
+                    if(json.error) {
+                        return;
                     }else {
                         var welfare_template = _.template($("#welfare_template").html());
                         $("#welfare").html(welfare_template({"welfare": json.success}));
