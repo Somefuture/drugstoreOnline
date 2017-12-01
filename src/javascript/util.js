@@ -44,36 +44,39 @@ function getJsonFromUrl(url) {
 }
 
 
-function scroll_load_more(list_id, underscore_template, load_data_id, options) {
-    $.get_data = function () {
+function scroll_load_more(load_data_id, callback, notInit) {
+    function get_data() {
         var $load_data = $(load_data_id);
         if ($load_data.length === 0) {
             $(window).unbind('scroll', load_more);
-            return;
+        }else {
+            var url = $load_data.first().attr("href");
+            var data = getJsonFromUrl(url);
+            data.drop = parseInt(data.drop);
+            data.take = parseInt(data.take);
+            ajax({
+                url: url,
+                success: function (json) {
+                    data.list = json.success.list;
+                    data.drop = data.drop + data.take;
+                    $load_data.remove();
+                    callback(data);
+                }
+            });
         }
-        var $list = $(list_id);
-        var url = $load_data[0].getAttribute("href");
-        var data = Object.assign({}, getJsonFromUrl(url), options);
-        data.drop = parseInt(data.drop);
-        data.take = parseInt(data.take);
-        ajax({
-            url: url,
-            success: function (json) {
-                data.success = json.success;
-                data.drop += 10;
-                $load_data.remove();
-                $list.append(underscore_template(data));
+    }
+    if(notInit) {
+        get_data();
+    }else {
+        var bottom_offset = 400;
+        get_data();
+        var load_more = _.debounce(function () {
+            if (($(document).height() - $(window).scrollTop()) > bottom_offset) {
+                $.get_data();
             }
-        });
-    };
-    var bottom_offset = 400;
-    $.get_data();
-    var load_more = _.debounce(function () {
-        if (($(document).height() - $(window).scrollTop()) > bottom_offset) {
-            $.get_data();
-        }
-    }, 500);
-    $(window).scroll(load_more);
+        }, 500);
+        $(window).scroll(load_more);
+    }
 }
 
 function to_decimal(x) {
