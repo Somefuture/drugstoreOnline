@@ -317,10 +317,10 @@
         function get_welfare() {
             ajax({
                 url: "/advertisement/materials/by_collection",
-                data: {"collectionID": 4},
+                data: {"collectionID":"4"},
                 success: function (json) {
-                    if(json && json.error) {
-
+                    if(json.error) {
+                        return;
                     }else {
                         var welfare_template = _.template($("#welfare_template").html());
                         $("#welfare").html(welfare_template({"welfare": json.success}));
