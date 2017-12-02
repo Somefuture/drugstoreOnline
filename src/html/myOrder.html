@@ -74,7 +74,7 @@
 <script src="/javascript/util.js"></script>
 <script type="text/template" id="order_list_template">
     <% if(_.isNull(list)) { %>
-        <a href="<%=url%>" class="load_data hidden"></a>
+        <a href="<%=url%>" class="load_data bottom_info">正在加载数据...</a>
     <% } else { %>
         <% _.each(list || [], function (order) { %>
         <% var StatusMap = {"pending": "待付款", "success": "待发货", "done": "已完成", "shipped": "已发货", "returning": "退款中","returned": "已退款", "failed": "付款失败", "canceled": "已取消"} %>
@@ -186,14 +186,9 @@
         init();
 
         function init() {
+            scroll_load_more(".load_data", append_orders);
             var status = get_query_string("status") || "all";
             $(".order_tab > li." + status).click();
-            var url = "/product/orders/by_self?drop=0&take=10";
-            _.each(active_order_statuses, function (status, index) {
-                url = url + "&statuses[" + index + "]=" + status
-            });
-            $order_lists.html(template({list: null, drop: 0, url: url}));
-            scroll_load_more(".load_data", render_orders);
         }
 
         function refresh_orders() {
@@ -202,10 +197,10 @@
                 url = url + "&statuses[" + index + "]=" + status
             });
             $order_lists.html(template({list: null, drop: 0, url: url}));
-            scroll_load_more(".load_data", render_orders, true);
+            scroll_load_more(".load_data", append_orders, true);
         }
 
-        function render_orders(data) {
+        function append_orders(data) {
             data.url = "/product/orders/by_self?drop=" + data.drop + "&take=" + data.take;
             _.each(active_order_statuses, function (status, index) {
                 data.url = data.url + "&statuses[" + index + "]=" + status

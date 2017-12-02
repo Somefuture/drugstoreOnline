@@ -67,32 +67,32 @@
 </body>
 <script type="text/template" id="coupon_list_template">
     <ul class="coupon_lists">
-        <% if(success){ %>
-        <% _.each(success.list,function(coupon){ %>
-        <li class="coupon_<%= coupon.value %>">
-            <div class="coupon_value">
-                <span class="unit">￥</span>
-                <span class="value_num"><%= coupon.value %></span>
-                <p>
-                    <span class="coupon_title"><%= coupon.couponName %></span>
-                    <span class="date_limit">
-                        <%= coupon.acquireAt[0] %>.<%= coupon.acquireAt[1] %>.<%= coupon.acquireAt[2] %>~<%= coupon.expireAt[0] %>.<%= coupon.expireAt[1] %>.<%= coupon.expireAt[2] %>
-                    </span>
-                </p>
-            </div>
-            <div class="coupon_detail">
-                <h3>详情</h3>
-                <p><%= coupon.description %></p>
-            </div>
-        </li>
-        <% }) %>
-        <% if(drop < success.count){ %>
-        <a href="/product/user_coupons?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
-        <% } else { %>
-        <span class="bottom_info">--- 已全部加载完毕 ---</span>
-        <% } %>
+        <% if(_.isNull(list)){ %>
+            <a href="/product/user_coupons?drop=0&take=10" class="bottom_info">正在加载数据...</a>
         <% }else{ %>
-        <a href="/product/user_coupons?drop=0&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+            <% _.each(list,function(coupon){ %>
+                <li class="coupon_<%= coupon.value %>">
+                    <div class="coupon_value">
+                        <span class="unit">￥</span>
+                        <span class="value_num"><%= coupon.value %></span>
+                        <p>
+                            <span class="coupon_title"><%= coupon.couponName %></span>
+                            <span class="date_limit">
+                                <%= coupon.acquireAt[0] %>.<%= coupon.acquireAt[1] %>.<%= coupon.acquireAt[2] %>~<%= coupon.expireAt[0] %>.<%= coupon.expireAt[1] %>.<%= coupon.expireAt[2] %>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="coupon_detail">
+                        <h3>详情</h3>
+                        <p><%= coupon.description %></p>
+                    </div>
+                </li>
+            <% }) %>
+            <% if(drop < count){ %>
+                <a href="/product/user_coupons?drop=<%=drop%>&take=<%=take%>" class="bottom_info">--- 下拉加载更多数据 ---</a>
+            <% } else { %>
+                <span class="bottom_info">--- 已全部加载完毕 ---</span>
+            <% } %>
         <% } %>
     </ul>
 </script>
@@ -103,7 +103,11 @@
 <script>
     $(document).ready(function () {
         var template = _.template($("#coupon_list_template").html());
-        scroll_load_more("#coupon_lists", template, "a.bottom_info",{});
+        var $coupon_lists = $("#coupon_lists");
+        function render_coupons(data) {
+            $coupon_lists.append(template(data));
+        }
+        scroll_load_more("a.bottom_info", render_coupons);
     });
 </script>
 </html>

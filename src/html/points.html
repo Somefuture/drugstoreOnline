@@ -68,33 +68,33 @@
 </body>
 <script type="text/template" id="point_detail_template">
     <ul class="total_use_record">
-        <% if(success){ %>
-        <% _.each(success,function(point){ %>
-        <li>
-            <h2>
-                <%= point.triggerBy %>
-            </h2>
-            <span class="op_date"><%= point.createAt[0]%>/<%=point.createAt[1]%>/<%=point.createAt[2]%> <%=point.createAt[3]%>:<%=point.createAt[4]%>:<%=point.createAt[5] %></span>
-            <% if(point.operation==="freeze"||point.operation==="deduct"){ %>
-            <span class="total_value sub">
-                <img src="/images/personal/personal_75.png" alt="">
-                -<%= point.amount %>
-            </span>
-            <% }else{ %>
-            <span class="total_value add">
-                <img src="/images/personal/personal_76.png" alt="">
-                +<%= point.amount %>
-            </span>
-            <% } %>
-        </li>
-        <% }) %>
-        <% if(drop < success.length){ %>
-        <a href="/product/account/points/logs?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
-        <% } else { %>
-        <span class="bottom_info">--- 已全部加载完毕 ---</span>
-        <% } %>
+        <% if(_.isNull(list)){ %>
+            <a href="/product/account/points/logs?drop=0&take=10" class="bottom_info">正在加载数据...</a>
         <% }else{ %>
-        <a href="/product/account/points/logs?drop=0&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% _.each(list,function(point){ %>
+            <li>
+                <h2>
+                    <%= point.triggerBy %>
+                </h2>
+                <span class="op_date"><%= point.createAt[0]%>/<%=point.createAt[1]%>/<%=point.createAt[2]%> <%=point.createAt[3]%>:<%=point.createAt[4]%>:<%=point.createAt[5] %></span>
+                <% if(point.operation==="freeze"||point.operation==="deduct"){ %>
+                <span class="total_value sub">
+                    <img src="/images/personal/personal_75.png" alt="">
+                    -<%= point.amount %>
+                </span>
+                <% }else{ %>
+                <span class="total_value add">
+                    <img src="/images/personal/personal_76.png" alt="">
+                    +<%= point.amount %>
+                </span>
+                <% } %>
+            </li>
+        <% }) %>
+            <% if(drop < count){ %>
+                <a href="/product/account/points/logs?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+            <% } else { %>
+                <span class="bottom_info">--- 已全部加载完毕 ---</span>
+            <% } %>
         <% } %>
     </ul>
 </script>
@@ -105,14 +105,18 @@
 <script>
     $(document).ready(function(){
         var template=_.template($("#point_detail_template").html());
-        scroll_load_more("#point_detail", template, "a.bottom_info",{});
+        var $point_detail = $("#point_detail");
+        function render(data) {
+            $point_detail.append(template(data))
+        }
+        scroll_load_more("a.bottom_info", render);
         ajax({
             url:"/product/account/points",
-            success:function(point_json){
-                if(point_json.error){
+            success:function(json){
+                if(json.error){
                     return;
                 }
-                $("#present_point").html(point_json.success.balance);
+                $("#present_point").html(json.success.balance);
             }
         })
     })
