@@ -19,8 +19,8 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>我的积分</title>
     <link rel="stylesheet" href="/css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
-    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -34,7 +34,7 @@
         <span>当前可用积分</span>
     </div>
     <div id="point_detail">
-        <a href="/product/account/points/logs?drop=0&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <a href="/product/account/points/logs?drop=0&take=10" class="bottom_info">正在加载数据...</a>
     </div>
 </div>
 <div class="footer">
@@ -60,7 +60,7 @@
         <li>
             <a href="/html/personal.html">
                 <img src="/images/tab/tab_40.png" alt="">
-                 个人中心
+                个人中心
             </a>
         </li>
     </ul>
@@ -68,33 +68,29 @@
 </body>
 <script type="text/template" id="point_detail_template">
     <ul class="total_use_record">
-        <% if(_.isNull(list)){ %>
-            <a href="/product/account/points/logs?drop=0&take=10" class="bottom_info">正在加载数据...</a>
-        <% }else{ %>
         <% _.each(list,function(point){ %>
-            <li>
-                <h2>
-                    <%= point.triggerBy %>
-                </h2>
-                <span class="op_date"><%= point.createAt[0]%>/<%=point.createAt[1]%>/<%=point.createAt[2]%> <%=point.createAt[3]%>:<%=point.createAt[4]%>:<%=point.createAt[5] %></span>
-                <% if(point.operation==="freeze"||point.operation==="deduct"){ %>
-                <span class="total_value sub">
-                    <img src="/images/personal/personal_75.png" alt="">
-                    -<%= point.amount %>
-                </span>
-                <% }else{ %>
-                <span class="total_value add">
-                    <img src="/images/personal/personal_76.png" alt="">
-                    +<%= point.amount %>
-                </span>
-                <% } %>
-            </li>
-        <% }) %>
-            <% if(drop < count){ %>
-                <a href="/product/account/points/logs?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
-            <% } else { %>
-                <span class="bottom_info">--- 已全部加载完毕 ---</span>
+        <li>
+            <h2>
+                <%= point.triggerBy %>
+            </h2>
+            <span class="op_date"><%= point.createAt[0]%>/<%=point.createAt[1]%>/<%=point.createAt[2]%> <%=point.createAt[3]%>:<%=point.createAt[4]%>:<%=point.createAt[5] %></span>
+            <% if(point.operation==="freeze"||point.operation==="deduct"){ %>
+            <span class="total_value sub">
+                        <img src="/images/personal/personal_75.png" alt="">
+                        -<%= point.amount %>
+                    </span>
+            <% }else{ %>
+            <span class="total_value add">
+                        <img src="/images/personal/personal_76.png" alt="">
+                        +<%= point.amount %>
+                    </span>
             <% } %>
+        </li>
+        <% }) %>
+        <% if(drop < count){ %>
+        <a href="/product/account/points/logs?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } else { %>
+        <span class="bottom_info">--- 已全部加载完毕 ---</span>
         <% } %>
     </ul>
 </script>
@@ -103,22 +99,25 @@
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
-    $(document).ready(function(){
-        var template=_.template($("#point_detail_template").html());
+    $(document).ready(function () {
+        var template = _.template($("#point_detail_template").html());
         var $point_detail = $("#point_detail");
+        var $present_point = $("#present_point");
+
         function render(data) {
-            $point_detail.append(template(data))
+            $point_detail.append(template(data));
         }
+
         scroll_load_more("a.bottom_info", render);
         ajax({
-            url:"/product/account/points",
-            success:function(json){
-                if(json.error){
+            url: "/product/account/points",
+            success: function (json) {
+                if (json.error) {
                     return;
                 }
-                $("#present_point").html(json.success.balance);
+                $present_point.html(json.success.balance);
             }
-        })
+        });
     })
 </script>
 </html>
