@@ -205,7 +205,7 @@
             </div>
         </div>
         <ul class="list-news">
-            <% _.each(healthy,function(heal){ %>
+            <% _.each(_.rest(healthy),function(heal){ %>
             <a href="/html/info.html?id=<%= heal.id %>">
             <li class="lists">
                 <ul>
