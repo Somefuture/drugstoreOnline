@@ -63,6 +63,7 @@ function getJsonFromUrl(url) {
 }
 
 function scroll_load_more(load_data_id, callback, notInit) {
+    var height = window.screen.height;
     function get_data() {
         var $load_data = $(load_data_id);
         if ($load_data.length > 0) {
@@ -86,7 +87,6 @@ function scroll_load_more(load_data_id, callback, notInit) {
         get_data();
     }else {
         var bottom_offset = 400;
-        var height = window.screen.height;
         get_data();
         var load_more = _.debounce(function () {
             if (($(document).height() > height) && ($(document).height() - $(window).scrollTop() - height < bottom_offset)) {

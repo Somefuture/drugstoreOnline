@@ -415,13 +415,15 @@ body{
   }
 }
 .qrcode {
-  background: #fff;
   width: 200px;
-  height: 200px;
+  height: 100%;
   margin: auto;
-  top: 50%;
   position: relative;
-  margin-top: -115px;
+  .content{
+    height: 200px;
+    width: 200px;
+    background: #fff;
+  }
   .message {
     color: #fff;
     padding-top: p2r(20);

@@ -185,7 +185,7 @@
 
         $order_lists.delegate(".operation > button", "click", function () {
             var $this = $(this);
-            var order_id = $this.parents(".order_detail").attr("data-id")
+            var order_id = $this.parents(".order_detail").attr("data-id");
             switch ($this.text()) {
                 case "去支付":
                     to_pay(order_id);

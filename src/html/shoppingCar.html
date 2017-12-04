@@ -85,7 +85,7 @@
 </div>
 <div class="overlay">
     <div class="qrcode">
-        <div id="qrcode"></div>
+        <div id="qrcode" class="content"></div>
         <div class="message">请展示给药店药师用于取货</div>
     </div>
 </div>
@@ -213,8 +213,8 @@
     <% } %>
 </script>
 <script>
-
     $(document).ready(function () {
+        var height = window.screen.height;
         var shopping_car_items = {};
         var selected_items = [];
         var shopping_cart_template = _.template($("#shopping_cart_template").html());
@@ -222,10 +222,11 @@
         var $online_shopping_cart = $("#online_shopping_car");
         var $select_all_offline_items = $("#select_all_offline_items");
         var $select_all_online_items = $("#select_all_online_items");
-
         var $carts = $(".shoppingCar_body");
+        var $qrcode = $("#qrcode");
+        var $overlay = $(".overlay");
 
-        $(".overlay").click(function () {
+        $overlay.click(function () {
             $(this).css("display", "none");
         });
 
@@ -250,8 +251,8 @@
                     success: function (json) {
                         if (json.success) {
                             var data = {key:"shoppingList",value:json.success};
-                            $("#qrcode").html("").qrcode({text: JSON.stringify(data)});
-                            $(".overlay").css("display", "block");
+                            $qrcode.html("").qrcode({text: JSON.stringify(data)});
+                            $overlay.css("display", "block");
                         }
                     }
                 });
@@ -448,6 +449,7 @@
             update();
         });
 
+        $(".qrcode").css("margin-top", ((height - 200) / 2) + "px");
         get_shopping_carts();
     });
 
