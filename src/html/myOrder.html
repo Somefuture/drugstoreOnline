@@ -79,7 +79,7 @@
         <% _.each(list || [], function (order) { %>
         <% var StatusMap = {"pending": "待付款", "success": "待发货", "done": "已完成", "shipped": "已发货", "returning": "退款中","returned": "已退款", "failed": "付款失败", "canceled": "已取消"} %>
         <% var is_sku_not_exist = false; %>
-            <div class="order_detail">
+            <div class="order_detail" data-id="<%=order.id%>">
                 <div class="detail_title">
                     订单编号：<%= order.id %>
                     <span><%= StatusMap[order.status] %></span>
@@ -152,9 +152,9 @@
                     <span class="price">￥<%= order.payment %></span>
                     <div class="operation">
                         <% if(!is_sku_not_exist && order.status === "pending") %>
-                        <button class="to_pay" onclick="to_pay(<%= order.id %>)">去支付</button>
+                        <button class="to_pay">去支付</button>
                         <% else if(order.status === "success" || order.status === "shipped") { %>
-                        <button class="done" onclick="order_done(<%= order.id %>)">确认收货</button>
+                        <button class="done">确认收货</button>
                         <% } %>
                     </div>
                 </div>
@@ -175,11 +175,25 @@
         var $order_lists = $(".order_lists");
         $(".order_tab").delegate("li", "click", function () {
             var $this = $(this);
-            if($this.text() === "") {
+            if($this.text() === "待评价") {
                 swal("","功能开发建设中");
             }else {
                 active_order_tab($this);
                 refresh_orders();
+            }
+        });
+
+        $order_lists.delegate(".operation > button", "click", function () {
+            var $this = $(this);
+            var order_id = $this.parents(".order_detail").attr("data-id")
+            switch ($this.text()) {
+                case "去支付":
+                    to_pay(order_id);
+                    break;
+
+                case "确认收货":
+                    order_done(order_id);
+                    break;
             }
         });
 
@@ -238,7 +252,7 @@
                 type: "post",
                 url: "/product/order/pay",
                 data: {"orderID": orderID},
-                success: function () {
+                success: function (json) {
                     window.location.href = json.success;
                 }
             });
