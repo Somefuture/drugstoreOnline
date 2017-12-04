@@ -66,6 +66,15 @@ $color-main:#0fb87f;
         color:#cccccc;
         line-height: p2r(40);
         font-size: p2r(32);
+        overflow: hidden;
+        div{
+          float:right;
+          width: p2r(120);
+          height: p2r(40);
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
