@@ -253,6 +253,9 @@
                 url: "/product/order/pay",
                 data: {"orderID": orderID},
                 success: function (json) {
+                    if(json.error){
+                        return;
+                    }
                     window.location.href = json.success;
                 }
             });
@@ -264,6 +267,9 @@
                 url: "/product/order/done",
                 data: {"orderID": orderID},
                 success: function () {
+                    if(json.error){
+                        return;
+                    }
                     refresh_orders();
                 }
             });
