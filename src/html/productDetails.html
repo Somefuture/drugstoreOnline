@@ -69,8 +69,8 @@
     <div class="SKU_select_content">
         <div class="SKU_detail">
             <img id="sku_image" alt="" src="">
+            <span class="SKU_name"></span><span class="SKU_inventory">库存：</span>
             <span class="SKU_price">￥0.00</span>
-            <span class="SKU_name"></span>
         </div>
         <div class="SKU_category"></div>
         <div class="SKU_quantity">
@@ -191,8 +191,13 @@
 
         $(".nextStep").click(function() {
             var sku_id = get_sku();
+            var quantity = parseInt($sku_quantity.text());
             if(sku_id){
-                swal("","还没完成");
+                if(quantity===0){
+                    swal("","商品数量不能为0");
+                }else{
+                    window.location.href = "/html/orderConfirm.html?item={%22items[0].type%22:%22sku%22,%22items[0].id%22:%22" + sku_id + "%22,%22items[0].quantity%22:%22" + quantity + "%22}";
+                }
             } else {
                 show_specs_selector();
             }
@@ -227,7 +232,11 @@
             var sku_id = get_sku();
             var quantity = parseInt($sku_quantity.text());
             if(sku_id){
-                window.location.href = "/html/orderConfirm.html?item={%22items[0].type%22:%22sku%22,%22items[0].id%22:%22" + sku_id + "%22,%22items[0].quantity%22:%22" + quantity + "%22}";
+                if(quantity===0){
+                    swal("","商品数量不能为0");
+                }else{
+                    window.location.href = "/html/orderConfirm.html?item={%22items[0].type%22:%22sku%22,%22items[0].id%22:%22" + sku_id + "%22,%22items[0].quantity%22:%22" + quantity + "%22}";
+                }
             }else {
                 swal("","请选择规格");
             }
@@ -361,6 +370,7 @@
                         var maybe_sku = get_sku();
                         if (maybe_sku) {
                             $(".SKU_name").html(sku_details[maybe_sku].name);
+                            $(".SKU_inventory").html("库存："+sku_details[maybe_sku].inventory);
                             $(".SKU_price").html("￥" + sku_details[maybe_sku].salesPrice);
                             var $sku_quantity = $("#sku_quantity");
                             var selected_quantity = $sku_quantity.html();

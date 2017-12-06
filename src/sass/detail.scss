@@ -178,7 +178,7 @@ $color-main:#0fb87f;
         left: p2r(30);
         border-radius: p2r(20);
       }
-      .SKU_price,.SKU_name{
+      .SKU_price,.SKU_name,.SKU_inventory{
         position: absolute;
         top:p2r(20);
         left:p2r(250);
@@ -186,7 +186,11 @@ $color-main:#0fb87f;
         color:#ff7d5b;
       }
       .SKU_name{
-        top:p2r(80);
+        top:p2r(65);
+        color: #212121;
+      }
+      .SKU_inventory{
+        top:p2r(110);
         color: #212121;
       }
     }

@@ -637,7 +637,6 @@
         }
 
         function submit() {
-            console.log(form_data);
             if(!form_data.addressID) {
                 swal("", "请选择收货地址");
             }else if(_.size(form_data.items) === 0) {
