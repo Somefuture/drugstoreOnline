@@ -288,3 +288,77 @@ $line-border:p2r(1) solid #cccccc;
     }
   }
 }
+.invoice_alert{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,.3);
+  width: 100%;
+  height: 100%;
+  .alert_content{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 30%;
+    width:90%;
+    background: #fafafa;
+    margin:0 auto;
+    border-radius: p2r(30);
+    h1{
+      margin:p2r(30) 0;
+      text-align: center;
+      font-size: p2r(32);
+      color: #333333;
+    }
+    p{
+      margin: p2r(30);
+      font-size: p2r(24);
+      color: #3c3c3c;
+    }
+    h3{
+      padding-left: p2r(30);
+      font-size: p2r(28);
+      color: #666666;
+    }
+    .select_type{
+      width: 90%;
+      height: p2r(50);
+      margin: p2r(20) auto;
+      vertical-align: middle;
+      font-size: p2r(24);
+      input{
+        width: p2r(50);
+        height: p2r(50);
+        vertical-align: middle;
+        margin-left:p2r(50);
+      }
+    }
+    .input{
+      width: 90%;
+      margin: p2r(20) auto;
+      input{
+        width: 100%;
+        height: p2r(50);
+        line-height: p2r(50);
+        font-size: p2r(28);
+        margin-top: p2r(20);
+      }
+    }
+    .operation{
+      width: 100%;
+      height: p2r(100);
+      font-size: 0;
+      button{
+        width: 50%;
+        height: 100%;
+        text-align: center;
+        font-size: p2r(32);
+        background: transparent;
+        border-top:p2r(1) solid #e3e3e3;
+      }
+      button:nth-child(1){
+        border-right:p2r(1) solid #e3e3e3;
+      }
+    }
+  }
+}

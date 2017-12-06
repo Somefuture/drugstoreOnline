@@ -77,15 +77,16 @@
                     </p>
                 </div>
             </div>
-            <!--<div class="invoice_use">-->
-                <!--<div class="detail">-->
-                    <!--<p class="title">开具发票</p>-->
-                <!--</div>-->
-                <!--<div class="btn">-->
-                    <!--<input type="checkbox" id="invoice_toggle" class="chooseBtn"/>-->
-                    <!--<label for="invoice_toggle" class="choose-label"></label>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="invoice_use">
+                <div class="detail">
+                    <p class="title">开具发票</p>
+                </div>
+                <div class="btn">
+                    <input type="checkbox" id="invoice_toggle" class="chooseBtn"/>
+                    <label for="invoice_toggle" class="choose-label"></label>
+                </div>
+                <span class="invoice_type"></span>
+            </div>
             <textarea id="comments" cols="30" rows="5">备注：
         </textarea>
         </div>
@@ -113,8 +114,8 @@
             <span class="price">￥<span id="payment">0.00</span></span>
         </span><span class="account" id="submit">提交订单</span>
         </div>
-        </div>
-        <div class="footer">
+    </div>
+    <div class="footer">
             <ul class="nav">
                 <li>
                     <a href="/html/index.html">
@@ -142,9 +143,26 @@
                 </li>
             </ul>
         </div>
+</div>
+<div class="invoice_alert hidden" id="invoice_alert">
+    <div class="alert_content">
+        <h1>设置发票信息</h1>
+        <p>若开单位发票，请准确填写纳税人识别号，以免影响您的报销</p>
+        <h3>发票抬头</h3>
+        <div class="select_type">
+            <label id="select_personal"><input type="radio" name="types" value="personal">个人</label>
+            <label id="select_enterprise"><input type="radio" name="types" value="enterprise">单位</label>
+        </div>
+        <div class="input hidden" id="input">
+            <input type="text" id="name" placeholder="请输入发票抬头">
+            <input type="text" id="taxIdentification" placeholder="请输入纳税人识别号">
+        </div>
+        <div class="operation">
+            <button id="invoice_cancel">取消</button>
+            <button id="invoice_confirm">确定</button>
+        </div>
     </div>
 </div>
-
 </body>
 <script src="../javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
@@ -262,6 +280,12 @@
         var shopping_cart_ids = get_query_string("scids");
         var item = get_query_string("item");
 
+        var invoice_data = {
+            type:"",
+            name:"",
+            taxIdentification:""
+        }
+
         $consignee.click(function () {
             $root.css("display", "none");
             $address_popup.load("/html/selectAddress.html", null, function () {
@@ -322,6 +346,85 @@
                     form_data.points = 0;
                     update_payment({use_points: 0});
                 }
+            }
+        });
+
+        $("#invoice_toggle").click(function () {
+            var $parent = $(this).parent();
+            if(!$parent.hasClass("checked")) {
+
+                $("#invoice_alert").removeClass("hidden");
+
+                $("#select_personal").click(function(){
+                    invoice_data.type="personal";
+                    if(!$("#input").hasClass("hidden")){
+                        $("#input").addClass("hidden");
+                    }
+                });
+
+                $("#select_enterprise").click(function(){
+                    invoice_data.type="enterprise";
+                    $("#input").removeClass("hidden");
+                });
+
+                $("#invoice_cancel").click(function () {
+                    $("#invoice_alert").addClass("hidden");
+                    $(".invoice_type").html("");
+                });
+                $("#invoice_confirm").click(function(){
+                    if(invoice_data.type==="personal"){
+                        ajax({
+                            url:"/product/invoice/save",
+                            type:"post",
+                            data:{type:"personal"},
+                            success:function (json) {
+                                if(json.error){
+                                    swal("","保存发票失败");
+                                    return;
+                                }
+                                form_data.invoiceID=json.success;
+                                form_data.invoiceType="personal";
+                                $(".invoice_type").html("个人");
+                            }
+                        });
+                    }else if(invoice_data.type==="enterprise"){
+                        invoice_data.name=$("#name").val();
+                        invoice_data.taxIdentification=$("#taxIdentification").val();
+                        console.log(invoice_data.taxIdentification.length);
+                        if(!invoice_data.taxIdentification){
+                            swal("","请输入纳税人识别号");
+                            return;
+                        } else if(invoice_data.taxIdentification.length!==15||invoice_data.taxIdentification.length!==18||invoice_data.taxIdentification.length!==20){
+                            swal("","纳税人识别号格式输入有误");
+                            return;
+                        }else if(!invoice_data.name){
+                            swal("","请输入抬头");
+                            return;
+                        }else{
+                            ajax({
+                                url:"/product/invoice/save",
+                                type:"post",
+                                data:invoice_data,
+                                success:function(json){
+                                    if(json.error){
+                                        swal("","保存发票失败");
+                                        return;
+                                    }
+                                    form_data.invoiceID=json.success;
+                                    form_data.invoiceType="enterprise";
+                                    $(".invoice_type").html("单位");
+                                }
+                            });
+                        }
+                    }
+                    $("#invoice_alert").addClass("hidden");
+                    $parent.addClass("checked");
+                })
+            }else {
+                $parent.removeClass("checked");
+                form_data.invoiceType=undefined;
+                form_data.invoiceID=undefined;
+                $(".invoice_type").html("");
             }
         });
 
@@ -534,6 +637,7 @@
         }
 
         function submit() {
+            console.log(form_data);
             if(!form_data.addressID) {
                 swal("", "请选择收货地址");
             }else if(_.size(form_data.items) === 0) {
