@@ -110,7 +110,6 @@
                 take: 50
             },
             success: function (json) {
-                console.log(json.success.list);
                 $(".comment").html(_.template($("#comment_template").html())({"data": json.success.list}));
             }
         });

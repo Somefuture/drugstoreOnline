@@ -162,6 +162,46 @@ $line-border:p2r(1) solid #cccccc;
       }
     }
   }
+  .order_product{
+    width: 96%;
+    margin: 0 auto;
+    font-size: 0%;
+    li{
+      width: 100%;
+      height: p2r(200);
+      .product_img{
+        display: inline-block;
+        width: 40%;
+        height: p2r(200);
+        vertical-align: middle;
+        img{
+          display: block;
+          width: p2r(200);
+          margin: 0 auto;
+        }
+      }
+      .product_details{
+        display: inline-block;
+        width: 60%;
+        height: p2r(200);
+        vertical-align: middle;
+        .detail_title{
+          margin-top: p2r(20);
+          font-size: p2r(28);
+        }
+        .detail_content{
+          margin-top: p2r(50);
+          font-size: p2r(32);
+          .product_price{
+            color:#d9a86c;
+          }
+          .product_amount{
+            float: right;
+          }
+        }
+      }
+    }
+  }
   .order_functions{
     width: 96%;
     margin: 0 auto;
@@ -183,6 +223,12 @@ $line-border:p2r(1) solid #cccccc;
     }
     .invoice_use{
       @include other_function;
+      .invoice_type{
+        float: right;
+        font-size: p2r(24);
+        padding-top:p2r(8);
+        margin-right: p2r(-10);
+      }
     }
     textarea{
       display: block;
