@@ -251,13 +251,16 @@
             var quantity = parseInt($sku_quantity.html());
             if (quantity > 0) {
                 $sku_quantity.html(quantity - 1);
+            }else{
+                swal('','不能再减啦~');
             }
         });
         $("#add_sku_quantity").click(function () {
             var quantity = parseInt($sku_quantity.html());
             var selected_quantity = $("#sku_quantity").html();
             var sku_id = get_sku();
-            if(sku_id && selected_quantity > sku_details[sku_id].inventory){
+            if(sku_id && selected_quantity >= sku_details[sku_id].inventory){
+                swal('','库存不足');
                 $sku_quantity.html(sku_details[sku_id].inventory);
             } else {
                 $sku_quantity.html(quantity + 1);
@@ -437,8 +440,13 @@
 
         $("#add_to_shopping_cart_inner_button").click(function () {
             var maybe_sku = get_sku();
+            var quantity = parseInt($sku_quantity.html());
             if (maybe_sku) {
-                add_sku_to_shopping_cart(maybe_sku);
+                if(quantity>0){
+                    add_sku_to_shopping_cart(maybe_sku);
+                }else{
+                    swal('','商品数量不能为0');
+                }
             } else {
                 swal("","请先选择产品规格");
             }
@@ -446,8 +454,13 @@
 
         $add_shopping_cart_button.click(function () {
             var maybe_sku = get_sku();
+            var quantity = parseInt($sku_quantity.html());
             if (maybe_sku) {
-                add_sku_to_shopping_cart(maybe_sku);
+                if(quantity>0){
+                    add_sku_to_shopping_cart(maybe_sku);
+                }else{
+                    swal('','商品数量不能为0');
+                }
             } else {
                 show_specs_selector();
             }
