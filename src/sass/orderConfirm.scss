@@ -23,7 +23,7 @@ $line-border:p2r(1) solid #cccccc;
     overflow: hidden;
     vertical-align: middle;
     img{
-      width: p2r(25);
+      width: p2r(24);
     }
   }
 }
@@ -78,7 +78,7 @@ $line-border:p2r(1) solid #cccccc;
     }
     .describe{
       margin-top: p2r(20);
-      font-size: p2r(20);
+      font-size: p2r(24);
       color:#999999;
     }
   }
@@ -123,6 +123,7 @@ $line-border:p2r(1) solid #cccccc;
       img{
         display: inline-block;
         width:p2r(30);
+        height: p2r(30);
       }
     }
     .consignee_content{
@@ -213,7 +214,7 @@ $line-border:p2r(1) solid #cccccc;
       .coupon_able{
         display: inline-block;
         color:#999999;
-        font-size: p2r(20);
+        font-size: p2r(24);
         height: p2r(60);
         vertical-align: middle;
       }
@@ -255,14 +256,14 @@ $line-border:p2r(1) solid #cccccc;
   }
   .settle_accounts{
     width: 100%;
-    height: p2r(76);
+    height: p2r(86);
     position: fixed;
     bottom:p2r(110);
     .account_details{
       display: inline-block;
       width: 70%;
-      height: p2r(76);
-      line-height: p2r(76);
+      height: p2r(86);
+      line-height: p2r(86);
       background: #000000;
       opacity: 0.8;
       color:#FFFFFF;
@@ -280,8 +281,8 @@ $line-border:p2r(1) solid #cccccc;
     .account{
       display: inline-block;
       width: 30%;
-      height: p2r(76);
-      line-height: p2r(76);
+      height: p2r(86);
+      line-height: p2r(86);
       background: $color-main;
       text-align: center;
       color:#FFFFFF;

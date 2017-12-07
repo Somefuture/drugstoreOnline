@@ -13,7 +13,8 @@ body{
     height: p2r(80);
     line-height: p2r(80);
     background: #e7e7e7;
-    color: #222222;
+    color: #3c3c3c;
+    font-weight: normal;
     font-size: p2r(28);
     .checkbox-all {
       margin: p2r(24) p2r(20);
@@ -28,6 +29,9 @@ body{
     div {
       float: left;
       font-size: p2r(28);
+    }
+    span{
+      color:#666666;
     }
   }
   .empty_shoppingCar {
@@ -124,6 +128,7 @@ body{
               }
               .tag-2 {
                 background: #91c46c;
+                margin-right: p2r(10);
               }
             }
             .switch-cart {
@@ -153,7 +158,8 @@ body{
             text-align: right;
             float: right;
             height: p2r(60);
-            border: solid #e7e7e7 p2r(2);
+            border: solid #e9e9e9 p2r(2);
+            border-radius: p2r(10);
             div {
               float: right;
               height: p2r(56);
@@ -166,8 +172,8 @@ body{
               font-size: p2r(28);
               line-height: p2r(56);
               text-align: center;
-              border-left: p2r(1) solid #e7e7e7;
-              border-right: p2r(1) solid #e7e7e7;
+              border-left: p2r(1) solid #e9e9e9;
+              border-right: p2r(1) solid #e9e9e9;
             }
             .sub {
               background-repeat: no-repeat;
@@ -233,6 +239,7 @@ body{
             }
             .tag-2 {
               background: #91c46c;
+              margin-right: p2r(10);
             }
           }
         }
@@ -299,6 +306,7 @@ body{
               margin:p2r(10) 0;
               height: p2r(60);
               border: solid #e7e7e7 p2r(2);
+              border-radius: p2r(10);
               div {
                 float: right;
                 height: p2r(60);
@@ -380,34 +388,42 @@ body{
   }
   .settle_accounts {
     width: 100%;
-    height: p2r(76);
+    height: p2r(86);
     position: fixed;
     bottom: p2r(110);
     .account_details {
       display: inline-block;
       width: 70%;
-      height: p2r(76);
-      line-height: p2r(76);
+      height: p2r(86);
       background: #000000;
       opacity: 0.8;
       color: #FFFFFF;
       font-size: p2r(22);
+      position: relative;
       .count {
         display: inline-block;
-        text-indent: 2em;
-        margin-right: p2r(40);
+        text-indent: 1em;
+        margin: p2r(10) p2r(40);
       }
-      .price {
+      p{
+        text-indent: 1em;
+      }
+      .total {
+        position: absolute;
+        right: p2r(30);
+        top: p2r(20);
         color: #d9a86c;
         font-size: p2r(32);
+        margin-right: p2r(30);
+        vertical-align: middle;
       }
     }
     .account {
       float: right;
       display: inline-block;
       width: 30%;
-      height: p2r(76);
-      line-height: p2r(76);
+      height: p2r(86);
+      line-height: p2r(86);
       background: $color-main;
       text-align: center;
       color: #FFFFFF;

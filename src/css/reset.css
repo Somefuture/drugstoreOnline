@@ -11,7 +11,7 @@ input{/* -webkit-appearance:none; */ resize: none;}
 /* 取消链接高亮  */
 body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
 aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
-    font-family: Microsoft YaHei;}
+    font-family:'\5E7C\5706','Arial';}
 /* 设置HTML5元素为块 */
 article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
     display: block;
@@ -29,15 +29,15 @@ img {
 /* 清零 */
 body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
 aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
-body{font-family:'\5E7C\5706'; color:#555; }
+body{font-family:'\5E7C\5706','Arial'; color:#555; }
 em,i{font-style:normal;}
 strong{font-weight: normal;}
 .clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
 .clearfix{zoom:1;}
-a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+a{text-decoration:none; color:#969696; font-family:'\5E7C\5706','Arial'}
 a:hover{color:#969696; text-decoration:none;}
 ul,ol,li{list-style:none;}
-h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:'\5E7C\5706','Arial';}
 fieldset,img{border: none;}
 table {
     border-collapse:collapse;

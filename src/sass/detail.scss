@@ -49,13 +49,14 @@ $color-main:#0fb87f;
     overflow: hidden;
     .intro_title{
       margin: p2r(24) 0 p2r(18) 0;
-      font-size: p2r(28);
+      font-size: p2r(32);
       color: #171717;
     }
     .intro_content{
       color:#666666;
       font-size: p2r(22);
       margin-bottom: p2r(24);
+      line-height: 1.5;
     }
     .intro_price{
       color:#666666;
@@ -83,6 +84,7 @@ $color-main:#0fb87f;
       position: relative;
       img{
         display: inline-block;
+        width: p2r(30);
       }
       div{
         display: inline-block;
@@ -126,6 +128,7 @@ $color-main:#0fb87f;
     margin: 0;
     img{
       display: block;
+      width: p2r(76);
       margin: 0 auto;
       padding: p2r(10);
     }
@@ -180,24 +183,31 @@ $color-main:#0fb87f;
       }
       .SKU_price,.SKU_name,.SKU_inventory{
         position: absolute;
-        top:p2r(20);
-        left:p2r(250);
         font-size: p2r(32);
-        color:#ff7d5b;
+        color:#d8aa6e;
+      }
+      .SKU_price{
+        left:p2r(250);
+        top:p2r(20);
       }
       .SKU_name{
-        top:p2r(65);
+        top:p2r(70);
+        left:p2r(250);
         color: #212121;
+        font-size: p2r(24);
       }
       .SKU_inventory{
-        top:p2r(110);
+        top:p2r(70);
+        right: p2r(30);
         color: #212121;
+        font-size: p2r(24);
       }
     }
     .SKU_category{
       h3{
-        font-size: p2r(32);
-        color:#666666;
+        font-size: p2r(24);
+        font-weight: normal;
+        color:#171717;
         margin: p2r(10) p2r(20);
       }
       span{
@@ -207,7 +217,7 @@ $color-main:#0fb87f;
         color:#3c3c3c;
         padding: 5px 10px;
         border: p2r(1) solid #b2b2b2;
-        border-radius: p2r(10);
+        border-radius: p2r(25);
         margin: 0 0 10px 10px;
       }
       span.disabled{
@@ -222,9 +232,10 @@ $color-main:#0fb87f;
     }
     .SKU_quantity{
       padding: p2r(20) p2r(20);
-      font-size: p2r(32);
       line-height: p2r(48);
-      color:#3c3c3c;
+      font-size: p2r(24);
+      font-weight: normal;
+      color:#171717;
       .product_amount{
         display: inline-block;
         margin-left: 50%;
@@ -240,7 +251,7 @@ $color-main:#0fb87f;
           width: p2r(44);
           height: p2r(48);
           img{
-            width:p2r(38);
+            width:p2r(30);
             margin-left: p2r(5);
             vertical-align: middle;
           }

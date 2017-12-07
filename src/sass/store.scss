@@ -93,6 +93,9 @@ $bottom-border:p2r(1) solid #e7e7e7;
           margin: p2r(40) auto;
           font-size: p2r(30);
           color: #484848;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         .img{
           display: block;

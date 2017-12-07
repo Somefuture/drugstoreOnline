@@ -384,6 +384,7 @@
                                 }
                                 form_data.invoiceID=json.success;
                                 form_data.invoiceType="personal";
+                                $parent.addClass("checked");
                                 $(".invoice_type").html("个人");
                             }
                         });
@@ -412,13 +413,16 @@
                                     }
                                     form_data.invoiceID=json.success;
                                     form_data.invoiceType="enterprise";
+                                    $parent.addClass("checked");
                                     $(".invoice_type").html("单位");
                                 }
                             });
                         }
+                    }else{
+                        swal("","请选择发票类型");
+                        return;
                     }
                     $("#invoice_alert").addClass("hidden");
-                    $parent.addClass("checked");
                 })
             }else {
                 $parent.removeClass("checked");
