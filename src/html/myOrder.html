@@ -176,7 +176,7 @@
         $(".order_tab").delegate("li", "click", function () {
             var $this = $(this);
             if($this.text() === "待评价") {
-                swal("","功能开发建设中");
+                window.location.href = "/html/comment_order.html";
             }else {
                 active_order_tab($this);
                 refresh_orders();
@@ -267,9 +267,7 @@
                 url: "/product/order/done",
                 data: {"orderID": orderID},
                 success: function () {
-                    if(json.error){
-                        return;
-                    }
+
                     refresh_orders();
                 }
             });

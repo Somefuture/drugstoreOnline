@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <title>我的订单</title>
+    <link type="text/css" rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/index.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/reset.css">
+</head>
+<body>
+<div class="shopping_header">
+    <p class="title">我的订单</p>
+</div>
+<ul class="order_tab">
+    <li class="all">全部</li>
+    <li class="obligation">待付款</li>
+    <li class="receiving">待收货</li>
+    <li class="finished">已完成</li>
+    <li class="active">待评价</li>
+</ul>
+<ul class="comment_order">
+    <li>
+        <div class="SKU_info">
+            <div class="SKU_img" style="background-image: url('/images/homePage/home_48@1x.png')"></div>
+            <div class="SKU_content">
+                <div class="SKU_name">商品名称 <span id="quantity">X3</span></div>
+                <div class="SKU_price">￥160.00 <button id="to_comment">立即评价</button></div>
+
+            </div>
+        </div>
+    </li>
+</ul>
+<div class="footer">
+    <ul class="nav">
+        <li>
+            <a href="index.html">
+                <img src="/images/tab/tab_32.png" alt="">
+                首页
+            </a>
+        </li>
+        <li>
+            <a href="store.html">
+                <img src="/images/tab/tab_36.png" alt="">
+                精品商城
+            </a>
+        </li>
+        <li>
+            <a href="shoppingCar.html">
+                <img src="/images/tab/tab_38.png" alt="">
+                我的药箱
+            </a>
+        </li>
+        <li>
+            <a href="personal.html">
+                <img src="/images/tab/tab_40.png" alt="">
+                个人中心
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".order_tab").delegate("li", "click", function () {
+            var $this = $(this);
+            if($this.text() === "待评价") {
+                window.location.href = "/html/comment_order.html";
+            }else if($this.text() === "全部"){
+                window.location.href = "/html/myOrder.html";
+            }else if($this.text() === "待付款"){
+                window.location.href = "/html/myOrder.html?status=obligation";
+            }else if($this.text() === "待收货"){
+                window.location.href = "/html/myOrder.html?status=receiving";
+            }else if($this.text() === "已完成"){
+                window.location.href = "/html/myOrder.html?status=finished";
+            }
+            else {
+                window.location.href = "/html/myOrder.html";
+            }
+        });
+        $("#to_comment").click(function(){
+            window.location.href = "/html/createComment.html";
+        })
+    });
+</script>
+</html>
