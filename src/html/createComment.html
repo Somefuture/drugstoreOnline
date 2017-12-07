@@ -31,11 +31,11 @@
         <div class="SKU_content">
             <div class="SKU_name">商品名称 <span id="quantity">X3</span></div>
             <ul class="score">
-                <li><img src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_35.png" alt=""></li>
+                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
+                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
+                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
+                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
+                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
             </ul>
         </div>
     </div>
@@ -53,5 +53,18 @@
 <script>
     var id=get_query_string("id");
     var orderID=get_query_string("orderID");
+    $(".score").delegate("li","click",function () {
+        var $this = $(this);
+        var that = $(this).prevAll("li");
+        console.log(that);
+        var img=$this.children("img");
+        if(!img[0].getAttribute("class")){
+            img[0].setAttribute("class","hidden");
+            img[1].setAttribute("class","");
+        }else{
+            img[1].setAttribute("class","hidden");
+            img[0].setAttribute("class","");
+        }
+    })
 </script>
 </html>
