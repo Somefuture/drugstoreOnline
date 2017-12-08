@@ -14,16 +14,10 @@ $color-main:#0fb87f;
       border-bottom: p2r(1) solid #e7e7e7;
       .user_avatar{
         float: left;
-        width: 20%;
+        width: p2r(100);
         height: p2r(100);
+        margin-left: p2r(20);
         vertical-align: middle;
-        img{
-          display: block;
-          width: p2r(100);
-          height: p2r(100);
-          margin: 0 auto;
-          background: #85543f;
-        }
       }
       .comment_detail{
         width: 80%;

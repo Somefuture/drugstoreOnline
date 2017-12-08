@@ -49,7 +49,7 @@
         <span class="active"><a href="#" id="post_menu">评论</a></span>
     </div>
 </div>
-<div class="comment">
+<div class="comment" id="comment">
 </div>
 </body>
 <script type="text/template" id="comment_template">
@@ -59,7 +59,11 @@
         <% }else{ %>
         <% _.each(data,function(comment){ %>
         <li>
-            <div class="user_avatar"><img src="/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>"></div>
+            <% if(comment.portraitImage){ %>
+            <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>')"></div>
+            <% }else{ %>
+            <div class="user_avatar cover" style="background-image: url('/images/personal/avatar.png')"></div>
+            <% } %>
             <div class="comment_detail">
                 <div class="detail_title">
                     <span class="user_name"><%=comment.userName%></span>
@@ -110,7 +114,7 @@
                 take: 50
             },
             success: function (json) {
-                $(".comment").html(_.template($("#comment_template").html())({"data": json.success.list}));
+                $("#comment").html(_.template($("#comment_template").html())({"data": json.success.list}));
             }
         });
     });
