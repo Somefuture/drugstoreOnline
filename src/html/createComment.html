@@ -26,10 +26,19 @@
     <p class="title">评价</p>
 </div>
 <div class="createComment">
+    <div id="info"></div>
+    <div class="comment_content">
+        <h2>评价内容</h2>
+        <textarea name="" id="comment" cols="30" rows="10">在此输入您的评价内容</textarea>
+    </div>
+    <div class="submit_button">发表评论</div>
+</div>
+</body>
+<script type="text/template" id="info_template">
     <div class="SKU_info">
-        <div class="SKU_img" style="background-image: url('/images/homePage/home_48@1x.png')"></div>
+        <div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>
         <div class="SKU_content">
-            <div class="SKU_name">商品名称 <span id="quantity">X3</span></div>
+            <div class="SKU_name"><%= info.name %> <span id="quantity">X3</span></div>
             <ul class="score">
                 <li style="background-image: url('/images/personal/personal_38.png')"></li>
                 <li style="background-image: url('/images/personal/personal_38.png')"></li>
@@ -39,13 +48,7 @@
             </ul>
         </div>
     </div>
-    <div class="comment_content">
-        <h2>评价内容</h2>
-        <textarea name="" id="" cols="30" rows="10">在此输入您的评价内容</textarea>
-    </div>
-    <div class="submit_button">发表评论</div>
-</div>
-</body>
+</script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
@@ -54,37 +57,92 @@
     $(document).ready(function () {
         var id=get_query_string("id");
         var orderID=get_query_string("orderID");
+        var quantity=get_query_string("quantity");
+        var template = _.template($("#info_template").html());
+
+
         var data={
             orderID:orderID,
             skuID:id,
-            score:undefined,
+            score:0,
             firstPost:'',
             postImages:undefined
         }
 
-        //星星打分
-        $(".score").delegate("li","click",function () {
-           var $this=$(this);
-           var greenStar="background-image: url('/images/personal/personal_35.png')";
-           var whiteStar="background-image: url('/images/personal/personal_38.png')";
-           if($this.attr('style')===whiteStar){
-               $this.attr("style",greenStar);
-               $this.prevAll().attr("style",greenStar);
-           }else{
-               $this.nextAll().attr("style",whiteStar);
-           }
-        });
 
+        //星星打分
+        function star() {
+            var $this=$(this);
+            var greenStar="background-image: url('/images/personal/personal_35.png')";
+            var whiteStar="background-image: url('/images/personal/personal_38.png')";
+            if($this.attr('style')===whiteStar){
+                $this.attr("style",greenStar);
+                $this.prevAll().attr("style",greenStar);
+            }else{
+                $this.nextAll().attr("style",whiteStar);
+            }
+            data.score=$this.prevAll().length+1;
+        }
+
+        //获取sku详情
         getSKU();
+
         function getSKU() {
             ajax({
                 url:"/product/sku",
                 data:{id:id},
                 success:function (json) {
-                    console.log(json);
+                    if(json.error){
+                        return;
+                    }
+                    $("#info").html(template({"info":json.success}));
+                    $("#quantity").html("x"+quantity);
+                    $(".score").delegate("li","click",star);
                 }
             });
         }
+
+
+        //输入评价内容,自动获取焦点
+        $("#comment").click(function () {
+            $("#comment").attr("autofocus");
+            $("#comment").html("");
+        });
+
+        //提交评价
+        function subComment() {
+            data.firstPost=$("#comment").val();
+            if(!data.orderID){
+                swal("","无效的订单号");
+            }else if(!data.skuID){
+                swal("","无效的产品规格");
+            }else if(data.score===0){
+                swal("","请给产品打分");
+            }else if(data.firstPost==="在此输入您的评价内容"){
+                swal("","请输入您的评价详情");
+            }else{
+                ajax({
+                    url:"/product/post/first",
+                    type:"post",
+                    data:data,
+                    success:function(json){
+                        if(json.error){
+                            swal("",json.error.message);
+                            return;
+                        }
+                        swal({
+                                title: "",
+                                text: "评价发表成功"
+                            },
+                            function () {
+                                window.location.href = '/html/comment_order.html';
+                            }
+                        );
+                    }
+                })
+            }
+        }
+        $(".submit_button").click(subComment);
     });
 </script>
 </html>

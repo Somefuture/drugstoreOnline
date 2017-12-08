@@ -159,10 +159,10 @@
             })
         }
         get_provinces();
-        $("#provinces").change(function () {
+        $("#provinces").click(function () {
             get_cities($("#provinces").val());
         });
-        $("#cities").change(function () {
+        $("#cities").click(function () {
             get_suburbs($("#cities").val());
         });
         var isDefault=false;
