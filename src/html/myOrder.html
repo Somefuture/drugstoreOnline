@@ -84,7 +84,7 @@
                     订单编号：<%= order.id %>
                     <span><%= StatusMap[order.status] %></span>
                 </div>
-                <ul class="order_product" onclick="location='orderDetail.html'">
+                <ul class="order_product" onclick="location='/html/orderDetail.html?id=<%= order.id %>'">
                     <% _.each(order.items, function (item) { %>
                     <li>
                         <% if(item.sku) { %>

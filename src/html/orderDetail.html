@@ -36,100 +36,137 @@
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>订单详情</title>
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/index.css">
+    <link type="text/css" rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/index.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/reset.css">
 </head>
 <body>
 <div class="shopping_header">
     <img src="/images/tab/tab_03.png" alt="" onclick="location='/html/myOrder.html'">
     <p class="title">订单详情</p>
 </div>
-<div class="order_body">
-    <div class="order_state">
-        待付款
-        <span class="rest_time">
-            剩余02天23小时53分16秒自动关闭
-        </span>
-    </div>
-    <div class="consignee_info">
-        <div class="consignee_title">
-            <img src="/images/order/shopping_02.png" alt="">
-            收货人信息
+<div id="order_body"></div>
+</body>
+<script type="text/template" id="order_template">
+    <div class="order_body">
+        <div class="order_state">
+            <% if(order.status==="pending"){ %>
+            待付款
+            <% }else if(order.status==="done"){ %>
+            已完成
+            <% }else if(order.status==="shipped"){ %>
+            待发货
+            <% }else if(order.status==="success"){%>
+            已完成
+            <% } %>
         </div>
-        <div class="consignee_content">
+        <div class="consignee_info">
+            <div class="consignee_title">
+                <img src="/images/order/shopping_02.png" alt="">
+                收货人信息
+            </div>
+            <div class="consignee_content">
             <span class="name">
                 <img src="/images/order/shopping_24.png" alt="">
-                王小明
+                <%= order.address.consignee %>
             </span>
-            <span class="phone">
+                <span class="phone">
                 <img src="/images/order/shopping_30.png" alt="">
-                133****9999
+                <%= order.address.mobile %>
             </span>
-            <div class="address">
-                <img src="/images/order/shopping_27.png" alt="">
-                <p>广东省深圳市南山区蛇口街道湾厦路22号俪苑小区3栋502</p>
-                <img src="/images/order/index_46.png" alt="" onclick="location='address.html'">
+                <div class="address">
+                    <img src="/images/order/shopping_27.png" alt="">
+                    <p><%= order.address.provinceName %><%= order.address.suburbName %><%= order.address.unitDetail %></p>
+                </div>
             </div>
         </div>
-    </div>
-    <ul class="order_product">
-        <li>
-            <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <div class="detail_title">
-                    商品名称商品名称
+        <ul class="order_product">
+            <% _.each(order.items,function(info){ %>
+            <% if(!info.combo){ %>
+            <li>
+                <div class="product_img"><img src="/file/public/<%= info.sku.image.id %>.<%= info.sku.image.ext %>" alt=""></div>
+                <div class="product_details">
+                    <div class="detail_title">
+                        <%= info.sku.name %>
+                    </div>
+                    <div class="detail_content">
+                        <span class="product_price">￥<%= info.sku.salesPrice %></span>
+                        <span class="product_amount">x<%= info.quantity %></span>
+                    </div>
                 </div>
-                <div class="detail_content">
-                    <span class="product_price">￥588</span>
-                    <span class="product_amount">x1</span>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="product_img"><img src="/images/details/home_48@3x.png" alt=""></div>
-            <div class="product_details">
-                <div class="detail_title">
-                    商品名称商品名称
-                </div>
-                <div class="detail_content">
-                    <span class="product_price">￥588</span>
-                    <span class="product_amount">x1</span>
-                </div>
-            </div>
-        </li>
-    </ul>
-    <table class="order_details">
-        <tr>
-            <td>合计：</td>
-            <td>￥996.00</td>
-        </tr>
-        <tr>
-            <td>运费：</td>
-            <td>￥10.00</td>
-        </tr>
-        <tr>
-            <td>优惠券：</td>
-            <td>-￥10.00</td>
-        </tr>
-        <tr>
-            <td>积分抵扣：</td>
-            <td>-￥10.00</td>
-        </tr>
-        <tr>
-            <td>实际付款：</td>
-            <td>￥596.00</td>
-        </tr>
-        <tr>
-            <td>订单编号：</td>
-            <td>1234567890</td>
-        </tr>
-        <tr>
-            <td>创建时间：</td>
-            <td>2017-11-18 19:52:20</td>
-        </tr>
-    </table>
+            </li>
+            <% }else{ %>
+                组合
+            <% } %>
+            <% }) %>
+        </ul>
+        <table class="order_details">
+            <tr>
+                <td>合计：</td>
 
-</div>
-</body>
+                <% var account=0;
+                    _.each(order.items,function(info){
+                        if(!info.combo){
+                            account=account+info.quantity*info.sku.salesPrice;
+                        }else{
+                            var price=0;
+                            _.each(info.combo.units,function(combo){
+                                price=price+combo.comboPrice*combo.quantity;
+                            });
+                            account=account+price*info.quantity;
+                        }
+                    })
+                %>
+
+                <td>￥<%= account %></td>
+            </tr>
+            <tr>
+                <td>运费：</td>
+                <td>￥<%= order.deliveryCost %></td>
+            </tr>
+            <tr>
+                <td>优惠券：</td>
+                <td>-￥<%= order.couponDiscount %></td>
+            </tr>
+            <tr>
+                <td>积分抵扣：</td>
+                <td>-￥<%= order.points*0.01 %></td>
+            </tr>
+            <tr>
+                <td>实际付款：</td>
+                <td>￥<%= order.payment %></td>
+            </tr>
+            <tr>
+                <td>订单编号：</td>
+                <td><%= order.orderID %></td>
+            </tr>
+            <tr>
+                <td>创建时间：</td>
+                <td><%= order.createAt[0] %>-<%= order.createAt[1] %>-<%= order.createAt[2] %> <%= order.createAt[3] %>:<%= order.createAt[4] %>:<%= order.createAt[5] %></td>
+            </tr>
+        </table>
+    </div>
+</script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        var id=get_query_string("id");
+        var template = _.template($("#order_template").html());
+        ajax({
+            url:"/product/order",
+            data:{id:id},
+            success:function (json) {
+                if(json.error){
+                    return;
+                }
+                console.log(json.success);
+                $("#order_body").html(template({"order":json.success}));
+            }
+        })
+    })
+</script>
 </html>
