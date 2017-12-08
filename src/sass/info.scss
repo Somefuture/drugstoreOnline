@@ -37,7 +37,10 @@ $color-main:#0fb87f;
     display: block;
     width: 100%;
     li{
-      padding: p2r(20) 0;
+      padding: p2r(20);
+      background: #efefef;
+      margin: p2r(20) 0;
+      border-radius: p2r(10);
       .title{
         font-size: p2r(32);
         color: #3c3c3c;

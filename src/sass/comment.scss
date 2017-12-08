@@ -118,9 +118,11 @@ $color-main:#0fb87f;
         margin-top: p2r(80);
         li{
           display: inline-block;
-          img{
-            width: p2r(50);
-          }
+          width: p2r(50);
+          height: p2r(50);
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
       }
     }
