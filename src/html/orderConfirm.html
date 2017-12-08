@@ -420,7 +420,6 @@
                         }
                     }else{
                         swal("","请选择发票类型");
-                        return;
                     }
                     $("#invoice_alert").addClass("hidden");
                 })
@@ -632,10 +631,12 @@
 
         function attr_total_points(points) {
             var $total_points = $("#total_points");
+            var $total_points_amount= $("#total_points_amount");
             if(_.isUndefined(points)) {
                 return parseInt($total_points.text());
             }else {
                 $total_points.html(Math.round(points));
+                $total_points_amount.html(Math.round(points)*points_exchange_rate);
                 return points;
             }
         }
