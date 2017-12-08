@@ -60,10 +60,12 @@
         var quantity=get_query_string("quantity");
         var template = _.template($("#info_template").html());
 
+        var comboID=get_query_string("productComboID")||undefined;
 
         var data={
             orderID:orderID,
             skuID:id,
+            comboID:comboID,
             score:0,
             firstPost:'',
             postImages:undefined
