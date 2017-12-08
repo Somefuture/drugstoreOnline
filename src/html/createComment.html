@@ -120,7 +120,7 @@
                 swal("","无效的产品规格");
             }else if(data.score===0){
                 swal("","请给产品打分");
-            }else if(data.firstPost==="在此输入您的评价内容"){
+            }else if(data.firstPost==="在此输入您的评价内容"||!data.firstPost){
                 swal("","请输入您的评价详情");
             }else{
                 ajax({
