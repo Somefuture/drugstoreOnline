@@ -31,11 +31,11 @@
         <div class="SKU_content">
             <div class="SKU_name">商品名称 <span id="quantity">X3</span></div>
             <ul class="score">
-                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
-                <li><img src="/images/personal/personal_38.png" alt=""><img class="hidden" src="/images/personal/personal_35.png" alt=""></li>
+                <li style="background-image: url('/images/personal/personal_38.png')"></li>
+                <li style="background-image: url('/images/personal/personal_38.png')"></li>
+                <li style="background-image: url('/images/personal/personal_38.png')"></li>
+                <li style="background-image: url('/images/personal/personal_38.png')"></li>
+                <li style="background-image: url('/images/personal/personal_38.png')"></li>
             </ul>
         </div>
     </div>
@@ -51,20 +51,40 @@
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
-    var id=get_query_string("id");
-    var orderID=get_query_string("orderID");
-    $(".score").delegate("li","click",function () {
-        var $this = $(this);
-        var that = $(this).prevAll("li");
-        console.log(that);
-        var img=$this.children("img");
-        if(!img[0].getAttribute("class")){
-            img[0].setAttribute("class","hidden");
-            img[1].setAttribute("class","");
-        }else{
-            img[1].setAttribute("class","hidden");
-            img[0].setAttribute("class","");
+    $(document).ready(function () {
+        var id=get_query_string("id");
+        var orderID=get_query_string("orderID");
+        var data={
+            orderID:orderID,
+            skuID:id,
+            score:undefined,
+            firstPost:'',
+            postImages:undefined
         }
-    })
+
+        //星星打分
+        $(".score").delegate("li","click",function () {
+           var $this=$(this);
+           var greenStar="background-image: url('/images/personal/personal_35.png')";
+           var whiteStar="background-image: url('/images/personal/personal_38.png')";
+           if($this.attr('style')===whiteStar){
+               $this.attr("style",greenStar);
+               $this.prevAll().attr("style",greenStar);
+           }else{
+               $this.nextAll().attr("style",whiteStar);
+           }
+        });
+
+        getSKU();
+        function getSKU() {
+            ajax({
+                url:"/product/sku",
+                data:{id:id},
+                success:function (json) {
+                    console.log(json);
+                }
+            });
+        }
+    });
 </script>
 </html>
