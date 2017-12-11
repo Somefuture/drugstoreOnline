@@ -88,8 +88,7 @@
                     <% _.each(order.items, function (item) { %>
                     <li>
                         <% if(item.sku) { %>
-                        <div class="product_img"><img src="/file/public/<%= item.sku.image.id %>.<%= item.sku.image.ext %>"
-                                                      alt=""></div>
+                        <div class="product_img cover" style="background-image: url('/file/public/<%= item.sku.image.id %>.<%= item.sku.image.ext %>')"></div>
                         <div class="product_details">
                             <div class="product_name">
                                 <%= item.sku.name %>
@@ -109,9 +108,7 @@
                                 <% combo_price = combo_price + unit.comboPrice; %>
                                 <% combo_original_price = combo_original_price + ( unit.sku.salesPrice * unit.quantity ); %>
                                 <li>
-                                    <div class="product_img">
-                                        <img src="/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>" alt="">
-                                    </div>
+                                    <div class="product_img cover" style="background-image: url('/file/public/<%= unit.sku.image.id %>.<%= unit.sku.image.ext %>')"></div>
                                     <div class="product_details">
                                         <div class="combine_product_name">
                                             <%= unit.sku.name %>

@@ -51,10 +51,9 @@ $color-main:#0fb87f;
         padding: p2r(10) 0;
         .product_img{
           display: inline-block;
-          width: 30%;
-          img{
-            width: 100%;
-          }
+          width:p2r(160);
+          height: p2r(160);
+          margin: p2r(10) p2r(20);
         }
         .product_details{
           display: inline-block;
@@ -142,20 +141,19 @@ $color-main:#0fb87f;
     }
   }
   .combine_lists{
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     li{
       border-bottom: p2r(1) solid #e7e7e7;
       .product_img{
         display: inline-block;
-        width: 30%;
-        img{
-          width: 100%;
-        }
+        width:p2r(160);
+        height: p2r(160);
+        margin: p2r(10);
       }
       .product_details{
         display: inline-block;
-        width: 68%;
+        width: 60%;
         overflow: hidden;
         .combine_product_name{
           color:#3b3b3b;
