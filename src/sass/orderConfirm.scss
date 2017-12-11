@@ -166,20 +166,26 @@ $line-border:p2r(1) solid #cccccc;
   .order_product{
     width: 96%;
     margin: p2r(20) auto;
-    font-size: 0%;
+    font-size: 0;
+    .combo_name{
+      width: 100%;
+      height: p2r(50);
+      background: #e3e3e3;
+      line-height: p2r(50);
+      font-size: p2r(32);
+      span{
+        float: right;
+      }
+    }
     li{
       width: 100%;
       height: p2r(200);
       .product_img{
         display: inline-block;
-        width: 40%;
-        height: p2r(200);
+        width: p2r(160);
+        height: p2r(160);
+        margin: p2r(20);
         vertical-align: middle;
-        img{
-          display: block;
-          width: p2r(200);
-          margin: 0 auto;
-        }
       }
       .product_details{
         display: inline-block;
@@ -195,6 +201,9 @@ $line-border:p2r(1) solid #cccccc;
           font-size: p2r(32);
           .product_price{
             color:#d9a86c;
+            s{
+              color:#666666;
+            }
           }
           .product_amount{
             float: right;

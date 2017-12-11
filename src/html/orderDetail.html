@@ -85,19 +85,33 @@
             <% _.each(order.items,function(info){ %>
             <% if(!info.combo){ %>
             <li>
-                <div class="product_img"><img src="/file/public/<%= info.sku.image.id %>.<%= info.sku.image.ext %>" alt=""></div>
+                <div class="product_img cover" style="background-image: url('/file/public/<%= info.sku.image.id %>.<%= info.sku.image.ext %>')"></div>
                 <div class="product_details">
                     <div class="detail_title">
                         <%= info.sku.name %>
                     </div>
                     <div class="detail_content">
-                        <span class="product_price">￥<%= info.sku.salesPrice %></span>
+                        <span class="product_price">￥<%= info.sku.salesPrice %> </span>
                         <span class="product_amount">x<%= info.quantity %></span>
                     </div>
                 </div>
             </li>
             <% }else{ %>
-                组合
+                    <div class="combo_name"><%= info.combo.name %> <span>x<%= info.quantity %> </span></div>
+                    <% _.each(info.combo.units,function(combo){ %>
+                        <li>
+                            <div class="product_img cover" style="background-image: url('/file/public/<%= combo.sku.image.id %>.<%= combo.sku.image.ext %>')"></div>
+                            <div class="product_details">
+                                <div class="detail_title">
+                                    <%= combo.sku.name %>
+                                </div>
+                                <div class="detail_content">
+                                    <span class="product_price"><s>￥<%= combo.sku.salesPrice %></s>&nbsp;&nbsp;￥<%= combo.comboPrice %></span>
+                                    <span class="product_amount">x<%= combo.quantity %></span>
+                                </div>
+                            </div>
+                        </li>
+                   <% }) %>
             <% } %>
             <% }) %>
         </ul>
