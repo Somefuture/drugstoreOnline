@@ -31,7 +31,7 @@ $color-main:#0fb87f;
       float: right;
       font-size: p2r(28);
       color:#cccccc;
-      margin: p2r(20) p2r(20);
+      margin: p2r(30) p2r(20);
     }
     .person_avatar{
       width: p2r(220);
@@ -43,7 +43,7 @@ $color-main:#0fb87f;
         height: p2r(210);
         overflow: hidden;
         border-radius: p2r(216);
-        border:p2r(3) solid #cccccc;
+        border:p2r(5) solid rgba(255,255,255,.3);
         margin: 0 auto;
         .avatar_img{
           width: p2r(210);
@@ -88,7 +88,7 @@ $color-main:#0fb87f;
     border-radius: p2r(10);
     overflow: hidden;
     .to_order_title{
-      padding:p2r(20);
+      padding:p2r(18);
       font-size: p2r(32);
       color:#ffffff;
       img{
@@ -99,15 +99,18 @@ $color-main:#0fb87f;
     }
     .order_tabs{
       width: 100%;
+      padding: 0 p2r(22);
+      font-size: 0;
       li{
         display: inline-block;
-        width: 23%;
+        width: 25%;
         text-align: center;
         margin-bottom: p2r(10);
+        border-right: p2r(1) solid #fff;
         img{
-          width: p2r(80);
+          width: p2r(70);
           display: block;
-          margin: 0 auto;
+          margin: 0 auto p2r(10) auto;
         }
         a{
           color: #ffffff;
@@ -115,13 +118,13 @@ $color-main:#0fb87f;
         }
       }
       li:nth-child(4){
-        margin-right: p2r(-35);
+        border-right: none;
       }
     }
   }
   h2{
     position: absolute;
-    top:p2r(720);
+    top:p2r(730);
     left:4%;
     color:#3c3c3c;
     font-size: p2r(32);
@@ -139,6 +142,11 @@ $color-main:#0fb87f;
     text-align: center;
     font-size: p2r(24);
     margin-right: p2r(30);
+    img{
+      width: p2r(80);
+      display: block;
+      margin: p2r(10) auto;
+    }
   }
 }
 .otherItems{
@@ -152,8 +160,10 @@ $color-main:#0fb87f;
     font-size: p2r(28);
     border-bottom: p2r(1) solid #e7e7e7;
     overflow: hidden;
+    vertical-align: bottom;
     img{
       width: p2r(28);
+      vertical-align: baseline;
     }
     span{
       float: right;
