@@ -131,6 +131,14 @@ $line-border:p2r(1) solid #cccccc;
       border-bottom: $line-border;
       color:#666666;
       font-size: p2r(24);
+      h3{
+        width: 100%;
+        height: p2r(180);
+        text-align: center;
+        line-height: p2r(180);
+        font-size: p2r(38);
+        font-weight: normal;
+      }
       span{
         display: inline-block;
         width: p2r(200);

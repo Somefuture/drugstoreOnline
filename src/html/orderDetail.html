@@ -62,6 +62,15 @@
             <% } %>
         </div>
         <div class="consignee_info">
+            <% if(!order.address){ %>
+            <div class="consignee_title">
+                <img src="/images/order/shopping_02.png" alt="">
+                收货人信息
+            </div>
+            <div class="consignee_content">
+                <h3>/(ㄒoㄒ)/~~地址信息已被删除</h3>
+            </div>
+            <% }else{ %>
             <div class="consignee_title">
                 <img src="/images/order/shopping_02.png" alt="">
                 收货人信息
@@ -80,6 +89,7 @@
                     <p><%= order.address.provinceName %><%= order.address.suburbName %><%= order.address.unitDetail %></p>
                 </div>
             </div>
+            <% } %>
         </div>
         <ul class="order_product">
             <% _.each(order.items,function(info){ %>
@@ -177,7 +187,6 @@
                 if(json.error){
                     return;
                 }
-                console.log(json.success);
                 $("#order_body").html(template({"order":json.success}));
             }
         })
