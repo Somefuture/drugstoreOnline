@@ -178,17 +178,17 @@ $color-main:#0fb87f;
   margin-bottom: p2r(100);
   .info_title{
     padding: p2r(32) p2r(30) p2r(20) p2r(30);
-    font-size: p2r(28);
+    font-size: p2r(32);
     color: #171717;
     background: #f3f3f3;
     img{
       width: p2r(50);
-      height: p2r(40);
       margin-right: p2r(10);
+      vertical-align:baseline;
     }
   }
   .info_item{
-    padding:  p2r(30) p2r(30) p2r(20) p2r(30);
+    padding:  p2r(24) p2r(30) p2r(10) p2r(30);
     color:#171717;
     font-size: p2r(24);
     overflow: hidden;
@@ -249,10 +249,10 @@ $color-main:#0fb87f;
   width: 100%;
   .settingItem{
     li{
-      height: p2r(84);
-      line-height: p2r(84);
+      height: p2r(88);
+      line-height: p2r(88);
       font-size: p2r(28);
-      color:#3c3c3c;
+      color:#666666;
       border-bottom: p2r(1) solid #e7e7e7;
       overflow: hidden;
       img{
@@ -263,7 +263,7 @@ $color-main:#0fb87f;
       span{
         float: right;
         img{
-          width: p2r(30);
+          width: p2r(26);
           margin-right: p2r(20);
         }
       }
@@ -271,9 +271,9 @@ $color-main:#0fb87f;
   }
   .sign_out_btn{
     width: p2r(570);
-    height: p2r(72);
-    margin:p2r(20) auto;
-    line-height: p2r(72);
+    height: p2r(76);
+    margin:p2r(60) auto;
+    line-height: p2r(76);
     border-radius: p2r(12);
     background: $color-main;
     color:#FFFFFF;

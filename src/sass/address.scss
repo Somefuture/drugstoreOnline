@@ -32,13 +32,17 @@ $line-border:p2r(1) solid #cccccc;
         span{
           display: inline-block;
           font-size: p2r(24);
-          color:#666666;
+          color:#3c3c3c;
           img{
             width: p2r(30);
           }
         }
         .phone{
           float: right;
+          img{
+            width: p2r(25);
+            vertical-align: bottom;
+          }
         }
       }
       .address{
@@ -58,7 +62,7 @@ $line-border:p2r(1) solid #cccccc;
       }
       .edit_address{
         margin-top: p2r(26);
-        color:#666666;
+        color: #3c3c3c;
         font-size: p2r(24);
         span{
           display: inline-block;
@@ -71,6 +75,11 @@ $line-border:p2r(1) solid #cccccc;
         }
         .edit,.delete{
           margin-left: p2r(20);
+          float: right;
+          img{
+            vertical-align: bottom;
+          }
+
         }
       }
     }

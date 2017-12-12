@@ -198,18 +198,28 @@
         </div>
         <div class="top-news">
             <div class="img">
-                <a href="/html/info.html?id=<%= healthy[0].id %>">
-                <img src="/file/public/<%= healthy[0].image.id %>.<%= healthy[0].image.ext %>" alt="">
-                <div class="news_content"><%= healthy[0].title %></div>
+                <a href="/html/healthy.html?id=<%= healthy[0].id %>">
+                    <% if(healthy[0].cover.id===0){ %>
+                    <div style="background-image: url('/images/homePage/no_bg.png')" class="imgs cover"></div>
+                    <% }else{ %>
+                    <div style="background-image: url('/file/public/<%= healthy[0].cover.id %>.<%= healthy[0].cover.ext %>')" class="imgs cover"></div>
+                    <% } %>
+                <div class="news_content"><%= healthy[0].summary %></div>
                 </a>
             </div>
         </div>
         <ul class="list-news">
             <% _.each(_.rest(healthy),function(heal){ %>
-            <a href="/html/info.html?id=<%= heal.id %>">
+            <a href="/html/healthy.html?id=<%= heal.id %>">
             <li class="lists">
                 <ul>
-                    <li class="newsImg"><img src="/file/public/<%= heal.image.id %>.<%= heal.image.ext %>" alt=""></li>
+                    <li class="newsImg">
+                        <% if(heal.cover.id===0){ %>
+                        <div style="background-image: url('/images/homePage/no_bg.png')" class="img cover"></div>
+                        <% }else{ %>
+                        <div style="background-image: url('/file/public/<%= heal.cover.id %>.<%= heal.cover.ext %>')" class="img cover"></div>
+                        <% } %>
+                    </li>
                     <li class="newsContent">
                         <h1><%= heal.title %></h1>
                         <p><%= heal.summary %></p>
@@ -331,14 +341,14 @@
         get_healthy();
         function get_healthy(){
             ajax({
-                url: "/advertisement/materials/by_collection",
-                data: {"collectionID": 12},
+                url: "/topics",
+                data: {drop:0,take:5},
                 success: function (json) {
                     if(json && json.error) {
 
                     }else {
                         var healthy_template = _.template($("#healthy_template").html());
-                        $("#healthy").html(healthy_template({"healthy": json.success}));
+                        $("#healthy").html(healthy_template({"healthy": json.success.list}));
                     }
                 }
             });

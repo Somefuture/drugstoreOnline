@@ -6,12 +6,12 @@ $color-main:#0fb87f;
 .info_body{
   width: 100%;
   padding:0 p2r(20) p2r(200) p2r(20);
-  h1{
-    text-align: center;
-    height: p2r(70);
-    line-height: p2r(70);
+  .titles{
+    width: 100%;
+    height: p2r(100);
     font-size: p2r(40);
     color:#3c3c3c;
+    margin-top: p2r(30);
   }
   .content{
     .img{

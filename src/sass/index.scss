@@ -285,9 +285,10 @@ $bottom-border:p2r(1) solid #e7e7e7;
       .img{
         width: 100%;
       }
-      img {
+      .imgs {
         display: block;
         width: 100%;
+        height: p2r(300);
         margin: 0;
         border-radius:6px;
       }
@@ -317,7 +318,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
           .newsImg {
             width: p2r(190);
             height: p2r(108);
-            img {
+            .img {
               width: p2r(190);
               height: p2r(108);
             }
@@ -367,19 +368,20 @@ $bottom-border:p2r(1) solid #e7e7e7;
   bottom: 0;
   width: 100%;
   height: p2r(110);
-  padding: p2r(10) p2r(10);
+  padding: 0 p2r(10);
   border-top: $bottom-border;
   .nav {
     width: 100%;
+    font-size: 0;
     li {
       display: inline-block;
-      width: 23.8%;
+      width: 25%;
       text-align: center;
       line-height: p2r(20);
       img {
         display: block;
         width: p2r(56);
-        margin: 0 auto;
+        margin: p2r(10) auto p2r(10) auto;
       }
       a {
         font-size: p2r(24);
