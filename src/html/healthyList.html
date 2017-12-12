@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>首页</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="header">
+    <p>健康汇</p>
+</div>
+<div class="body">
+    <div id="banner"></div>
+    <div id="healthy">
+        <a href="/topics?drop=0&take=10" class="bottom_info">正在加载数据...</a>
+    </div>
+</div>
+</body>
+<script type="text/template" id="banner_template">
+    <div class="banner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <% _.each(images, function (image) { %>
+                <div class="swiper-slide">
+                    <!-- Required swiper-lazy class and image source specified in data-src attribute -->
+                    <img data-src="/file/public/<%= image.image.id %>.<%= image.image.ext %>" class="swiper-lazy">
+                    <!-- Preloader image -->
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+                <% }); %>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination-white"></div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="healthy_template">
+    <div class="healthy">
+        <ul class="list-news">
+            <% _.each(list,function(heal){ %>
+            <a href="/html/healthy.html?id=<%= heal.id %>">
+                <li class="lists">
+                    <ul>
+                        <li class="newsImg">
+                            <% if(heal.cover.id===0){ %>
+                            <div style="background-image: url('/images/homePage/no_bg.png')" class="img cover"></div>
+                            <% }else{ %>
+                            <div style="background-image: url('/file/public/<%= heal.cover.id %>.<%= heal.cover.ext %>')" class="img cover"></div>
+                            <% } %>
+                        </li>
+                        <li class="newsContent">
+                            <h1><%= heal.title %></h1>
+                            <p><%= heal.summary %></p>
+                        </li>
+                        <li class="to_detail"><img src="/images/homePage/home_57@2x.png" alt=""></li>
+                    </ul>
+                </li>
+            </a>
+            <% }) %>
+            <% if(drop < count){ %>
+            <a href="/topics?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+            <% } else { %>
+            <span class="bottom_info">--- 已全部加载完毕 ---</span>
+            <% } %>
+        </ul>
+    </div>
+</script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/swiper.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function(){
+        var width = $(window).width();
+        var height = width * 528 / 997;
+
+        var template = _.template($("#healthy_template").html());
+        render_banner();
+
+        function render_banner() {
+            ajax({
+                url: "/advertisement/materials/by_collection",
+                data: {"collectionID": 12},
+                success: function (json) {
+                    if(!json.error) {
+                        var banner_template = _.template($("#banner_template").html());
+                        $("#banner").html(banner_template({"images": json.success}));
+
+                        $(".banner").height(height);
+
+                        new Swiper('.swiper-container', {
+                            slidesPerView: 'auto',
+                            centeredSlides: true,
+                            autoplay: {
+                                delay: 2500
+                            },
+                            lazy: true,
+                            pagination: {
+                                el: '.swiper-pagination',
+                                clickable: true
+                            }
+                        });
+
+                        $("img.swiper-lazy").each(function () {
+                            $(this).width(width);
+                            $(this).height(height);
+                        })
+                    }
+                }
+            });
+        }
+
+        function render(data) {
+            $("#healthy").append(template(data));
+        }
+        scroll_load_more("a.bottom_info", render);
+    });
+</script>
+</html>
