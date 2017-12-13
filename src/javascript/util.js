@@ -92,7 +92,7 @@ function scroll_load_more(load_data_id, callback, notInit) {
             if (($(document).height() > height) && ($(document).height() - $(window).scrollTop() - height < bottom_offset)) {
                 get_data();
             }
-        }, 500);
+        }, 1000);
         $(window).scroll(load_more);
     }
 }
