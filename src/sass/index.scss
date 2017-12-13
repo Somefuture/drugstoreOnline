@@ -301,6 +301,9 @@ $bottom-border:p2r(1) solid #e7e7e7;
         background: rgba(0, 0, 0, .6);
         color: #FFFFFF;
         text-indent: p2r(20);
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
       }
     }
     .list-news {

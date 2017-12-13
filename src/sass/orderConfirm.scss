@@ -178,11 +178,12 @@ $line-border:p2r(1) solid #cccccc;
     .combo_name{
       width: 100%;
       height: p2r(50);
-      background: #e3e3e3;
       line-height: p2r(50);
       font-size: p2r(32);
+      border-bottom: p2r(1) solid #e3e3e3;
       span{
         float: right;
+        margin-right:p2r(30);
       }
     }
     li{
