@@ -7,20 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
-    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
-    <meta name="format-detection"content="telephone=no, email=no" />
-    <!-- 启用360浏览器的极速模式(webkit) -->
-    <meta name="renderer" content="webkit">
-    <!-- 避免IE使用兼容模式 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
-    <meta name="HandheldFriendly" content="true">
-    <!-- 微软的老式浏览器 -->
-    <meta name="MobileOptimized" content="320">
     <!-- uc强制竖屏 -->
     <meta name="screen-orientation" content="portrait">
     <!-- QQ强制竖屏 -->
@@ -42,28 +28,31 @@
 </head>
 <body>
 <div id="personal_body"></div>
-<div class="record">
-    <div class="record_coupon" onclick="location='/html/coupons.html'">
-        <img src="/images/personal/user_38.png" alt="">
-        优惠券
+<div class="bg_color">
+    <div class="record">
+        <div class="record_coupon" onclick="location='/html/coupons.html'">
+            <img src="/images/personal/user_38.png" alt="">
+            优惠券
+        </div>
+        <div class="total" onclick="location='/html/points.html'">
+            <img src="/images/personal/user_44.png" alt="">
+            我的积分
+        </div>
     </div>
-    <div class="total" onclick="location='/html/points.html'">
-        <img src="/images/personal/user_44.png" alt="">
-        我的积分
+    <div class="otherItems">
+        <div class="address" onclick="location='/html/address.html'">
+            <img src="/images/personal/user_80.png" alt="">
+            收货地址
+            <span><img src="/images/homePage/home_54@2x.png" alt=""></span>
+        </div>
+        <div class="setting" onclick="location='/html/setting.html'">
+            <img src="/images/personal/user_87.png" alt="">
+            设置
+            <span><img src="/images/homePage/home_54@2x.png" alt=""></span>
+        </div>
     </div>
 </div>
-<div class="otherItems">
-    <div class="address" onclick="location='/html/address.html'">
-        <img src="/images/personal/user_80.png" alt="">
-        收货地址
-        <span><img src="/images/homePage/home_54@2x.png" alt=""></span>
-    </div>
-    <div class="setting" onclick="location='/html/setting.html'">
-        <img src="/images/personal/user_87.png" alt="">
-        设置
-        <span><img src="/images/homePage/home_54@2x.png" alt=""></span>
-    </div>
-</div>
+
 <div class="footer">
     <ul class="nav">
         <li>
@@ -129,18 +118,21 @@
                         <img src="/images/personal/user_14.png" alt="">
                         待付款
                     </a>
+                    <div class="divide"></div>
                 </li>
                 <li>
                     <a href="/html/myOrder.html?status=receiving">
-                    <img src="/images/personal/user_19.png" alt="">
-                    待收货
+                        <img src="/images/personal/user_19.png" alt="">
+                        待收货
                     </a>
+                    <div class="divide"></div>
                 </li>
                 <li>
                     <a href="/html/comment_order.html">
                         <img src="/images/personal/user_25.png" alt="">
                         待评价
                     </a>
+                    <div class="divide"></div>
                 </li>
                 <li>
                     <a onclick='swal("","功能开发建设中")'>

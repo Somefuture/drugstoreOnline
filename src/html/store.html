@@ -199,7 +199,6 @@
         $.getData = function (load_data_id) {
             var $load_data = $(load_data_id);
             if($load_data.length === 0){
-                // todo : remove scroll event
                 return;
             }
             var url = $load_data[0].getAttribute("href");
