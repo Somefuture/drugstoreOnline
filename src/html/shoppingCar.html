@@ -131,7 +131,11 @@
                         <div class="price">￥<%= item.sku.salesPrice %></div>
                         <div class="quantity-wrap" data-inventory="<%= item.sku.inventory %>">
                             <div class="add"></div>
-                            <div class="quantity"><%= item.quantity %></div>
+                            <div class="divide left"></div>
+                            <div class="quantity">
+                                <%= item.quantity %>
+                            </div>
+                            <div class="divide right"></div>
                             <div class="sub"></div>
                         </div>
                     </div>
@@ -192,7 +196,9 @@
                             <i class="price">￥<%= Math.round(combo_price * 100) / 100 %></i>
                             <div class="quantity-wrap" data-inventory="<%= item.inventory %>">
                                 <div class="add"></div>
+                                <div class="divide left"></div>
                                 <div class="quantity"><%= item.quantity %></div>
+                                <div class="divide right"></div>
                                 <div class="sub"></div>
                             </div>
                         </div>
