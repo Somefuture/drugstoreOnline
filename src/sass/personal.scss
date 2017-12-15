@@ -39,6 +39,7 @@ $color-main:#0fb87f;
       margin: p2r(150) auto;
       text-align: center;
       .user_avatar{
+        font-size: 0;
         width: p2r(210);
         height: p2r(210);
         overflow: hidden;
@@ -46,8 +47,8 @@ $color-main:#0fb87f;
         border:p2r(5) solid rgba(255,255,255,.3);
         margin: 0 auto;
         .avatar_img{
-          width: p2r(210);
-          height: p2r(210);
+          width: p2r(200);
+          height: p2r(200);
           background-position: center center;
           background-size: cover;
         }
