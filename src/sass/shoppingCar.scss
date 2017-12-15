@@ -233,6 +233,13 @@ body{
           line-height: p2r(70);
           height: p2r(70);
           overflow: hidden;
+          p{
+            width:70%;
+            height: p2r(70);
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+          }
           .tags {
             height: p2r(40);
             position: absolute;
@@ -276,7 +283,7 @@ body{
             .info {
               width:80%;
               float: left;
-              padding:0;
+              padding:0 0 0 p2r(30);
               height: p2r(120);
               font-size: p2r(24);
               .name{
