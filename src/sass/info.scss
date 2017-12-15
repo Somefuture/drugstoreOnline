@@ -6,6 +6,10 @@ $color-main:#0fb87f;
 .info_body{
   width: 100%;
   padding:0 p2r(20) p2r(200) p2r(20);
+  h1{
+    text-align: center;
+    margin: 30px 0;
+  }
   .titles{
     width: 100%;
     height: p2r(100);

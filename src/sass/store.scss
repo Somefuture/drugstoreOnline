@@ -81,11 +81,11 @@ $bottom-border:p2r(1) solid #e7e7e7;
     ul{
       width: 94%;
       margin: 0 auto;
+      font-size: 0;
       li{
         display: inline-block;
-        width: 47%;
-        margin-right: 3%;
-        margin-bottom: p2r(32);
+        width: 46%;
+        margin: p2r(10) 2% p2r(32) 2%;
         text-align: center;
         background: #FFFFFF;
         .pro_name{
@@ -116,9 +116,6 @@ $bottom-border:p2r(1) solid #e7e7e7;
           font-size: p2r(24);
           color:#7b7b7b;
         }
-      }
-      li:nth-child(2n){
-        margin-right: 0;
       }
     }
   }
