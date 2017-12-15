@@ -236,34 +236,52 @@ $color-main:#0fb87f;
       font-size: p2r(24);
       font-weight: normal;
       color:#171717;
-      .product_amount{
-        display: inline-block;
-        margin-left: 50%;
-        width: p2r(175);
-        height:p2r(48);
-        border:p2r(1) solid #e7e7e7;
-        border-radius: p2r(5);
-        background: #ffffff;
-        span{
-          display: inline-block;
+      .product_amount {
+        text-align: right;
+        float: right;
+        height: p2r(60);
+        border: solid #e9e9e9 p2r(2);
+        border-radius: p2r(10);
+        position: relative;
+        div {
+          float: right;
+          height: p2r(56);
+          width: p2r(56);
+          background: #ffffff;
         }
-        .sub,.add{
-          width: p2r(44);
-          height: p2r(48);
-          img{
-            width:p2r(30);
-            margin-left: p2r(5);
-            vertical-align: middle;
-          }
-        }
-        .amount{
-          width: p2r(62);
-          height: p2r(40);
-          line-height: p2r(40);
+        .quantity {
+          width: p2r(70);
+          height: p2r(56);
+          font-size: p2r(28);
+          line-height: p2r(56);
           text-align: center;
-          border-left: p2r(1) solid #e7e7e7;
-          border-right: p2r(1) solid #e7e7e7;
-          vertical-align: middle;
+        }
+        .divide{
+          width: p2r(1);
+          height: p2r(44);
+          background: #e7e7e7;
+          position: absolute;
+          top:p2r(6);
+        }
+        .left{
+          left:p2r(56);
+        }
+        .right{
+          left:p2r(126);
+        }
+        .sub {
+          background-repeat: no-repeat;
+          opacity: .5;
+          background-position: center;
+          background-image: url(/images/shoppingcar/shopping_11.jpg);
+          background-size: p2r(32) p2r(32);
+        }
+        .add {
+          background-repeat: no-repeat;
+          background-position: center;
+          opacity: .5;
+          background-image: url(/images/shoppingcar/shopping_16.png);
+          background-size: p2r(32) p2r(32);
         }
       }
     }
