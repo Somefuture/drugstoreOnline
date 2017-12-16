@@ -40,10 +40,10 @@
 </body>
 <script type="text/template" id="comment_template">
     <ul>
-        <% if(data.length===0){ %>
+        <% if(list.length===0){ %>
             <p>暂无用户评价</p>
         <% }else{ %>
-        <% _.each(data,function(comment){ %>
+        <% _.each(list,function(comment){ %>
         <li>
             <% if(comment.portraitImage){ %>
             <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>')"></div>
@@ -68,7 +68,12 @@
                 </div>
             </div>
         </li>
-        <% })}; %>
+        <% }); %>
+        <% if(drop < count){ %>
+        <a href="/product/post/by_product?productID=<%=id%>&drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } else { %>
+        <span class="bottom_info">--- 已全部加载完毕 ---</span>
+        <% }} %>
     </ul>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
@@ -97,17 +102,15 @@
                 window.location.href = "/html/comment.html?id=" + id;
             }
         });
-        ajax({
-            url: "/product/post/by_product",
-            data: {
-                productID: id,
-                drop: 0,
-                take: 100
-            },
-            success: function (json) {
-                $("#comment").html(_.template($("#comment_template").html())({"data": json.success.list}));
-            }
-        });
+
+        var template = _.template($("#comment_template").html());
+        function render(data) {
+            data.id = id;
+            $("#comment").append(template(data));
+
+        }
+        $("#comment").append('<a href="/product/post/by_product?productID='+id+'&drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+        scroll_load_more("a.bottom_info", render);
     });
 </script>
 </html>

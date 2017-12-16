@@ -4,12 +4,13 @@
 }
 $color-main:#0fb87f;
 .comment{
+  background: #f3f3f3;
   ul{
     width: 96%;
     margin:0 auto;
     li{
       width: 100%;
-      margin: p2r(20) 0;
+      padding: p2r(30) 0 p2r(20) 0;
       overflow: hidden;
       border-bottom: p2r(1) solid #e7e7e7;
       .user_avatar{
@@ -26,6 +27,7 @@ $color-main:#0fb87f;
         .detail_title{
           width: 100%;
           height: p2r(50);
+          line-height: p2r(50);
           .user_name{
             color: #666666;
             font-size: p2r(22);
@@ -44,11 +46,13 @@ $color-main:#0fb87f;
           overflow: hidden;
           vertical-align: top;
           margin: p2r(10) 0;
+          padding: 0;
           li{
             display: inline-block;
             margin: 0;
-            width: p2r(50);
-            height: p2r(50);
+            padding:0;
+            width: p2r(38);
+            height: p2r(38);
             border:none;
             background-size: cover;
             background-position: center;
