@@ -352,7 +352,11 @@
         function get_healthy(){
             ajax({
                 url: "/topics",
-                data: {drop:0,take:5},
+                data: {
+                    bbsCode:"JKH",
+                    drop:0,
+                    take:5
+                },
                 success: function (json) {
                     if(json && json.error) {
 

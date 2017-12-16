@@ -84,7 +84,10 @@
 <script type="text/template" id="healthy_template">
     <div class="healthy">
         <ul class="list-news">
+            <% var countJKH=0; %>
             <% _.each(list,function(heal){ %>
+            <% if(heal.bbsName==="健康汇"){ %>
+            <% countJKH=countJKH+1; %>
             <a href="/html/healthy.html?id=<%= heal.id %>">
                 <li class="lists">
                     <ul>
@@ -103,8 +106,8 @@
                     </ul>
                 </li>
             </a>
-            <% }) %>
-            <% if(drop < count){ %>
+            <% }}) %>
+            <% if(drop < count&& count< countJKH){ %>
             <a href="/topics?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
             <% } else { %>
             <span class="bottom_info">--- 已全部加载完毕 ---</span>
