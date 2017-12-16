@@ -60,6 +60,7 @@
 <script type="text/template" id="content_template">
     <div class="info_body">
         <h1 class="title"><%= info.title %></h1>
+        <p class="time"></p>
         <div class="content">
             <div class="img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')">
             </div>
@@ -74,6 +75,12 @@
 <script>
     $(document).ready(function () {
         var id=get_query_string("id");
+        var time=get_query_string("time").split(",");
+        if(time[3]<10){
+            time[3]='0'+time[3];
+        }if(time[4]<10){
+            time[4]="0"+time[4]
+        }
         ajax({
             url:"/advertisement/material/detail",
             data:{id:id},
@@ -83,6 +90,7 @@
                 }
                 var content_template=_.template($("#content_template").html());
                 $("#content").html(content_template({"info":json.success}));
+                $(".time").html("发布时间："+time[0]+"."+time[1]+"."+time[2]+"  "+time[3]+":"+time[4]);
             }
         })
     });

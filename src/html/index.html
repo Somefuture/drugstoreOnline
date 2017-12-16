@@ -100,7 +100,17 @@
             <% _.each(images, function (image) { %>
             <div class="swiper-slide">
                 <!-- Required swiper-lazy class and image source specified in data-src attribute -->
-                <img data-src="/file/public/<%= image.image.id %>.<%= image.image.ext %>" class="swiper-lazy">
+                <img data-src="/file/public/<%= image.image.id %>.<%= image.image.ext %>" class="swiper-lazy"
+                     <% if(image.module==="event"){ %>
+                        onclick="location='<%= image.link %>'"
+                    <% }else if(image.module==="product"){ %>
+                        onclick="location='/html/productDetails.html?id=<%= image.moduleID %>'"
+                    <% }else if(image.module==="info"){ %>
+                        onclick="location='/html/healthy.html?id=<%= image.moduleID %>'"
+                    <% }else{ %>
+                        return;
+                    <% } %>
+                >
                 <!-- Preloader image -->
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </div>
