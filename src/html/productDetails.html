@@ -175,7 +175,6 @@
         var sku_details = {};
 
         get_product(id);
-        render_banner(id);
 
         $(".nextStep").click(function() {
             var sku_id = get_sku();
@@ -464,6 +463,7 @@
                     }
                     $("#product_body").html(product_template({"product": json.success}));
                     $(".banner").height(height);
+                    render_banner(id);
                     ajax({
                         url: "/product/detail",
                         data: {"id": id},
@@ -481,7 +481,6 @@
                 }
             });
         }
-
 
         function render_banner() {
             ajax({

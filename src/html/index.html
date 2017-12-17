@@ -180,18 +180,18 @@
             <span class="more"><a href="/html/collection.html?id=4">更多&gt</a></span>
         </div>
         <div class="content">
-            <a href="/html/info.html?id=<%= welfare[0].id %>">
+            <a href="/html/info.html?id=<%= welfare[0].id %>&time=<%= welfare[0].startAt %>">
             <div class="welfare_s">
                 <h3><%= welfare[0].title %></h3>
                 <p><%= welfare[0].summary %></p>
-                <img src="/file/public/<%= welfare[0].image.id %>.<%= welfare[0].image.ext %>" alt="">
+                <div class="img cover" style="background-image: url('/file/public/<%= welfare[0].image.id %>.<%= welfare[0].image.ext %>')" alt=""></div>
             </div>
             </a>
-            <a href="/html/info.html?id=<%= welfare[1].id %>">
+            <a href="/html/info.html?id=<%= welfare[1].id %>&time=<%= welfare[1].startAt %>">
             <div class="welfare_s">
                 <h3><%= welfare[1].title %></h3>
                 <p><%= welfare[1].summary %></p>
-                <img src="/file/public/<%= welfare[1].image.id %>.<%= welfare[1].image.ext %>" alt="">
+                <div class="img cover" style="background-image: url('/file/public/<%= welfare[1].image.id %>.<%= welfare[1].image.ext %>')" alt=""></div>
             </div>
             </a>
         </div>
