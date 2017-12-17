@@ -282,7 +282,7 @@
                 }, 0);
                 return [memo[0] + item.quantity, memo[1] + item.quantity * sales_price];
             }, [0, 0]);
-            $(".total").html("￥" + info[1]);
+            $(".total").html("￥" + info[1].toFixed(2));
             $(".count").html("共" + info[0] + "件商品");
         }
 
