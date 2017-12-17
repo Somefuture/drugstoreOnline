@@ -137,7 +137,7 @@
         <a href="/html/collection.html?id=2">
         <% _.each(_.rest(notices), function (notice) { %>
         <span class="content hide">
-             <div>
+             <div onclick="location=url('/html/collection.html?id=2')">
                  <%= notice.summary %>
             </div>
         </span>

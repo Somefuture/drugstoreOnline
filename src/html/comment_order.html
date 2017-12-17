@@ -78,7 +78,7 @@
                 <div class="SKU_img" style="background-image: url('/file/public/<%= sku.image.id %>.<%= sku.image.ext %>')"></div>
                 <div class="SKU_content">
                     <div class="SKU_name"><%= sku.name %> <span id="quantity">X<%= sku.quantity %></span></div>
-                    <div class="SKU_price">￥<%= sku.salesPrice %>
+                    <div class="SKU_price">￥<%= sku.salesPrice.toFixed(2) %>
                         <% if(sku.productComboID===0) {%>
                         <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>'">立即评价</button>
                         <% }else{ %>

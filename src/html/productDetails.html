@@ -116,7 +116,7 @@
             </div>
             <div class="intro_price">
                 现价
-                <span class="present_price"><%= product.minSalesPrice %></span>
+                <span class="present_price"><%= product.minSalesPrice.toFixed(2) %></span>
             </div>
         </div>
         <ul class="detail_function">
@@ -362,7 +362,7 @@
                         if (maybe_sku) {
                             $(".SKU_name").html(sku_details[maybe_sku].name);
                             $(".SKU_inventory").html("库存："+sku_details[maybe_sku].inventory+"件");
-                            $(".SKU_price").html("￥" + sku_details[maybe_sku].salesPrice);
+                            $(".SKU_price").html("￥" + sku_details[maybe_sku].salesPrice.toFixed(2));
                             var $sku_quantity = $("#sku_quantity");
                             var selected_quantity = $sku_quantity.html();
                             if(sku_details[maybe_sku].inventory < parseInt(selected_quantity)){

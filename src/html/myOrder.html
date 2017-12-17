@@ -94,7 +94,7 @@
                                 <%= item.sku.name %>
                             </div>
                             <div class="detail_content">
-                                <span class="product_price">￥<%= item.sku.salesPrice %></span>
+                                <span class="product_price">￥<%= item.sku.salesPrice.toFixed(2) %></span>
                                 <span class="product_amount">x<%= item.quantity %></span>
                             </div>
                         </div>
@@ -114,8 +114,8 @@
                                             <%= unit.sku.name %>
                                         </div>
                                         <div class="detail_content">
-                                            <span class="product_price">￥<%= Math.round(unit.comboPrice / unit.quantity * 100) / 100 %></span>
-                                            <span class="original_price">￥<%= unit.sku.salesPrice %></span>
+                                            <span class="product_price">￥<%= (Math.round(unit.comboPrice / unit.quantity * 100) / 100).toFixed(2) %></span>
+                                            <span class="original_price">￥<%= unit.sku.salesPrice.toFixed(2) %></span>
                                             <span class="product_amount">x<%= unit.quantity %></span>
                                         </div>
                                     </div>

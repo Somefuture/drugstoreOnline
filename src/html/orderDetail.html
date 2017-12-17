@@ -101,7 +101,7 @@
                         <%= info.sku.name %>
                     </div>
                     <div class="detail_content">
-                        <span class="product_price">￥<%= info.sku.salesPrice %> </span>
+                        <span class="product_price">￥<%= info.sku.salesPrice.toFixed(2) %> </span>
                         <span class="product_amount">x<%= info.quantity %></span>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                                     <%= combo.sku.name %>
                                 </div>
                                 <div class="detail_content">
-                                    <span class="product_price">￥<%= combo.comboPrice %>&nbsp;&nbsp;<s>￥<%= combo.sku.salesPrice %></s></span>
+                                    <span class="product_price">￥<%= combo.comboPrice.toFixed(2) %>&nbsp;&nbsp;<s>￥<%= combo.sku.salesPrice.toFixed(2) %></s></span>
                                     <span class="product_amount">x<%= combo.quantity %></span>
                                 </div>
                             </div>
@@ -147,19 +147,19 @@
             </tr>
             <tr>
                 <td>运费：</td>
-                <td>￥<%= order.deliveryCost %></td>
+                <td>￥<%= order.deliveryCost.toFixed(2) %></td>
             </tr>
             <tr>
                 <td>优惠券：</td>
-                <td>-￥<%= order.couponDiscount %></td>
+                <td>-￥<%= order.couponDiscount.toFixed(2) %></td>
             </tr>
             <tr>
                 <td>积分抵扣：</td>
-                <td>-￥<%= order.points*0.01 %></td>
+                <td>-￥<%= (order.points*0.01).toFixed(2) %></td>
             </tr>
             <tr>
                 <td>实际付款：</td>
-                <td>￥<%= order.payment %></td>
+                <td>￥<%= order.payment.toFixed(2) %></td>
             </tr>
             <tr>
                 <td>订单编号：</td>

@@ -87,7 +87,7 @@
                 </div>
                 <span class="invoice_type"></span>
             </div>
-            <textarea id="comments" cols="30" rows="5">备注：
+            <textarea id="comments" cols="30" rows="5"> 备注：
         </textarea>
         </div>
         <table class="order_details">
@@ -204,7 +204,7 @@
                     <div class="name"><%= item.sku.name %></div>
                 </div>
                 <div class="row-2">
-                    <div class="price" style="width: 100%">￥<%= item.sku.salesPrice %>&nbsp;<i style="color:#3b3b3b;float:right">X&nbsp;<%= item.quantity %></i></div>
+                    <div class="price" style="width: 100%">￥<%= item.sku.salesPrice.toFixed(2) %>&nbsp;<i style="color:#3b3b3b;float:right">X&nbsp;<%= item.quantity %></i></div>
                 </div>
             </div>
         </div>
@@ -285,6 +285,11 @@
             name:"",
             taxIdentification:""
         }
+
+        $("#comments").click(function () {
+            $("#comments").attr("autofocus");
+            $("#comments").html("");
+        });
 
         $consignee.click(function () {
             $root.css("display", "none");

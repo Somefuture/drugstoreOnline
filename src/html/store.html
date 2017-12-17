@@ -141,7 +141,7 @@
                     <div class="img"
                          style="background-image: url('/file/public/<%=ele.image.id%>.<%=ele.image.ext%>');">
                     </div>
-                    <span class="pro_price">价格：￥<%=ele.minSalesPrice%></span>
+                    <span class="pro_price">价格：￥<%=ele.minSalesPrice.toFixed(2) %></span>
                 </a>
             </li>
             <% }) %>
