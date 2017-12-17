@@ -313,6 +313,7 @@
             var $parent = $(this).parent();
             var $quantity = $parent.find(".quantity");
             var id = $parent.parents("li.item").attr("data-id");
+
             if (shopping_car_items[id].quantity > 1) {
                 shopping_car_items[id].quantity -= 1;
                 ajax({
