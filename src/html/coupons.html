@@ -69,7 +69,7 @@
 <script type="text/template" id="coupon_list_template">
     <ul class="coupon_lists">
         <% _.each(list,function(coupon){ %>
-        <li class="coupon_<%= coupon.value %>">
+        <li class="coupon coupon_<%= coupon.value %>">
             <div class="coupon_value">
                 <span class="unit">￥</span>
                 <span class="value_num"><%= coupon.value %></span>

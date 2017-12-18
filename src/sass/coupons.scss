@@ -7,8 +7,9 @@ $color-main:#0fb87f;
   width: 94%;
   background: #FFFFFF;
   margin: p2r(20) auto;
-  height: p2r(350);
+  height: p2r(300);
   position: relative;
+  border-radius: p2r(15);
   .limit_status{
     position: absolute;
     top:0;
@@ -17,7 +18,7 @@ $color-main:#0fb87f;
   }
   .coupon_value{
     width: 100%;
-    height: p2r(200);
+    height: p2r(180);
     background-image: url("/images/personal/coupon_bg.png");
     background-size: p2r(40);
     background-position: left bottom;
@@ -26,8 +27,8 @@ $color-main:#0fb87f;
     font-size: 0;
     .unit,.value_num{
       display: inline-block;
-      height: p2r(200);
-      line-height: p2r(200);
+      height: p2r(180);
+      line-height: p2r(180);
       color:#FFFFFF;
     }
     .unit{
@@ -36,13 +37,12 @@ $color-main:#0fb87f;
       margin-left: p2r(20);
     }
     .value_num{
-      width:35%;
       font-size: p2r(120);
-      text-indent: p2r(20);
+      text-indent: p2r(10);
+      margin-right: p2r(30);
     }
     p{
       display: inline-block;
-      width: 52%;
       padding-top: p2r(10);
       color:#FFFFFF;
       font-size: p2r(26);
@@ -59,14 +59,14 @@ $color-main:#0fb87f;
   }
   .coupon_detail {
     width: 100%;
-    height: p2r(150);
-    padding: p2r(10) p2r(20);
+    height: p2r(100);
+    padding: p2r(20) p2r(20);
     border-radius: 0 0 p2r(15) p2r(15);
     h3 {
       font-size: p2r(28);
       color:#3c3c3c;
       font-weight: normal;
-      margin-bottom: p2r(20);
+      margin-bottom: p2r(10);
       img {
         float: right;
         width: p2r(40);
@@ -116,6 +116,12 @@ $color-main:#0fb87f;
     }
   }
   .coupon_lists{
+    .coupon{
+      .coupon_value{
+        background: #d07fe0;
+      }
+      @include coupon_item;
+    }
     .coupon_20{
       .coupon_value{
         background: #6dce65;
@@ -143,6 +149,12 @@ $color-main:#0fb87f;
     .coupon_10{
       .coupon_value{
         background: #cea565;
+      }
+      @include coupon_item;
+    }
+    .coupon_5{
+      .coupon_value{
+        background: #c65ea5;
       }
       @include coupon_item;
     }
