@@ -184,6 +184,7 @@ $color-main:#0fb87f;
       .op_date{
         color:#b2b2b2;
         font-size: p2r(22);
+        line-height: p2r(70);
       }
       .total_value{
         float: right;
@@ -192,6 +193,7 @@ $color-main:#0fb87f;
         img{
           width: p2r(40);
           height: p2r(40);
+          vertical-align: bottom;
         }
       }
       .add{

@@ -142,11 +142,15 @@ $line-border:p2r(1) solid #cccccc;
   }
   .department_select{
     width: 94%;
-    margin: p2r(5) auto;
+    margin: p2r(10) auto;
     text-align: center;
     select{
       width: 30%;
+      height: p2r(50);
+      line-height: p2r(50);
       font-size: p2r(20);
+      border-radius: p2r(10);
+      color: #3c3c3c;
     }
   }
   .detail_address{
@@ -163,6 +167,8 @@ $line-border:p2r(1) solid #cccccc;
     textarea{
       display: block;
       width: 100%;
+      height:p2r(200);
+      padding:p2r(20);
       border:p2r(1) solid #e7e7e7;
       border-radius: p2r(15);
       font-size: p2r(28);

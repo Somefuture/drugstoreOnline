@@ -30,7 +30,7 @@
 </div>
 <div class="total_body">
     <div class="usable_total">
-        <p id="present_point">100</p>
+        <p id="present_point"></p>
         <span>当前可用积分</span>
     </div>
     <div id="point_detail">
@@ -77,12 +77,12 @@
             <% if(point.operation==="freeze"||point.operation==="deduct"){ %>
             <span class="total_value sub">
                         <img src="/images/personal/personal_75.png" alt="">
-                        -<%= point.amount %>
+                        <span>-<%= point.amount %></span>
                     </span>
             <% }else{ %>
             <span class="total_value add">
                         <img src="/images/personal/personal_76.png" alt="">
-                        +<%= point.amount %>
+                        <span>+<%= point.amount %></span>
                     </span>
             <% } %>
         </li>

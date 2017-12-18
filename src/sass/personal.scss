@@ -30,7 +30,7 @@ $color-main:#0fb87f;
       display: block;
       float: right;
       font-size: p2r(28);
-      color:#cccccc;
+      color:#ffffff;
       margin: p2r(30) p2r(20);
     }
     .person_avatar{
@@ -55,26 +55,25 @@ $color-main:#0fb87f;
       }
       .user_name{
         display: block;
-        margin: p2r(16) auto p2r(32) auto;
-        color:#cccccc;
+        margin: p2r(16) auto p2r(20) auto;
+        color:#ffffff;
         font-size: p2r(32);
       }
       .total{
         width: p2r(200);
-        height: p2r(40);
-        background: rgba(255,255,255,.7);
+        height: p2r(50);
+        margin: 0 auto;
+        padding: p2r(5) p2r(10);
+        background: rgba(255,255,255,.3);
         border-radius: p2r(5);
-        color:#cccccc;
+        color:#ffffff;
         line-height: p2r(40);
-        font-size: p2r(32);
+        font-size: p2r(24);
         overflow: hidden;
-        div{
-          float:right;
-          width: p2r(120);
-          height: p2r(40);
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        span{
+          font-size: p2r(32);
         }
       }
     }
