@@ -315,6 +315,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
         margin-top: p2r(20);
         ul {
           width: 100%;
+          padding: p2r(20) 0;
           li {
             display: inline-block;
           }
@@ -327,7 +328,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
             }
           }
           .newsContent {
-            width: 50%;
+            width: 60%;
             height: p2r(106);
             overflow: hidden;
             h1 {
@@ -344,9 +345,11 @@ $bottom-border:p2r(1) solid #e7e7e7;
               color: #666666;
               margin-left: p2r(22);
               padding: p2r(20) 0 ;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
               overflow: hidden;
               text-overflow:ellipsis;
-              white-space: nowrap;
             }
           }
           .to_detail {

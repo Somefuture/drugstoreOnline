@@ -94,7 +94,6 @@ $color-main:#0fb87f;
       img{
         width: p2r(25);
         float: right;
-        margin-right: p2r(20);
       }
     }
     .order_tabs{
@@ -167,15 +166,15 @@ $color-main:#0fb87f;
     margin-bottom: p2r(100);
     background: #FFFFFF;
     .address,.setting{
-      padding: p2r(20) 0 p2r(16) 0;
+      height: p2r(80);
+      line-height: p2r(70);
+      padding: p2r(10) 0;
       color:#666666;
       font-size: p2r(28);
       border-bottom: p2r(1) solid #e7e7e7;
       overflow: hidden;
-      vertical-align: bottom;
       img{
         width: p2r(28);
-        vertical-align: baseline;
       }
       span{
         float: right;

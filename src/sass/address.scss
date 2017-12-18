@@ -142,15 +142,14 @@ $line-border:p2r(1) solid #cccccc;
   }
   .department_select{
     width: 94%;
-    margin: p2r(10) auto;
+    margin: p2r(5) auto;
     text-align: center;
     select{
       width: 30%;
-      height: p2r(50);
-      line-height: p2r(50);
+      height: p2r(60);
+      line-height: p2r(60);
       font-size: p2r(20);
       border-radius: p2r(10);
-      color: #3c3c3c;
     }
   }
   .detail_address{

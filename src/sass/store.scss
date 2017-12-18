@@ -56,25 +56,9 @@ $bottom-border:p2r(1) solid #e7e7e7;
   padding-bottom: p2r(140);
   .category{
     width: 100%;
+    font-size: 0;
     img{
       width: 100%;
-    }
-    ul{
-      display: none;
-      width: 94%;
-      margin: p2r(54) auto p2r(20) auto;
-      li{
-        display: inline-block;
-        width: 23.5%;
-        text-align: center;
-        font-size: p2r(20);
-        color:#414141;
-        margin-top: p2r(40);
-        img{
-          display: block;
-          margin: p2r(10) auto p2r(5) auto;
-        }
-      }
     }
   }
   .product_lists{
@@ -85,7 +69,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
       li{
         display: inline-block;
         width: 46%;
-        margin: p2r(10) 2% p2r(32) 2%;
+        margin: 0 2% p2r(32) 2%;
         text-align: center;
         background: #FFFFFF;
         .pro_name{
