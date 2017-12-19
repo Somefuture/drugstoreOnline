@@ -39,10 +39,10 @@
 </div>
 <div class="info_alter">
     <div class="alter_items">
-        <input type="text" placeholder="请输入姓名" id="username" class="name">
+        <input type="text" placeholder="请输入姓名" id="username" class="name" maxlength="10">
     </div>
     <p>
-        2-16个字符，可由中英文、数字、“-”、“_”组成
+        2-10个字符，可由中英文、数字、“-”、“_”组成
     </p>
 </div>
 </body>
@@ -61,13 +61,13 @@
                 swal("", "请输入姓名");
             } else if(username.length<2){
                 show_swal = true;
-                swal("", "不能少于两个字符");
-            }else if(username.length>16){
+                swal("", "长度不能少于两个字符");
+            }else if(username.length>10){
                 show_swal = true;
-                swal("", "不能超过16个字符");
+                swal("", "不能超过10个字符");
             }else if(!reg.test(username)){
                 show_swal = true;
-                swal("", "输入含有特殊符号");
+                swal("", "不能含有特殊符号");
             }else {
                 ajax({
                     type: "post",
