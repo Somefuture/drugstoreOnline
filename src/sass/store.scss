@@ -70,11 +70,10 @@ $bottom-border:p2r(1) solid #e7e7e7;
         display: inline-block;
         width: 46%;
         margin: 0 2% p2r(32) 2%;
-        text-align: center;
         background: #FFFFFF;
         .pro_name{
           display: block;
-          margin: p2r(40) auto;
+          margin: p2r(30) 0 p2r(30) p2r(16);
           font-size: p2r(30);
           color: #484848;
           overflow: hidden;

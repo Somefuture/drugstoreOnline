@@ -260,12 +260,12 @@
   transform: scale(0.33);
 }
 .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
+  width: 15px;
+  height: 3px;
+  border-radius: 2px;
   display: inline-block;
-  border-radius: 100%;
-  background: #000;
-  opacity: 0.2;
+  background: #fff;
+  opacity: 0.6;
 }
 button.swiper-pagination-bullet {
   border: none;
@@ -370,7 +370,7 @@ button.swiper-pagination-bullet {
   top: 0;
 }
 .swiper-pagination-white .swiper-pagination-bullet-active {
-  background: #ffffff;
+  background: #0fb87f;
 }
 .swiper-pagination-progressbar.swiper-pagination-white {
   background: rgba(255, 255, 255, 0.25);
