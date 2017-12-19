@@ -53,12 +53,16 @@
 <script>
     $(document).ready(function () {
         var show_swal = false;
+        var reg=/^[\u4e00-\u9fa5a-z\d_]{2,}$/gi;
         function changeName() {
             var username = $("#username").val();
             if (!username) {
                 show_swal = true;
                 swal("", "请输入姓名");
-            } else if(username.length<2||username.length>20){
+            } else if(username.length<2||username.length>10){
+                show_swal = true;
+                swal("", "格式有误");
+            }else if(!reg.test(username)){
                 show_swal = true;
                 swal("", "格式有误");
             }else {
