@@ -74,6 +74,11 @@ $color-main:#0fb87f;
       .during{
         font-size: p2r(22);
         color:#b2b2b2;
+        span{
+          float: right;
+          font-size: p2r(24);
+          color:#0FB87F;
+        }
       }
     }
   }
