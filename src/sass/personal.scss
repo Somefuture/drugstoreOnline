@@ -228,7 +228,7 @@ $color-main:#0fb87f;
   p{
     font-size: p2r(24);
     color:#666666;
-    padding-top: p2r(10);
+    padding-top: p2r(20);
   }
   .alter_items{
     height: p2r(90);
@@ -240,6 +240,9 @@ $color-main:#0fb87f;
       background: transparent;
       font-size: p2r(24);
       vertical-align: middle;
+    }
+    input.name{
+      width: 100%;
     }
     img{
       width: p2r(40);
