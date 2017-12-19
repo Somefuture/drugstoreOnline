@@ -82,17 +82,13 @@ $color-main:#0fb87f;
       border-bottom: p2r(2) solid #e7e7e7;
       padding: p2r(30) 0 p2r(16) 0;
       position: relative;
-      img{
-        display: inline-block;
-        width: p2r(30);
-      }
       div{
         display: inline-block;
         color:#3c3c3c;
         font-size: p2r(22);
       }
       .toDetail{
-        width: p2r(25);
+        width: p2r(20);
         position: absolute;
         right: p2r(10);
       }
@@ -128,7 +124,7 @@ $color-main:#0fb87f;
     margin: 0;
     img{
       display: block;
-      width: p2r(76);
+      width: p2r(74);
       margin: 0 auto;
       padding: p2r(10);
     }
