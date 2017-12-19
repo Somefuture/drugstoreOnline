@@ -42,7 +42,7 @@
         <input type="text" placeholder="请输入姓名" id="username">
     </div>
     <p>
-        4-20个字符，可由中英文、数字、“-”、“_”组成
+        2-16个字符，可由中英文、数字、“-”、“_”组成
     </p>
 </div>
 </body>
@@ -59,7 +59,7 @@
             if (!username) {
                 show_swal = true;
                 swal("", "请输入姓名");
-            } else if(username.length<2||username.length>10){
+            } else if(username.length<2||username.length>16){
                 show_swal = true;
                 swal("", "格式有误");
             }else if(!reg.test(username)){
