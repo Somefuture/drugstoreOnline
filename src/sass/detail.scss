@@ -204,7 +204,7 @@ $color-main:#0fb87f;
         font-size: p2r(24);
         font-weight: normal;
         color:#171717;
-        margin: p2r(10) p2r(20);
+        margin: p2r(20) p2r(20);
       }
       span{
         display: inline-block;
@@ -227,9 +227,9 @@ $color-main:#0fb87f;
       }
     }
     .SKU_quantity{
-      padding: p2r(20) p2r(20);
-      line-height: p2r(48);
-      font-size: p2r(24);
+      padding: p2r(10) p2r(20);
+      line-height: p2r(60);
+      font-size: p2r(28);
       font-weight: normal;
       color:#171717;
       .product_amount {

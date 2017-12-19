@@ -170,6 +170,13 @@
                 <td><%= order.createAt[0] %>-<%= order.createAt[1] %>-<%= order.createAt[2] %> <%= order.createAt[3] %>:<%= order.createAt[4] %>:<%= order.createAt[5] %></td>
             </tr>
         </table>
+        <div class="btn">
+            <% if(order.status==="pending"){ %>
+            <button class="to_pay" id="pay">去支付</button>
+            <% }else if(order.status === "success" || order.status === "shipped"){ %>
+            <button class="done" id="done">确认收货</button>
+            <% } %>
+        </div>
     </div>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
@@ -188,8 +195,39 @@
                     return;
                 }
                 $("#order_body").html(template({"order":json.success}));
+                $("#pay").click(function () {
+                    ajax({
+                        type: "post",
+                        url: "/product/order/pay",
+                        data: {"orderID": id},
+                        success: function (json) {
+                            if(json.error){
+                                return;
+                            }
+                            window.location.href = json.success;
+                        }
+                    });
+                });
+                $("#done").click(function () {
+                    ajax({
+                        type: "post",
+                        url: "/product/order/done",
+                        data: {"orderID": id},
+                        success: function () {
+                            swal({
+                                title:"",
+                                text:"确认收货？",
+                                showCancelButton:true,
+                                cancelButtonText:"取消",
+                                confirmButtonText:"确认",
+                            },function () {
+                                window.location.reload();
+                            });
+                        }
+                    });
+                });
             }
-        })
+        });
     })
 </script>
 </html>

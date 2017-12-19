@@ -187,20 +187,26 @@ $color-main:#0fb87f;
       height: p2r(240);
       padding: p2r(20);
       background: #FFFFFF;
-      .SKU_img{
+      font-size: 0;
+      border-bottom: p2r(1) solid #e7e7e7;
+      .left{
         display: inline-block;
         width: 30%;
         height: p2r(200);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
         vertical-align: middle;
+        .SKU_img{
+          width: p2r(160);
+          height: p2r(160);
+          margin: p2r(20);
+          background-position: center;
+          background-size: cover;
+        }
       }
       .SKU_content{
         display: inline-block;
-        width: 60%;
+        width: 70%;
         height: p2r(200);
-        margin-left: p2r(20);
+        padding-left: p2r(10);
         vertical-align: middle;
         .SKU_name{
           width: 100%;

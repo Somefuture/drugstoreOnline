@@ -273,6 +273,28 @@ $line-border:p2r(1) solid #cccccc;
       font-size: p2r(30);
     }
   }
+  .btn{
+    width: 100%;
+    padding: p2r(10) p2r(20);
+    border-top: p2r(1) solid #e7e7e7;
+    text-align: right;
+    button{
+      width: p2r(180);
+      height: p2r(54);
+      border-radius: p2r(10);
+      font-size: p2r(28);
+      margin: p2r(5);
+    }
+    .to_pay{
+      background: #d9a86c;
+      color:#ffffff;
+    }
+    .done{
+      border: p2r(1) solid $color-main;
+      color:$color-main;
+      background: transparent;
+    }
+  }
   .settle_accounts{
     width: 100%;
     height: p2r(86);
