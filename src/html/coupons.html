@@ -69,7 +69,15 @@
 <script type="text/template" id="coupon_list_template">
     <ul class="coupon_lists">
         <% _.each(list,function(coupon){ %>
-        <li class="coupon coupon_<%= coupon.value %>">
+        <%
+            var coupon_status;
+            if(coupon.consumeAt||coupon.freezeAt){
+                coupon_status='coupon_used';
+            }else if(!coupon.available&&!coupon.consumeAt&&!coupon.freezeAt){
+                coupon_status='coupon_dated';
+            }
+        %>
+        <li class="coupon <%= coupon_status %>">
             <div class="coupon_value">
                 <span class="unit">￥</span>
                 <span class="value_num"><%= coupon.value %></span>

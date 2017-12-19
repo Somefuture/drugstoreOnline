@@ -118,45 +118,19 @@ $color-main:#0fb87f;
   .coupon_lists{
     .coupon{
       .coupon_value{
-        background: #d07fe0;
-      }
-      @include coupon_item;
-    }
-    .coupon_20{
-      .coupon_value{
         background: #6dce65;
       }
       @include coupon_item;
     }
-    .coupon_30{
+    .coupon_used{
       .coupon_value{
-        background: #64a8cd;
+        background: #e06b14;
       }
-      @include coupon_item;
     }
-    .coupon_40{
+    .coupon_dated{
       .coupon_value{
-        background: #65ceb0;
+        background: #acacac;
       }
-      @include coupon_item;
-    }
-    .coupon_50{
-      .coupon_value{
-        background: #d07fe0;
-      }
-      @include coupon_item;
-    }
-    .coupon_10{
-      .coupon_value{
-        background: #cea565;
-      }
-      @include coupon_item;
-    }
-    .coupon_5{
-      .coupon_value{
-        background: #c65ea5;
-      }
-      @include coupon_item;
     }
   }
 }
