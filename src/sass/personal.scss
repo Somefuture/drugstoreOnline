@@ -196,10 +196,13 @@ $color-main:#0fb87f;
     font-size: p2r(32);
     color: #171717;
     background: #f3f3f3;
+    position: relative;
+    text-indent: 1.5em;
     img{
-      width: p2r(50);
-      margin-right: p2r(10);
-      vertical-align:baseline;
+      position: absolute;
+      width: p2r(42);
+      top:p2r(32);
+      left:p2r(30);
     }
   }
   .info_item{
@@ -222,12 +225,18 @@ $color-main:#0fb87f;
 .info_alter{
   width: 94%;
   margin: 0 auto;
+  p{
+    font-size: p2r(24);
+    color:#666666;
+    padding-top: p2r(10);
+  }
   .alter_items{
     height: p2r(90);
     border-bottom: p2r(1) solid #e7e7e7;
     font-size: 0;
     input{
-      height: p2r(90);
+      height: p2r(70);
+      margin-top: p2r(20);
       background: transparent;
       font-size: p2r(24);
       vertical-align: middle;
