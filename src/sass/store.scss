@@ -73,7 +73,8 @@ $bottom-border:p2r(1) solid #e7e7e7;
         background: #FFFFFF;
         .pro_name{
           display: block;
-          margin: p2r(30) 0 p2r(30) p2r(16);
+          width: p2r(230);
+          margin: p2r(30) auto;
           font-size: p2r(30);
           color: #484848;
           overflow: hidden;
@@ -87,17 +88,12 @@ $bottom-border:p2r(1) solid #e7e7e7;
           background-size: cover;
           margin: auto;
         }
-        .pro_price,.sale_volume{
-          display: inline-block;
-          margin: p2r(16) 0 p2r(40) p2r(16) ;
-        }
         .pro_price{
+          display: block;
+          width: p2r(230);
+          margin: p2r(20) auto;
           font-size: p2r(34);
           color:#d9a86c;
-        }
-        .sale_volume{
-          font-size: p2r(24);
-          color:#7b7b7b;
         }
       }
     }
