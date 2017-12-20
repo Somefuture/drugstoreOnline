@@ -103,18 +103,23 @@
 
         get_coupons(userID);
 
-
         function get_coupons(id) {
             show_loader();
             ajax({
                 url: "/doctor/" + id + "/coupons/available",
                 complete: hide_loader,
                 success: function (json) {
-                    if(json.error || json.success.length === 0) {
-                        window.location.href = "/html/index.html";
-                    }
                     $("#coupon_body").css("display", "block");
                     $coupons.html(template({coupons: json.success}));
+                },
+                error: function (json) {
+                    swal({
+                            title: "",
+                            text: json.error.message,
+                            confirmButtonText: "确定"
+                        },
+                        go_app_mall
+                    );
                 }
             });
         }

@@ -20,17 +20,37 @@ function ajax(params) {
         params.complete && params.complete(response);
         if (response.status === 401 || response.status === 410) {
             window.location.href = "/html/login.html";
-        } else if (response.status >= 400) {
+        } else if (response.status >= 500) {
             swal("", "系统繁忙，请稍后再试。");
         }
     };
     final_params.success = function (json) {
         if (json.error) {
-            swal("", json.error.message);
+            if (final_params.error) {
+                final_params.error(json)
+            }else {
+                swal("", json.error.message);
+            }
+        }else {
+            params.success(json);
         }
-        params.success(json);
     };
     $.ajax(final_params);
+}
+
+function go_app_mall() {
+    try {
+        //尝试执行 IOS 回调
+        goBackAppMall()
+    }catch(error) {
+        //执行失败, 尝试执行 Android 回调
+        try {
+            ejia.goBackAppMall()
+        }catch(error) {
+            //执行失败, 跳转到首页
+            window.location.href = "/html/index.html";
+        }
+    }
 }
 
 function getJsonFromUrl(url) {

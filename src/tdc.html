@@ -64,22 +64,9 @@
                         swal({
                                 title: "",
                                 text: "您已经领过优惠券了，快去使用吧。",
-                                confirmButtonText: "立即使用",
+                                confirmButtonText: "立即使用"
                             },
-                            function () {
-                                try {
-                                    //尝试执行 IOS 回调
-                                    goBackAppMall()
-                                }catch(error) {
-                                    //执行失败, 尝试执行 Android 回调
-                                    try {
-                                        ejia.goBackAppMall()
-                                    }catch(error) {
-                                        //执行失败, 跳转到首页
-                                        window.location.href = "/html/index.html";
-                                    }
-                                }
-                            }
+                            go_app_mall
                         );
                     } else {
                         var ids = "";
