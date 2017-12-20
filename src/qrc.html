@@ -77,10 +77,10 @@
                 success: function () {
                     window.location.href = redirect_uri;
                 },
-                error: function (json) {
+                error: function () {
                     swal({
                             title: "",
-                            text: json.error.message,
+                            text: "请先登录",
                             confirmButtonText: "去登录"
                         },
                         function () {
