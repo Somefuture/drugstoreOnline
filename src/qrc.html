@@ -74,20 +74,19 @@
                 url: "/account/ticket/signin",
                 data: {ticket: ticket},
                 complete: hide_loader,
-                success: function (json) {
-                    if(json.error) {
-                        swal({
-                                title: "",
-                                text: "请先登录",
-                                confirmButtonText: "去登录",
-                            },
-                            function () {
-                                window.location.href = login_uri;
-                            }
-                        );
-                    }else {
-                        window.location.href = redirect_uri;
-                    }
+                success: function () {
+                    window.location.href = redirect_uri;
+                },
+                error: function (json) {
+                    swal({
+                            title: "",
+                            text: json.error.message,
+                            confirmButtonText: "去登录"
+                        },
+                        function () {
+                            window.location.href = login_uri;
+                        }
+                    );
                 }
             });
         }
