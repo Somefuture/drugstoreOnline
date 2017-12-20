@@ -83,20 +83,7 @@
         var $coupons = $("#coupon_list");
         var template = _.template($("#coupons_template").html());
 
-        $(".coupon_footer").click(function () {
-            try {
-                //尝试执行 IOS 回调
-                goBackAppMall()
-            }catch(error) {
-                //执行失败, 尝试执行 Android 回调
-                try {
-                    ejia.goBackAppMall()
-                }catch(error) {
-                    //执行失败, 跳转到首页
-                    window.location.href = "/html/index.html";
-                }
-            }
-        });
+        $(".coupon_footer").click(go_app_mall);
 
         get_coupons();
 
