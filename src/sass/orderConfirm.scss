@@ -246,7 +246,7 @@ $line-border:p2r(1) solid #cccccc;
       .invoice_type{
         float: right;
         font-size: p2r(24);
-        padding-top:p2r(8);
+        padding-top:p2r(18);
         margin-right: p2r(-10);
       }
     }
@@ -276,7 +276,6 @@ $line-border:p2r(1) solid #cccccc;
   .btn{
     width: 100%;
     padding: p2r(10) p2r(20);
-    border-top: p2r(1) solid #e7e7e7;
     text-align: right;
     button{
       width: p2r(180);
