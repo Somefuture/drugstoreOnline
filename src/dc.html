@@ -109,8 +109,12 @@
                 url: "/doctor/" + id + "/coupons/available",
                 complete: hide_loader,
                 success: function (json) {
-                    $("#coupon_body").css("display", "block");
-                    $coupons.html(template({coupons: json.success}));
+                    if (json.success.length) {
+                        $("#coupon_body").css("display", "block");
+                        $coupons.html(template({coupons: json.success}));
+                    }else {
+                        go_app_mall();
+                    }
                 },
                 error: function (json) {
                     swal({
