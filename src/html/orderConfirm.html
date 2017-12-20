@@ -396,15 +396,14 @@
                     }else if(invoice_data.type==="enterprise"){
                         invoice_data.name=$("#name").val();
                         invoice_data.taxIdentification=$("#taxIdentification").val();
-                        console.log(invoice_data.taxIdentification.length);
                         if(!invoice_data.taxIdentification){
                             swal("","请输入纳税人识别号");
                             return;
-                        } else if(invoice_data.taxIdentification.length!==15||invoice_data.taxIdentification.length!==18||invoice_data.taxIdentification.length!==20){
-                            swal("","纳税人识别号格式输入有误");
-                            return;
-                        }else if(!invoice_data.name){
+                        } else if(!invoice_data.name){
                             swal("","请输入抬头");
+                            return;
+                        }else if(invoice_data.taxIdentification.length!==15&&invoice_data.taxIdentification.length!==18&&invoice_data.taxIdentification.length!==20){
+                            swal("","请输入正确的纳税人识别号");
                             return;
                         }else{
                             ajax({
@@ -413,7 +412,6 @@
                                 data:invoice_data,
                                 success:function(json){
                                     if(json.error){
-                                        swal("","保存发票失败");
                                         return;
                                     }
                                     form_data.invoiceID=json.success;
