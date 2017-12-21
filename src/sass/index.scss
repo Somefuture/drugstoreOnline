@@ -55,11 +55,6 @@ $bottom-border:p2r(1) solid #e7e7e7;
 }
 .body {
   margin-bottom: p2r(200);
-  .banner {
-    width: 100%;
-    height: p2r(450);
-    background: #e7e7e7;
-  }
   .notice {
     width: 100%;
     border: 1px solid #e7e7e7;
@@ -399,6 +394,40 @@ $bottom-border:p2r(1) solid #e7e7e7;
       a {
         color: $color-main;
       }
+    }
+  }
+}
+
+.index_banner{
+  width: 100%;
+  height: p2r(450);
+  background: #f3f3f3;
+  position: relative;
+  .top_color{
+    width: 100%;
+    height: p2r(200);
+    background: $color-main;
+  }
+  .banner{
+    width: 100%;
+    height: p2r(450);
+    position: absolute;
+    top: 0;
+    background: transparent;
+    .swiper-container {
+      width: 100%;
+      height: p2r(450);
+    }
+    .swiper-slide {
+      background: #e7e7e7;
+      text-align: center;
+      height:p2r(400);
+      border-radius:20px;
+      overflow: hidden;
+    }
+    .swiper-slide-prev,.swiper-slide-next{
+      height:p2r(360);
+      margin-top: p2r(20);
     }
   }
 }
