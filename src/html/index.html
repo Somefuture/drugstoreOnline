@@ -252,7 +252,7 @@
 <script>
     $(document).ready(function(){
         var width = $(window).width();
-        var height = width * 550 / 997;
+        var height = width * 340 / 645;
 
         $(".knowledge").click(function(){
             swal("","功能开发建设中");
@@ -297,7 +297,11 @@
                         $("img.swiper-lazy").each(function () {
                             $(this).width(width);
                             $(this).height(height);
-                        })
+                        });
+                        $("img.swiper-lazy").each(function () {
+                            $(this).width(width);
+                            $(this).height(height);
+                        });
                     }
                 }
             });

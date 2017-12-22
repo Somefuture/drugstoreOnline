@@ -400,7 +400,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
 
 .index_banner{
   width: 100%;
-  height: p2r(450);
+  height: p2r(430);
   background: #f3f3f3;
   position: relative;
   .top_color{
@@ -410,24 +410,24 @@ $bottom-border:p2r(1) solid #e7e7e7;
   }
   .banner{
     width: 100%;
-    height: p2r(450);
+    height: p2r(430);
     position: absolute;
     top: 0;
     background: transparent;
     .swiper-container {
       width: 100%;
-      height: p2r(450);
+      height: p2r(430);
     }
     .swiper-slide {
       background: #e7e7e7;
       text-align: center;
-      height:p2r(400);
+      height:p2r(360);
       border-radius:12px;
       overflow: hidden;
 
     }
     .swiper-slide-prev,.swiper-slide-next{
-      height:p2r(360);
+      height:p2r(320);
       margin-top: p2r(20);
     }
   }
