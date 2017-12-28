@@ -95,6 +95,7 @@
             <span class="edit_btn" onclick="location='personalEdit.html'">编辑信息</span>
             <div class="person_avatar">
                 <div class="user_avatar">
+                    <input type="file" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp" id="file" class="upAvatar">
                     <% if(personal.portraitImage==null) {%>
                     <div class="avatar_img" style="background-image: url('/images/personal/avatar.png')"></div>
                     <%} else {%>
@@ -152,6 +153,7 @@
 <script>
 $(document).ready(function(){
     var personal_template = _.template($("#personal_template").html());
+
     ajax({
         url:"/user/session",
         success:function (json) {
@@ -168,7 +170,19 @@ $(document).ready(function(){
                     }
                     $("#point").html(Math.floor(point_json.success.balance));
                 }
-            })
+            });
+            $("#file").change(function () {
+                upload(function (json) {
+                    ajax({
+                        url:"/user/portrait_image/update",
+                        type:"post",
+                        data:{portraitImageID: json.success.id, portraitImageEXT: json.success.ext},
+                        success:function(json){
+                            window.location.href="/html/personal.html";
+                        }
+                    })
+                });
+            });
         }
     });
 });

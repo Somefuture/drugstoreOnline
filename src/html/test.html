@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件上传</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<input type="file" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp" id="file"/>
+<button id="hello">取得imgID</button>
+</body>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        var img=[];
+        function upload() {
+            var file = $(this)[0].files[0];
+            var fd = new FormData();
+            fd.append("file", file);
+            fd.append("name", file.name);
+            fd.append("mime", file.type);
+            fd.append("group", "public");
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "/file/upload", true);
+            xhr.setRequestHeader("X-Requested-With", "hec");
+            xhr.onload = function (json) {
+                if(xhr.status==200){
+                    img.push(JSON.parse(xhr.response).success);
+                }else if(xhr.status==401||xhr.status==410){
+                    window.location.href = "/html/login.html";
+                }else if(xhr.status>=500){
+                    swal("","系统繁忙，请稍后再试");
+                }
+            };
+            xhr.send(fd);
+        }
+        $("#file").change(upload);
+        $("#hello").click(function () {
+            console.log(img);
+        })
+    });
+</script>
+</html>

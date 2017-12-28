@@ -15,7 +15,8 @@ function getCookie(name)
 }
 
 function ajax(params) {
-    var final_params = $.extend({headers: {"X-Requested-With": "hec", "Cache-Control": "no-cache"}}, params);
+    var headers = $.extend(params.headers, {"X-Requested-With": "hec", "Cache-Control": "no-cache"});
+    var final_params = $.extend({headers: headers}, params);
     final_params.complete = function (response) {
         params.complete && params.complete(response);
         if (response.status === 401 || response.status === 410) {
@@ -27,7 +28,7 @@ function ajax(params) {
     final_params.success = function (json) {
         if (json.error) {
             if (final_params.error) {
-                final_params.error(json)
+                final_params.error(json);
             }else {
                 swal("", json.error.message);
             }
@@ -51,6 +52,27 @@ function go_app_mall() {
             window.location.href = "/html/index.html";
         }
     }
+}
+function upload(callback) {
+    var file = $("#file")[0].files[0];
+    var fd = new FormData();
+    fd.append("file", file);
+    fd.append("name", file.name);
+    fd.append("mime", file.type);
+    fd.append("group", "public");
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", "/file/upload", true);
+    xhr.setRequestHeader("X-Requested-With", "hec");
+    xhr.onload = function () {
+        if(xhr.status==200){
+            callback && callback(JSON.parse(xhr.response));
+        }else if(xhr.status==401||xhr.status==410){
+            window.location.href = "/html/login.html";
+        }else if(xhr.status>=500){
+            swal("","系统繁忙，请稍后再试");
+        }
+    };
+    xhr.send(fd);
 }
 
 function getJsonFromUrl(url) {

@@ -46,6 +46,14 @@ $color-main:#0fb87f;
         border-radius: p2r(216);
         border:p2r(5) solid rgba(255,255,255,.3);
         margin: 0 auto;
+        position: relative;
+        .upAvatar{
+          position: absolute;
+          width: p2r(210);
+          height: p2r(210);
+          top: 0;
+          left: 0;
+        }
         .avatar_img{
           width: p2r(200);
           height: p2r(200);
