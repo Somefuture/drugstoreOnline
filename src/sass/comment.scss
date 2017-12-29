@@ -3,6 +3,12 @@
   @return ($size/32)*1rem
 }
 $color-main:#0fb87f;
+@media only screen and (max-width: 375px) {
+  html {
+    font-size:16px;
+  }
+}
+
 .comment{
   background: #f3f3f3;
   ul{
@@ -49,7 +55,7 @@ $color-main:#0fb87f;
           padding: 0;
           li{
             display: inline-block;
-            margin: 0;
+            margin: 0 p2r(6) 0 0;
             padding:0;
             width: p2r(38);
             height: p2r(38);
@@ -142,26 +148,119 @@ $color-main:#0fb87f;
   }
   .comment_content{
     width: 100%;
-    padding: p2r(20);
-    background: #fafafa;
+    padding: 0 3%;
+    background: #FFFFFF;
     h2{
-      text-indent: 1em;
       font-size: p2r(32);
-      font-weight: normal;
-      color:#171717;
+      font-weight: bolder;
+      color:#333333;
       margin: p2r(18) 0;
     }
     textarea{
       display: block;
-      width: 96%;
+      width: 100%;
       height: p2r(200);
-      margin:0 auto;
+      margin:0;
       border:p2r(1) solid #e3e3e3;
-      border-radius: p2r(20);
+      border-radius: p2r(14);
       text-indent:1em;
       padding: p2r(10);
       font-size: p2r(28);
       color:#666666;
+    }
+  }
+  .comment_img{
+    width: 100%;
+    padding: p2r(20) 3% p2r(20) 3%;
+    overflow: hidden;
+    background: #FFFFFF;
+    h2{
+      font-size: p2r(32);
+      font-weight: bolder;
+      color:#333333;
+      margin: p2r(18) 0;
+      span{
+        font-size: p2r(24);
+        color:#999999;
+      }
+    }
+    @media only screen and (max-width: p2r(828)) {
+      .images {
+        margin: 0 auto;
+        max-width: p2r(700);
+        min-height: p2r(460);
+        .img {
+          height: p2r(220);
+          width: p2r(220);
+          margin: 0 p2r(20) p2r(20) 0;
+          float: left;
+          border:p2r(1) solid #e3e3e3;
+          border-radius: p2r(20);
+        }
+        .img:nth-child(3n){
+          margin-right: 0;
+        }
+        .addButton{
+          text-align: center;
+          position: relative;
+          div{
+            position: absolute;
+            top: p2r(50);
+            left:p2r(70);
+            width: p2r(80);
+            height: p2r(80);
+          }
+          span{
+            position: relative;
+            top: p2r(150);
+            font-size: p2r(28);
+            color:#999999;
+          }
+        }
+      }
+    }
+    @media only screen and (max-width: p2r(720)) {
+      .images {
+        margin: 0 auto;
+        max-width: p2r(460);
+        min-height: p2r(700);
+        .img {
+          height: p2r(220);
+          width: p2r(220);
+          margin: 0 p2r(20) p2r(20) 0;
+          float: left;
+          border:p2r(1) solid #e3e3e3;
+          border-radius: p2r(20);
+        }
+        .img:nth-child(2n){
+          margin-right: 0;
+        }
+        .img:nth-child(3){
+          margin-right: p2r(20);
+        }
+        .addButton{
+          text-align: center;
+          position: relative;
+          div{
+            position: absolute;
+            top: p2r(50);
+            left:p2r(70);
+            width: p2r(80);
+            height: p2r(80);
+          }
+          span{
+            position: relative;
+            top: p2r(150);
+            font-size: p2r(28);
+            color:#999999;
+          }
+        }
+      }
+    }
+    p{
+      padding-top: p2r(20);
+      font-size: p2r(28);
+      color:#999999;
     }
   }
   .submit_button{
@@ -194,7 +293,7 @@ $color-main:#0fb87f;
       color:#666666;
     }
     .count{
-      width: 40%;
+      width:p2r(120);
       margin: 0 auto;
       border-bottom: p2r(5) solid #0FB87F;
       color:#0FB87F;

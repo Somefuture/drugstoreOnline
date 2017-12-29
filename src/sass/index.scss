@@ -124,6 +124,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
     }
     .product {
       width: 100%;
+      font-size: 0;
       position: relative;
       .pro_one {
         width: 40%;
@@ -157,10 +158,10 @@ $bottom-border:p2r(1) solid #e7e7e7;
         }
       }
       .pro_two {
-        width: 58%;
+        width: 60%;
         height: p2r(204);
         position: absolute;
-        right: p2r(10);
+        right:0;
         top: 0;
         border-bottom: $bottom-border;
         h2 {

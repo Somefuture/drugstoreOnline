@@ -56,8 +56,11 @@
                     <span class="comment_time"><%=comment.firstPostCreateAt[0]%>-<%=comment.firstPostCreateAt[1]%>-<%=comment.firstPostCreateAt[2]%></span>
                 </div>
                 <ul class="score">
-                    <% for(var i=0;i<comment.score;i++){ %>
+                    <% for(var i=0; i<(comment.score);i++){ %>
                     <li style="background-image: url('/images/personal/personal_35.png')"></li>
+                    <% } %>
+                    <% for(var i=0; i<(5-comment.score);i++){ %>
+                    <li style="background-image: url('/images/personal/personal_38.png')"></li>
                     <% } %>
                 </ul>
                 <div class="describe">
