@@ -146,6 +146,34 @@ $color-main:#0fb87f;
       }
     }
   }
+  .firstPost{
+    width: 100%;
+    padding:0 3% p2r(20) 3%;
+    background: #FFFFFF;
+    p{
+      width: 100%;
+      padding-top: p2r(30);
+      line-height: 1.5;
+      border-top: p2r(1) solid #d1d1d1;
+      font-size: p2r(28);
+      color:#666;
+    }
+    .firstImgList{
+      width: 100%;
+      min-height: p2r(180);
+      margin-top: p2r(20);
+      .firstImg{
+        float: left;
+        width:p2r(160);
+        height:p2r(160);
+        border:p2r(1) solid #d1d1d1;
+        margin-right: p2r(20);
+      }
+      .firstImg:nth-child(4){
+        margin-right: 0;
+      }
+    }
+  }
   .comment_content{
     width: 100%;
     padding: 0 3%;

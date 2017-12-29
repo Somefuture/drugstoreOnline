@@ -21,7 +21,7 @@
     <meta name="browsermode" content="application">
     <!-- QQ应用模式 -->
     <meta name="x5-page-mode" content="app">
-    <title>我的订单</title>
+    <title>评价列表</title>
     <link type="text/css" rel="stylesheet" href="/css/normalize.css">
     <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
     <link type="text/css" rel="stylesheet" href="/css/index.css"/>
@@ -29,7 +29,7 @@
 </head>
 <body>
 <div class="shopping_header">
-    <p class="title">评价</p>
+    <p class="title">评价列表</p>
 </div>
 <div id="comment_order_list">
     <a href="/product/post/require_post/skus?drop=0&take=10" class="bottom_info">正在加载数据...</a>
@@ -93,9 +93,9 @@
                     <div class="buttons">
                         <button onclick="location='/html/orderDetail.html?id=<%= sku.orderID %>'">查看订单</button>
                         <% if(sku.productComboID===0) {%>
-                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>'">立即评价</button>
+                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>'">追加评价</button>
                         <% }else{ %>
-                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>&productComboID=<%= sku.productComboID%>'">立即评价</button>
+                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>&productComboID=<%= sku.productComboID%>'">追加评价</button>
                         <% } %>
                     </div>
                 </div>
