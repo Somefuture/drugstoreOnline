@@ -184,7 +184,7 @@ $color-main:#0fb87f;
         color:#999999;
       }
     }
-    @media only screen and (max-width: p2r(828)) {
+    @media only screen  and ( min-width:p2r(721)) {
       .images {
         margin: 0 auto;
         max-width: p2r(700);
@@ -203,6 +203,15 @@ $color-main:#0fb87f;
         .addButton{
           text-align: center;
           position: relative;
+          .upAvatar{
+            position: absolute;
+            width: p2r(210);
+            height: p2r(210);
+            top: 0;
+            left: 0;
+            opacity: 0;
+            z-index: 1000;
+          }
           div{
             position: absolute;
             top: p2r(50);
@@ -219,15 +228,15 @@ $color-main:#0fb87f;
         }
       }
     }
-    @media only screen and (max-width: p2r(720)) {
+    @media only screen and (max-width: p2r(720)) and ( min-width:p2r(500)) {
       .images {
         margin: 0 auto;
-        max-width: p2r(460);
+        max-width: p2r(480);
         min-height: p2r(700);
         .img {
           height: p2r(220);
           width: p2r(220);
-          margin: 0 p2r(20) p2r(20) 0;
+          margin: 0 p2r(30) p2r(20) 0;
           float: left;
           border:p2r(1) solid #e3e3e3;
           border-radius: p2r(20);
@@ -235,12 +244,18 @@ $color-main:#0fb87f;
         .img:nth-child(2n){
           margin-right: 0;
         }
-        .img:nth-child(3){
-          margin-right: p2r(20);
-        }
         .addButton{
           text-align: center;
           position: relative;
+          .upAvatar{
+            position: absolute;
+            width: p2r(210);
+            height: p2r(210);
+            top: 0;
+            left: 0;
+            opacity: 0;
+            z-index: 1000;
+          }
           div{
             position: absolute;
             top: p2r(50);

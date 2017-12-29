@@ -35,14 +35,15 @@
         <h2>晒图 <span>（最多5张哦~）</span></h2>
         <div class="images">
             <div class="img addButton">
+                <input type="file" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp" id="file" class="upAvatar">
                 <div class="cover" style="background-image: url('/images/tab/evaluate_08.png')"></div>
                 <span>添加照片</span>
             </div>
-            <div class='img'></div>
-            <div class='img'></div>
-            <div class='img'></div>
-            <div class='img'></div>
-            <div class="img"></div>
+            <div class='img cover'></div>
+            <div class='img cover'></div>
+            <div class='img cover'></div>
+            <div class='img cover'></div>
+            <div class="img cover"></div>
         </div>
         <p>为了帮助我们更好的解决问题，请上传照片。最多5张，每张不超过5M，支持JPG、BPM、PNG</p>
     </div>
@@ -77,14 +78,32 @@
 
         var comboID=get_query_string("productComboID")||undefined;
 
+        var imgConst=1;
+
         var data={
             orderID:orderID,
             skuID:id,
             comboID:comboID,
             score:0,
             firstPost:'',
-            postImages:undefined
-        }
+            postImages:[]
+        };
+
+        //传图
+        $("#file").change(function () {
+            if(imgConst>5){
+                swal("","最多上传5张图片");
+                return;
+            }else{
+                upload(function (json) {
+                    data.postImages.push(json.success);
+                    var imgUrl="/file/public/";
+                    imgUrl=imgUrl+json.success.id+"."+json.success.ext;
+                    $(".images .img")[imgConst].style.backgroundImage="url("+imgUrl+")";
+                    imgConst=imgConst+1;
+                });
+            }
+        });
 
 
         //星星打分
