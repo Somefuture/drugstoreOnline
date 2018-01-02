@@ -254,7 +254,7 @@ function stringify(object, opts) {
             obj = serializeDate(obj);
         } else if (obj === null) {
             if (strictNullHandling) {
-                return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder) : prefix;
+                return encoder && !encodeValuesOnly ? encoder(prefix, utils.encode) : prefix;
             }
 
             obj = '';
@@ -262,8 +262,8 @@ function stringify(object, opts) {
 
         if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || utils.isBuffer(obj)) {
             if (encoder) {
-                var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder);
-                return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder))];
+                var keyValue = encodeValuesOnly ? prefix : encoder(prefix, utils.encode);
+                return [formatter(keyValue) + '=' + formatter(encoder(obj, utils.encode))];
             }
             return [formatter(prefix) + '=' + formatter(String(obj))];
         }
