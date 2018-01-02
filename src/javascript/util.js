@@ -157,114 +157,230 @@ function to_decimal(x) {
     return s;
 }
 
+function stringify(object, opts) {
 
-function stringify( // eslint-disable-line func-name-matching
-    object,
-    prefix,
-    generateArrayPrefix,
-    strictNullHandling,
-    skipNulls,
-    encoder,
-    filter,
-    sort,
-    allowDots,
-    serializeDate,
-    formatter,
-    encodeValuesOnly
-) {
-    function isBuffer(obj) {
-        if (obj === null || typeof obj === 'undefined') {
-            return false;
+    var utils = {
+        encode: function encode(str) {
+            // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
+            // It has been adapted here for stricter adherence to RFC 3986
+            if (str.length === 0) {
+                return str;
+            }
+            var string = typeof str === 'string' ? str : String(str);
+            var out = '';
+            for (var i = 0; i < string.length; ++i) {
+                var c = string.charCodeAt(i);
+                if (
+                    c === 0x2D // -
+                    || c === 0x2E // .
+                    || c === 0x5F // _
+                    || c === 0x7E // ~
+                    || (c >= 0x30 && c <= 0x39) // 0-9
+                    || (c >= 0x41 && c <= 0x5A) // a-z
+                    || (c >= 0x61 && c <= 0x7A) // A-Z
+                ) {
+                    out += string.charAt(i);
+                    continue;
+                }
+                if (c < 0x80) {
+                    out = out + hexTable[c];
+                    continue;
+                }
+                if (c < 0x800) {
+                    out = out + (hexTable[0xC0 | (c >> 6)] + hexTable[0x80 | (c & 0x3F)]);
+                    continue;
+                }
+                if (c < 0xD800 || c >= 0xE000) {
+                    out = out + (hexTable[0xE0 | (c >> 12)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
+                    continue;
+                }
+                i += 1;
+                c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
+                out += hexTable[0xF0 | (c >> 18)]
+                    + hexTable[0x80 | ((c >> 12) & 0x3F)]
+                    + hexTable[0x80 | ((c >> 6) & 0x3F)]
+                    + hexTable[0x80 | (c & 0x3F)];
+            }
+            return out;
+        },
+        isBuffer: function isBuffer(obj) {
+            if (obj === null || typeof obj === 'undefined') {
+                return false;
+            }
+
+            return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
+        },
+        assign: function assignSingleSource(target, source) {
+            return Object.keys(source).reduce(function (acc, key) {
+                acc[key] = source[key];
+                return acc;
+            }, target);
+        }
+    };
+    var replace = String.prototype.replace;
+    var percentTwenties = /%20/g;
+    var formats = {
+        'default': 'RFC3986',
+        formatters: {
+            RFC1738: function (value) {
+                return replace.call(value, percentTwenties, '+');
+            },
+            RFC3986: function (value) {
+                return value;
+            }
+        },
+        RFC1738: 'RFC1738',
+        RFC3986: 'RFC3986'
+    };
+
+    function _stringify( // eslint-disable-line func-name-matching
+        object,
+        prefix,
+        generateArrayPrefix,
+        strictNullHandling,
+        skipNulls,
+        encoder,
+        filter,
+        sort,
+        allowDots,
+        serializeDate,
+        formatter,
+        encodeValuesOnly
+    ) {
+        var obj = object;
+        if (typeof filter === 'function') {
+            obj = filter(prefix, obj);
+        } else if (obj instanceof Date) {
+            obj = serializeDate(obj);
+        } else if (obj === null) {
+            if (strictNullHandling) {
+                return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder) : prefix;
+            }
+
+            obj = '';
         }
 
-        return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
-    }
-
-    function encode(str) {
-        // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
-        // It has been adapted here for stricter adherence to RFC 3986
-        if (str.length === 0) {
-            return str;
+        if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || utils.isBuffer(obj)) {
+            if (encoder) {
+                var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder);
+                return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder))];
+            }
+            return [formatter(prefix) + '=' + formatter(String(obj))];
         }
 
-        var string = typeof str === 'string' ? str : String(str);
+        var values = [];
 
-        var out = '';
-        for (var i = 0; i < string.length; ++i) {
-            var c = string.charCodeAt(i);
+        if (typeof obj === 'undefined') {
+            return values;
+        }
 
-            if (
-                c === 0x2D // -
-                || c === 0x2E // .
-                || c === 0x5F // _
-                || c === 0x7E // ~
-                || (c >= 0x30 && c <= 0x39) // 0-9
-                || (c >= 0x41 && c <= 0x5A) // a-z
-                || (c >= 0x61 && c <= 0x7A) // A-Z
-            ) {
-                out += string.charAt(i);
+        var objKeys;
+        if (Array.isArray(filter)) {
+            objKeys = filter;
+        } else {
+            var keys = Object.keys(obj);
+            objKeys = sort ? keys.sort(sort) : keys;
+        }
+
+        for (var i = 0; i < objKeys.length; ++i) {
+            var key = objKeys[i];
+
+            if (skipNulls && obj[key] === null) {
                 continue;
             }
 
-            if (c < 0x80) {
-                out = out + hexTable[c];
-                continue;
+            if (Array.isArray(obj)) {
+                values = values.concat(_stringify(
+                    obj[key],
+                    generateArrayPrefix(prefix, key),
+                    generateArrayPrefix,
+                    strictNullHandling,
+                    skipNulls,
+                    encoder,
+                    filter,
+                    sort,
+                    allowDots,
+                    serializeDate,
+                    formatter,
+                    encodeValuesOnly
+                ));
+            } else {
+                values = values.concat(_stringify(
+                    obj[key],
+                    prefix + (allowDots ? '.' + key : '[' + key + ']'),
+                    generateArrayPrefix,
+                    strictNullHandling,
+                    skipNulls,
+                    encoder,
+                    filter,
+                    sort,
+                    allowDots,
+                    serializeDate,
+                    formatter,
+                    encodeValuesOnly
+                ));
             }
-
-            if (c < 0x800) {
-                out = out + (hexTable[0xC0 | (c >> 6)] + hexTable[0x80 | (c & 0x3F)]);
-                continue;
-            }
-
-            if (c < 0xD800 || c >= 0xE000) {
-                out = out + (hexTable[0xE0 | (c >> 12)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
-                continue;
-            }
-
-            i += 1;
-            c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
-            out += hexTable[0xF0 | (c >> 18)]
-                + hexTable[0x80 | ((c >> 12) & 0x3F)]
-                + hexTable[0x80 | ((c >> 6) & 0x3F)]
-                + hexTable[0x80 | (c & 0x3F)];
         }
 
-        return out;
-    }
-
-    var obj = object;
-    if (typeof filter === 'function') {
-        obj = filter(prefix, obj);
-    } else if (obj instanceof Date) {
-        obj = serializeDate(obj);
-    } else if (obj === null) {
-        if (strictNullHandling) {
-            return encoder && !encodeValuesOnly ? encoder(prefix, encode) : prefix;
-        }
-
-        obj = '';
-    }
-
-    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || isBuffer(obj)) {
-        if (encoder) {
-            var keyValue = encodeValuesOnly ? prefix : encoder(prefix, encode);
-            return [formatter(keyValue) + '=' + formatter(encoder(obj, encode))];
-        }
-        return [formatter(prefix) + '=' + formatter(String(obj))];
-    }
-
-    var values = [];
-
-    if (typeof obj === 'undefined') {
         return values;
     }
 
+    var obj = object;
+    var options = opts ? utils.assign({}, opts) : {};
+
+    if (options.encoder !== null && options.encoder !== undefined && typeof options.encoder !== 'function') {
+        throw new TypeError('Encoder has to be a function.');
+    }
+
+    var delimiter = typeof options.delimiter === 'undefined' ? defaults.delimiter : options.delimiter;
+    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
+    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : defaults.skipNulls;
+    var encode = typeof options.encode === 'boolean' ? options.encode : defaults.encode;
+    var encoder = typeof options.encoder === 'function' ? options.encoder : defaults.encoder;
+    var sort = typeof options.sort === 'function' ? options.sort : null;
+    var allowDots = typeof options.allowDots === 'undefined' ? false : options.allowDots;
+    var serializeDate = typeof options.serializeDate === 'function' ? options.serializeDate : defaults.serializeDate;
+    var encodeValuesOnly = typeof options.encodeValuesOnly === 'boolean' ? options.encodeValuesOnly : defaults.encodeValuesOnly;
+    if (typeof options.format === 'undefined') {
+        options.format = formats['default'];
+    } else if (!Object.prototype.hasOwnProperty.call(formats.formatters, options.format)) {
+        throw new TypeError('Unknown format option provided.');
+    }
+    var formatter = formats.formatters[options.format];
     var objKeys;
-    if (Array.isArray(filter)) {
+    var filter;
+
+    if (typeof options.filter === 'function') {
+        filter = options.filter;
+        obj = filter('', obj);
+    } else if (Array.isArray(options.filter)) {
+        filter = options.filter;
         objKeys = filter;
+    }
+
+    var keys = [];
+
+    if (typeof obj !== 'object' || obj === null) {
+        return '';
+    }
+
+    var arrayFormat;
+    if (options.arrayFormat in arrayPrefixGenerators) {
+        arrayFormat = options.arrayFormat;
+    } else if ('indices' in options) {
+        arrayFormat = options.indices ? 'indices' : 'repeat';
     } else {
-        var keys = Object.keys(obj);
-        objKeys = sort ? keys.sort(sort) : keys;
+        arrayFormat = 'indices';
+    }
+
+    var generateArrayPrefix = arrayPrefixGenerators[arrayFormat];
+
+    if (!objKeys) {
+        objKeys = Object.keys(obj);
+    }
+
+    if (sort) {
+        objKeys.sort(sort);
     }
 
     for (var i = 0; i < objKeys.length; ++i) {
@@ -274,38 +390,24 @@ function stringify( // eslint-disable-line func-name-matching
             continue;
         }
 
-        if (Array.isArray(obj)) {
-            values = values.concat(stringify(
-                obj[key],
-                generateArrayPrefix(prefix, key),
-                generateArrayPrefix,
-                strictNullHandling,
-                skipNulls,
-                encoder,
-                filter,
-                sort,
-                allowDots,
-                serializeDate,
-                formatter,
-                encodeValuesOnly
-            ));
-        } else {
-            values = values.concat(stringify(
-                obj[key],
-                prefix + (allowDots ? '.' + key : '[' + key + ']'),
-                generateArrayPrefix,
-                strictNullHandling,
-                skipNulls,
-                encoder,
-                filter,
-                sort,
-                allowDots,
-                serializeDate,
-                formatter,
-                encodeValuesOnly
-            ));
-        }
+        keys = keys.concat(_stringify(
+            obj[key],
+            key,
+            generateArrayPrefix,
+            strictNullHandling,
+            skipNulls,
+            encode ? encoder : null,
+            filter,
+            sort,
+            allowDots,
+            serializeDate,
+            formatter,
+            encodeValuesOnly
+        ));
     }
 
-    return values;
+    var joined = keys.join(delimiter);
+    var prefix = options.addQueryPrefix === true ? '?' : '';
+
+    return joined.length > 0 ? prefix + joined : '';
 }
