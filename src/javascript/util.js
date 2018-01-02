@@ -159,6 +159,18 @@ function to_decimal(x) {
 
 function stringify(object, opts) {
 
+    var arrayPrefixGenerators = {
+        brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
+            return prefix + '[]';
+        },
+        indices: function indices(prefix, key) { // eslint-disable-line func-name-matching
+            return prefix + '[' + key + ']';
+        },
+        repeat: function repeat(prefix) { // eslint-disable-line func-name-matching
+            return prefix;
+        }
+    };
+
     var utils = {
         encode: function encode(str) {
             // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
