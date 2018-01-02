@@ -56,11 +56,11 @@
         <div class="SKU_content">
             <div class="SKU_name"><%= info.name %> <span id="quantity">X3</span></div>
             <ul class="score">
-                <li style="background-image: url('/images/personal/personal_38.png')"></li>
-                <li style="background-image: url('/images/personal/personal_38.png')"></li>
-                <li style="background-image: url('/images/personal/personal_38.png')"></li>
-                <li style="background-image: url('/images/personal/personal_38.png')"></li>
-                <li style="background-image: url('/images/personal/personal_38.png')"></li>
+                <li style="background-image: url('/images/personal/personal_35.png')"></li>
+                <li style="background-image: url('/images/personal/personal_35.png')"></li>
+                <li style="background-image: url('/images/personal/personal_35.png')"></li>
+                <li style="background-image: url('/images/personal/personal_35.png')"></li>
+                <li style="background-image: url('/images/personal/personal_35.png')"></li>
             </ul>
         </div>
     </div>
@@ -74,6 +74,7 @@
         var id=get_query_string("id");
         var orderID=get_query_string("orderID");
         var quantity=get_query_string("quantity");
+
         var template = _.template($("#info_template").html());
 
         var comboID=get_query_string("productComboID")||undefined;
@@ -82,11 +83,11 @@
 
         var data={
             orderID:orderID,
-            skuID:id,
-            comboID:comboID,
-            score:0,
-            firstPost:'',
-            postImages:[]
+            productSKUID:id,
+            productComboID:comboID,
+            score:5,
+            post:'',
+            images:[]
         };
 
         //传图
@@ -96,7 +97,7 @@
                 return;
             }else{
                 upload(function (json) {
-                    data.postImages.push(json.success);
+                    data.images.push(json.success);
                     var imgUrl="/file/public/";
                     imgUrl=imgUrl+json.success.id+"."+json.success.ext;
                     $(".images .img")[imgConst].style.backgroundImage="url("+imgUrl+")";
@@ -147,20 +148,21 @@
 
         //提交评价
         function subComment() {
-            data.firstPost=$("#comment").val();
+            data.post=$("#comment").val();
             if(!data.orderID){
                 swal("","无效的订单号");
-            }else if(!data.skuID){
+            }else if(!data.productSKUID){
                 swal("","无效的产品规格");
             }else if(data.score===0){
                 swal("","请给产品打分");
-            }else if(data.firstPost==="在此输入您的评价内容"||!data.firstPost){
+            }else if(data.post==="在此输入您的评价内容"||!data.post){
                 swal("","请输入您的评价详情");
             }else{
+                console.log(data);
                 ajax({
-                    url:"/product/post/first",
+                    url:"/product/post/post",
                     type:"post",
-                    data:data,
+                    data:stringify(data,{allowDots:true}),
                     success:function(json){
                         if(json.error){
                             swal("",json.error.message);
@@ -171,7 +173,7 @@
                                 text: "评价发表成功"
                             },
                             function () {
-                                window.location.href = '/html/comment_order.html';
+                                window.location.href = '/html/commentOrder.html';
                             }
                         );
                     }

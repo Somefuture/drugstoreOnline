@@ -116,6 +116,7 @@ function scroll_load_more(load_data_id, callback, notInit) {
             ajax({
                 url: url,
                 success: function (json) {
+                    data.success=json.success;
                     data.list = json.success.list;
                     data.count = json.success.count;
                     data.drop = data.drop + data.take;
@@ -349,7 +350,7 @@ function stringify(object, opts) {
 
     var delimiter = typeof options.delimiter === 'undefined' ? "&" : options.delimiter;
     var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : false;
-    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : dfalse;
+    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : false;
     var encode = typeof options.encode === 'boolean' ? options.encode : utils.encode;
     var encoder = typeof options.encoder === 'function' ? options.encoder : utils.encoder;
     var sort = typeof options.sort === 'function' ? options.sort : null;

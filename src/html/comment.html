@@ -45,15 +45,15 @@
         <% }else{ %>
         <% _.each(list,function(comment){ %>
         <li>
-            <% if(comment.portraitImage){ %>
-            <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>')"></div>
+            <% if(comment.image){ %>
+            <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.image.id%>.<%=comment.image.ext%>')"></div>
             <% }else{ %>
             <div class="user_avatar cover" style="background-image: url('/images/personal/avatar.png')"></div>
             <% } %>
             <div class="comment_detail">
                 <div class="detail_title">
                     <span class="user_name"><%=comment.userName%></span>
-                    <span class="comment_time"><%=comment.firstPostCreateAt[0]%>-<%=comment.firstPostCreateAt[1]%>-<%=comment.firstPostCreateAt[2]%></span>
+                    <span class="comment_time"><%=comment.post.postCreateAt[0]%>-<%=comment.post.postCreateAt[1]%>-<%=comment.post.postCreateAt[2]%></span>
                 </div>
                 <ul class="score">
                     <% for(var i=0; i<(comment.score);i++){ %>
@@ -64,16 +64,36 @@
                     <% } %>
                 </ul>
                 <div class="describe">
-                    <%=comment.firstPost%>
+                    <%=comment.post.post%>
                 </div>
-                <div class="product_SKU">
-                    <span class="product"><%=comment.skuName%></span>
+                <% if(comment.post.postImages.length>0){ %>
+                <div class="commentImg">
+                    <% _.each(comment.post.postImages,function(image){ %>
+                    <div class="imgs cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
+                    <% }); %>
                 </div>
+                <% } %>
+                <% if(comment.additionalPost){ %>
+                <div class="addComment">
+                    <span class="addIcon">追加…</span>
+                    <div class="describe"><%= comment.additionalPost.post %></div>
+                    <div class="commentImg">
+                        <% if(comment.additionalPost.postImages.length>0){
+                        _.each(comment.additionalPost.postImages,function(image){ %>
+                        <div class="imgs cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
+                        <% });} %>
+                    </div>
+                    <div class="addCommentDate">
+                        <%=comment.additionalPost.postCreateAt[0]%>-<%=comment.additionalPost.postCreateAt[1]%>-<%=comment.additionalPost.postCreateAt[2]%>
+                        <%=comment.additionalPost.postCreateAt[3]%>:<%=comment.additionalPost.postCreateAt[4]%>:<%=comment.additionalPost.postCreateAt[5]%>
+                    </div>
+                </div>
+                <% } %>
             </div>
         </li>
         <% }); %>
         <% if(drop < count){ %>
-        <a href="/product/post/by_product?productID=<%=id%>&drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <a href="/product/posts/by_product?productID=<%=id%>&drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
         <% } else { %>
         <span class="bottom_info">--- 已全部加载完毕 ---</span>
         <% }} %>
@@ -112,7 +132,7 @@
             $("#comment").append(template(data));
 
         }
-        $("#comment").append('<a href="/product/post/by_product?productID='+id+'&drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+        $("#comment").append('<a href="/product/posts/by_product?productID='+id+'&drop=0&take=10" class="bottom_info">正在加载数据...</a>');
         scroll_load_more("a.bottom_info", render);
     });
 </script>

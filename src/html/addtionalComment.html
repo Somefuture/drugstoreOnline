@@ -73,135 +73,114 @@
     <div class="submit_button">发表评论</div>
 </div>
 </body>
-<!--<script type="text/template" id="info_template">-->
-    <!--<div class="SKU_info">-->
-        <!--<div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>-->
-        <!--<div class="SKU_content">-->
-            <!--<div class="SKU_name"><%= info.name %> <span id="quantity">X3</span></div>-->
-            <!--<ul class="score">-->
-                <!--<li style="background-image: url('/images/personal/personal_38.png')"></li>-->
-                <!--<li style="background-image: url('/images/personal/personal_38.png')"></li>-->
-                <!--<li style="background-image: url('/images/personal/personal_38.png')"></li>-->
-                <!--<li style="background-image: url('/images/personal/personal_38.png')"></li>-->
-                <!--<li style="background-image: url('/images/personal/personal_38.png')"></li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</script>-->
+<script type="text/template" id="info_template">
+    <div class="SKU_info">
+        <div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>
+        <div class="SKU_content">
+            <div class="SKU_name"><%= info.skuName %> <span>X<%= info.quantity %></span></div>
+            <ul class="score">
+                <% for(var i=0; i<(info.score);i++){ %>
+                <li style="background-image: url('/images/personal/personal_35.png')"></li>
+                <% } %>
+                <% for(var i=0; i<(5-info.score);i++){ %>
+                <li style="background-image: url('/images/personal/personal_38.png')"></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <div class="firstPost">
+        <p><%= info.post.post %></p>
+        <div class="firstImgList">
+            <% _.each(info.post.postImages,function(image){ %>
+            <div class="firstImg cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
+            <% }); %>
+        </div>
+    </div>
+</script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
-<!--<script>-->
-    <!--$(document).ready(function () {-->
-        <!--var id=get_query_string("id");-->
-        <!--var orderID=get_query_string("orderID");-->
-        <!--var quantity=get_query_string("quantity");-->
-        <!--var template = _.template($("#info_template").html());-->
+<script>
+    $(document).ready(function () {
+        var id=get_query_string("id");
 
-        <!--var comboID=get_query_string("productComboID")||undefined;-->
+        var imgConst=1;
 
-        <!--var imgConst=1;-->
+        var template = _.template($("#info_template").html());
 
-        <!--var data={-->
-            <!--orderID:orderID,-->
-            <!--skuID:id,-->
-            <!--comboID:comboID,-->
-            <!--score:0,-->
-            <!--firstPost:'',-->
-            <!--postImages:[]-->
-        <!--};-->
+        var data={
+            id:id,
+            post:'',
+            images:[]
+        };
 
-        <!--//传图-->
-        <!--$("#file").change(function () {-->
-            <!--if(imgConst>5){-->
-                <!--swal("","最多上传5张图片");-->
-                <!--return;-->
-            <!--}else{-->
-                <!--upload(function (json) {-->
-                    <!--data.postImages.push(json.success);-->
-                    <!--var imgUrl="/file/public/";-->
-                    <!--imgUrl=imgUrl+json.success.id+"."+json.success.ext;-->
-                    <!--$(".images .img")[imgConst].style.backgroundImage="url("+imgUrl+")";-->
-                    <!--imgConst=imgConst+1;-->
-                <!--});-->
-            <!--}-->
-        <!--});-->
+        //传图
+        $("#file").change(function () {
+            if(imgConst>5){
+                swal("","最多上传5张图片");
+                return;
+            }else{
+                upload(function (json) {
+                    data.images.push(json.success);
+                    var imgUrl="/file/public/";
+                    imgUrl=imgUrl+json.success.id+"."+json.success.ext;
+                    $(".images .img")[imgConst].style.backgroundImage="url("+imgUrl+")";
+                    imgConst=imgConst+1;
+                });
+            }
+        });
 
 
-        <!--//星星打分-->
-        <!--function star() {-->
-            <!--var $this=$(this);-->
-            <!--var greenStar="background-image: url('/images/personal/personal_35.png')";-->
-            <!--var whiteStar="background-image: url('/images/personal/personal_38.png')";-->
-            <!--if($this.attr('style')===whiteStar){-->
-                <!--$this.attr("style",greenStar);-->
-                <!--$this.prevAll().attr("style",greenStar);-->
-            <!--}else{-->
-                <!--$this.nextAll().attr("style",whiteStar);-->
-            <!--}-->
-            <!--data.score=$this.prevAll().length+1;-->
-        <!--}-->
 
-        <!--//获取sku详情-->
-        <!--getSKU();-->
+        //获取评价详情
+        ajax({
+            url:"/product/post",
+            data:{id:id},
+            success:function (json) {
+                if(json.error){
+                    swal("","获取失败");
+                    return;
+                }else{
+                    $("#info").html(template({"info":json.success}));
+                }
+            }
+        });
 
-        <!--function getSKU() {-->
-            <!--ajax({-->
-                <!--url:"/product/sku",-->
-                <!--data:{id:id},-->
-                <!--success:function (json) {-->
-                    <!--if(json.error){-->
-                        <!--return;-->
-                    <!--}-->
-                    <!--$("#info").html(template({"info":json.success}));-->
-                    <!--$("#quantity").html("x"+quantity);-->
-                    <!--$(".score").delegate("li","click",star);-->
-                <!--}-->
-            <!--});-->
-        <!--}-->
+        //输入评价内容,自动获取焦点
+        $("#comment").click(function () {
+            $("#comment").attr("autofocus");
+            $("#comment").html("");
+        });
 
-
-        <!--//输入评价内容,自动获取焦点-->
-        <!--$("#comment").click(function () {-->
-            <!--$("#comment").attr("autofocus");-->
-            <!--$("#comment").html("");-->
-        <!--});-->
-
-        <!--//提交评价-->
-        <!--function subComment() {-->
-            <!--data.firstPost=$("#comment").val();-->
-            <!--if(!data.orderID){-->
-                <!--swal("","无效的订单号");-->
-            <!--}else if(!data.skuID){-->
-                <!--swal("","无效的产品规格");-->
-            <!--}else if(data.score===0){-->
-                <!--swal("","请给产品打分");-->
-            <!--}else if(data.firstPost==="在此输入您的评价内容"||!data.firstPost){-->
-                <!--swal("","请输入您的评价详情");-->
-            <!--}else{-->
-                <!--ajax({-->
-                    <!--url:"/product/post/first",-->
-                    <!--type:"post",-->
-                    <!--data:data,-->
-                    <!--success:function(json){-->
-                        <!--if(json.error){-->
-                            <!--swal("",json.error.message);-->
-                            <!--return;-->
-                        <!--}-->
-                        <!--swal({-->
-                                <!--title: "",-->
-                                <!--text: "评价发表成功"-->
-                            <!--},-->
-                            <!--function () {-->
-                                <!--window.location.href = '/html/comment_order.html';-->
-                            <!--}-->
-                        <!--);-->
-                    <!--}-->
-                <!--})-->
-            <!--}-->
-        <!--}-->
-        <!--$(".submit_button").click(subComment);-->
-    <!--});-->
-<!--</script>-->
+        //提交评价
+        function subComment() {
+            data.post=$("#comment").val();
+            if(data.post==="在此输入您的评价内容"||!data.post){
+                swal("","请输入您的评价详情");
+            }else{
+                ajax({
+                    url:"/product/post/additional",
+                    type:"post",
+                    data:stringify(data,{allowDots:true}),
+                    success:function(json){
+                        if(json.error){
+                            swal("",json.error.message);
+                            return;
+                        }
+                        swal({
+                                title: "",
+                                text: "追评发表成功"
+                            },
+                            function () {
+                                window.location.href = '/html/commentOrderDone.html';
+                            }
+                        );
+                    }
+                })
+            }
+        }
+        $(".submit_button").click(subComment);
+    });
+</script>
 </html>

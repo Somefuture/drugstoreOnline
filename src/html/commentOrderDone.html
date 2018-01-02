@@ -31,8 +31,24 @@
 <div class="shopping_header">
     <p class="title">评价列表</p>
 </div>
+<div class="status">
+    <div class="pending">
+        <a href="/html/commentOrder.html">
+            <h3>待评价</h3>
+            <div class="count" id="wait_comment">
+                0
+            </div>
+        </a>
+    </div>
+    <div class="done">
+        <h3>已评价</h3>
+        <div class="count" id="done_comment">
+            0
+        </div>
+    </div>
+</div>
 <div id="comment_order_list">
-    <a href="/product/post/require_post/skus?drop=0&take=10" class="bottom_info">正在加载数据...</a>
+    <a href="/product/posts?drop=0&take=10" class="bottom_info">正在加载数据...</a>
 </div>
 <div class="footer">
     <ul class="nav">
@@ -64,38 +80,30 @@
 </div>
 </body>
 <script type="text/template" id="comment_order_template">
-    <div class="status">
-        <div class="pending">
-            <a href="/html/comment_order.html">
-            <h3>待评价</h3>
-            <div class="count">
-                <%= list.length %>
-            </div>
-            </a>
-        </div>
-        <div class="done">
-                <h3>已评价</h3>
-                <div class="count" id="done_comment">
-                    999
-                </div>
-        </div>
-    </div>
+    <% if(count>0){ %>
     <ul class="comment_order">
         <% _.each(list,function(sku){ %>
         <li>
             <div class="SKU_info">
                 <div class="left"><div class="SKU_img" style="background-image: url('/file/public/<%= sku.image.id %>.<%= sku.image.ext %>')"></div></div>
                 <div class="SKU_content">
-                    <div class="SKU_name"><%= sku.name %> <span id="quantity">X<%= sku.quantity %></span></div>
+                    <div class="SKU_name"><%= sku.skuName %> <span id="quantity">X<%= sku.quantity %></span></div>
+                    <div class="SKU_describe">
+                        <% _.each(sku.specs,function(spec){ %>
+                        <span>
+                                <%= spec.keyName %>:<%= spec.value %>
+                            </span>
+                        <% }); %>
+                    </div>
                     <div class="SKU_price">
                         ￥<%= sku.salesPrice.toFixed(2) %>
                     </div>
                     <div class="buttons">
                         <button onclick="location='/html/orderDetail.html?id=<%= sku.orderID %>'">查看订单</button>
-                        <% if(sku.productComboID===0) {%>
-                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>'">追加评价</button>
+                        <% if(sku.additionalPost){ %>
+                        <button onclick="location='/html/commentDetail.html?id=<%= sku.id %>'">评价详情</button>
                         <% }else{ %>
-                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>&productComboID=<%= sku.productComboID%>'">追加评价</button>
+                        <button onclick="location='/html/addtionalComment.html?id=<%= sku.id %>'">追加评价</button>
                         <% } %>
                     </div>
                 </div>
@@ -103,11 +111,14 @@
         </li>
         <% }) %>
         <% if(drop < count){ %>
-        <a href="/product/post/require_post/skus?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <a href="/product/posts?drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
         <% } else { %>
         <span class="bottom_info">--- 已全部加载完毕 ---</span>
         <% } %>
     </ul>
+    <% }else{ %>
+        <p class="p">暂无已评价产品</p>
+    <% } %>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
@@ -120,6 +131,13 @@
         //获取数据列表并进行模板渲染
         function render(data) {
             $("#comment_order_list").append(template(data));
+            $("#done_comment").html(data.count);
+            ajax({
+                url:"/product/orders/skus/wait_post",
+                success:function (json) {
+                    $("#wait_comment").html(json.success.count);
+                }
+            });
         }
         scroll_load_more("a.bottom_info", render);
     });
