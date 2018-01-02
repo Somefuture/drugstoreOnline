@@ -215,6 +215,9 @@ function stringify(object, opts) {
                 acc[key] = source[key];
                 return acc;
             }, target);
+        },
+        serializeDate: function serializeDate(date) { // eslint-disable-line func-name-matching
+            return Date.prototype.toISOString.call(date);
         }
     };
     var replace = String.prototype.replace;
@@ -332,15 +335,15 @@ function stringify(object, opts) {
         throw new TypeError('Encoder has to be a function.');
     }
 
-    var delimiter = typeof options.delimiter === 'undefined' ? defaults.delimiter : options.delimiter;
-    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
-    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : defaults.skipNulls;
-    var encode = typeof options.encode === 'boolean' ? options.encode : defaults.encode;
-    var encoder = typeof options.encoder === 'function' ? options.encoder : defaults.encoder;
+    var delimiter = typeof options.delimiter === 'undefined' ? "&" : options.delimiter;
+    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : false;
+    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : dfalse;
+    var encode = typeof options.encode === 'boolean' ? options.encode : utils.encode;
+    var encoder = typeof options.encoder === 'function' ? options.encoder : utils.encoder;
     var sort = typeof options.sort === 'function' ? options.sort : null;
     var allowDots = typeof options.allowDots === 'undefined' ? false : options.allowDots;
-    var serializeDate = typeof options.serializeDate === 'function' ? options.serializeDate : defaults.serializeDate;
-    var encodeValuesOnly = typeof options.encodeValuesOnly === 'boolean' ? options.encodeValuesOnly : defaults.encodeValuesOnly;
+    var serializeDate = typeof options.serializeDate === 'function' ? options.serializeDate : utils.serializeDate;
+    var encodeValuesOnly = typeof options.encodeValuesOnly === 'boolean' ? options.encodeValuesOnly : false;
     if (typeof options.format === 'undefined') {
         options.format = formats['default'];
     } else if (!Object.prototype.hasOwnProperty.call(formats.formatters, options.format)) {
