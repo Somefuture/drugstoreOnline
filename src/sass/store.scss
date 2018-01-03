@@ -53,7 +53,6 @@ $bottom-border:p2r(1) solid #e7e7e7;
 }
 .store_body{
   background: #fafafa;
-  padding-bottom: p2r(140);
   .category{
     width: 100%;
     font-size: 0;
@@ -108,4 +107,5 @@ $bottom-border:p2r(1) solid #e7e7e7;
   text-align: center;
   color: rgb(172, 172, 172);
   font-size: p2r(28);
+  margin-bottom: p2r(100);
 }

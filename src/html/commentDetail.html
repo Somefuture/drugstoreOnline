@@ -67,7 +67,17 @@
         </div>
     </div>
     <div class="additionalPost">
-        <span class="addIcon">追加…</span>
+        <% for(i=0 ; i < info.additionalPost.postCreateAt.length;i++){
+                if(info.additionalPost.postCreateAt[i]<10){
+                    info.additionalPost.postCreateAt[i]="0"+info.additionalPost.postCreateAt[i];
+                }
+            }
+            var d1=new Date(Date.parse(info.post.postCreateAt[0]+'/'+info.post.postCreateAt[1]+'/'+info.post.postCreateAt[2]+' '+info.post.postCreateAt[3]+':'+info.post.postCreateAt[4]+':'+info.post.postCreateAt[5]));
+            var d2=new Date(Date.parse(info.additionalPost.postCreateAt[0]+'/'+info.additionalPost.postCreateAt[1]+'/'+info.additionalPost.postCreateAt[2]+' '+info.additionalPost.postCreateAt[3]+':'+info.additionalPost.postCreateAt[4]+':'+info.additionalPost.postCreateAt[5]));
+            var d3=d2.getTime()-d1.getTime();
+            var date=Math.floor(d3/(24*3600*1000));
+        %>
+        <span class="addIcon"><%= date %>天后追加评论</span>
         <p><%= info.additionalPost.post %></p>
         <div class="firstImgList">
             <% _.each(info.additionalPost.postImages,function(image){ %>
@@ -75,11 +85,6 @@
             <% }); %>
         </div>
         <div class="date">
-            <% for(i=0 ; i < info.additionalPost.postCreateAt.length;i++){
-            if(info.additionalPost.postCreateAt[i]<10){
-            info.additionalPost.postCreateAt[i]="0"+info.additionalPost.postCreateAt[i];
-            }
-            } %>
             <%=info.additionalPost.postCreateAt[0]%>-<%=info.additionalPost.postCreateAt[1]%>-<%=info.additionalPost.postCreateAt[2]%>
               <%=info.additionalPost.postCreateAt[3]%>:<%=info.additionalPost.postCreateAt[4]%>:<%=info.additionalPost.postCreateAt[5]%>
         </div>

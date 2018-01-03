@@ -3,7 +3,7 @@
   @return ($size/32)*1rem
 }
 $color-main:#0fb87f;
-
+//产品评价列表
 .comment{
   background: #f3f3f3;
   ul{
@@ -82,7 +82,7 @@ $color-main:#0fb87f;
             background: #91c46c;
             color:#FFFFFF;
             font-size: p2r(28);
-            padding: p2r(5) p2r(10);
+            padding: p2r(10) p2r(20);
             border-radius: p2r(5);
           }
           .describe{
@@ -114,20 +114,11 @@ $color-main:#0fb87f;
     }
   }
 }
-
+//创建评价&追加评价&评价详情
 .createComment{
   width: 100%;
   padding-bottom: p2r(100);
   overflow: hidden;
-  .orderId{
-    width: 100%;
-    height: p2r(70);
-    line-height: p2r(70);
-    background: #e7e7e7;
-    text-indent: 1em;
-    color: #666666;
-    font-size: p2r(28);
-  }
   .SKU_info{
     width:100%;
     height: p2r(240);
@@ -153,14 +144,19 @@ $color-main:#0fb87f;
         height: p2r(50);
         line-height: p2r(50);
         font-size: p2r(32);
-        color:#3c3c3c;
+        color:#333333;
         span{
           float: right;
           color: #999999;
         }
       }
       .specs{
+        width: 100%;
+        height: p2r(60);
+        line-height: p2r(60);
         padding: p2r(10) 0;
+        font-size: p2r(28);
+        color:#666666;
       }
       .score{
         width: 100%;
@@ -187,7 +183,7 @@ $color-main:#0fb87f;
       line-height: 1.5;
       border-top: p2r(1) solid #d1d1d1;
       font-size: p2r(28);
-      color:#666;
+      color:#666666;
     }
     @media only screen and (min-width: 370px){
       .firstImgList{
@@ -232,8 +228,8 @@ $color-main:#0fb87f;
       text-align: right;
       height: p2r(60);
       line-height: p2r(60);
-      font-size: p2r(28);
-      color:#666666;
+      font-size: p2r(24);
+      color:#999999;
       border-bottom: p2r(1) solid #d1d1d1;
     }
   }
@@ -245,7 +241,7 @@ $color-main:#0fb87f;
       background: #91c46c;
       color:#FFFFFF;
       font-size: p2r(28);
-      padding: p2r(5) p2r(10);
+      padding: p2r(10) p2r(20);
       border-radius: p2r(5);
     }
   }
@@ -259,6 +255,7 @@ $color-main:#0fb87f;
       font-weight: bolder;
       color:#333333;
       margin: p2r(18) 0;
+      padding-top: p2r(20);
     }
     textarea{
       display: block;
@@ -394,6 +391,7 @@ $color-main:#0fb87f;
     border-radius: p2r(16);
   }
 }
+//评价列表状态栏
 .status{
   width: 100%;
   height: p2r(105);
@@ -425,9 +423,9 @@ $color-main:#0fb87f;
     }
   }
 }
+//评价列表
 .comment_order{
   width: 100%;
-  padding-bottom: p2r(100);
   li{
     width: 100%;
     .SKU_info{
@@ -501,6 +499,7 @@ $color-main:#0fb87f;
     }
   }
 }
+//暂无待评价
 .p{
   text-align: center;
   font-size: p2r(28);

@@ -43,7 +43,7 @@
         <% if(list.length===0){ %>
             <p>暂无用户评价</p>
         <% }else{ %>
-        <% _.each(list,function(comment){ %>
+        <% _.each(list.reverse(),function(comment){ %>
         <li>
             <% if(comment.portraitImage.id!==0){ %>
             <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>')"></div>
@@ -58,7 +58,7 @@
                     comment.post.postCreateAt[i]="0"+comment.post.postCreateAt[i];
                     }
                     } %>
-                    <span class="comment_time"><%=comment.post.postCreateAt[0]%>-<%=comment.post.postCreateAt[1]%>-<%=comment.post.postCreateAt[2]%></span>
+                    <span class="comment_time"><%=comment.post.postCreateAt[0]%>-<%=comment.post.postCreateAt[1]%>-<%=comment.post.postCreateAt[2]%> <%=comment.post.postCreateAt[3]%>:<%=comment.post.postCreateAt[4]%>:<%=comment.post.postCreateAt[5]%></span>
                 </div>
                 <ul class="score">
                     <% for(var i=0; i<(comment.score);i++){ %>
@@ -80,7 +80,17 @@
                 <% } %>
                 <% if(comment.additionalPost){ %>
                 <div class="addComment">
-                    <span class="addIcon">追加…</span>
+                    <% for(i=0 ; i < comment.additionalPost.postCreateAt.length;i++){
+                    if(comment.additionalPost.postCreateAt[i]<10){
+                    comment.additionalPost.postCreateAt[i]="0"+comment.additionalPost.postCreateAt[i];
+                    }
+                    }
+                    var d1=new Date(Date.parse(comment.post.postCreateAt[0]+'/'+comment.post.postCreateAt[1]+'/'+comment.post.postCreateAt[2]+' '+comment.post.postCreateAt[3]+':'+comment.post.postCreateAt[4]+':'+comment.post.postCreateAt[5]));
+                    var d2=new Date(Date.parse(comment.additionalPost.postCreateAt[0]+'/'+comment.additionalPost.postCreateAt[1]+'/'+comment.additionalPost.postCreateAt[2]+' '+comment.additionalPost.postCreateAt[3]+':'+comment.additionalPost.postCreateAt[4]+':'+comment.additionalPost.postCreateAt[5]));
+                    var d3=d2.getTime()-d1.getTime();
+                    var date=Math.floor(d3/(24*3600*1000));
+                    %>
+                    <span class="addIcon"><%= date %>天后追加</span>
                     <div class="describe"><%= comment.additionalPost.post %></div>
                     <div class="commentImg">
                         <% if(comment.additionalPost.postImages.length>0){
@@ -89,11 +99,6 @@
                         <% });} %>
                     </div>
                     <div class="addCommentDate">
-                        <% for(i=0 ; i < comment.additionalPost.postCreateAt.length;i++){
-                        if(comment.additionalPost.postCreateAt[i]<10){
-                        comment.additionalPost.postCreateAt[i]="0"+comment.additionalPost.postCreateAt[i];
-                        }
-                        } %>
                         <%=comment.additionalPost.postCreateAt[0]%>-<%=comment.additionalPost.postCreateAt[1]%>-<%=comment.additionalPost.postCreateAt[2]%>
                         <%=comment.additionalPost.postCreateAt[3]%>:<%=comment.additionalPost.postCreateAt[4]%>:<%=comment.additionalPost.postCreateAt[5]%>
                     </div>

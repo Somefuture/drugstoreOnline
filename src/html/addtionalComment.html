@@ -55,6 +55,11 @@
         <div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>
         <div class="SKU_content">
             <div class="SKU_name"><%= info.skuName %> <span>X<%= info.quantity %></span></div>
+            <div class="specs">
+                <% _.each(info.specs,function(spec){ %>
+                <span><%= spec.keyName %></span>:<span><%= spec.value %></span>
+                <% }); %>
+            </div>
             <ul class="score">
                 <% for(var i=0; i<(info.score);i++){ %>
                 <li style="background-image: url('/images/personal/personal_35.png')"></li>
