@@ -166,6 +166,11 @@
             </tr>
             <tr>
                 <td>创建时间：</td>
+                <% for(i=0 ; i < order.createAt.length;i++){
+                    if(order.createAt[i]<10){
+                        order.createAt[i]="0"+order.createAt[i];
+                    }
+                } %>
                 <td><%= order.createAt[0] %>-<%= order.createAt[1] %>-<%= order.createAt[2] %> <%= order.createAt[3] %>:<%= order.createAt[4] %>:<%= order.createAt[5] %></td>
             </tr>
         </table>

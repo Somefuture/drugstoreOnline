@@ -53,6 +53,11 @@
             <div class="comment_detail">
                 <div class="detail_title">
                     <span class="user_name"><%=comment.userName%></span>
+                    <% for(i=0 ; i < comment.post.postCreateAt.length;i++){
+                    if(comment.post.postCreateAt[i]<10){
+                    comment.post.postCreateAt[i]="0"+comment.post.postCreateAt[i];
+                    }
+                    } %>
                     <span class="comment_time"><%=comment.post.postCreateAt[0]%>-<%=comment.post.postCreateAt[1]%>-<%=comment.post.postCreateAt[2]%></span>
                 </div>
                 <ul class="score">
@@ -84,6 +89,11 @@
                         <% });} %>
                     </div>
                     <div class="addCommentDate">
+                        <% for(i=0 ; i < comment.additionalPost.postCreateAt.length;i++){
+                        if(comment.additionalPost.postCreateAt[i]<10){
+                        comment.additionalPost.postCreateAt[i]="0"+comment.additionalPost.postCreateAt[i];
+                        }
+                        } %>
                         <%=comment.additionalPost.postCreateAt[0]%>-<%=comment.additionalPost.postCreateAt[1]%>-<%=comment.additionalPost.postCreateAt[2]%>
                         <%=comment.additionalPost.postCreateAt[3]%>:<%=comment.additionalPost.postCreateAt[4]%>:<%=comment.additionalPost.postCreateAt[5]%>
                     </div>

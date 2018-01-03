@@ -75,6 +75,16 @@
             <span class="title"><%= col.title %></span>
             <p class="summary"><%= col.summary %></p>
             <p class="during">
+                <% for(i=0 ; i < col.startAt.length;i++){
+                if(col.startAt[i]<10){
+                col.startAt[i]="0"+col.startAt[i];
+                }
+                } %>
+                <% for(i=0 ; i < col.endAt.length;i++){
+                if(col.endAt[i]<10){
+                col.endAt[i]="0"+col.endAt[i];
+                }
+                } %>
                 <%= col.startAt[0] %>.<%= col.startAt[1] %>.<%= col.startAt[2] %>~<%= col.endAt[0] %>.<%= col.endAt[1] %>.<%= col.endAt[2] %>
                 <span>详情</span>
             </p>
@@ -92,6 +102,16 @@
             <p class="summary"><%= col.summary %></p>
             <div class="img" style="background-image: url('/file/public/<%= col.image.id %>.<%= col.image.ext %>')"></div>
             <p class="during">
+                <% for(i=0 ; i < col.startAt.length;i++){
+                if(col.startAt[i]<10){
+                col.startAt[i]="0"+col.startAt[i];
+                }
+                } %>
+                <% for(i=0 ; i < col.endAt.length;i++){
+                if(col.endAt[i]<10){
+                col.endAt[i]="0"+col.endAt[i];
+                }
+                } %>
                 <%= col.startAt[0] %>.<%= col.startAt[1] %>.<%= col.startAt[2] %>~<%= col.endAt[0] %>.<%= col.endAt[1] %>.<%= col.endAt[2] %>
             </p>
         </li>

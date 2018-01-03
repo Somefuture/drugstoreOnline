@@ -57,6 +57,11 @@
             <% }); %>
         </div>
         <div class="date">
+            <% for(i=0 ; i < info.post.postCreateAt.length;i++){
+            if(info.post.postCreateAt[i]<10){
+            info.post.postCreateAt[i]="0"+info.post.postCreateAt[i];
+            }
+            } %>
             <%=info.post.postCreateAt[0]%>-<%=info.post.postCreateAt[1]%>-<%=info.post.postCreateAt[2]%>
               <%=info.post.postCreateAt[3]%>:<%=info.post.postCreateAt[4]%>:<%=info.post.postCreateAt[5]%>
         </div>
@@ -70,6 +75,11 @@
             <% }); %>
         </div>
         <div class="date">
+            <% for(i=0 ; i < info.additionalPost.postCreateAt.length;i++){
+            if(info.additionalPost.postCreateAt[i]<10){
+            info.additionalPost.postCreateAt[i]="0"+info.additionalPost.postCreateAt[i];
+            }
+            } %>
             <%=info.additionalPost.postCreateAt[0]%>-<%=info.additionalPost.postCreateAt[1]%>-<%=info.additionalPost.postCreateAt[2]%>
               <%=info.additionalPost.postCreateAt[3]%>:<%=info.additionalPost.postCreateAt[4]%>:<%=info.additionalPost.postCreateAt[5]%>
         </div>

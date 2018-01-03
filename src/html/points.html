@@ -73,6 +73,11 @@
             <h2>
                 <%= point.triggerBy %>
             </h2>
+            <% for(i=0 ; i < point.createAt.length;i++){
+            if(point.createAt[i]<10){
+            point.createAt[i]="0"+point.createAt[i];
+            }
+            } %>
             <span class="op_date"><%= point.createAt[0]%>/<%=point.createAt[1]%>/<%=point.createAt[2]%> <%=point.createAt[3]%>:<%=point.createAt[4]%>:<%=point.createAt[5] %></span>
             <% if(point.operation==="freeze"||point.operation==="deduct"){ %>
             <span class="total_value sub">
