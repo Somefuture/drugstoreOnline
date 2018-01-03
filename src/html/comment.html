@@ -85,10 +85,12 @@
                     comment.additionalPost.postCreateAt[i]="0"+comment.additionalPost.postCreateAt[i];
                     }
                     }
-                    var d1=new Date(Date.parse(comment.post.postCreateAt[0]+'/'+comment.post.postCreateAt[1]+'/'+comment.post.postCreateAt[2]+' '+comment.post.postCreateAt[3]+':'+comment.post.postCreateAt[4]+':'+comment.post.postCreateAt[5]));
-                    var d2=new Date(Date.parse(comment.additionalPost.postCreateAt[0]+'/'+comment.additionalPost.postCreateAt[1]+'/'+comment.additionalPost.postCreateAt[2]+' '+comment.additionalPost.postCreateAt[3]+':'+comment.additionalPost.postCreateAt[4]+':'+comment.additionalPost.postCreateAt[5]));
-                    var d3=d2.getTime()-d1.getTime();
-                    var date=Math.floor(d3/(24*3600*1000));
+                    function getDays(date1,date2){
+                    var day1=moment(date1).toDate();
+                    var day2=moment(date2).toDate();
+                    return (day2-day1)/(24*1000*3600);
+                    }
+                    var date=getDays([comment.post.postCreateAt[0],comment.post.postCreateAt[1]-1,comment.post.postCreateAt[2]],[comment.additionalPost.postCreateAt[0],comment.additionalPost.postCreateAt[1]-1,comment.additionalPost.postCreateAt[2]]);
                     %>
                     <span class="addIcon"><%= date %>天后追加</span>
                     <div class="describe"><%= comment.additionalPost.post %></div>
@@ -118,6 +120,7 @@
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/swiper.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/moment.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function () {
