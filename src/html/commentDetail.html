@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>评价</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="shopping_header">
+    <img src="/images/tab/tab_03.png" alt="" onclick="location='/html/commentOrderDone.html'">
+    <p class="title">评价详情</p>
+</div>
+<div class="createComment">
+    <div id="info"></div>
+</div>
+</body>
+<script type="text/template" id="info_template">
+    <div class="SKU_info">
+        <div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>
+        <div class="SKU_content">
+            <div class="SKU_name"><%= info.skuName %> <span>X<%= info.quantity %></span></div>
+            <div class="specs">
+                <% _.each(info.specs,function(spec){ %>
+                    <span><%= spec.keyName %></span>:<span><%= spec.value %></span>
+                <% }); %>
+            </div>
+            <ul class="score">
+                <% for(var i=0; i<(info.score);i++){ %>
+                <li style="background-image: url('/images/personal/personal_35.png')"></li>
+                <% } %>
+                <% for(var i=0; i<(5-info.score);i++){ %>
+                <li style="background-image: url('/images/personal/personal_38.png')"></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <div class="firstPost">
+        <p><%= info.post.post %></p>
+        <div class="firstImgList">
+            <% _.each(info.post.postImages,function(image){ %>
+            <div class="firstImg cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
+            <% }); %>
+        </div>
+        <div class="date">
+            <%=info.post.postCreateAt[0]%>-<%=info.post.postCreateAt[1]%>-<%=info.post.postCreateAt[2]%>
+              <%=info.post.postCreateAt[3]%>:<%=info.post.postCreateAt[4]%>:<%=info.post.postCreateAt[5]%>
+        </div>
+    </div>
+    <div class="additionalPost">
+        <span class="addIcon">追加…</span>
+        <p><%= info.additionalPost.post %></p>
+        <div class="firstImgList">
+            <% _.each(info.additionalPost.postImages,function(image){ %>
+            <div class="firstImg cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
+            <% }); %>
+        </div>
+        <div class="date">
+            <%=info.additionalPost.postCreateAt[0]%>-<%=info.additionalPost.postCreateAt[1]%>-<%=info.additionalPost.postCreateAt[2]%>
+              <%=info.additionalPost.postCreateAt[3]%>:<%=info.additionalPost.postCreateAt[4]%>:<%=info.additionalPost.postCreateAt[5]%>
+        </div>
+    </div>
+</script>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        var id=get_query_string("id");
+
+        var template = _.template($("#info_template").html());
+
+        //获取评价详情
+        ajax({
+            url:"/product/post",
+            data:{id:id},
+            success:function (json) {
+                if(json.error){
+                    swal("","获取失败");
+                    return;
+                }else{
+                    $("#info").html(template({"info":json.success}));
+                }
+            }
+        });
+
+    });
+</script>
+</html>

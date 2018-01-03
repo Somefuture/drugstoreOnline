@@ -82,7 +82,7 @@
 <script type="text/template" id="comment_order_template">
     <% if(count>0){ %>
     <ul class="comment_order">
-        <% _.each(list,function(sku){ %>
+        <% _.each(list.reverse(),function(sku){ %>
         <li>
             <div class="SKU_info">
                 <div class="left"><div class="SKU_img" style="background-image: url('/file/public/<%= sku.image.id %>.<%= sku.image.ext %>')"></div></div>
@@ -100,10 +100,10 @@
                     </div>
                     <div class="buttons">
                         <button onclick="location='/html/orderDetail.html?id=<%= sku.orderID %>'">查看订单</button>
-                        <% if(sku.productComboID) {%>
+                        <% if(!sku.productComboID) {%>
                         <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>'">立即评价</button>
                         <% }else{ %>
-                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>&productComboID=<%= sku.productComboID%>'">立即评价</button>
+                        <button onclick="location='/html/createComment.html?id=<%= sku.id %>&orderID=<%= sku.orderID %>&quantity=<%= sku.quantity %>&productComboID=<%= sku.productComboID %>'">立即评价</button>
                         <% } %>
                     </div>
                 </div>

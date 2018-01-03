@@ -45,8 +45,8 @@
         <% }else{ %>
         <% _.each(list,function(comment){ %>
         <li>
-            <% if(comment.image){ %>
-            <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.image.id%>.<%=comment.image.ext%>')"></div>
+            <% if(comment.portraitImage.id!==0){ %>
+            <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>')"></div>
             <% }else{ %>
             <div class="user_avatar cover" style="background-image: url('/images/personal/avatar.png')"></div>
             <% } %>
