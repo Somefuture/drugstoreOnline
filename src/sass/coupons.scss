@@ -3,6 +3,8 @@
   @return ($size/32)*1rem
 }
 $color-main:#0fb87f;
+
+//单个优惠券样式
 @mixin coupon_item{
   width: 94%;
   background: #FFFFFF;
@@ -79,9 +81,10 @@ $color-main:#0fb87f;
     }
   }
 }
+
+//优惠券列表
 .coupon_body{
   background: #fafafa;
-  padding-bottom: p2r(200);
   .coupon_category{
     display: none;
     width: 94%;
@@ -134,8 +137,9 @@ $color-main:#0fb87f;
     }
   }
 }
+
+//积分列表
 .total_body{
-  padding-bottom: p2r(200);
   .usable_total{
     width: 100%;
     height: p2r(250);

@@ -33,7 +33,7 @@
     <div class="SKU_info">
         <div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>
         <div class="SKU_content">
-            <div class="SKU_name"><%= info.skuName %> <span>X<%= info.quantity %></span></div>
+            <div class="SKU_name"><%= info.skuName %></div>
             <div class="specs">
                 <% _.each(info.specs,function(spec){ %>
                     <span><%= spec.keyName %></span>:<span><%= spec.value %></span>
@@ -51,11 +51,13 @@
     </div>
     <div class="firstPost">
         <p><%= info.post.post %></p>
+        <% if(info.post.postImages.length>0){ %>
         <div class="firstImgList">
             <% _.each(info.post.postImages,function(image){ %>
             <div class="firstImg cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
             <% }); %>
         </div>
+        <% } %>
         <div class="date">
             <% for(i=0 ; i < info.post.postCreateAt.length;i++){
             if(info.post.postCreateAt[i]<10){
@@ -81,11 +83,13 @@
         %>
         <span class="addIcon"><%= date %>天后追加评论</span>
         <p><%= info.additionalPost.post %></p>
+        <% if(info.additionalPost.postImages.length>0){ %>
         <div class="firstImgList">
             <% _.each(info.additionalPost.postImages,function(image){ %>
             <div class="firstImg cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
             <% }); %>
         </div>
+        <% } %>
         <div class="date">
             <%=info.additionalPost.postCreateAt[0]%>-<%=info.additionalPost.postCreateAt[1]%>-<%=info.additionalPost.postCreateAt[2]%>
               <%=info.additionalPost.postCreateAt[3]%>:<%=info.additionalPost.postCreateAt[4]%>:<%=info.additionalPost.postCreateAt[5]%>

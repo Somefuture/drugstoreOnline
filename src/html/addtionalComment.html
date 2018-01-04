@@ -72,11 +72,13 @@
     </div>
     <div class="firstPost">
         <p><%= info.post.post %></p>
+        <% if(info.post.postImages.length>0){ %>
         <div class="firstImgList">
             <% _.each(info.post.postImages,function(image){ %>
             <div class="firstImg cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
             <% }); %>
         </div>
+        <% } %>
     </div>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>

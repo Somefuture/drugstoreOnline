@@ -4,6 +4,7 @@
 }
 $color-main:#0fb87f;
 $line-border:p2r(1) solid #cccccc;
+//地址列表
 .address_body{
   width: 100%;
   margin-bottom: p2r(100);
@@ -85,6 +86,8 @@ $line-border:p2r(1) solid #cccccc;
     }
   }
 }
+
+//添加地址，编辑地址
 .edit_body {
   width: 100%;
   input{
