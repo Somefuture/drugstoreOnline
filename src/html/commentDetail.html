@@ -95,6 +95,28 @@
               <%=info.additionalPost.postCreateAt[3]%>:<%=info.additionalPost.postCreateAt[4]%>:<%=info.additionalPost.postCreateAt[5]%>
         </div>
     </div>
+    <% if(info.reply){ %>
+    <div class="additionalPost">
+        <% for(i=0 ; i < info.reply.postCreateAt.length;i++){
+        if(info.reply.postCreateAt[i]<10){
+        info.reply.postCreateAt[i]="0"+info.reply.postCreateAt[i];
+        }
+        }%>
+        <span class="addIcon">商家回复</span>
+        <p><%= info.reply.post %></p>
+        <% if(info.reply.postImages.length>0){ %>
+        <div class="firstImgList">
+            <% _.each(info.reply.postImages,function(image){ %>
+            <div class="firstImg cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
+            <% }); %>
+        </div>
+        <% } %>
+        <div class="date">
+            <%=info.reply.postCreateAt[0]%>-<%=info.reply.postCreateAt[1]%>-<%=info.reply.postCreateAt[2]%>
+            <%=info.reply.postCreateAt[3]%>:<%=info.reply.postCreateAt[4]%>:<%=info.reply.postCreateAt[5]%>
+        </div>
+    </div>
+    <% } %>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>

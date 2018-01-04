@@ -107,6 +107,27 @@
                 </div>
                 <% } %>
             </div>
+            <% if(comment.reply){ %>
+            <div class="reply">
+                <% for(i=0 ; i < comment.reply.postCreateAt.length;i++){
+                if(comment.reply.postCreateAt[i]<10){
+                    comment.reply.postCreateAt[i]="0"+comment.reply.postCreateAt[i];
+                    }
+                } %>
+                <span class="addIcon">商家回复</span>
+                <div class="describe"><%= comment.reply.post %></div>
+                <div class="commentImg">
+                    <% if(comment.reply.postImages.length>0){
+                    _.each(comment.reply.postImages,function(image){ %>
+                    <div class="imgs cover" style="background-image: url('/file/public/<%= image.id %>.<%= image.ext %>')"></div>
+                    <% });} %>
+                </div>
+                <div class="addCommentDate">
+                    <%=comment.reply.postCreateAt[0]%>-<%=comment.reply.postCreateAt[1]%>-<%=comment.reply.postCreateAt[2]%>
+                    <%=comment.reply.postCreateAt[3]%>:<%=comment.reply.postCreateAt[4]%>:<%=comment.reply.postCreateAt[5]%>
+                </div>
+            </div>
+            <% } %>
         </li>
         <% }); %>
         <% if(drop < count){ %>

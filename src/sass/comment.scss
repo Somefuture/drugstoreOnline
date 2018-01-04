@@ -7,18 +7,19 @@ $color-main:#0fb87f;
 .comment{
   background: #f3f3f3;
   ul{
-    width: 96%;
-    margin:0 auto;
+    width: 100%;
     li{
+      background: #FFFFFF;
       width: 100%;
-      padding: p2r(30) 0 p2r(20) 0;
+      padding: p2r(30) 2% 0 2%;
+      margin-bottom: p2r(16);
       overflow: hidden;
       border-bottom: p2r(1) solid #e7e7e7;
       .user_avatar{
         float: left;
         width: p2r(100);
         height: p2r(100);
-        margin-left: p2r(20);
+        margin-right: p2r(20);
         vertical-align: middle;
       }
       .comment_detail{
@@ -63,16 +64,19 @@ $color-main:#0fb87f;
         .describe{
           font-size: p2r(28);
           color:#666666;
+          margin-bottom: p2r(20);
         }
         .commentImg{
           margin-top: p2r(20);
-          min-height: p2r(160);
           .imgs{
             float: left;
             border:p2r(1) solid #d1d1d1;
-            width: p2r(160);
-            height: p2r(160);
-            margin:0 p2r(20) p2r(20) 0 ;
+            width: p2r(150);
+            height: p2r(150);
+            margin:0 p2r(16) p2r(16) 0 ;
+          }
+          .imgs:nth-child(3){
+            margin-right: 0;
           }
         }
         .addComment{
@@ -87,28 +91,51 @@ $color-main:#0fb87f;
           }
           .describe{
             margin-top: p2r(20);
+            font-size: p2r(28);
           }
           .addCommentDate{
+            clear:left;
             float: right;
             font-size: p2r(24);
             color:#999999;
-            margin-top: p2r(20);
+            margin: p2r(20) 0;
           }
         }
-        .product_SKU{
-          width: 100%;
-          height: p2r(40);
+      }
+      .reply{
+        width: 100%;
+        clear: both;
+        border-top: p2r(1) solid #d1d1d1;
+        margin-top: p2r(20);
+        padding:p2r(20) 0 0 20%;
+        overflow: hidden;
+        .imgs{
+          float: left;
+          border:p2r(1) solid #d1d1d1;
+          width: p2r(150);
+          height: p2r(150);
+          margin:0 p2r(16) p2r(16) 0 ;
+        }
+        .imgs:nth-child(3){
+          margin-right: 0;
+        }
+        .addIcon{
+          background: #91c46c;
+          color:#FFFFFF;
+          font-size: p2r(28);
+          padding: p2r(10) p2r(20);
+          border-radius: p2r(5);
+        }
+        .describe{
           margin: p2r(20) 0;
-          .product{
-            float: left;
-            color:#666666;
-            font-size: p2r(22);
-          }
-          .date{
-            float: right;
-            color:#b2b2b2;
-            font-size: p2r(22);
-          }
+          font-size: p2r(28);
+        }
+        .addCommentDate{
+          clear:left;
+          float: right;
+          font-size: p2r(24);
+          color:#999999;
+          margin: p2r(20) 0;
         }
       }
     }
@@ -187,16 +214,16 @@ $color-main:#0fb87f;
     }
     @media only screen and (min-width: 370px){
       .firstImgList{
-        max-width: p2r(750);
+        max-width: p2r(704);
         margin: p2r(20) auto 0 auto;
         min-height: p2r(180);
         overflow: hidden;
         .firstImg{
           float: left;
-          width:p2r(160);
-          height:p2r(160);
+          width:p2r(170);
+          height:p2r(170);
           border:p2r(1) solid #d1d1d1;
-          margin-right: p2r(20);
+          margin-right: p2r(8);
           margin-bottom: p2r(20);
         }
         .firstImg:nth-child(4){
@@ -206,19 +233,19 @@ $color-main:#0fb87f;
     }
     @media only screen and (max-width: 360px) {
       .firstImgList{
-        max-width: p2r(640);
+        max-width: p2r(584);
         margin: p2r(20) auto;
         min-height: p2r(170);
         overflow: hidden;
         .firstImg{
           float: left;
-          width:p2r(180);
-          height:p2r(180);
+          width:p2r(140);
+          height:p2r(140);
           border:p2r(1) solid #d1d1d1;
-          margin-right: p2r(20);
+          margin-right: p2r(8);
           margin-bottom: p2r(20);
         }
-        .firstImg:nth-child(3){
+        .firstImg:nth-child(4){
           margin-right: 0;
         }
       }
@@ -332,17 +359,16 @@ $color-main:#0fb87f;
     @media only screen and (max-width: p2r(720)) {
       .images {
         margin: 0 auto;
-        max-width: p2r(480);
-        min-height: p2r(700);
+        max-width: p2r(580);
         .img {
-          height: p2r(220);
-          width: p2r(220);
-          margin: 0 p2r(30) p2r(20) 0;
+          height: p2r(180);
+          width: p2r(180);
+          margin: 0 p2r(20) p2r(20) 0;
           float: left;
           border:p2r(1) solid #e3e3e3;
           border-radius: p2r(10);
         }
-        .img:nth-child(2n){
+        .img:nth-child(3n){
           margin-right: 0;
         }
         .addButton{
@@ -350,8 +376,8 @@ $color-main:#0fb87f;
           position: relative;
           .upAvatar{
             position: absolute;
-            width: p2r(210);
-            height: p2r(210);
+            width: p2r(180);
+            height: p2r(180);
             top: 0;
             left: 0;
             opacity: 0;
@@ -359,14 +385,14 @@ $color-main:#0fb87f;
           }
           div{
             position: absolute;
-            top: p2r(50);
-            left:p2r(70);
-            width: p2r(80);
-            height: p2r(80);
+            top: p2r(40);
+            left:p2r(55);
+            width: p2r(70);
+            height: p2r(70);
           }
           span{
             position: relative;
-            top: p2r(150);
+            top: p2r(120);
             font-size: p2r(28);
             color:#999999;
           }
@@ -374,6 +400,7 @@ $color-main:#0fb87f;
       }
     }
     p{
+      clear:left;
       padding-top: p2r(20);
       font-size: p2r(28);
       color:#999999;
