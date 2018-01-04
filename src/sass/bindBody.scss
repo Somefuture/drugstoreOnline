@@ -2,6 +2,8 @@
 @function p2r($size) {
   @return ($size/32)*1rem
 }
+
+//绑定手机页面
 .bindBody{
   width: 100%;
   height: 100%;
@@ -39,6 +41,14 @@
         color:#999999;
         background: transparent;
       }
+      input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+        color: #999999;
+        font-size: p2r(32);
+      }
+      input:-moz-placeholder, textarea:-moz-placeholder {
+        color: #999999;
+        font-size: p2r(32);
+      }
     }
     .operationItems:nth-child(3){
       border-bottom: none;
@@ -63,9 +73,117 @@
     height:p2r(88);
     margin: p2r(100) auto;
     line-height: p2r(88);
-    font-size: p2r(32);
+    font-size: p2r(36);
     border-radius: p2r(5);
     color:#FFFFFF;
     background: #0FB87F;
+  }
+}
+
+//登录页面
+.login{
+  width: 100%;
+  height: p2r(1334);
+  overflow: hidden;
+  .logo{
+    width: p2r(200);
+    height: p2r(200);
+    margin: p2r(120) auto p2r(60) auto;
+  }
+  .login_form{
+    width: 100%;
+    padding:0 p2r(50);
+    .item{
+      width: 100%;
+      height: p2r(88);
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.5);
+      position: relative;
+      .seePsw{
+        position: absolute;
+        width: p2r(40);
+        height: p2r(40);
+        top: 0;
+        right: 0;
+      }
+      img{
+        width: p2r(40);
+        height: p2r(40);
+        margin-top: p2r(28);
+      }
+      input{
+        width: 70%;
+        height: p2r(88);
+        line-height: p2r(70);
+        font-size: p2r(32);
+        background: transparent;
+        color:white;
+      }
+      input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+        color: #FFFFFF;
+        font-size: p2r(32);
+      }
+      input:-moz-placeholder, textarea:-moz-placeholder {
+        color: #ffffff;
+        font-size: p2r(32);
+      }
+    }
+  }
+  .loginBtn{
+    width: p2r(600);
+    height: p2r(100);
+    line-height: p2r(100);
+    background: #0FB87F;
+    text-align: center;
+    margin: p2r(80) auto 0 auto;
+    font-size: p2r(36);
+    color:#FFFFFF;
+    border-radius: p2r(10);
+  }
+  .otherOp{
+    width: 100%;
+    padding: p2r(50);
+    color:#FFFFFF;
+    font-size: p2r(28);
+    .forget{
+      float: right;
+      color:#0FB87F;
+    }
+  }
+  .otherLogin{
+    width: 100%;
+    padding: p2r(200) p2r(90) 0 p2r(90);
+    text-align: center;
+    .slogan{
+      width: 100%;
+      height: p2r(40);
+      line-height: p2r(40);
+      font-size: p2r(28);
+      color:#666666;
+      span{
+        display: inline-block;
+        width: 20%;
+        height: p2r(2);
+        background: #666666;
+        vertical-align: middle;
+      }
+    }
+    .ways{
+      width: p2r(415);
+      height: p2r(125);
+      margin: 0 auto;
+      padding-top: p2r(40);
+      .way{
+        float: left;
+        width: p2r(84);
+        height: p2r(84);
+        margin-right: p2r(80);
+        background-size: cover;
+        background-position: center;
+      }
+      .way:nth-child(3){
+        margin-right: 0;
+      }
+    }
   }
 }

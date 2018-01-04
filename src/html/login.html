@@ -4,29 +4,40 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
 		<title>登录</title>
-		<link rel="stylesheet" type="text/css" href="/css/login.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/sweetalert.css"/>
+		<link rel="stylesheet" href="/css/normalize.css">
+		<link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/index.css">
 	</head>
 	<body>
-		<div class="lo-img">
-			<img src="/images/imgs/logo.png" />
-		</div>
-		<div class="lo-ipt-box" id="user_form">
-			<div class="lo-ipt div-flex">
-				<img src="/images/imgs/login_04.png" />
-				<input type="text" id="username" placeholder="用户名"/>
-			</div>
-			<div class="lo-ipt div-flex">
-				<img src="/images/imgs/login_07.png" />
-				<input type="password" id="password" placeholder="密码"/>
-			</div>
-			<button id="login">登 录</button>
-			<div class="lo-more div-flex">
-				<div class="one-flex align-l">
-					<span id="register">注册新用户</span>
+		<div class="cover login" style="background-image: url('/images/imgs/login.png')">
+			<div class="cover logo" style="background-image: url('/images/imgs/logo.png')"></div>
+			<div class="login_form">
+				<div class="item">
+					<img src="/images/evaluate/evaluate2_02.png" alt="">
+					<input type="number" id="username" placeholder="请输入手机号码">
 				</div>
-				<div class="one-flex align-r">
-					<span id="forget_password">忘记密码？</span>
+				<div class="item">
+					<div class="seePsw"><img src="/images/evaluate/evaluate2_04.png" alt=""></div>
+					<img src="/images/evaluate/evaluate2_03.png" alt="">
+					<input type="password" id="password" placeholder="请设置您的密码">
+				</div>
+			</div>
+			<div class="loginBtn" id="login">登录</div>
+			<div class="otherOp">
+				<span class="register">注册新用户</span>
+				<span class="forget">忘记密码？</span>
+			</div>
+			<div class="otherLogin">
+				<div class="slogan">
+					<span class="line"></span>
+					使用第三方快速登录
+					<span class="line"></span>
+				</div>
+				<div class="ways">
+					<div class="way" style="background-image: url('/images/evaluate/evaluate2_05.png')"></div>
+					<div class="way" style="background-image: url('/images/evaluate/evaluate2_06.png')"></div>
+					<div class="way" style="background-image: url('/images/evaluate/evaluate2_11.png')"></div>
 				</div>
 			</div>
 		</div>
@@ -40,13 +51,21 @@
             var show_swal = false;
             var redirect_uri = get_query_string("r");
 
-            $("#register").click(function () {
+            $(".register").click(function () {
                 window.location.href = "/html/register.html" + (redirect_uri ? ("?r=" + escape(redirect_uri)) : "");
             });
 
-            $("#forget_password").click(function () {
+            $(".forget").click(function () {
                 window.location.href = "/html/changePassword.html" + (redirect_uri ? ("?r=" + escape(redirect_uri)) : "");
             });
+
+            $(".seePsw").click(function () {
+                if($("#password").attr("type")=="password"){
+                    $("#password").attr("type","text");
+				}else{
+                    $("#password").attr("type","password");
+				}
+            })
 
             function login() {
                 var username = $("#username").val();
