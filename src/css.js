@@ -10,3 +10,4 @@ require('./sass/personal.scss');
 require('./sass/coupons.scss');
 require('./sass/utils.scss');
 require('./sass/info.scss');
+require('./sass/bindBody.scss');

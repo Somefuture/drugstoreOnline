@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>修改密码</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/css/swiper.css" />
+    <link type="text/css" rel="stylesheet" href="/css/sweetalert.css" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="shopping_header">
+    <p class="title">绑定手机</p>
+</div>
+<div class="bindBody">
+    <div class="notice">
+        绑定手机，让你的账号更安全！享受更多服务！
+    </div>
+    <div class="bindOperation">
+        <div class="operationItems">
+            <img src="/images/evaluate/evaluate2_08.png" alt="">
+            <input type="number" placeholder="请输入手机号码" id="mobile">
+        </div>
+        <div class="operationItems">
+            <img src="/images/evaluate/evaluate2_09.png" alt="">
+            <input type="password" placeholder="请设置您的密码" id="password">
+        </div>
+        <div class="operationItems">
+            <img src="/images/evaluate/evaluate2_10.png" alt="">
+            <input type="text" placeholder="请输入验证码" id="verification_code">
+            <input type="button" id="verification_code_btn" class="verification_code_btn" value="获取验证码">
+        </div>
+    </div>
+    <input type="button" id="finish_btn" class="finish_btn" value="下一步">
+</div>
+<div class="footer">
+    <ul class="nav">
+        <li>
+            <a href="index.html">
+                <img src="/images/tab/tab_32.png" alt="">
+                首页
+            </a>
+        </li>
+        <li>
+            <a href="store.html">
+                <img src="/images/tab/tab_36.png" alt="">
+                精品商城
+            </a>
+        </li>
+        <li>
+            <a href="shoppingCar.html">
+                <img src="/images/tab/tab_38.png" alt="">
+                我的药箱
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="/images/tab/tab_40.png" alt="">
+                个人中心
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="/javascript/jquery-3.2.1.min.js"></script>
+<script src="/javascript/sweetalert.min.js"></script>
+<script src="/javascript/underscore-1.8.3.min.js"></script>
+<script src="/javascript/util.js"></script>
+<script>
+    $(document).ready(function () {
+        var show_swal = false;
+        var redirect_uri = get_query_string("r");
+
+        $("#verification_code_btn").click(get_verification_code);
+        $("#finish_btn").click(changePassword);
+
+        function changePassword() {
+            var mobile = $("#mobile").val();
+            var verification_code= $("#verification_code").val();
+            var password = $("#password").val();
+            if (!password) {
+                show_swal = true;
+                swal("", "请输入密码");
+            }else if(!verification_code){
+                show_swal = true;
+                swal("", "请输入验证码");
+            }else if(verification_code.length!==6){
+                show_swal = true;
+                swal("", "验证码格式有误");
+            } else if(password.length<6||password.length>20){
+                show_swal = true;
+                swal("", "密码格式有误");
+            }else {
+                ajax({
+                    type: "post",
+                    url: "/account/mobile/password_reset",
+                    data: {mobile: mobile,password:password,authentication_code:verification_code},
+                    success: function (json) {
+                        if(!json.error){
+                            show_swal=true;
+                            swal({
+                                    title:"",
+                                    text:"密码修改成功,请重新登陆"
+                                },
+                                function(){
+                                    window.localStorage.removeItem('userId');
+                                    window.location.href = "/html/login.html" + (redirect_uri ? ("?r=" + escape(redirect_uri)) : "");
+                                }
+                            );
+                        }
+                    }
+                });
+            }
+        }
+        function get_verification_code() {
+            var mobile = $("#mobile").val();
+            if(!mobile){
+                show_swal = true;
+                swal("","请输入手机号码");
+            }else if(mobile.length!==11){
+                show_swal = true;
+                swal("","手机号输入有误");
+            }else{
+                var nums=60;
+                function sendCode()
+                {
+                    btn =$("#verification_code_btn")[0];
+                    btn.disabled = true; //将按钮置为不可点击
+                    btn.value = nums+'秒';
+                    clock = setInterval(doLoop, 1000); //一秒执行一次
+                }
+                function doLoop()
+                {
+                    nums--;
+                    if(nums > 0){
+                        btn.value = nums+'秒后重新获取';
+                    }else{
+                        clearInterval(clock); //清除js定时器
+                        btn.disabled = false;
+                        btn.value = '获取验证码';
+                        nums = 60; //重置时间
+                    }
+                }
+                ajax({
+                    type: "post",
+                    url: "/account/mobile/password_reset/authentication_code/send",
+                    data: {mobile: mobile},
+                    success: function (json) {
+                        if(!json.error){
+                            show_swal=true;
+                            swal("","验证码发送成功,请注意查收");
+                            sendCode();
+                        }
+                    }
+                })
+            }
+        }
+    });
+
+
+</script>
+
+</html>

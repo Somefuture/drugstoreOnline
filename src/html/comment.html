@@ -43,7 +43,7 @@
         <% if(list.length===0){ %>
             <p>暂无用户评价</p>
         <% }else{ %>
-        <% _.each(list.reverse(),function(comment){ %>
+        <% _.each(list,function(comment){ %>
         <li>
             <% if(comment.portraitImage.id!==0){ %>
             <div class="user_avatar cover" style="background-image: url('/file/public/<%=comment.portraitImage.id%>.<%=comment.portraitImage.ext%>')"></div>
