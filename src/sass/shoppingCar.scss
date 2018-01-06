@@ -104,10 +104,11 @@ body{
           height: p2r(140);
           position: relative;
           .name {
-            font-size: p2r(32);
+            font-size: p2r(28);
             line-height: p2r(50);
             float: left;
             width: 60%;
+            color:#3c3c3c;
           }
           .row-1-1 {
             float: right;

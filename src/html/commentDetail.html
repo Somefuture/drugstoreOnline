@@ -31,12 +31,12 @@
 </body>
 <script type="text/template" id="info_template">
     <div class="SKU_info">
-        <div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>
+        <div class="SKU_img" style="background-image: url('/file/public/<%= info.sku.image.id %>.<%= info.sku.image.ext %>')"></div>
         <div class="SKU_content">
-            <div class="SKU_name"><%= info.skuName %></div>
+            <div class="SKU_name"><%= info.sku.name %></div>
             <div class="specs">
-                <% _.each(info.specs,function(spec){ %>
-                    <span><%= spec.keyName %></span>:<span><%= spec.value %></span>
+                <% _.each(info.sku.specs,function(spec){ %>
+                    <span><%= spec.value %></span>
                 <% }); %>
             </div>
             <ul class="score">

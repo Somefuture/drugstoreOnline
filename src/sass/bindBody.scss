@@ -3,83 +3,6 @@
   @return ($size/32)*1rem
 }
 
-//绑定手机页面
-.bindBody{
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background: #f3f3f3;
-  .notice{
-    width: 100%;
-    height: p2r(100);
-    line-height: p2r(100);
-    font-size: p2r(28);
-    color:#999999;
-    text-align: center;
-  }
-  .bindOperation{
-    width: 100%;
-    background: #FFFFFF;
-    padding:0 p2r(20);
-    font-size: 0;
-    .operationItems{
-      width: 100%;
-      height: p2r(100);
-      border-bottom: p2r(2) solid #f3f3f3;
-      img{
-        width: p2r(40);
-        height: p2r(40);
-        margin: p2r(22) p2r(8) p2r(38) 0;
-        vertical-align: middle;
-      }
-      input{
-        width: 60%;
-        height: p2r(100);
-        line-height: p2r(100);
-        vertical-align: middle;
-        font-size: p2r(32);
-        color:#999999;
-        background: transparent;
-      }
-      input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-        color: #999999;
-        font-size: p2r(32);
-      }
-      input:-moz-placeholder, textarea:-moz-placeholder {
-        color: #999999;
-        font-size: p2r(32);
-      }
-    }
-    .operationItems:nth-child(3){
-      border-bottom: none;
-      .verification_code_btn{
-        width: auto;
-        height: auto;
-        line-height: normal;
-        padding: p2r(14) p2r(14);
-        float:right;
-        background: #91c46c;
-        color:#FFFFFF;
-        font-size: p2r(24);
-        vertical-align: middle;
-        margin-top: p2r(20);
-        border-radius: p2r(8);
-      }
-    }
-  }
-  .finish_btn{
-    display: block;
-    width: p2r(600);
-    height:p2r(88);
-    margin: p2r(100) auto;
-    line-height: p2r(88);
-    font-size: p2r(36);
-    border-radius: p2r(5);
-    color:#FFFFFF;
-    background: #0FB87F;
-  }
-}
-
 //登录页面
 .login{
   width: 100%;
@@ -185,5 +108,82 @@
         margin-right: 0;
       }
     }
+  }
+}
+
+//绑定手机页面
+.bindBody{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #f3f3f3;
+  .notice{
+    width: 100%;
+    height: p2r(100);
+    line-height: p2r(100);
+    font-size: p2r(28);
+    color:#999999;
+    padding-left: p2r(68);
+  }
+  .bindOperation{
+    width: 100%;
+    background: #FFFFFF;
+    font-size: 0;
+    .operationItems{
+      width: 100%;
+      padding: 0 p2r(20);
+      height: p2r(100);
+      border-bottom: p2r(1) solid #dedede;
+      img{
+        width: p2r(40);
+        height: p2r(40);
+        margin: p2r(22) p2r(8) p2r(38) 0;
+        vertical-align: middle;
+      }
+      input{
+        width: 60%;
+        height: p2r(100);
+        line-height: p2r(100);
+        vertical-align: middle;
+        font-size: p2r(32);
+        color:#999999;
+        background: transparent;
+      }
+      input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+        color: #999999;
+        font-size: p2r(32);
+      }
+      input:-moz-placeholder, textarea:-moz-placeholder {
+        color: #999999;
+        font-size: p2r(32);
+      }
+    }
+    .operationItems:nth-child(3){
+      border-bottom: none;
+      .verification_code_btn{
+        width: auto;
+        height: auto;
+        line-height: normal;
+        padding: p2r(14) p2r(14);
+        float:right;
+        background: #91c46c;
+        color:#FFFFFF;
+        font-size: p2r(24);
+        vertical-align: middle;
+        margin-top: p2r(20);
+        border-radius: p2r(8);
+      }
+    }
+  }
+  .finish_btn{
+    display: block;
+    width: p2r(600);
+    height:p2r(88);
+    margin: p2r(100) auto;
+    line-height: p2r(88);
+    font-size: p2r(36);
+    border-radius: p2r(5);
+    color:#FFFFFF;
+    background: #0FB87F;
   }
 }

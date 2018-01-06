@@ -29,7 +29,7 @@
     <div id="info"></div>
     <div class="comment_content">
         <h2>评价内容</h2>
-        <textarea name="" id="comment" cols="30" rows="10">在此输入您的评价内容 </textarea>
+        <textarea name="" id="comment" cols="30" rows="10">在此输入您的评价内容</textarea>
     </div>
     <div class="comment_img">
         <h2>晒图 <span>（最多5张哦~）</span></h2>
@@ -49,13 +49,28 @@
     </div>
     <div class="submit_button">发表评论</div>
 </div>
+<div class="pointAlert hide" id="pointAlert">
+    <div class="cover alertContent" style="background-image: url('/images/evaluate/evaluate_26.png')">
+        <div class="alertDetail">
+            <h3>恭喜您获得</h3>
+            <div>
+                <span class="point">20</span>积分
+            </div>
+            <a href="/html/points.html">查看积分详情</a>
+        </div>
+        <div class="alertBtn" onclick="location='/html/store.html'">继续购物</div>
+    </div>
+</div>
 </body>
 <script type="text/template" id="info_template">
     <div class="SKU_info">
         <div class="SKU_img" style="background-image: url('/file/public/<%= info.image.id %>.<%= info.image.ext %>')"></div>
         <div class="SKU_content">
-            <div class="SKU_name"><%= info.name %> <span id="quantity">X3</span></div>
+            <div class="SKU_name"><%= info.name %></div>
             <div class="specs">
+                <% _.each(info.specs,function(spec){ %>
+                <span><%= spec.value %> </span>
+                <% }); %>
             </div>
             <ul class="score">
                 <li style="background-image: url('/images/personal/personal_35.png')"></li>
@@ -176,7 +191,7 @@
                                 text: "评价发表成功"
                             },
                             function () {
-                                window.location.href = '/html/commentOrder.html';
+                                $("#pointAlert").removeClass("hide");
                             }
                         );
                     }

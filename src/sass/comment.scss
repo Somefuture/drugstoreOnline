@@ -531,3 +531,67 @@ $color-main:#0fb87f;
   text-align: center;
   font-size: p2r(28);
 }
+
+//赠送积分弹窗
+.pointAlert{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.4);
+  z-index: 100;
+  .alertContent{
+    width: p2r(536);
+    height: p2r(536);
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    .alertDetail{
+      width: p2r(500);
+      height: p2r(240);
+      margin: p2r(160) auto 0 auto;
+      h3{
+        width: 100%;
+        text-align: center;
+        font-size: p2r(36);
+        color:#333333;
+      }
+      div{
+        width: 100%;
+        height: p2r(90);
+        margin-top: p2r(20);
+        text-align: center;
+        font-size: p2r(24);
+        color:#999999;
+        .point{
+          font-size: p2r(80);
+          color:#ff7b5b;
+          padding-left: p2r(30);
+        }
+      }
+      a{
+        display: block;
+        width: 100%;
+        height: p2r(30);
+        margin-top:p2r(30);
+        font-size: p2r(28);
+        color:#666666;
+        text-align: center;
+      }
+    }
+    .alertBtn{
+      width: p2r(500);
+      height: p2r(88);
+      background: #91c46c;
+      border-radius: p2r(5);
+      color:#FFFFFF;
+      font-size: p2r(32);
+      text-align: center;
+      line-height: p2r(88);
+      margin: p2r(20) auto p2r(30) auto;
+
+    }
+  }
+}

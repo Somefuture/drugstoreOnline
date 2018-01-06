@@ -82,7 +82,7 @@
 <script type="text/template" id="comment_order_template">
     <% if(count>0){ %>
     <ul class="comment_order">
-        <% _.each(list.reverse(),function(sku){ %>
+        <% _.each(list,function(sku){ %>
         <li>
             <div class="SKU_info">
                 <div class="left"><div class="SKU_img" style="background-image: url('/file/public/<%= sku.image.id %>.<%= sku.image.ext %>')"></div></div>
@@ -91,7 +91,7 @@
                     <div class="SKU_describe">
                         <% _.each(sku.specs,function(spec){ %>
                             <span>
-                                <%= spec.keyName %>:<%= spec.value %>
+                                <%= spec.value %>
                             </span>
                         <% }); %>
                     </div>
