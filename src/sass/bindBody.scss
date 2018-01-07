@@ -26,17 +26,22 @@
         position: absolute;
         width: p2r(40);
         height: p2r(40);
-        top: 0;
+        top: p2r(40);
         right: 0;
       }
       img{
         width: p2r(40);
         height: p2r(40);
-        margin-top: p2r(28);
+        position: absolute;
+        left: 0;
+        bottom: p2r(20);
       }
       input{
+        position: absolute;
+        left:p2r(60);
+        top:p2r(18);
         width: 70%;
-        height: p2r(88);
+        height: p2r(70);
         line-height: p2r(70);
         font-size: p2r(32);
         background: transparent;
