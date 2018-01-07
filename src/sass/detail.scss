@@ -10,10 +10,16 @@ $color-main:#0fb87f;
   background: $color-main;
   position: relative;
   img{
-    float:right;
-    margin-top: p2r(40);
-    margin-right: p2r(30);
+    position: absolute;
     width: p2r(52);
+    height: p2r(52);
+    top: p2r(40);
+  }
+  .shareBtn{
+    right: p2r(20);
+  }
+  .collectBtn{
+    right: p2r(80);
   }
   .items{
     width: 60%;
@@ -306,17 +312,17 @@ $color-main:#0fb87f;
   }
 }
 
-//分享图标
+//分享
 .share{
   position: fixed;
   width: 100%;
-  height: p2r(150);
+  height: p2r(200);
   bottom: 0;
   background: #f3f3f3;
   z-index: 1000;
   .option{
     width: 100%;
-    height: p2r(100);
+    height: p2r(150);
     padding: p2r(20);
     font-size: p2r(32);
   }
