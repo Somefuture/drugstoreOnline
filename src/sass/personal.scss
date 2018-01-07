@@ -150,25 +150,32 @@ $color-main:#0fb87f;
   background: #f3f3f3;
   .record{
     width: 100%;
+    min-height: p2r(180);
     padding: p2r(20) p2r(40);
     border-bottom: p2r(28) solid #fafafa;
     background: #fff;
-    .record_coupon,.total{
-      display: inline-block;
+    overflow: hidden;
+    div{
+      float: left;
       width: p2r(108);
       height: p2r(108);
+      font-size: p2r(24);
       color:#666666;
       text-align: center;
-      font-size: p2r(24);
-      margin-right: p2r(30);
+      margin-right: 10%;
       img{
-        width: p2r(80);
         display: block;
+        width: p2r(60);
+        height: p2r(60);
         margin: p2r(10) auto;
       }
     }
+    .last{
+      margin-right: 0;
+    }
   }
   .otherItems{
+    clear: left;
     border-bottom: p2r(28) solid #fafafa;
     width:100%;
     padding:0 p2r(40);
@@ -197,6 +204,8 @@ $color-main:#0fb87f;
     }
   }
 }
+
+//信息编辑
 .personal_edit_body{
   width: 100%;
   margin-bottom: p2r(100);

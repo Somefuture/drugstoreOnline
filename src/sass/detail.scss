@@ -10,10 +10,10 @@ $color-main:#0fb87f;
   background: $color-main;
   position: relative;
   img{
-    float:left;
+    float:right;
     margin-top: p2r(40);
-    margin-left: p2r(30);
-    width: p2r(40);
+    margin-right: p2r(30);
+    width: p2r(52);
   }
   .items{
     width: 60%;
