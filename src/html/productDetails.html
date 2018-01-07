@@ -26,6 +26,7 @@
     <link type="text/css" rel="stylesheet" href="/css/normalize.css">
     <link type="text/css" rel="stylesheet" href="/css/swiper.css"/>
     <link type="text/css" rel="stylesheet" href="/css/sweetalert.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
     <link type="text/css" rel="stylesheet" href="/css/index.css"/>
     <link type="text/css" rel="stylesheet" href="/css/reset.css">
 </head>
@@ -36,6 +37,7 @@
         <span><a href="#" id="instruction_menu">说明书</a></span>
         <span><a href="#" id="post_menu">评论</a></span>
     </div>
+    <img src="/images/details/shoppingcar_06.png" alt="" id="shareBtn">
     <img src="/images/details/shoppingcar_03.png" alt="">
 </div>
 <div id="product_body"></div>
@@ -75,6 +77,17 @@
             <span class="buy_now">立即购买</span>
         </div>
     </div>
+</div>
+<div class="share hide" id="share">
+    <div class="option">
+        分享到：
+        <div class="social-share"
+             data-wechat-qrcode-title="请打开扫一扫"
+             data-wechat-qrcode-helper='<p>微信里点“发现”，扫一下</p><p>将本产品分享给更多的朋友吧</p>'
+             data-sites="weibo,qq,wechat" data-title="我在医药e家发现了一个超棒的产品！">
+        </div>
+    </div>
+    <div class="cancerShare">取消</div>
 </div>
 </body>
 <script type="text/template" id="specs">
@@ -156,6 +169,7 @@
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
@@ -176,6 +190,16 @@
         var sku_details = {};
 
         get_product(id);
+
+        //分享
+        $("#shareBtn").click(function () {
+            $("#share").removeClass('hide');
+        });
+
+        //取消分享
+        $(".cancerShare").click(function () {
+            $("#share").addClass("hide");
+        })
 
         $(".nextStep").click(function() {
             var sku_id = get_sku();

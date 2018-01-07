@@ -305,3 +305,31 @@ $color-main:#0fb87f;
     }
   }
 }
+
+//分享图标
+.share{
+  position: fixed;
+  width: 100%;
+  height: p2r(150);
+  bottom: 0;
+  background: #f3f3f3;
+  z-index: 1000;
+  .option{
+    width: 100%;
+    height: p2r(100);
+    padding: p2r(20);
+    font-size: p2r(32);
+  }
+  .cancerShare{
+    position: absolute;
+    bottom: p2r(30);
+    right: p2r(20);
+    width: p2r(160);
+    height: p2r(60);
+    background: #999999;
+    border-radius: p2r(20);
+    text-align: center;
+    line-height: p2r(60);
+    color:#FFFFFF;
+  }
+}
