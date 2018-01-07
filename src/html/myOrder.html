@@ -92,6 +92,11 @@
                             <div class="product_name">
                                 <%= item.sku.name %>
                             </div>
+                            <div class="describe">
+                                <% _.each(item.sku.specs,function(spec){ %>
+                                    <span><%= spec.value %></span>
+                                <% }); %>
+                            </div>
                             <div class="detail_content">
                                 <span class="product_price">￥<%= item.sku.salesPrice.toFixed(2) %></span>
                                 <span class="product_amount">x<%= item.quantity %></span>

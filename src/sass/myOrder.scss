@@ -62,7 +62,14 @@ $color-main:#0fb87f;
           .product_name{
             color:#3b3b3b;
             font-size: p2r(28);
-            margin-bottom: p2r(80);
+            margin-bottom: p2r(20);
+          }
+          .describe{
+            height: p2r(50);
+            margin-bottom: p2r(10);
+            font-size: p2r(28);
+            color:#666666;
+            line-height: p2r(50);
           }
           .detail_content{
             margin-bottom: p2r(20);

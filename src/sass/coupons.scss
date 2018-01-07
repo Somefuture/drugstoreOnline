@@ -148,13 +148,14 @@ $color-main:#0fb87f;
     p{
       width: 100%;
       height: p2r(180);
+      line-height: p2r(180);
       font-size: p2r(120);
       padding-top: p2r(30);
       color:#fff600;
     }
     span{
       color:#FFFFFF;
-      font-size: p2r(32);
+      font-size: p2r(24);
     }
   }
   .total_use_record{
