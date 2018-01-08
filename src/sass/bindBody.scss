@@ -108,6 +108,19 @@
         margin-right: p2r(80);
         background-size: cover;
         background-position: center;
+        .qqLogin{
+          width:p2r(84);
+          height: p2r(84);
+          display: block;
+          a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            img{
+              opacity: 0;
+            }
+          }
+        }
       }
       .way:nth-child(3){
         margin-right: 0;
@@ -234,11 +247,13 @@
       position: relative;
       .img{
         width: p2r(230);
-        height: p2r(160);
+        height: p2r(170);
         margin-right: p2r(20);
         background: paleturquoise;
       }
       .content{
+        width: 60%;
+        height: p2r(170);
         position: absolute;
         left:p2r(250);
         top: p2r(30);
@@ -329,6 +344,33 @@
         }
         .oprBtn:nth-child(2){
           margin-right: 0;
+        }
+      }
+      @media only screen and (max-width: 360px) {
+        .proOpr{
+          width: p2r(300);
+          height: p2r(60);
+          margin: 0 auto p2r(30) auto;
+          .oprBtn{
+            width: p2r(142);
+            height: p2r(60);
+            float: left;
+            margin-right: p2r(16);
+            border:p2r(1) solid #dadada;
+            border-radius: p2r(6);
+            line-height: p2r(60);
+            font-size: p2r(12);
+            vertical-align: middle;
+            img{
+              width: p2r(22);
+              height: p2r(22);
+              margin: p2r(19) p2r(5);
+              vertical-align: top;
+            }
+          }
+          .oprBtn:nth-child(2){
+            margin-right: 0;
+          }
         }
       }
     }
