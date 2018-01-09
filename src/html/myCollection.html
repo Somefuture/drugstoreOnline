@@ -132,6 +132,8 @@
             template= _.template($("#productList_template").html());
         }else if(type=="article"){
             $("#article").addClass("active");
+            $("#colContent").html('<a href="/products/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+            template= _.template($("#articleList_template").html());
         }
 
          //加载列表

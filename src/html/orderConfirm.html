@@ -12,18 +12,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
-    <meta name="format-detection" content="telephone=no, email=no"/>
-    <!-- 启用360浏览器的极速模式(webkit) -->
-    <meta name="renderer" content="webkit">
-    <!-- 避免IE使用兼容模式 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
-    <meta name="HandheldFriendly" content="true">
-    <!-- 微软的老式浏览器 -->
-    <meta name="MobileOptimized" content="320">
-    <!-- uc强制竖屏 -->
-    <meta name="screen-orientation" content="portrait">
     <!-- QQ强制竖屏 -->
     <meta name="x5-orientation" content="portrait">
     <!-- UC强制全屏 -->
@@ -314,6 +302,8 @@
             if(attr_payment() > 0) {
                 var $parent = $(this).parent();
                 var points_balance = attr_total_points();
+                console.log(points_balance);
+                console.log(points_exchange_rate);
                 if(!$parent.hasClass("checked")) {
                     swal({
                         title: "使用积分",
@@ -639,7 +629,7 @@
                 return parseInt($total_points.text());
             }else {
                 $total_points.html(Math.round(points));
-                $total_points_amount.html(Math.round(points)*points_exchange_rate);
+                $total_points_amount.html(to_decimal(points*points_exchange_rate));
                 return points;
             }
         }

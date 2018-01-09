@@ -45,12 +45,12 @@
         </div>
         <div class="collections" onclick="location='/html/myCollection.html'">
             <div class="proCollections">
-                <div class="num">999</div>
+                <div class="num"> </div>
                 <div class="type">商品收藏</div>
             </div>
             <div class="line"></div>
             <div class="artCollections">
-                <div class="num">999</div>
+                <div class="num">99</div>
                 <div class="type">文章收藏</div>
             </div>
         </div>
@@ -213,8 +213,11 @@ $(document).ready(function(){
             $("#proCol").html(json.success.count);
         }
     });
-    //获取收藏文章数量
+    //todo 获取收藏文章数量
 
+    //待收货数量
+
+    //获取用户个人信息
     ajax({
         url:"/user/session",
         success:function (json) {

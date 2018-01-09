@@ -67,6 +67,7 @@
 </div>
 </body>
 <script type="text/template" id="coupon_list_template">
+    <% if(count>0){ %>
     <ul class="coupon_lists">
         <% _.each(list,function(coupon){ %>
         <%
@@ -100,6 +101,9 @@
         <span class="bottom_info">--- 已全部加载完毕 ---</span>
         <% } %>
     </ul>
+    <% }else{ %>
+        <p class="p">暂时没有优惠券哟~</p>
+    <% } %>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
