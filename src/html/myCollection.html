@@ -26,97 +26,10 @@
 </div>
 <div class="collectionBody">
     <div class="colCategory">
-        <span class="product active">商品</span>
-        <span class="article">文章</span>
+        <span class="product" id="product">商品</span>
+        <span class="article" id="article">文章</span>
     </div>
-    <div class="colContent">
-        <ul class="articleList hide">
-            <li class="article">
-                <div class="img"></div>
-                <div class="content">
-                    <h2>新闻新闻新闻<span class="new">new</span></h2>
-                    <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
-                    <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
-                </div>
-            </li>
-            <li class="article">
-                <div class="img"></div>
-                <div class="content">
-                    <h2>新闻新闻新闻 <span class="new">new</span></h2>
-                    <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
-                    <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
-                </div>
-            </li>
-            <li class="article">
-                <div class="img"></div>
-                <div class="content">
-                    <h2>新闻新闻新闻<span class="new">new</span></h2>
-                    <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
-                    <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
-                </div>
-            </li>
-        </ul>
-        <ul class="productList">
-            <li class="pro">
-                <h3>商品名称</h3>
-                <div class="proImg"></div>
-                <div class="price">￥588.00</div>
-                <div class="proOpr">
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_61.png" alt="">取消收藏
-                    </div>
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_49.png" alt="">加入药箱
-                    </div>
-                </div>
-            </li>
-            <li class="pro">
-                <h3>商品名称</h3>
-                <div class="proImg"></div>
-                <div class="price">￥588.00</div>
-                <div class="proOpr">
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_61.png" alt="">
-                        取消收藏
-                    </div>
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_49.png" alt="">
-                        加入药箱
-                    </div>
-                </div>
-            </li>
-            <li class="pro">
-                <h3>商品名称</h3>
-                <div class="proImg"></div>
-                <div class="price">￥588.00</div>
-                <div class="proOpr">
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_61.png" alt="">
-                        取消收藏
-                    </div>
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_49.png" alt="">
-                        加入药箱
-                    </div>
-                </div>
-            </li>
-            <li class="pro">
-                <h3>商品名称</h3>
-                <div class="proImg"></div>
-                <div class="price">￥588.00</div>
-                <div class="proOpr">
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_61.png" alt="">
-                        取消收藏
-                    </div>
-                    <div class="oprBtn">
-                        <img src="/images/evaluate/collections_49.png" alt="">
-                        加入药箱
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <div class="colContent" id="colContent"></div>
 </div>
 <div class="footer">
     <ul class="nav">
@@ -147,28 +60,126 @@
     </ul>
 </div>
 </body>
+<script type="text/template" id="articleList_template">
+    <ul class="articleList">
+        <li class="article">
+            <div class="img"></div>
+            <div class="content">
+                <h2>新闻新闻新闻<span class="new">new</span></h2>
+                <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
+                <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
+            </div>
+        </li>
+        <li class="article">
+            <div class="img"></div>
+            <div class="content">
+                <h2>新闻新闻新闻 <span class="new">new</span></h2>
+                <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
+                <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
+            </div>
+        </li>
+        <li class="article">
+            <div class="img"></div>
+            <div class="content">
+                <h2>新闻新闻新闻<span class="new">new</span></h2>
+                <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
+                <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
+            </div>
+        </li>
+    </ul>
+</script>
+<script type="text/template" id="productList_template">
+    <% if(count>0){ %>
+    <ul class="productList">
+        <% _.each(list,function(pro){ %>
+        <li class="pro">
+            <h3><%= pro.name %></h3>
+            <div class="proImg cover" style="background-image: url('/file/public/<%= pro.image.id %>.<%= pro.image.ext %>')"></div>
+            <div class="price">￥<%= pro.minSalesPrice %> <span class="salesValue">销量: <span class="saleNum"><%= pro.salesVolume %></span></span></div>
+            <div class="proOpr">
+                <div class="oprBtn cancerCol"  data-id="<%= pro.id %>">
+                    <img src="/images/evaluate/collections_61.png" alt="">取消收藏
+                </div>
+                <div class="oprBtn" onclick="location='/html/productDetails.html?id=<%= pro.id %>'">
+                    <img src="/images/evaluate/collections_49.png" alt="">加入药箱
+                </div>
+            </div>
+        </li>
+        <% }); %>
+        <% if(drop < count){ %>
+        <a href="/products/favorite?drop=<%=drop%>&take=<%=take%>" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } else { %>
+        <span class="bottom_info">--- 已全部加载完毕 ---</span>
+        <% } %>
+    </ul>
+    <% }else{ %>
+    <p class="p">没有收藏任何产品哟~</p>
+    <% } %>
+</script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function () {
-       function toggle() {
+
+        var type=get_query_string("type");
+        var template;
+
+        if(type=="product"){
+            $("#product").addClass("active");
+            $("#colContent").html('<a href="/products/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+            template= _.template($("#productList_template").html());
+        }else if(type=="article"){
+            $("#article").addClass("active");
+        }
+
+         //加载列表
+        var $colContent = $("#colContent");
+        function render_colContent(data) {
+            $colContent.append(template(data));
+            //取消收藏
+            $(".cancerCol").click(function () {
+                var cancerId=$(this).attr("data-id");
+                if(type=='product'){
+                    ajax({
+                        url:"/product/favorite/delete",
+                        type:"post",
+                        data:{id:cancerId},
+                        success:function(json){
+                           swal({
+                               title:"",
+                               text:"取消收藏成功"
+                           },function () {
+                               window.location.reload();
+                           });
+                        }
+                    });
+                }
+            });
+        }
+        scroll_load_more("a.bottom_info", render_colContent);
+
+        //切换收藏类型
+       function toggle(){
           if($(this).hasClass('active')){
               return;
           }else{
               $(this).addClass('active');
               $(this).siblings().removeClass("active");
               if($(this).hasClass('product')){
-                  $(".productList").removeClass('hide');
-                  $(".productList").siblings().addClass('hide');
+                  $("#colContent").html('<a href="/products/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+                  template= _.template($("#productList_template").html());
+                  type="product";
+                  scroll_load_more("a.bottom_info", render_colContent);
               }else{
-                  $(".articleList").removeClass('hide');
-                  $(".articleList").siblings().addClass('hide');
+                  $("#colContent").html('<a href="/products/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+                  template= _.template($("#articleList_template").html());
+                  type="article";
+                  scroll_load_more("a.bottom_info", render_colContent);
               }
           }
        }
-
        $(".colCategory").delegate("span","click",toggle);
 
     });

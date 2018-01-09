@@ -62,10 +62,10 @@
         <% if(count>0){ %>
         <ul class="productList">
             <% _.each(list,function(pro){ %>
-            <li class="pro">
+            <li class="pro" onclick="location='/html/productDetails.html?id=<%= pro.id %>'">
                 <h3><%= pro.name %></h3>
                 <div class="proImg cover" style="background-image: url('/file/public/<%= pro.image.id %>.<%= pro.image.ext %>')"></div>
-                <div class="price">￥<%= pro.minSalesPrice %></div>
+                <div class="price">￥<%= pro.minSalesPrice %> <span class="salesValue">销量: <span class="saleNum"><%= pro.salesVolume %></span></span></div>
             </li>
             <% }) %>
             <% if(drop < count){ %>
@@ -91,6 +91,37 @@
             $footMark.append(template(data));
         }
         scroll_load_more("a.bottom_info", render_footMark);
+
+        //清空足迹
+        $(".deleteFoot").click(function () {
+            swal({
+                title:"",
+                text:"确定清空吗？",
+                showCancelButton: true,
+                cancelButtonText:"取消",
+                confirmButtonText: "确认",
+                closeOnConfirm: false
+            },function () {
+                ajax({
+                    url:"/products/footprint/clear",
+                    type:"POST",
+                    success:function (json) {
+                        if(json.error){
+                            return;
+                        }
+                        swal({
+                                title: "",
+                                text: "足迹清空成功",
+                                confirmButtonText: "确认"
+                            },
+                            function () {
+                                window.location.reload();
+                            }
+                        );
+                    }
+                });
+            });
+        })
     });
 </script>
 </html>

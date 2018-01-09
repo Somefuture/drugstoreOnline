@@ -27,7 +27,35 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-<div id="personal_body"></div>
+<div id="personal_body">
+    <div class="personal">
+        <div class="bg">
+            <div class="bg_img" style="background-image: url('/images/personal/bg.png')"></div>
+        </div>
+        <div class="mask">
+            <span class="edit_btn" onclick="location='personalEdit.html'">编辑信息</span>
+            <div class="person_avatar">
+                <div class="user_avatar">
+                    <input type="file" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp" id="file" class="upAvatar">
+                    <div class="avatar_img" style="background-image: url('/images/personal/avatar.png')"></div>
+                </div>
+                <span class="user_name">name</span>
+                <div class="total" onclick="location='/html/points.html'">积分 <span id="point"></span></div>
+            </div>
+        </div>
+        <div class="collections" onclick="location='/html/myCollection.html'">
+            <div class="proCollections">
+                <div class="num">999</div>
+                <div class="type">商品收藏</div>
+            </div>
+            <div class="line"></div>
+            <div class="artCollections">
+                <div class="num">999</div>
+                <div class="type">文章收藏</div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="bg_color">
     <div class="user_order">
         <a href="/html/myOrder.html">
@@ -81,7 +109,7 @@
                 <img src="/images/personal/personal_7.png" alt="">
                 我的足迹
             </li>
-            <li class="recordItem last" onclick="location='/html/myCollection.html'">
+            <li class="recordItem last" onclick="location='/html/myShare.html'">
                 <img src="/images/personal/personal_8.png" alt="">
                 我的分享
             </li>
@@ -89,14 +117,12 @@
     </div>
     <div class="otherItems">
         <div class="address" onclick="location='/html/address.html'">
-            <img src="/images/personal/user_80.png" alt="">
             收货地址
-            <span><img src="/images/homePage/home_54@2x.png" alt=""></span>
+            <span><img src="/images/personal/personal_9.png" alt=""></span>
         </div>
         <div class="setting" onclick="location='/html/setting.html'">
-            <img src="/images/personal/user_87.png" alt="">
             设置
-            <span><img src="/images/homePage/home_54@2x.png" alt=""></span>
+            <span><img src="/images/personal/personal_9.png" alt=""></span>
         </div>
     </div>
 </div>
@@ -154,14 +180,14 @@
                 <div class="total" onclick="location='/html/points.html'">积分 <span id="point"></span></div>
             </div>
         </div>
-        <div class="collections" onclick="location='/html/myCollection.html'">
-            <div class="proCollections">
-                <div class="num">999</div>
+        <div class="collections">
+            <div class="proCollections" onclick="location='/html/myCollection.html?type=product'">
+                <div class="num" id="proCol">999</div>
                 <div class="type">商品收藏</div>
             </div>
             <div class="line"></div>
-            <div class="artCollections">
-                <div class="num">999</div>
+            <div class="artCollections" onclick="location='/html/myCollection.html?type=article'">
+                <div class="num" id="artCol">999</div>
                 <div class="type">文章收藏</div>
             </div>
         </div>
@@ -174,6 +200,20 @@
 <script>
 $(document).ready(function(){
     var personal_template = _.template($("#personal_template").html());
+
+
+    //获取收藏产品数量
+    ajax({
+        url:"/products/favorite",
+        data:{drop:0,take:10},
+        success:function (json) {
+            if(json.error){
+                return;
+            }
+            $("#proCol").html(json.success.count);
+        }
+    });
+    //获取收藏文章数量
 
     ajax({
         url:"/user/session",

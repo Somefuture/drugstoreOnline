@@ -199,6 +199,21 @@
         //取消分享
         $(".cancerShare").click(function () {
             $("#share").addClass("hide");
+        });
+
+        //收藏
+        $("#collectBtn").click(function () {
+            ajax({
+                url:"/product/favorite",
+                type:"post",
+                data:{id:id},
+                success:function(json){
+                    if(json.error){
+                        return;
+                    }
+                    swal("","产品收藏成功");
+                }
+            })
         })
 
         $(".nextStep").click(function() {
