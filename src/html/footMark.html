@@ -23,30 +23,10 @@
 <body>
 <div class="shopping_header">
     <p class="title">我的足迹</p>
+    <span class="deleteFoot">清除足迹</span>
 </div>
-<div class="collectionBody">
-    <ul class="productList">
-        <li class="pro">
-            <h3>商品名称</h3>
-            <div class="proImg"></div>
-            <div class="price">￥588.00</div>
-        </li>
-        <li class="pro">
-            <h3>商品名称</h3>
-            <div class="proImg"></div>
-            <div class="price">￥588.00</div>
-        </li>
-        <li class="pro">
-            <h3>商品名称</h3>
-            <div class="proImg"></div>
-            <div class="price">￥588.00</div>
-        </li>
-        <li class="pro">
-            <h3>商品名称</h3>
-            <div class="proImg"></div>
-            <div class="price">￥588.00</div>
-        </li>
-    </ul>
+<div id="footMark">
+    <a href="/products/footprint?drop=0&take=10" class="bottom_info">正在加载数据...</a>
 </div>
 <div class="footer">
     <ul class="nav">
@@ -77,13 +57,40 @@
     </ul>
 </div>
 </body>
+<script type="text/template" id="footMark_template">
+    <div class="collectionBody">
+        <% if(count>0){ %>
+        <ul class="productList">
+            <% _.each(list,function(pro){ %>
+            <li class="pro">
+                <h3><%= pro.name %></h3>
+                <div class="proImg cover" style="background-image: url('/file/public/<%= pro.image.id %>.<%= pro.image.ext %>')"></div>
+                <div class="price">￥<%= pro.minSalesPrice %></div>
+            </li>
+            <% }) %>
+            <% if(drop < count){ %>
+            <a href="/products/footprint?drop=<%=drop%>&take=<%=take%>" class="bottom_info">--- 下拉加载更多数据 ---</a>
+            <% } else { %>
+            <span class="bottom_info">--- 已全部加载完毕 ---</span>
+            <% } %>
+        </ul>
+        <% }else{ %>
+            <p class="p">没有任何足迹哟~</p>
+        <% } %>
+    </div>
+</script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
 <script src="/javascript/underscore-1.8.3.min.js"></script>
 <script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function () {
-
+        var template = _.template($("#footMark_template").html());
+        var $footMark = $("#footMark");
+        function render_footMark(data) {
+            $footMark.append(template(data));
+        }
+        scroll_load_more("a.bottom_info", render_footMark);
     });
 </script>
 </html>

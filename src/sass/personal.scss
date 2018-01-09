@@ -6,7 +6,7 @@ $color-main:#0fb87f;
 //个人中心头像及我的订单
 .personal{
   width: 100%;
-  height: p2r(780);
+  height: p2r(580);
   background: #f3f3f3;
   overflow: hidden;
   position: relative;
@@ -35,29 +35,29 @@ $color-main:#0fb87f;
       margin: p2r(30) p2r(20);
     }
     .person_avatar{
-      width: p2r(220);
+      width: p2r(192);
       height: p2r(260);
-      margin: p2r(150) auto;
+      margin: p2r(88) auto;
       text-align: center;
       .user_avatar{
         font-size: 0;
-        width: p2r(210);
-        height: p2r(210);
+        width: p2r(192);
+        height: p2r(192);
         overflow: hidden;
-        border-radius: p2r(216);
-        border:p2r(5) solid rgba(255,255,255,.3);
+        border-radius: p2r(180);
+        border:p2r(6) solid rgba(255,255,255,.3);
         margin: 0 auto;
         position: relative;
         .upAvatar{
           position: absolute;
-          width: p2r(210);
-          height: p2r(210);
+          width: p2r(192);
+          height: p2r(192);
           top: 0;
           left: 0;
         }
         .avatar_img{
-          width: p2r(200);
-          height: p2r(200);
+          width: p2r(180);
+          height: p2r(180);
           background-position: center center;
           background-size: cover;
         }
@@ -87,19 +87,56 @@ $color-main:#0fb87f;
       }
     }
   }
-  .user_order{
-    width: 92%;
-    height: p2r(190);
-    background: $color-main;
+  .collections{
+    width: 100%;
+    height: p2r(120);
     position: absolute;
-    top:p2r(520);
-    left:4%;
-    border-radius: p2r(10);
+    bottom: 0;
+    background: rgba(0,0,0,.4);
+    font-size: 0;
+    div{
+      float: left;
+    }
+    .proCollections,.artCollections{
+      width: 49%;
+      height: p2r(120);
+      padding: p2r(20) 0;
+      color:#FFFFFF;
+      overflow: hidden;
+      .num{
+        width: 100%;
+        line-height: 1;
+        text-align: center;
+        font-size: p2r(36);
+        margin-bottom: p2r(10);
+      }
+      .type{
+        width: 100%;
+        font-size: p2r(32);
+        text-align: center;
+      }
+    }
+    .line{
+      width: p2r(2);
+      height: p2r(60);
+      background: #d1d1d1;
+      margin-top: p2r(30);
+    }
+  }
+}
+.bg_color{
+  background: #f3f3f3;
+  .user_order{
+    width: 100%;
+    height: p2r(210);
+    margin-bottom: p2r(16);
+    background: #ffffff;
     overflow: hidden;
     .to_order_title{
-      padding:p2r(18);
+      padding:p2r(30) p2r(30) p2r(20) p2r(30);
       font-size: p2r(32);
-      color:#ffffff;
+      color:#333333;
+      font-weight: bold;
       img{
         width: p2r(25);
         float: right;
@@ -107,7 +144,7 @@ $color-main:#0fb87f;
     }
     .order_tabs{
       width: 100%;
-      padding: 0 p2r(22);
+      padding: 0 p2r(30);
       font-size: 0;
       li{
         display: inline-block;
@@ -132,22 +169,12 @@ $color-main:#0fb87f;
           vertical-align: top;
         }
         a{
-          color: #ffffff;
-          font-size: p2r(24);
+          color: #666666;
+          font-size: p2r(28);
         }
       }
     }
   }
-  h2{
-    position: absolute;
-    top:p2r(730);
-    left:4%;
-    color:#3c3c3c;
-    font-size: p2r(32);
-  }
-}
-.bg_color{
-  background: #f3f3f3;
   .record{
     width: 100%;
     min-height: p2r(180);
@@ -155,23 +182,30 @@ $color-main:#0fb87f;
     border-bottom: p2r(28) solid #fafafa;
     background: #fff;
     overflow: hidden;
-    div{
-      float: left;
-      width: p2r(108);
-      height: p2r(108);
-      font-size: p2r(24);
-      color:#666666;
-      text-align: center;
-      margin-right: 10%;
-      img{
-        display: block;
-        width: p2r(60);
-        height: p2r(60);
-        margin: p2r(10) auto;
-      }
+    h2{
+      padding:p2r(10) 0 p2r(20) 0;
+      font-size: p2r(32);
+      color:#333333;
+      font-weight: bold;
     }
-    .last{
-      margin-right: 0;
+    .record_tabs{
+      width: 100%;
+      font-size: 0;
+      li{
+        display: inline-block;
+        width: 25%;
+        text-align: center;
+        margin-bottom: p2r(10);
+        position: relative;
+        font-size: p2r(28);
+        color:#333333;
+        img{
+          width: p2r(60);
+          display: block;
+          margin: 0 auto p2r(10) auto;
+          vertical-align: top;
+        }
+      }
     }
   }
   .otherItems{
@@ -185,7 +219,7 @@ $color-main:#0fb87f;
       height: p2r(80);
       line-height: p2r(70);
       padding: p2r(10) 0;
-      color:#666666;
+      color:#333333;
       font-size: p2r(28);
       border-bottom: p2r(1) solid #e7e7e7;
       overflow: hidden;

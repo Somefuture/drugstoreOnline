@@ -302,12 +302,17 @@
       width: 49%;
       margin:0 2% p2r(16) 0;
       h3{
-        width: 100%;
+        width: p2r(250);
+        height: p2r(80);
+        margin: 0 auto;
         padding: p2r(20) 0 p2r(20) 0;
         font-size: p2r(32);
         color:#333333;
         font-weight: normal;
         text-align: center;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
       }
       .proImg{
         width: p2r(250);

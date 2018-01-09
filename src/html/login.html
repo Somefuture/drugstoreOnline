@@ -40,7 +40,7 @@
 					</div>
 					<div class="way" style="background-image: url('/images/evaluate/evaluate2_06.png')"></div>
 					<div class="way" style="background-image: url('/images/evaluate/evaluate2_11.png')">
-
+                        <div id="wb_connect_btn"></div>
                     </div>
 				</div>
 			</div>
@@ -49,7 +49,8 @@
 	<script src="/javascript/jquery-3.2.1.min.js"></script>
 	<script src="/javascript/sweetalert.min.js"></script>
 	<script src="/javascript/util.js"></script>
-	<script type="text/javascript"
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3823714056" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript"
 			src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101312143" data-redirecturi="http://www.baidu.com" charset="utf-8"></script>
 	<script>
         QC.Login({
@@ -79,6 +80,21 @@
 
             }
         );
+
+        WB2.anyWhere(function (W) {
+            W.widget.connectButton({
+                id: "wb_connect_btn",
+                type: '3,2',
+                callback: {
+                    login: function (o) { //登录后的回调函数
+                        alert("login: " + o.screen_name)
+                    },
+                    logout: function () { //退出后的回调函数
+                        alert('logout');
+                    }
+                }
+            });
+        });
 
 		$(document).ready(function () {
             var show_swal = false;

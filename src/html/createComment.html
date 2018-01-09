@@ -54,7 +54,7 @@
         <div class="alertDetail">
             <h3>恭喜您获得</h3>
             <div>
-                <span class="point">20</span>积分
+                <span class="point" id="point"></span>积分
             </div>
             <a href="/html/points.html">查看积分详情</a>
         </div>
@@ -191,7 +191,10 @@
                                 text: "评价发表成功"
                             },
                             function () {
-                                $("#pointAlert").removeClass("hide");
+                                if(json.meta && json.meta.points_received){
+                                    $("#point").html(json.meta.points_received);
+                                    $("#pointAlert").removeClass("hide");
+                                }
                             }
                         );
                     }

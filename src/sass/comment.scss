@@ -529,7 +529,10 @@ $color-main:#0fb87f;
 //暂无待评价产品
 .p{
   text-align: center;
-  font-size: p2r(28);
+  font-size: p2r(32);
+  color:#666666;
+  margin-top: p2r(30);
+  background: transparent;
 }
 
 //赠送积分弹窗

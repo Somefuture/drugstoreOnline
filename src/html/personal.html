@@ -29,23 +29,63 @@
 <body>
 <div id="personal_body"></div>
 <div class="bg_color">
+    <div class="user_order">
+        <a href="/html/myOrder.html">
+            <div class="to_order_title">
+                我的订单
+                <img src="/images/personal/personal_9.png" alt="">
+            </div>
+        </a>
+        <ul class="order_tabs">
+            <li>
+                <a href="/html/myOrder.html?status=obligation">
+                    <img src="/images/personal/personal_1.png" alt="">
+                    待付款
+                </a>
+                <div class="divide"></div>
+            </li>
+            <li>
+                <a href="/html/myOrder.html?status=receiving">
+                    <img src="/images/personal/personal_2.png" alt="">
+                    待收货
+                </a>
+                <div class="divide"></div>
+            </li>
+            <li>
+                <a href="/html/commentOrder.html">
+                    <img src="/images/personal/personal_3.png" alt="">
+                    待评价
+                </a>
+                <div class="divide"></div>
+            </li>
+            <li>
+                <a onclick='swal("","功能开发建设中")'>
+                    <img src="/images/personal/personal_4.png" alt="">
+                    售后/退货
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="record">
-        <div class="recordItem" onclick="location='/html/coupons.html'">
-            <img src="/images/personal/user_38.png" alt="">
-            优惠券
-        </div>
-        <div class="recordItem" onclick="location='/html/points.html'">
-            <img src="/images/personal/user_44.png" alt="">
-            我的积分
-        </div>
-        <div class="recordItem" onclick="location='/html/myCollection.html'">
-            <img src="/images/personal/user_83.png" alt="">
-            我的收藏
-        </div>
-        <div class="recordItem last" onclick="location='/html/footMark.html'">
-            <img src="/images/personal/user_62.png" alt="">
-            我的足迹
-        </div>
+        <h2>我的记录</h2>
+        <ul class="record_tabs">
+            <li class="recordItem" onclick="location='/html/coupons.html'">
+                <img src="/images/personal/personal_5.png" alt="">
+                优惠券
+            </li>
+            <li class="recordItem" onclick="location='/html/points.html'">
+                <img src="/images/personal/personal_6.png" alt="">
+                我的积分
+            </li>
+            <li class="recordItem" onclick="location='/html/footMark.html'">
+                <img src="/images/personal/personal_7.png" alt="">
+                我的足迹
+            </li>
+            <li class="recordItem last" onclick="location='/html/myCollection.html'">
+                <img src="/images/personal/personal_8.png" alt="">
+                我的分享
+            </li>
+        </ul>
     </div>
     <div class="otherItems">
         <div class="address" onclick="location='/html/address.html'">
@@ -114,44 +154,17 @@
                 <div class="total" onclick="location='/html/points.html'">积分 <span id="point"></span></div>
             </div>
         </div>
-        <div class="user_order">
-            <a href="/html/myOrder.html">
-                <div class="to_order_title">
-                    我的订单
-                    <img src="/images/personal/user_07.png" alt="">
-                </div>
-            </a>
-            <ul class="order_tabs">
-                <li>
-                    <a href="/html/myOrder.html?status=obligation">
-                        <img src="/images/personal/user_14.png" alt="">
-                        待付款
-                    </a>
-                    <div class="divide"></div>
-                </li>
-                <li>
-                    <a href="/html/myOrder.html?status=receiving">
-                        <img src="/images/personal/user_19.png" alt="">
-                        待收货
-                    </a>
-                    <div class="divide"></div>
-                </li>
-                <li>
-                    <a href="/html/commentOrder.html">
-                        <img src="/images/personal/user_25.png" alt="">
-                        待评价
-                    </a>
-                    <div class="divide"></div>
-                </li>
-                <li>
-                    <a onclick='swal("","功能开发建设中")'>
-                        <img src="/images/personal/user_32.png" alt="">
-                        售后/退货
-                    </a>
-                </li>
-            </ul>
+        <div class="collections" onclick="location='/html/myCollection.html'">
+            <div class="proCollections">
+                <div class="num">999</div>
+                <div class="type">商品收藏</div>
+            </div>
+            <div class="line"></div>
+            <div class="artCollections">
+                <div class="num">999</div>
+                <div class="type">文章收藏</div>
+            </div>
         </div>
-        <h2>我的记录</h2>
     </div>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
