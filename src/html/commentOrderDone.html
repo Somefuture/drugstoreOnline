@@ -126,18 +126,20 @@
 <script src="/javascript/util.js"></script>
 <script>
     $(document).ready(function () {
-
+        //评价数量
+        ajax({
+            url:" /product/orders/skus/count",
+            success:function (json) {
+                if(json.success){
+                    $("#wait_comment").html(json.success.waitPost);
+                    $("#done_comment").html(json.success.post);
+                }
+            }
+        });
         var template = _.template($("#comment_order_template").html());
         //获取数据列表并进行模板渲染
         function render(data) {
             $("#comment_order_list").append(template(data));
-            $("#done_comment").html(data.count);
-            ajax({
-                url:"/product/orders/skus/wait_post",
-                success:function (json) {
-                    $("#wait_comment").html(json.success.count);
-                }
-            });
         }
         scroll_load_more("a.bottom_info", render);
     });

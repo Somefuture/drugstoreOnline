@@ -61,32 +61,41 @@
 </div>
 </body>
 <script type="text/template" id="articleList_template">
+    <% if(count>0){ %>
     <ul class="articleList">
-        <li class="article">
-            <div class="img"></div>
+        <% _.each(list,function(art){ %>
+        <li class="article" onclick="location='/html/healthy.html?id=<%= art.id %>'">
+            <% if(art.cover.id===0){ %>
+            <div style="background-image: url('/images/homePage/no_bg.png')" class="img cover"></div>
+            <% }else{ %>
+            <div class="img cover" style="background-image: url('/file/public/<%= art.cover.id %>.<%= art.cover.ext %>')"></div>
+            <% } %>
             <div class="content">
-                <h2>新闻新闻新闻<span class="new">new</span></h2>
-                <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
-                <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
+                <h2><%= art.sectionName %><span class="new">new</span></h2>
+                <p class="describe"><%= art.summary %></p>
+                <div class="others">
+                    <span class="type"><%= art.bbsName %></span>
+                    <span class="date">
+                    <% for(i=0 ; i < art.createAt.length;i++){
+                            if(art.createAt[i]<10){
+                            art.createAt[i]="0"+art.createAt[i];
+                            }
+                        } %>
+                    <%=art.createAt[0]%>-<%=art.createAt[1]%>-<%=art.createAt[2]%>
+                    </span>
+                </div>
             </div>
         </li>
-        <li class="article">
-            <div class="img"></div>
-            <div class="content">
-                <h2>新闻新闻新闻 <span class="new">new</span></h2>
-                <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
-                <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
-            </div>
-        </li>
-        <li class="article">
-            <div class="img"></div>
-            <div class="content">
-                <h2>新闻新闻新闻<span class="new">new</span></h2>
-                <p class="describe">新闻内容内容新闻内容新闻内容新闻内容</p>
-                <div class="others"> <span class="type">资讯</span> <span class="date">2017-08-21</span></div>
-            </div>
-        </li>
+        <% }) %>
+        <% if(drop < count){ %>
+        <a href="/topics/favorite?drop=<%=drop%>&take=<%=take%>" class="bottom_info">--- 下拉加载更多数据 ---</a>
+        <% } else { %>
+        <span class="bottom_info">--- 已全部加载完毕 ---</span>
+        <% } %>
     </ul>
+    <% }else{ %>
+    <p class="p">没有收藏任何文章哟~</p>
+    <% } %>
 </script>
 <script type="text/template" id="productList_template">
     <% if(count>0){ %>
@@ -100,7 +109,7 @@
                 <div class="oprBtn cancerCol"  data-id="<%= pro.id %>">
                     <img src="/images/evaluate/collections_61.png" alt="">取消收藏
                 </div>
-                <div class="oprBtn" onclick="location='/html/productDetails.html?id=<%= pro.id %>'">
+                <div class="oprBtn" onclick="location='/html/productDetails.html?id=<%= pro.id %>&showSpec=true'">
                     <img src="/images/evaluate/collections_49.png" alt="">加入药箱
                 </div>
             </div>
@@ -132,7 +141,7 @@
             template= _.template($("#productList_template").html());
         }else if(type=="article"){
             $("#article").addClass("active");
-            $("#colContent").html('<a href="/products/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+            $("#colContent").html('<a href="/topics/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
             template= _.template($("#articleList_template").html());
         }
 
@@ -149,12 +158,7 @@
                         type:"post",
                         data:{id:cancerId},
                         success:function(json){
-                           swal({
-                               title:"",
-                               text:"取消收藏成功"
-                           },function () {
-                               window.location.reload();
-                           });
+                            window.location.reload();
                         }
                     });
                 }
@@ -175,7 +179,7 @@
                   type="product";
                   scroll_load_more("a.bottom_info", render_colContent);
               }else{
-                  $("#colContent").html('<a href="/products/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
+                  $("#colContent").html('<a href="/topics/favorite?drop=0&take=10" class="bottom_info">正在加载数据...</a>');
                   template= _.template($("#articleList_template").html());
                   type="article";
                   scroll_load_more("a.bottom_info", render_colContent);

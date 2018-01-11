@@ -76,6 +76,14 @@ body{
         float: left;
         width: 10%;
         height: p2r(200);
+        .invalid{
+          width: p2r(60);
+          height: p2r(30);
+          margin:p2r(85) p2r(10);
+          color:#999999;
+          font-size: p2r(16);
+          vertical-align: middle;
+        }
         .checkbox {
           width: p2r(32);
           height: p2r(32);

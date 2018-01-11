@@ -28,33 +28,6 @@
 </head>
 <body>
 <div id="personal_body">
-    <div class="personal">
-        <div class="bg">
-            <div class="bg_img" style="background-image: url('/images/personal/bg.png')"></div>
-        </div>
-        <div class="mask">
-            <span class="edit_btn" onclick="location='personalEdit.html'">编辑信息</span>
-            <div class="person_avatar">
-                <div class="user_avatar">
-                    <input type="file" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp" id="file" class="upAvatar">
-                    <div class="avatar_img" style="background-image: url('/images/personal/avatar.png')"></div>
-                </div>
-                <span class="user_name">name</span>
-                <div class="total" onclick="location='/html/points.html'">积分 <span id="point"></span></div>
-            </div>
-        </div>
-        <div class="collections" onclick="location='/html/myCollection.html'">
-            <div class="proCollections">
-                <div class="num"> </div>
-                <div class="type">商品收藏</div>
-            </div>
-            <div class="line"></div>
-            <div class="artCollections">
-                <div class="num">99</div>
-                <div class="type">文章收藏</div>
-            </div>
-        </div>
-    </div>
 </div>
 <div class="bg_color">
     <div class="user_order">
@@ -64,27 +37,24 @@
                 <img src="/images/personal/personal_9.png" alt="">
             </div>
         </a>
-        <ul class="order_tabs">
+        <ul class="order_tabs" id="order_tabs">
             <li>
                 <a href="/html/myOrder.html?status=obligation">
                     <img src="/images/personal/personal_1.png" alt="">
                     待付款
                 </a>
-                <div class="divide"></div>
             </li>
             <li>
                 <a href="/html/myOrder.html?status=receiving">
                     <img src="/images/personal/personal_2.png" alt="">
                     待收货
                 </a>
-                <div class="divide"></div>
             </li>
             <li>
                 <a href="/html/commentOrder.html">
                     <img src="/images/personal/personal_3.png" alt="">
                     待评价
                 </a>
-                <div class="divide"></div>
             </li>
             <li>
                 <a onclick='swal("","功能开发建设中")'>
@@ -182,16 +152,51 @@
         </div>
         <div class="collections">
             <div class="proCollections" onclick="location='/html/myCollection.html?type=product'">
-                <div class="num" id="proCol">999</div>
+                <div class="num" id="proCol"></div>
                 <div class="type">商品收藏</div>
             </div>
             <div class="line"></div>
             <div class="artCollections" onclick="location='/html/myCollection.html?type=article'">
-                <div class="num" id="artCol">999</div>
+                <div class="num" id="artCol"></div>
                 <div class="type">文章收藏</div>
             </div>
         </div>
     </div>
+</script>
+<script type="text/template" id="order_tabs_template">
+    <li>
+        <% if(num.pending){ %>
+        <span class="tabNum"><%= num.pending %></span>
+        <% } %>
+        <a href="/html/myOrder.html?status=obligation">
+            <img src="/images/personal/personal_1.png" alt="">
+            待付款
+        </a>
+    </li>
+    <li>
+        <% if(num.success){ %>
+        <span class="tabNum"><%= num.success %></span>
+        <% } %>
+        <a href="/html/myOrder.html?status=receiving">
+            <img src="/images/personal/personal_2.png" alt="">
+            待收货
+        </a>
+    </li>
+    <li>
+        <% if(num.waitPost){ %>
+        <span class="tabNum"><%= num.waitPost %></span>
+        <% } %>
+        <a href="/html/commentOrder.html">
+            <img src="/images/personal/personal_3.png" alt="">
+            待评价
+        </a>
+    </li>
+    <li>
+        <a onclick='swal("","功能开发建设中")'>
+            <img src="/images/personal/personal_4.png" alt="">
+            售后/退货
+        </a>
+    </li>
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
@@ -200,22 +205,25 @@
 <script>
 $(document).ready(function(){
     var personal_template = _.template($("#personal_template").html());
-
-
-    //获取收藏产品数量
+    var order_tabs_template = _.template($("#order_tabs_template").html());
+    //订单数量
     ajax({
-        url:"/products/favorite",
-        data:{drop:0,take:10},
-        success:function (json) {
+        url:"/product/orders/count",
+        success:function(json){
             if(json.error){
                 return;
             }
-            $("#proCol").html(json.success.count);
+            var data=json.success;
+            ajax({
+                url:" /product/orders/skus/count",
+                success:function (json) {
+                    data.waitPost=json.success.waitPost;
+                    $("#order_tabs").html(order_tabs_template({"num":data}));
+                }
+            });
         }
     });
-    //todo 获取收藏文章数量
 
-    //待收货数量
 
     //获取用户个人信息
     ajax({
@@ -246,6 +254,21 @@ $(document).ready(function(){
                         }
                     })
                 });
+            });
+            //获取收藏数量
+            ajax({
+                url:"/user/favorite/count ",
+                success:function (json) {
+                    if(json.error){
+                        return;
+                    }
+                    if(json.success.product){
+                        $("#proCol").html(json.success.product);
+                    }
+                    if(json.success.topic){
+                        $("#artCol").html(json.success.topic);
+                    }
+                }
             });
         }
     });

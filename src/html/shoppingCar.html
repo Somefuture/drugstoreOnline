@@ -38,7 +38,7 @@
     <div class="carTwo">
         <div class="shoppingCar_title">
             <div id="select_all_online_items" class="checkbox-all cover"></div>
-            <div>全选&nbsp;&nbsp;&nbsp;&nbsp;<span>2号购物车（药店取货）</span></div>
+            <div>全选&nbsp;&nbsp;&nbsp;&nbsp;<span>2号购物车（邮购）</span></div>
         </div>
         <div id="online_shopping_car"></div>
     </div>
@@ -105,7 +105,11 @@
             <% if(item.sku) { %>
             <div class="sku">
                 <div class="checkbox-wrap">
+                    <% if(!item.sku.onShelf){ %>
+                        <div class="invalid">失效</div>
+                    <% }else{ %>
                     <div class="checkbox cover <%=item.selected ? 'selected' : ''%>"></div>
+                    <% } %>
                 </div>
                 <div class="image-wrap">
                     <a href="/html/productDetails.html?id=<%=item.sku.productID %>">

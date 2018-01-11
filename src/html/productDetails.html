@@ -37,11 +37,11 @@
         <span><a href="#" id="instruction_menu">说明书</a></span>
         <span><a href="#" id="post_menu">评论</a></span>
     </div>
-    <img src="/images/details/shoppingcar_06.png" alt="" id="shareBtn" class="shareBtn">
-    <img src="/images/details/shoppingcar_03.png" alt="" id="collectBtn" class="collectBtn">
+    <img src="/images/details/shoppingcar_06.png" alt="" id="shareBtn" class="shareIcon">
+    <img src="/images/details/shoppingcar_03.png" alt="" id="collectBtn" class="collectIcon">
 </div>
 <div id="product_body"></div>
-<div class="detail_footer">
+<div class="detail_footer">con
     <div class="shoppingCar">
         <img src="/images/details/shoppingcar_25.png" alt="">
         购物车
@@ -177,6 +177,7 @@
         var width = $(window).width();
         var height = width;
         var id = get_query_string("id");
+        var showSpec=get_query_string("showSpec")||false;
         var product_template = _.template($("#product_template").html());
         var $specs_selector_layer = $(".SKU_select");
         var $specs_selector = $(".SKU_select_content");
@@ -190,6 +191,11 @@
         var sku_details = {};
 
         get_product(id);
+
+        //显示规格
+        if(showSpec){
+            show_specs_selector();
+        }
 
         //分享
         $("#shareBtn").click(function () {
@@ -214,7 +220,7 @@
                     swal("","产品收藏成功");
                 }
             })
-        })
+        });
 
         $(".nextStep").click(function() {
             var sku_id = get_sku();
@@ -521,7 +527,6 @@
                 }
             });
         }
-
         function render_banner() {
             ajax({
                 url: "/product/images",

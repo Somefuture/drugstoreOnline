@@ -152,15 +152,16 @@ $color-main:#0fb87f;
         text-align: center;
         margin-bottom: p2r(10);
         position: relative;
-        .divide{
+        .tabNum{
           position: absolute;
-          right: 0;
-          top: 18px;
-          width: 1px;
-          height: p2r(60);
-          background: #FFFFFF;
-          opacity: .3;
-          vertical-align: top;
+          right: 25%;
+          width: p2r(30);
+          height: p2r(30);
+          border-radius: p2r(30);
+          top:0;
+          background: #ff7d5b;
+          font-size: p2r(22);
+          color:#FFFFFF;
         }
         img{
           width: p2r(60);

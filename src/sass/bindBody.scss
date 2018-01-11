@@ -112,8 +112,10 @@
           width:p2r(84);
           height: p2r(84);
           display: block;
+          font-size: 0;
           a{
             display: block;
+            font-size: 0;
             width: 100%;
             height: 100%;
             img{
@@ -242,14 +244,13 @@
       height: p2r(230);
       margin: 0 auto;
       padding: p2r(30) 0;
-      border-top: p2r(1) solid #dadada;
+      border-bottom: p2r(1) solid #dadada;
       overflow: hidden;
       position: relative;
       .img{
         width: p2r(230);
         height: p2r(170);
         margin-right: p2r(20);
-        background: paleturquoise;
       }
       .content{
         width: 60%;
@@ -271,9 +272,16 @@
           }
         }
         .describe{
+          width: 100%;
+          height:p2r(64);
           font-size: p2r(28);
           color:#666666;
           margin-top: p2r(16);
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+          text-overflow:ellipsis;
         }
         .others{
           font-size: p2r(24);
@@ -287,9 +295,6 @@
           }
         }
       }
-    }
-    .article:nth-child(1){
-      border:none;
     }
   }
   .productList{
@@ -435,15 +440,27 @@
       margin: p2r(30) auto;
     }
   }
-  .shareBtn{
-    width: 70%;
-    height:p2r(100);
-    margin: p2r(30) auto;
-    background: #0fb87f;
-    border-radius: p2r(10);
-    text-align: center;
-    line-height: p2r(100);
-    font-size: p2r(36);
-    color:#FFFFFF;
+}
+
+
+//分享按钮
+.shareBtn{
+  width: 70%;
+  height:p2r(100);
+  margin: p2r(30) auto;
+  background: #0fb87f;
+  border-radius: p2r(10);
+  text-align: center;
+  line-height: p2r(100);
+  font-size: p2r(36);
+  color:#FFFFFF;
+}
+
+//分享页面
+.shareApp{
+  width: 100%;
+  min-height: 667px;
+  @media screen and (min-height: 668px){
+    height: 812px;
   }
 }

@@ -76,10 +76,10 @@
     $(document).ready(function () {
         var id=get_query_string("id");
         var time=get_query_string("time").split(",");
-        if(time[3]<10){
-            time[3]='0'+time[3];
-        }if(time[4]<10){
-            time[4]="0"+time[4]
+        for(i=0 ; i < time.length;i++){
+            if(time[i]<10){
+                time[i]="0"+time[i];
+            }
         }
         ajax({
             url:"/advertisement/material/detail",

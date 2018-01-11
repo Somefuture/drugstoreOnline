@@ -29,7 +29,7 @@
     <div id="info"></div>
     <div class="comment_content">
         <h2>评价内容</h2>
-        <textarea name="" id="comment" cols="30" rows="10">在此输入您的评价内容</textarea>
+        <textarea name="" id="comment" cols="30" rows="10"  maxlength="200">在此输入您的评价内容</textarea>
     </div>
     <div class="comment_img">
         <h2>晒图 <span>（最多5张哦~）</span></h2>
@@ -176,7 +176,6 @@
             }else if(data.post==="在此输入您的评价内容"||!data.post){
                 swal("","请输入您的评价详情");
             }else{
-                console.log(data);
                 ajax({
                     url:"/product/post/post",
                     type:"post",
@@ -186,17 +185,10 @@
                             swal("",json.error.message);
                             return;
                         }
-                        swal({
-                                title: "",
-                                text: "评价发表成功"
-                            },
-                            function () {
-                                if(json.meta && json.meta.points_received){
-                                    $("#point").html(json.meta.points_received);
-                                    $("#pointAlert").removeClass("hide");
-                                }
-                            }
-                        );
+                        if(json.meta && json.meta.points_received){
+                            $("#point").html(json.meta.points_received);
+                            $("#pointAlert").removeClass("hide");
+                        }
                     }
                 })
             }
