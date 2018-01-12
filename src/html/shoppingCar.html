@@ -135,7 +135,7 @@
                             <% } %>
                         </div>
                     </div>
-                    <div class="row-2">
+                    <div class="row-2 <% if(!item.sku.onShelf){ %>hide<% } %>">
                         <div class="price">￥<%= item.sku.salesPrice.toFixed(2) %></div>
                         <div class="quantity-wrap" data-inventory="<%= item.sku.inventory %>">
                             <div class="add"></div>

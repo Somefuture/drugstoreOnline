@@ -37,6 +37,9 @@
 </div>
 <div class="comment" id="comment">
 </div>
+<div class="picturePre hide" id="picturePre">
+    <div class="picture cover"></div>
+</div>
 </body>
 <script type="text/template" id="comment_template">
     <ul>
@@ -170,6 +173,17 @@
             data.id = id;
             $("#comment").append(template(data));
 
+            //图片点击预览
+            $(".imgs").click(function () {
+                $("#picturePre div").attr("style",$(this).attr("style"))
+                $("#picturePre").removeClass("hide");
+                console.log($(this).attr("style"));
+            });
+
+            //取消预览
+            $("#picturePre").click(function () {
+                $("#picturePre").addClass("hide");
+            })
         }
         $("#comment").append('<a href="/product/posts/by_product?productID='+id+'&drop=0&take=10" class="bottom_info">正在加载数据...</a>');
         scroll_load_more("a.bottom_info", render);

@@ -36,7 +36,27 @@
 <div class="store_body">
     <div class="banner" id="banner"></div>
     <div class="category">
-        <img src="/images/tab/store.jpg" alt="">
+        <div class="icon">
+            <img src="/images/home/home_101.png" alt="">
+            <div class="iconExplain">
+                <h2>正品保障</h2>
+                <h2>假一赔十</h2>
+            </div>
+        </div>
+        <div class="icon">
+            <img src="/images/home/home_115.png" alt="">
+            <div class="iconExplain">
+                <h2>全网最权威新</h2>
+                <h2>特药品牌</h2>
+            </div>
+        </div>
+        <div class="icon">
+            <img src="/images/home/home_129.png" alt="">
+            <div class="iconExplain">
+                <h2>支持邮购</h2>
+                <h2>或药店自取</h2>
+            </div>
+        </div>
     </div>
     <div id="product_list">
         <a href="/products?drop=0&take=10" id="loadData"></a>
@@ -101,14 +121,16 @@
     <div class="product_lists">
         <ul>
             <% _.each(success.list,function(ele){ %>
-            <li>
-                <a href="/html/productDetails.html?id=<%=ele.id%>">
-                    <span class="pro_name"><%=ele.name%></span>
-                    <div class="img"
-                         style="background-image: url('/file/public/<%=ele.image.id%>.<%=ele.image.ext%>');">
+            <li onclick="location='/html/productDetails.html?id=<%=ele.id%>'">
+                <div class="proImg cover" style="background-image: url('/file/public/<%= ele.image.id %>.<%= ele.image.ext %>')"></div>
+                <div class="proContent">
+                    <h3><%= ele.name %></h3>
+                    <p><%= ele.description %></p>
+                    <div class="other">
+                        <span class="price">￥<%= ele.minSalesPrice %></span>
+                        <span class="saleVolume">销量<b><%= ele.salesVolume %></b></span>
                     </div>
-                    <span class="pro_price">￥<%=ele.minSalesPrice.toFixed(2) %></span>
-                </a>
+                </div>
             </li>
             <% }) %>
         </ul>

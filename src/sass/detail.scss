@@ -9,17 +9,20 @@ $color-main:#0fb87f;
   height: p2r(120);
   background: $color-main;
   position: relative;
-  img{
+  .collectIcon{
     position: absolute;
-    width: p2r(48);
-    height: p2r(42);
-    top: p2r(40);
+    width: p2r(60);
+    height: p2r(60);
+    top: p2r(30);
+    right: p2r(80);
+    overflow: hidden;
   }
   .shareIcon{
+    position: absolute;
+    width: p2r(60);
+    height: p2r(60);
+    top: p2r(30);
     right: p2r(20);
-  }
-  .collectIcon{
-    right: p2r(80);
   }
   .items{
     width: 60%;
@@ -131,9 +134,8 @@ $color-main:#0fb87f;
     margin: 0;
     img{
       display: block;
-      width: p2r(74);
-      margin: 0 auto;
-      padding: p2r(10);
+      width: p2r(50);
+      margin: p2r(10) auto;
     }
   }
   .shoppingCar{

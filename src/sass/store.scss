@@ -55,45 +55,94 @@ $bottom-border:p2r(1) solid #e7e7e7;
   background: #fafafa;
   .category{
     width: 100%;
-    font-size: 0;
-    img{
-      width: 100%;
+    height: p2r(240);
+    background: #f1eff2;
+    .icon{
+      float: left;
+      width: 33%;
+      height: p2r(240);
+      text-align: center;
+      padding-top: p2r(30);
+      h2{
+        font-size: p2r(28);
+        color:#666666;
+      }
     }
   }
   .product_lists{
     ul{
-      width: 94%;
-      margin: 0 auto;
-      font-size: 0;
+      width: 100%;
+      padding:0 p2r(20);
+      background: #f1eff2;
       li{
-        display: inline-block;
-        width: 46%;
-        margin: 0 2% p2r(16) 2%;
+        width: 100%;
+        height: p2r(250);
+        margin-bottom: p2r(16);
         background: #FFFFFF;
-        .pro_name{
-          display: block;
-          width: p2r(230);
-          margin: p2r(30) auto;
-          font-size: p2r(30);
-          color: #484848;
-          overflow: hidden;
-          text-overflow:ellipsis;
-          white-space: nowrap;
-        }
-        .img{
-          display: block;
-          width: p2r(230);
-          height: p2r(230);
+        position: relative;
+        .proImg{
+          width: p2r(250);
+          height: p2r(250);
           background-size: cover;
           background-position: center;
-          margin: auto;
         }
-        .pro_price{
-          display: block;
-          width: p2r(230);
-          margin: p2r(20) auto;
-          font-size: p2r(34);
-          color:#d9a86c;
+        .proContent{
+          position: absolute;
+          top: 0;
+          left:p2r(250);
+          width: 60%;
+          height: p2r(250);
+          padding: p2r(20) p2r(20) p2r(30) p2r(20);
+          h3{
+            width: 100%;
+            height: p2r(40);
+            line-height: p2r(40);
+            font-size: p2r(32);
+            color:#333333;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+          }
+          p{
+            width: 100%;
+            height: p2r(60);
+            margin-top: p2r(20);
+            line-height: p2r(30);
+            font-size: p2r(28);
+            color:#666666;
+            isplay: -webkit-box;
+            text-overflow: ellipsis;
+            overflow : hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          }
+          .other{
+            width: 100%;
+            height: p2r(90);
+            position: relative;
+            .price{
+              font-size: p2r(36);
+              color:#d9a86c;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+            }
+            .saleVolume{
+              position: absolute;
+              right: 0;
+              bottom: 0;
+              color:#999999;
+              font-size: p2r(24);
+              b{
+                color:#333333;
+                font-weight: normal;
+                padding-left: p2r(10);
+              }
+            }
+          }
         }
       }
     }

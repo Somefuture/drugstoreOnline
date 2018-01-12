@@ -234,69 +234,6 @@
       color:#ffffff;
     }
   }
-  .articleList{
-    width: 100%;
-    background: #ffffff;
-    overflow: hidden;
-    margin-top: p2r(30);
-    .article{
-      width: 96%;
-      height: p2r(230);
-      margin: 0 auto;
-      padding: p2r(30) 0;
-      border-bottom: p2r(1) solid #dadada;
-      overflow: hidden;
-      position: relative;
-      .img{
-        width: p2r(230);
-        height: p2r(170);
-        margin-right: p2r(20);
-      }
-      .content{
-        width: 60%;
-        height: p2r(170);
-        position: absolute;
-        left:p2r(250);
-        top: p2r(30);
-        h2{
-          color:#333333;
-          font-size: p2r(32);
-          font-weight: bold;
-          .new{
-            background: #ff7b5b;
-            color:#FFFFFF;
-            font-size: p2r(20);
-            padding: p2r(3) p2r(10);
-            margin-left: p2r(16);
-            border-radius: p2r(28);
-          }
-        }
-        .describe{
-          width: 100%;
-          height:p2r(64);
-          font-size: p2r(28);
-          color:#666666;
-          margin-top: p2r(16);
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
-          overflow: hidden;
-          text-overflow:ellipsis;
-        }
-        .others{
-          font-size: p2r(24);
-          color:#999999;
-          margin-top: p2r(16);
-          .type{
-            float: left;
-          }
-          .date{
-            float: right;
-          }
-        }
-      }
-    }
-  }
   .productList{
     width:92%;
     margin: p2r(30) auto 0 auto;

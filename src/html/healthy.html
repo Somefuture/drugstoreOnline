@@ -24,10 +24,6 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-<div class="shopping_header">
-    <p class="title">文章详情</p>
-    <img class="collect" src="/images/details/shoppingcar_03.png" alt="" id="collectBtn">
-</div>
 <div id="content">
 </div>
 <div class="share hide" id="share">
@@ -43,6 +39,14 @@
 </div>
 </body>
 <script type="text/template" id="content_template">
+    <div class="shopping_header">
+        <p class="title">文章详情</p>
+        <% if(info.favorite){ %>
+        <img class="collect" src="/images/home/home_41.png" alt="" id="cancerCollectBtn">
+        <% }else{ %>
+        <img class="collect" src="/images/home/home_15.png" alt="" id="collectBtn">
+        <% } %>
+    </div>
     <div class="info_body">
         <div class="content">
             <%= info.content %>
@@ -76,23 +80,43 @@
                 $(".cancerShare").click(function () {
                     $("#share").addClass("hide");
                 });
+
+                //收藏
+                $("#collectBtn").click(function () {
+                    ajax({
+                        url:"/topic/favorite",
+                        type:"post",
+                        data:{id:id},
+                        success:function(json){
+                            if(json.error){
+                                return;
+                            }
+                            window.location.reload();
+                        }
+                    })
+                });
+                //取消收藏
+                $("#cancerCollectBtn").click(function () {
+                    ajax({
+                        url:"/topic/favorite/delete",
+                        type:"post",
+                        data:{id:id},
+                        success:function(json){
+                            if(json.error){
+                                return;
+                            }
+                            swal({
+                                title:"",
+                                text:"取消收藏成功"
+                            },function () {
+                                window.location.reload();
+                            });
+                        }
+                    })
+                });
             }
         });
 
-        //收藏
-        $("#collectBtn").click(function () {
-            ajax({
-                url:"/topic/favorite",
-                type:"post",
-                data:{id:id},
-                success:function(json){
-                    if(json.error){
-                        return;
-                    }
-                    swal("","文章收藏成功");
-                }
-            })
-        });
     });
 
 </script>

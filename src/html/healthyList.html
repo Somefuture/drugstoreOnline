@@ -7,22 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
-    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
-    <meta name="format-detection"content="telephone=no, email=no" />
-    <!-- 启用360浏览器的极速模式(webkit) -->
-    <meta name="renderer" content="webkit">
-    <!-- 避免IE使用兼容模式 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
-    <meta name="HandheldFriendly" content="true">
-    <!-- 微软的老式浏览器 -->
-    <meta name="MobileOptimized" content="320">
-    <!-- uc强制竖屏 -->
-    <meta name="screen-orientation" content="portrait">
     <!-- QQ强制竖屏 -->
     <meta name="x5-orientation" content="portrait">
     <!-- UC强制全屏 -->
@@ -46,11 +30,10 @@
 <div class="header">
     <p>健康汇</p>
 </div>
-<div class="body">
+<div class="healthyBody">
+    <div id="healthyTab"></div>
     <div id="banner" class="banner"></div>
-    <div id="healthy">
-        <a href="/topics?drop=0&take=10&bbsCode=JKH" class="bottom_info">正在加载数据...</a>
-    </div>
+    <div id="healthy"></div>
 </div>
 </body>
 <script type="text/template" id="banner_template">
@@ -83,37 +66,52 @@
 </script>
 <script type="text/template" id="healthy_template">
     <div class="healthy">
-        <ul class="list-news">
-            <% _.each(list,function(heal){ %>
-            <% if(heal.bbsName==="健康汇"){ %>
-            <a href="/html/healthy.html?id=<%= heal.id %>">
-                <li class="lists">
-                    <ul>
-                        <li class="newsImg">
-                            <% if(heal.cover.id===0){ %>
-                            <div style="background-image: url('/images/homePage/no_bg.png')" class="img cover"></div>
-                            <% }else{ %>
-                            <div style="background-image: url('/file/public/<%= heal.cover.id %>.<%= heal.cover.ext %>')" class="img cover"></div>
-                            <% } %>
-                        </li>
-                        <li class="newsContent">
-                            <h1><%= heal.title %></h1>
-                            <p><%= heal.summary %></p>
-                        </li>
-                    </ul>
-                </li>
-            </a>
-            <% }}) %>
+        <% if(count>0){ %>
+        <ul class="articleList">
+            <% _.each(list,function(art){ %>
+            <li class="article" onclick="location='/html/healthy.html?id=<%= art.id %>'">
+                <% if(art.cover.id===0){ %>
+                <div style="background-image: url('/images/homePage/no_bg.png')" class="img cover"></div>
+                <% }else{ %>
+                <div class="img cover" style="background-image: url('/file/public/<%= art.cover.id %>.<%= art.cover.ext %>')"></div>
+                <% } %>
+                <div class="content">
+                    <h2><%= art.title %><span class="new">new</span></h2>
+                    <p class="describe"><%= art.summary %></p>
+                    <div class="others">
+                        <span class="type"><%= art.sectionName %></span>
+                        <span class="date">
+                    <% for(i=0 ; i < art.createAt.length;i++){
+                            if(art.createAt[i]<10){
+                            art.createAt[i]="0"+art.createAt[i];
+                            }
+                        } %>
+                    <%=art.createAt[0]%>-<%=art.createAt[1]%>-<%=art.createAt[2]%>
+                    </span>
+                    </div>
+                </div>
+            </li>
+            <% }) %>
             <% if(drop < count){ %>
-            <a href="/topics?bbsCode=JKH&drop=<%=drop%>&take=10" class="bottom_info">--- 下拉加载更多数据 ---</a>
+            <a href="/topics?bbsCode=JKH&drop=<%=drop%>&take=<%=take%>&sectionID=<%= sectionID %>" class="bottom_info">--- 下拉加载更多数据 ---</a>
             <% } else { %>
             <span class="bottom_info">--- 已全部加载完毕 ---</span>
             <% } %>
         </ul>
-
-
-
+        <% }else{ %>
+        <p class="p">暂无相关文章</p>
+        <% } %>
     </div>
+</script>
+<script type="text/template" id="healthyTab_template">
+    <div class="swiper-container2">
+        <ul class="healthyTab swiper-wrapper">
+            <% _.each(sections,function(section){ %>
+            <li data-id="<%= section.id %>" class="swiper-slide"><%= section.name %></li>
+            <% })%>
+        </ul>
+    </div>
+
 </script>
 <script src="/javascript/jquery-3.2.1.min.js"></script>
 <script src="/javascript/sweetalert.min.js"></script>
@@ -124,8 +122,10 @@
     $(document).ready(function(){
         var width = $(window).width();
         var height = width * 290 / 640;
+        var sectionID;
 
         var template = _.template($("#healthy_template").html());
+        var tab_template=_.template($("#healthyTab_template").html());
         render_banner();
 
         function render_banner() {
@@ -161,10 +161,61 @@
             });
         }
 
+        //获取板块
+        ajax({
+            url:"/sections",
+            data:{bbsCode:"JKH"},
+            success:function (json) {
+                if(json.error){
+                    return;
+                }
+                $("#healthyTab").html(tab_template({"sections":json.success}));
+                var swiper = new Swiper({
+                    el: '.swiper-container2',
+                    initialSlide:0,//默认显示页
+
+
+
+
+                    spaceBetween:0,//slide之间的间距
+                    slidesPerView:4,
+                    slideToClickedSlide: true,
+                    centeredSlides: false,
+                    grabCursor: true,
+                    mousewheel: {
+                        enabled: true,
+                    },
+                    keyboard: {
+                        enabled: true,
+                    }
+                });
+                $("#healthyTab li:nth-child(1)").addClass('active');
+                sectionID=json.success[0].id;
+                $("#healthy").html("<a href='/topics?drop=0&take=10&bbsCode=JKH&sectionID="+sectionID+"' class='bottom_info'>正在加载数据...</a>");
+                scroll_load_more("a.bottom_info", render);
+            }
+        });
+
+        //板块切换
+        function toogle() {
+            if($(this).hasClass("active")){
+                return;
+            }else{
+                $(this).addClass("active");
+                $(this).siblings().removeClass("active");
+                sectionID=$(this).attr("data-id");
+                $("#healthy").html("<a href='/topics?drop=0&take=10&bbsCode=JKH&sectionID="+sectionID+"' class='bottom_info'>正在加载数据...</a>");
+                scroll_load_more("a.bottom_info", render);
+            }
+        }
+
+        $("#healthyTab").delegate("li","click",toogle);
+
         function render(data) {
             $("#healthy").append(template(data));
+            data.sectionID=sectionID;
         }
-        scroll_load_more("a.bottom_info", render);
+
     });
 </script>
 </html>

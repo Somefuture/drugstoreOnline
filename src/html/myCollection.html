@@ -71,10 +71,10 @@
             <div class="img cover" style="background-image: url('/file/public/<%= art.cover.id %>.<%= art.cover.ext %>')"></div>
             <% } %>
             <div class="content">
-                <h2><%= art.sectionName %><span class="new">new</span></h2>
+                <h2><%= art.title %><span class="new">new</span></h2>
                 <p class="describe"><%= art.summary %></p>
                 <div class="others">
-                    <span class="type"><%= art.bbsName %></span>
+                    <span class="type"><%= art.sectionName %></span>
                     <span class="date">
                     <% for(i=0 ; i < art.createAt.length;i++){
                             if(art.createAt[i]<10){
@@ -103,7 +103,7 @@
         <% _.each(list,function(pro){ %>
         <li class="pro">
             <h3><%= pro.name %></h3>
-            <div class="proImg cover" style="background-image: url('/file/public/<%= pro.image.id %>.<%= pro.image.ext %>')"></div>
+            <div class="proImg cover" style="background-image: url('/file/public/<%= pro.image.id %>.<%= pro.image.ext %>')" onclick="location='/html/productDetails.html?id=<%= pro.id %>'"></div>
             <div class="price">￥<%= pro.minSalesPrice %> <span class="salesValue">销量: <span class="saleNum"><%= pro.salesVolume %></span></span></div>
             <div class="proOpr">
                 <div class="oprBtn cancerCol"  data-id="<%= pro.id %>">

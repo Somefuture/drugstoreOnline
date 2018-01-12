@@ -27,58 +27,59 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-   <div class="header">
-       <p>健康是一辈子的事业</p>
-       <!--<div class="barcode">-->
-           <!--<img src="/images/homePage/home_10@1x.png" alt="">-->
-       <!--</div>-->
-   </div>
-   <div class="body">
-       <div class="index_banner">
-           <div class="top_color"></div>
-           <div id="banner"></div>
-       </div>
-       <div id="notice"></div>
-       <div class="quick">
-           <div class="quick_shopping" onclick="location='/html/store.html'">
-               <img src="/images/homePage/01.jpg" alt="">
-           </div>
-           <div class="knowledge">
-               <img src="/images/homePage/02.jpg" alt="">
-           </div>
-       </div>
-       <div id="reputation"></div>
-       <div id="welfare"></div>
-       <div id="healthy"></div>
-   </div>
-   <div class="footer">
-       <ul class="nav">
-           <li class="active">
-               <a href="">
-               <img src="/images/tab/tab_47.png" alt="">
-                   首页
-               </a>
-           </li>
-           <li>
-               <a href="store.html">
-               <img src="/images/tab/tab_36.png" alt="">
-               精品商城
-               </a>
-           </li>
-           <li>
-               <a href="/html/shoppingCar.html">
-               <img src="/images/tab/tab_38.png" alt="">
-               我的药箱
-               </a>
-           </li>
-           <li>
-               <a href="personal.html">
-               <img src="/images/tab/tab_40.png" alt="">
-               个人中心
-               </a>
-           </li>
-       </ul>
-   </div>
+<div class="index_body">
+    <div class="header">
+        <p>健康是一辈子的事业</p>
+        <!--<div class="barcode">-->
+        <!--<img src="/images/homePage/home_10@1x.png" alt="">-->
+        <!--</div>-->
+    </div>
+    <div class="body">
+        <div class="index_banner">
+            <div class="top_color"></div>
+            <div id="banner"></div>
+        </div>
+        <div id="notice"></div>
+        <div class="quick">
+            <div class="quick_shopping" onclick="location='/html/store.html'">
+                <img src="/images/homePage/01.jpg" alt="">
+            </div>
+            <div class="knowledge">
+                <img src="/images/homePage/02.jpg" alt="">
+            </div>
+        </div>
+        <div id="reputation"></div>
+        <div id="healthy"></div>
+    </div>
+    <div class="footer">
+        <ul class="nav">
+            <li class="active">
+                <a href="">
+                    <img src="/images/tab/tab_47.png" alt="">
+                    首页
+                </a>
+            </li>
+            <li>
+                <a href="store.html">
+                    <img src="/images/tab/tab_36.png" alt="">
+                    精品商城
+                </a>
+            </li>
+            <li>
+                <a href="/html/shoppingCar.html">
+                    <img src="/images/tab/tab_38.png" alt="">
+                    我的药箱
+                </a>
+            </li>
+            <li>
+                <a href="personal.html">
+                    <img src="/images/tab/tab_40.png" alt="">
+                    个人中心
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 <script type="text/template" id="banner_template">
     <div class="banner">
@@ -135,96 +136,69 @@
 <script type="text/template" id="reputation_template">
     <div class="reputation">
         <div class="title">
-               <span class="icon">
-                   <img src="/images/homePage/home_45@1x.png" alt="">
-               </span>
+             <img src="/images/homePage/home_45@1x.png" alt="" class="icon">
             <span class="title-content">口碑精选</span>
-            <span class="more" onclick="location='/html/store.html'">更多&gt</span>
+            <img src="/images/homePage/home_87.png" alt="" class="more" onclick="location='/html/store.html'">
         </div>
-        <div class="product">
-            <% if(product.length > 0){ %>
-            <div class="pro_one cover" data-url="/html/productDetails.html?id=<%= product[0].moduleID %>"  style="background-image: url(/file/public/<%= product[0].image.id %>.<%= product[0].image.ext %>)"></div>
-            <% } %>
-            <% if(product.length > 1){ %>
-            <div class="pro_two cover" data-url="/html/productDetails.html?id=<%= product[1].moduleID %>" style="background-image: url(/file/public/<%= product[1].image.id %>.<%= product[1].image.ext %>)"></div>
-            <% } %>
-            <% if(product.length > 2){ %>
-            <div class="pro_three cover" data-url="/html/productDetails.html?id=<%= product[2].moduleID %>" style="background-image: url(/file/public/<%= product[2].image.id %>.<%= product[2].image.ext %>)"></div>
-            <% } %>
-            <% if(product.length > 3){ %>
-            <div class="pro_four cover" data-url="/html/productDetails.html?id=<%= product[3].moduleID %>" style="background-image: url(/file/public/<%= product[3].image.id %>.<%= product[3].image.ext %>)"></div>
-            <% } %>
-        </div>
-    </div>
-</script>
-<script type="text/template" id="welfare_template">
-    <div class="welfare">
-        <div class="title">
-               <span class="icon">
-                   <img src="/images/homePage/home_45@1x.png" alt="">
-               </span>
-            <span class="title-content">福利社</span>
-            <span class="more"><a href="/html/collection.html?id=4">更多&gt</a></span>
-        </div>
-        <div class="content">
-            <a href="/html/info.html?id=<%= welfare[0].id %>&time=<%= welfare[0].startAt %>">
-            <div class="welfare_s">
-                <h3><%= welfare[0].title %></h3>
-                <p><%= welfare[0].summary %></p>
-                <div class="img cover" style="background-image: url('/file/public/<%= welfare[0].image.id %>.<%= welfare[0].image.ext %>')" alt=""></div>
+        <div class="repProduct">
+            <div class="swiper-container2">
+                <div class="swiper-wrapper">
+                    <% _.each(images, function (image) { %>
+                    <div class="swiper-slide">
+                        <!-- Required swiper-lazy class and image source specified in data-src attribute -->
+                        <div style="background-image: url('/file/public/<%= image.image.id %>.<%= image.image.ext %>')" class="swiper-lazy cover img"
+                        <% if(image.module==="event"){ %>
+                        onclick="location='<%= image.link %>'"
+                        <% }else if(image.module==="product"){ %>
+                        onclick="location='/html/productDetails.html?id=<%= image.moduleID %>'"
+                        <% }else if(image.module==="info"){ %>
+                        onclick="location='/html/healthy.html?id=<%= image.moduleID %>'"
+                        <% }else{ %>
+                        return;
+                        <% } %> ></div>
+                        <div class="describe">
+                            <h4><%=image.title %></h4>
+                            <p><%= image.summary %></p>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
             </div>
-            </a>
-            <a href="/html/info.html?id=<%= welfare[1].id %>&time=<%= welfare[1].startAt %>">
-            <div class="welfare_s">
-                <h3><%= welfare[1].title %></h3>
-                <p><%= welfare[1].summary %></p>
-                <div class="img cover" style="background-image: url('/file/public/<%= welfare[1].image.id %>.<%= welfare[1].image.ext %>')" alt=""></div>
-            </div>
-            </a>
         </div>
     </div>
 </script>
 <script type="text/template" id="healthy_template">
     <div class="healthy">
         <div class="title">
-               <span class="icon">
-                   <img src="/images/homePage/home_45@1x.png" alt="">
-               </span>
+            <img src="/images/homePage/home_45@1x.png" alt="" class="icon">
             <span class="title-content">健康汇</span>
-            <span class="more"><a href="/html/healthyList.html">更多&gt</a></span>
+            <img src="/images/homePage/home_87.png" alt="" class="more" onclick="location='/html/healthyList.html'">
         </div>
-        <div class="top-news">
-            <div class="img">
-                <a href="/html/healthy.html?id=<%= healthy[0].id %>">
-                    <% if(healthy[0].cover.id===0){ %>
-                    <div style="background-image: url('/images/homePage/no_bg.png')" class="imgs cover"></div>
-                    <% }else{ %>
-                    <div style="background-image: url('/file/public/<%= healthy[0].cover.id %>.<%= healthy[0].cover.ext %>')" class="imgs cover"></div>
-                    <% } %>
-                <div class="news_content"><%= healthy[0].summary %></div>
-                </a>
-            </div>
-        </div>
-        <ul class="list-news">
-            <% _.each(_.rest(healthy),function(heal){ %>
-            <a href="/html/healthy.html?id=<%= heal.id %>">
-            <li class="lists">
-                <ul>
-                    <li class="newsImg">
-                        <% if(heal.cover.id===0){ %>
-                        <div style="background-image: url('/images/homePage/no_bg.png')" class="img cover"></div>
-                        <% }else{ %>
-                        <div style="background-image: url('/file/public/<%= heal.cover.id %>.<%= heal.cover.ext %>')" class="img cover"></div>
-                        <% } %>
-                    </li>
-                    <li class="newsContent">
-                        <h1><%= heal.title %></h1>
-                        <p><%= heal.summary %></p>
-                    </li>
-                </ul>
+        <ul class="articleList">
+            <% _.each(list,function(art){ %>
+            <li class="article" onclick="location='/html/healthy.html?id=<%= art.id %>'">
+                <% if(art.cover.id===0){ %>
+                <div style="background-image: url('/images/homePage/no_bg.png')" class="img cover"></div>
+                <% }else{ %>
+                <div class="img cover" style="background-image: url('/file/public/<%= art.cover.id %>.<%= art.cover.ext %>')"></div>
+                <% } %>
+                <div class="content">
+                    <h2><%= art.title %><span class="new">new</span></h2>
+                    <p class="describe"><%= art.summary %></p>
+                    <div class="others">
+                        <span class="type"><%= art.sectionName %></span>
+                        <span class="date">
+                    <% for(i=0 ; i < art.createAt.length;i++){
+                            if(art.createAt[i]<10){
+                            art.createAt[i]="0"+art.createAt[i];
+                            }
+                        } %>
+                    <%=art.createAt[0]%>-<%=art.createAt[1]%>-<%=art.createAt[2]%>
+                    </span>
+                    </div>
+                </div>
             </li>
-            </a>
-            <% }) %>
+            <% }); %>
         </ul>
     </div>
 </script>
@@ -326,25 +300,15 @@
 
                     }else {
                         var reputation_template = _.template($("#reputation_template").html());
-                        $("#reputation").html(reputation_template({"product": json.success}));
-                        $(".reputation .product div").click(function(){
-                            window.location.href = $(this).attr("data-url");
+                        $("#reputation").html(reputation_template({"images": json.success}));
+                        new Swiper('.swiper-container2', {
+                            slidesPerView: 2.1,
+                            initialSlide: 0,//默认显示页
+                            spaceBetween: 10,//slide之间的间距
+                            slideToClickedSlide: true,
+                            grabCursor: true,
+                            lazy: true
                         });
-                    }
-                }
-            });
-        }
-        get_welfare()
-        function get_welfare() {
-            ajax({
-                url: "/advertisement/materials/by_collection",
-                data: {"collectionID":"4"},
-                success: function (json) {
-                    if(json.error) {
-                        return;
-                    }else {
-                        var welfare_template = _.template($("#welfare_template").html());
-                        $("#welfare").html(welfare_template({"welfare": json.success}));
                     }
                 }
             });
@@ -363,7 +327,7 @@
 
                     }else {
                         var healthy_template = _.template($("#healthy_template").html());
-                        $("#healthy").html(healthy_template({"healthy": json.success.list}));
+                        $("#healthy").html(healthy_template({"list": json.success.list}));
                     }
                 }
             });

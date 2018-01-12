@@ -37,17 +37,18 @@
         <span><a href="#" id="instruction_menu">说明书</a></span>
         <span><a href="#" id="post_menu">评论</a></span>
     </div>
-    <img src="/images/details/shoppingcar_06.png" alt="" id="shareBtn" class="shareIcon">
-    <img src="/images/details/shoppingcar_03.png" alt="" id="collectBtn" class="collectIcon">
+    <img src="/images/home/home_17.png" alt="" id="shareBtn" class="shareIcon">
+    <div id="collect" class="collectIcon">
+    </div>
 </div>
 <div id="product_body"></div>
 <div class="detail_footer">con
     <div class="shoppingCar">
-        <img src="/images/details/shoppingcar_25.png" alt="">
+        <img src="/images/home/home_58.png" alt="">
         购物车
     </div>
     <div class="addToCar">
-        <img src="/images/details/shoppingcar_29.png" alt="">
+        <img src="/images/home/home_59.png" alt="">
         加入我的药箱
     </div>
     <div class="nextStep">
@@ -90,6 +91,13 @@
     <div class="cancerShare">取消</div>
 </div>
 </body>
+<script type="text/template" id="collect_template">
+    <% if(pro.favorite){ %>
+    <img src="/images/home/home_41.png" alt="" id="cancerCollectBtn">
+    <% }else{ %>
+    <img src="/images/home/home_15.png" alt="" id="collectBtn">
+    <% } %>
+</script>
 <script type="text/template" id="specs">
     <% _.each(_.keys(data.key_names), function (keyID) { %>
     <h3><%=data.key_names[keyID]%></h3>
@@ -179,6 +187,7 @@
         var id = get_query_string("id");
         var showSpec=get_query_string("showSpec")||false;
         var product_template = _.template($("#product_template").html());
+        var collect_template = _.template($("#collect_template").html());
         var $specs_selector_layer = $(".SKU_select");
         var $specs_selector = $(".SKU_select_content");
         var $add_shopping_cart_button = $(".addToCar");
@@ -205,21 +214,6 @@
         //取消分享
         $(".cancerShare").click(function () {
             $("#share").addClass("hide");
-        });
-
-        //收藏
-        $("#collectBtn").click(function () {
-            ajax({
-                url:"/product/favorite",
-                type:"post",
-                data:{id:id},
-                success:function(json){
-                    if(json.error){
-                        return;
-                    }
-                    swal("","产品收藏成功");
-                }
-            })
         });
 
         $(".nextStep").click(function() {
@@ -507,6 +501,47 @@
                     if(json.error){
                         return;
                     }
+                    //收藏状态
+                    $("#collect").html(collect_template({"pro":json.success}));
+                    //收藏
+                    $("#collectBtn").click(function () {
+                        ajax({
+                            url:"/product/favorite",
+                            type:"post",
+                            data:{id:id},
+                            success:function(json){
+                                if(json.error){
+                                    return;
+                                }
+                                swal({
+                                    title:"",
+                                    text:"收藏成功"
+                                },function () {
+                                    window.location.reload();
+                                });
+                            }
+                        })
+                    });
+                    //取消收藏
+                    $("#cancerCollectBtn").click(function () {
+                        ajax({
+                            url:"/product/favorite/delete",
+                            type:"post",
+                            data:{id:id},
+                            success:function(json){
+                                if(json.error){
+                                    return;
+                                }
+                                swal({
+                                    title:"",
+                                    text:"取消收藏成功"
+                                },function () {
+                                    window.location.reload();
+                                });
+                            }
+                        })
+                    });
+
                     $("#product_body").html(product_template({"product": json.success}));
                     $(".banner").height(height);
                     render_banner(id);

@@ -3,6 +3,7 @@
   @return ($size/32)*1rem
 }
 $color-main:#0fb87f;
+//资讯详情
 .info_body{
   width: 100%;
   padding:0 p2r(20) p2r(200) p2r(20);
@@ -37,7 +38,7 @@ $color-main:#0fb87f;
     }
   }
 }
-
+//资讯列表
 .col{
   width: 92%;
   margin: 0 auto;
@@ -81,5 +82,31 @@ $color-main:#0fb87f;
         }
       }
     }
+  }
+}
+//健康汇页
+.healthyBody{
+  background: #FFFFFF;
+  .healthyTab{
+    width: 96%;
+    margin: 0 auto;
+    font-size: 0;
+    li{
+      padding: p2r(30) 0 p2r(20) 0;
+      float: left;
+      width: 25%;
+      height: p2r(80);
+      font-size: p2r(28);
+      color:#666666;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    li.active{
+      color:#0fb87f;
+      border-bottom: 3px solid #0fb87f;
+    }
+  }
+  .banner{
+    clear: left;
   }
 }

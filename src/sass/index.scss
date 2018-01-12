@@ -7,40 +7,29 @@ $color-font:#171717;
 $bottom-border:p2r(1) solid #e7e7e7;
 @mixin titles{
   width: 100%;
-  padding-top: p2r(40);
-  padding-bottom: p2r(20);
-  border-bottom: p2r(1) solid #e7e7e7;
-  color:$color-font;
-  background: #fafafa;
+  height: p2r(80);
+  padding: p2r(30) p2r(20) 0 p2r(20);
+  overflow: hidden;
+  position: relative;
+  border-bottom: p2r(1) solid #e0e0e0;
+  background: #FFFFFF;
   .icon{
-    margin-left: p2r(20);
-    margin-right: p2r(12);
-    vertical-align: middle;
+    height: p2r(32);
+    vertical-align: top;
   }
   .title-content{
     font-size: p2r(32);
+    color:#333333;
+    font-weight: bold;
+    vertical-align: top;
   }
   .more{
-    float: right;
-    font-size: p2r(22);
-    margin-right: p2r(30);
-    margin-top: p2r(10);
-    color:#3c3c3c;
-    a{
-      color: #3c3c3c;
-      font-size: p2r(22);
-    }
+    position: absolute;
+    right: p2r(20);
+    top:p2r(20);
+    height: p2r(50);
+    width: p2r(80);
   }
-}
-@mixin little-title{
-  margin-top:p2r(10) ;
-  display: inline-block;
-  height:p2r(40);
-  line-height: p2r(40);
-  border:p2r(1) solid $color-main;
-  margin-left:p2r(20);
-  font-size: p2r(14);
-  text-align: center;
 }
 .header{
   width: 100%;
@@ -53,8 +42,10 @@ $bottom-border:p2r(1) solid #e7e7e7;
     line-height: p2r(88);
   }
 }
-.body {
+//首页样式
+.index_body {
   margin-bottom: p2r(200);
+  background: #f3f3f3;
   .notice {
     width: 100%;
     border: 1px solid #e7e7e7;
@@ -81,8 +72,8 @@ $bottom-border:p2r(1) solid #e7e7e7;
       top:0;
       padding:0;
       img {
-        vertical-align: top;
-        width: p2r(28);
+        vertical-align: text-top;
+        width: p2r(40);
       }
       vertical-align: middle;
       color: $color-main;
@@ -102,6 +93,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
       vertical-align: bottom;
     }
   }
+  //快速买药
   .quick {
     width: 100%;
     padding: p2r(28) p2r(20) 0 p2r(20);
@@ -118,252 +110,138 @@ $bottom-border:p2r(1) solid #e7e7e7;
       margin-right: p2r(-30);
     }
   }
+  //口碑精选
   .reputation {
     .title {
       @include titles;
     }
-    .product {
+    overflow: hidden;
+    .repProduct{
       width: 100%;
-      font-size: 0;
-      position: relative;
-      .pro_one {
-        width: 40%;
-        height: p2r(408);
-        border-right: $bottom-border;
-        border-bottom: $bottom-border;
-        h2 {
-          font-size: p2r(30);
-          color: $color-main;
-          margin-top: p2r(24);
-          margin-left: p2r(20);
-        }
-        span {
-          @include little-title;
-        }
-        .white {
-          color: $color-main;
-          width: p2r(66);
-          margin-right: p2r(-10);
-        }
-        .green {
-          color: #ffffff;
-          background: $color-main;
-          width: p2r(120);
-          margin-left: 0;
-        }
-        img {
-          display: block;
-          margin: p2r(20) auto p2r(10) auto;
-          height: p2r(200);
-        }
+      padding:0 p2r(20);
+      margin-bottom:p2r(16);
+      background: #FFFFFF;
+      .img{
+        width: p2r(310);
+        height: p2r(180);
+        border-radius: p2r(6);
+
+
+
+        margin-top: p2r(20);
+        overflow: hidden;
       }
-      .pro_two {
-        width: 60%;
-        height: p2r(204);
-        position: absolute;
-        right:0;
-        top: 0;
-        border-bottom: $bottom-border;
-        h2 {
-          margin-left: p2r(20);
-          margin-top: p2r(30);
-          color: #ff7d5b;
-          font-size: p2r(28);
-        }
-        span {
-          @include little-title;
-          border-color: #ff7d5b;
-        }
-        .white {
-          width: p2r(66);
-          color: #ff7d5b;
-          margin-right: p2r(-10);
-        }
-        .orange {
-          width: p2r(100);
-          color: #FFFFFF;
-          margin-left: 0;
-          background: #ff7d5b;
-        }
-        img {
-          width: p2r(204);
-          position: absolute;
-          top: p2r(60);
-          right: p2r(10);
-        }
-      }
-      .pro_three, .pro_four {
-        position: absolute;
-        width: 30%;
-        height: p2r(204);
-        border-bottom: $bottom-border;
-        border-right: $bottom-border;
-        h2 {
-          font-size: p2r(24);
-          color: #2b2b2b;
-          margin-left: p2r(20);
-          margin-top: p2r(10);
-        }
-        p {
-          margin-left: p2r(20);
-          font-size: p2r(18);
-          color: #777777;
-        }
-        img {
-          width: p2r(130);
-          margin-left: p2r(50);
-        }
-      }
-      .pro_three {
-        top: p2r(204);
-        left: 40%;
-      }
-      .pro_four {
-        top: p2r(204);
-        left: 70%;
-      }
-    }
-  }
-  .welfare {
-    .title {
-      @include titles;
-    }
-    .content {
-      width: 100%;
-      .welfare_s {
-        display: inline-block;
-        width: 49%;
-        border-right: $bottom-border;
-        border-bottom: $bottom-border;
-        position: relative;
-        h3 {
-          width: p2r(200);
-          font-size: p2r(24);
-          color: #3c3c3c;
-          margin-left: p2r(30);
-          margin-top: p2r(34);
+      .describe{
+        width: p2r(310);
+        height: p2r(80);
+        overflow: hidden;
+        margin: p2r(16) 0 p2r(30) 0;
+        h4{
+          width: p2r(310);
+          height: p2r(40);
+          line-height: p2r(40);
+          font-size: p2r(32);
+          color:#333333;
+          font-weight: normal;
           overflow: hidden;
           text-overflow:ellipsis;
           white-space: nowrap;
         }
-        p {
-          width: p2r(210);
+        p{
+          width: p2r(310);
           height: p2r(30);
-          overflow: hidden;
-          font-size: p2r(20);
-          color: #777777;
-          margin: p2r(10) 0 p2r(34) p2r(30);
+          margin-top: p2r(10);
+          line-height: p2r(30);
+          font-size: p2r(24);
+          color:#666666;
+          font-weight: normal;
           overflow: hidden;
           text-overflow:ellipsis;
           white-space: nowrap;
         }
-        .img {
-          width: p2r(100);
-          height: p2r(100);
-          position: absolute;
-          top: p2r(20);
-          right: p2r(10);
-        }
-      }
-      .welfare_s:nth-child(2) {
-        border-right: none;
       }
     }
   }
   .healthy {
+    background: #ffffff;
     .title {
       @include titles;
     }
-    .top-news {
-      width: 96%;
-      margin: p2r(20) auto;
-      position: relative;
-      .img{
+  }
+}
+
+//文章列表
+.articleList{
+  width: 100%;
+  overflow: hidden;
+  background: #FFFFFF;
+  margin-top: p2r(30);
+  .article{
+    width: 96%;
+    height: p2r(230);
+    margin: 0 auto;
+    padding: p2r(30) 0;
+    border-bottom: p2r(1) solid #dadada;
+    overflow: hidden;
+    position: relative;
+    .img{
+      width: p2r(230);
+      height: p2r(170);
+      border-radius: p2r(6);
+      margin-right: p2r(20);
+    }
+    .content{
+      width: 60%;
+      height: p2r(170);
+      position: absolute;
+      left:p2r(250);
+      top: p2r(30);
+      h2{
         width: 100%;
-      }
-      .imgs {
-        display: block;
-        width: 100%;
-        height: p2r(300);
-        margin: 0;
-        border-radius:6px;
-      }
-      .news_content {
-        width: 100%;
-        height: p2r(56);
-        line-height: p2r(56);
-        position: absolute;
-        bottom: 0;
-        background: rgba(0, 0, 0, .6);
-        color: #FFFFFF;
-        text-indent: p2r(20);
+        color:#333333;
+        font-size: p2r(32);
+        font-weight: bold;
         overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
+        .new{
+          background: #ff7b5b;
+          color:#FFFFFF;
+          font-size: p2r(20);
+          padding: p2r(3) p2r(10);
+          margin-left: p2r(16);
+          border-radius: p2r(28);
+        }
       }
-    }
-    .list-news {
-      width: 96%;
-      margin: p2r(20) auto;
-      .lists {
+      .describe{
         width: 100%;
-        border-bottom: $bottom-border;
-        margin-top: p2r(20);
-        ul {
-          width: 100%;
-          padding: p2r(20) 0;
-          li {
-            display: inline-block;
-          }
-          .newsImg {
-            width: p2r(190);
-            height: p2r(108);
-            .img {
-              width: p2r(190);
-              height: p2r(108);
-            }
-          }
-          .newsContent {
-            width: 60%;
-            height: p2r(106);
-            overflow: hidden;
-            h1 {
-              font-size: p2r(28);
-              color: #3c3c3c;
-              margin-left: p2r(22);
-              overflow: hidden;
-              text-overflow:ellipsis;
-              white-space: nowrap;
-            }
-            p {
-              width: 100%;
-              font-size: p2r(22);
-              color: #666666;
-              margin-left: p2r(22);
-              padding: p2r(20) 0 ;
-              display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-line-clamp: 2;
-              overflow: hidden;
-              text-overflow:ellipsis;
-            }
-          }
-          .to_detail {
-            float: right;
-            width: p2r(40);
-            height: p2r(106);
-            vertical-align: middle;
-            margin-left: p2r(30);
-            img {
-              width: p2r(26);
-              margin-top: p2r(30);
-            }
-          }
+        height:p2r(64);
+        font-size: p2r(28);
+        color:#666666;
+        margin-top: p2r(16);
+        isplay: -webkit-box;
+        text-overflow: ellipsis;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .others{
+        font-size: p2r(24);
+        color:#999999;
+        margin-top: p2r(16);
+        .type{
+          float: left;
+        }
+        .date{
+          float: right;
         }
       }
     }
   }
 }
+//底部菜单
 .footer {
   background: #FFFFFF;
   position: fixed;
@@ -398,7 +276,7 @@ $bottom-border:p2r(1) solid #e7e7e7;
     }
   }
 }
-
+//首页banner图
 .index_banner{
   width: 100%;
   height: p2r(430);
