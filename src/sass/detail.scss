@@ -314,7 +314,7 @@ $color-main:#0fb87f;
   }
 }
 
-//分享
+//分享弹框
 .share{
   position: fixed;
   width: 100%;
@@ -339,5 +339,37 @@ $color-main:#0fb87f;
     text-align: center;
     line-height: p2r(60);
     color:#FFFFFF;
+  }
+}
+
+//无效产品
+.invalidProduct{
+  width: 100%;
+  .box{
+    display: block;
+    width: p2r(280);
+    height: p2r(280);
+    margin: p2r(240) auto p2r(20) auto;
+  }
+  h2{
+    width: 100%;
+    height: p2r(50);
+    line-height: p2r(50);
+    font-size: p2r(36);
+    color:#999999;
+    font-weight: normal;
+    text-align: center;
+  }
+  .goShopping{
+    width: p2r(400);
+    height: p2r(70);
+    margin: p2r(80) auto;
+    background: #FFFFFF;
+    line-height: p2r(70);
+    text-align: center;
+    border:p2r(1) solid #0fb87f;
+    border-radius: p2r(10);
+    font-size: p2r(32);
+    color:#0fb87f;
   }
 }

@@ -23,7 +23,14 @@ $color-main:#0fb87f;
     color:#3c3c3c;
     margin-top: p2r(30);
   }
+  .date{
+    float: right;
+    font-size: p2r(28);
+    color:#999999;
+  }
   .content{
+    clear: right;
+    padding-top: p2r(20);
     .img{
       width: 100%;
       height: p2r(400);

@@ -112,13 +112,23 @@
                     <% } %>
                 </div>
                 <div class="image-wrap">
-                    <a href="/html/productDetails.html?id=<%=item.sku.productID %>">
+                    <a
+                    <% if(!item.sku.onShelf){ %>
+                    href="/html/invalidProduct.html"
+                        <% }else{ %>
+                        href="/html/productDetails.html?id=<%=item.sku.productID %>"
+                            <% } %>
+                    >
                     <div class="product_img cover" style="background-image: url(/file/public/<%=item.sku.image.id%>.<%=item.sku.image.ext%>)"></div>
                     </a>
                 </div>
                 <div class="info">
                     <div class="row-1">
+                        <% if(!item.sku.onShelf){ %>
+                        <a href="/html/invalidProduct.html">
+                        <% }else{ %>
                         <a href="/html/productDetails.html?id=<%=item.sku.productID %>">
+                        <% } %>
                         <div class="name"><%= item.sku.name %></div>
                         </a>
                         <div class="row-1-1">
