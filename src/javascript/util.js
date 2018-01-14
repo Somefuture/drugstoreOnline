@@ -15,7 +15,7 @@ function getCookie(name)
 }
 
 function ajax(params) {
-    var headers = $.extend(params.headers, {"X-Requested-With": "hec", "Cache-Control": "no-cache"});
+    var headers = $.extend(params.headers, {"X-Requested-With": "ec.h5", "Cache-Control": "no-cache"});
     var final_params = $.extend({headers: headers}, params);
     final_params.complete = function (response) {
         params.complete && params.complete(response);

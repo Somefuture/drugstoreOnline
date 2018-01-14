@@ -28,7 +28,7 @@
 				<span class="register">注册新用户</span>
 				<span class="forget">忘记密码？</span>
 			</div>
-			<div class="otherLogin hide">
+			<div class="otherLogin">
 				<div class="slogan">
 					<span class="line"></span>
 					使用第三方快速登录
@@ -36,7 +36,7 @@
 				</div>
 				<div class="ways">
 					<div class="way"  style="background-image: url('/images/evaluate/evaluate2_05.png')">
-						<span id="qqLoginBtn" class="qqLogin">qq登录</span>
+						<a href="https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101312143&redirect_uri=http://localhost/html/bindMobile.html&state=12665fr33211adc&scope=get_user_info" class="qqLogin">qq登录</a>
 					</div>
 					<div class="way" style="background-image: url('/images/evaluate/evaluate2_06.png')">
 						<a id="weixin-login" class="qqLogin" href="https://open.weixin.qq.com/connect/qrconnect?appid=wx11ea7d4b88112641&redirect_uri=https%3a%2f%2flocalhost%2fhtml%2flogin.html&response_type=code&scope=snsapi_login&state=snsapi_login#wechat_redirect">
@@ -53,40 +53,23 @@
 	<script src="/javascript/jquery-3.2.1.min.js"></script>
 	<script src="/javascript/sweetalert.min.js"></script>
 	<script src="/javascript/util.js"></script>
-    <script type="text/javascript"
-			src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101312143" data-redirecturi="http://localhost/html/bindMobile.html" charset="utf-8"></script>
-	<script>
-		$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
+
+            function is_wechat() {
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i)=="micromessenger"){
+                    alert("微信浏览器");
+                }else if(ua.match(/QQ/i) == "qq"){
+                    alert("qq浏览器");
+                }else{
+                    alert("其他浏览器");
+                }
+            }
+
+            is_wechat();
             var show_swal = false;
             var redirect_uri = get_query_string("r");
-
-            QC.Login({
-                    //btnId：插入按钮的节点id，必选
-                    btnId:"qqLoginBtn",
-                    //用户需要确认的scope授权项，可选，默认all
-                    scope:"all",
-                    //按钮尺寸，可用值[A_XL| A_L| A_M| A_S|  B_M| B_S| C_S]，可选，默认B_S
-                    size: "A_XL"
-                }, function(reqData, opts){//登录成功
-                    //根据返回数据，更换按钮显示状态方法
-                    var dom = document.getElementById(opts['btnId']),
-                        _logoutTemplate=[
-                            //头像
-                            '<span><img src="{figureurl}" class="{size_key}"/></span>',
-                            //昵称
-                            '<span>{nickname}</span>',
-                            //退出
-                            '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'
-                        ].join("");
-                    dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
-                        nickname : QC.String.escHTML(reqData.nickname),
-                        figureurl : reqData.figureurl
-                    }));
-                }, function(opts){//注销成功
-                    alert('QQ登录 注销成功');
-
-                }
-            );
 
             $(".register").click(function () {
                 window.location.href = "/html/register.html" + (redirect_uri ? ("?r=" + escape(redirect_uri)) : "");
